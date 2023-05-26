@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+	<ImplicitUsings>disable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="NLog.MailKit" Version="3.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ExtRSAuth\ExtRSAuth.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.ReportingServices.Interfaces">
+      <HintPath>..\..\..\Program Files\Microsoft SQL Server Reporting Services\SSRS\ReportServer\bin\Microsoft.ReportingServices.Interfaces.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

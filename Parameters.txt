@@ -1,0 +1,57 @@
+<Parameters>
+  <UserProfileState>0</UserProfileState>
+  <Parameter>
+    <Name>p1</Name>
+    <Type>String</Type>
+    <Nullable>True</Nullable>
+    <AllowBlank>False</AllowBlank>
+    <MultiValue>False</MultiValue>
+    <UsedInQuery>True</UsedInQuery>
+    <State>HasValidValue</State>
+    <Prompt />
+    <DynamicPrompt>False</DynamicPrompt>
+    <PromptUser>True</PromptUser>
+    <DefaultValues>
+      <Value>milwaukee</Value>
+    </DefaultValues>
+    <Values>
+      <Value>milwaukee</Value>
+    </Values>
+  </Parameter>
+  <Parameter>
+    <Name>Qs</Name>
+    <Type>String</Type>
+    <Nullable>True</Nullable>
+    <AllowBlank>True</AllowBlank>
+    <MultiValue>False</MultiValue>
+    <UsedInQuery>False</UsedInQuery>
+    <State>HasValidValue</State>
+    <Prompt />
+    <DynamicPrompt>False</DynamicPrompt>
+    <PromptUser>True</PromptUser>
+    <DefaultValues>
+      <Value>zsergbsrthbdsrtsr</Value>
+    </DefaultValues>
+    <Values>
+      <Value>zsergbsrthbdsrtsr</Value>
+    </Values>
+  </Parameter>
+  <ParametersLayout>
+    <ParametersGridLayoutDefinition>
+      <NumberOfColumns>4</NumberOfColumns>
+      <NumberOfRows>2</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>p1</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Qs</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
+    </ParametersGridLayoutDefinition>
+  </ParametersLayout>
+</Parameters>
