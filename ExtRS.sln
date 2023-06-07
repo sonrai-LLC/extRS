@@ -9,8 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtRS.API", "ExtRS.API\ExtR
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtRS.CLI", "ExtRS.CLI\ExtRS.CLI.csproj", "{7A974215-79E1-4459-BB6D-6F6206F6F222}"
 EndProject
-Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "ExtRS.Reports", "ExtRS.Reports\ExtRS.Reports.rptproj", "{F89A80B6-D7DB-4E29-8355-760E59B3C8E9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtRSNET48", "ExtRSNET48\ExtRSNET48\ExtRSNET48.csproj", "{4A40341F-DE2C-418C-BBF5-055A7B5BC87B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtRS.Portal.Web", "ExtRS.Portal\ExtRS.Portal\ExtRS.Portal.Web.csproj", "{BB5AD5E0-40C5-47D1-ADFB-EC84B2ECF64E}"
@@ -20,6 +18,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtRS.Portal.Tests", "ExtRS.Portal\ExtRS.Portal.Tests\ExtRS.Portal.Tests.csproj", "{3A957CF4-0554-4DCE-8A01-C0406E4B1475}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtRS", "ExtRS\ExtRS.csproj", "{785A81D7-A90F-4437-8B05-F80F9169E6EF}"
+EndProject
+Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "ExtRS.Reports", "ExtRS.Reports\ExtRS.Reports.rptproj", "{A2362A28-8E4D-4CC7-B24A-FF10B93FC999}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,15 +46,6 @@ Global
 		{7A974215-79E1-4459-BB6D-6F6206F6F222}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{7A974215-79E1-4459-BB6D-6F6206F6F222}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A974215-79E1-4459-BB6D-6F6206F6F222}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F89A80B6-D7DB-4E29-8355-760E59B3C8E9}.Debug|Any CPU.ActiveCfg = Debug
-		{F89A80B6-D7DB-4E29-8355-760E59B3C8E9}.Debug|Any CPU.Build.0 = Debug
-		{F89A80B6-D7DB-4E29-8355-760E59B3C8E9}.Debug|Any CPU.Deploy.0 = Debug
-		{F89A80B6-D7DB-4E29-8355-760E59B3C8E9}.DebugLocal|Any CPU.ActiveCfg = DebugLocal
-		{F89A80B6-D7DB-4E29-8355-760E59B3C8E9}.DebugLocal|Any CPU.Build.0 = DebugLocal
-		{F89A80B6-D7DB-4E29-8355-760E59B3C8E9}.DebugLocal|Any CPU.Deploy.0 = DebugLocal
-		{F89A80B6-D7DB-4E29-8355-760E59B3C8E9}.Release|Any CPU.ActiveCfg = Release
-		{F89A80B6-D7DB-4E29-8355-760E59B3C8E9}.Release|Any CPU.Build.0 = Release
-		{F89A80B6-D7DB-4E29-8355-760E59B3C8E9}.Release|Any CPU.Deploy.0 = Release
 		{4A40341F-DE2C-418C-BBF5-055A7B5BC87B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A40341F-DE2C-418C-BBF5-055A7B5BC87B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A40341F-DE2C-418C-BBF5-055A7B5BC87B}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
@@ -85,6 +76,15 @@ Global
 		{785A81D7-A90F-4437-8B05-F80F9169E6EF}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
 		{785A81D7-A90F-4437-8B05-F80F9169E6EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{785A81D7-A90F-4437-8B05-F80F9169E6EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A2362A28-8E4D-4CC7-B24A-FF10B93FC999}.Debug|Any CPU.ActiveCfg = Debug
+		{A2362A28-8E4D-4CC7-B24A-FF10B93FC999}.Debug|Any CPU.Build.0 = Debug
+		{A2362A28-8E4D-4CC7-B24A-FF10B93FC999}.Debug|Any CPU.Deploy.0 = Debug
+		{A2362A28-8E4D-4CC7-B24A-FF10B93FC999}.DebugLocal|Any CPU.ActiveCfg = DebugLocal
+		{A2362A28-8E4D-4CC7-B24A-FF10B93FC999}.DebugLocal|Any CPU.Build.0 = DebugLocal
+		{A2362A28-8E4D-4CC7-B24A-FF10B93FC999}.DebugLocal|Any CPU.Deploy.0 = DebugLocal
+		{A2362A28-8E4D-4CC7-B24A-FF10B93FC999}.Release|Any CPU.ActiveCfg = Release
+		{A2362A28-8E4D-4CC7-B24A-FF10B93FC999}.Release|Any CPU.Build.0 = Release
+		{A2362A28-8E4D-4CC7-B24A-FF10B93FC999}.Release|Any CPU.Deploy.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
