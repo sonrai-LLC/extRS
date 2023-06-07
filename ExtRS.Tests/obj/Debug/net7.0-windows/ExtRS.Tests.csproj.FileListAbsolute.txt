@@ -145,6 +145,11 @@ C:\source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\refint\ExtRS.Tests.dll
 C:\source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.pdb
 C:\source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.genruntimeconfig.cache
 C:\source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ref\ExtRS.Tests.dll
+C:\source\open-source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.csproj.AssemblyReference.cache
+C:\source\open-source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.GeneratedMSBuildEditorConfig.editorconfig
+C:\source\open-source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.AssemblyInfoInputs.cache
+C:\source\open-source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.AssemblyInfo.cs
+C:\source\open-source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.csproj.CoreCompileInputs.cache
 C:\source\open-source\ExtRS\ExtRS.Tests\bin\Debug\net7.0-windows\CoverletSourceRootsMapping_ExtRS.Tests
 C:\source\open-source\ExtRS\ExtRS.Tests\bin\Debug\net7.0-windows\testhost.dll
 C:\source\open-source\ExtRS\ExtRS.Tests\bin\Debug\net7.0-windows\testhost.exe
@@ -281,11 +286,6 @@ C:\source\open-source\ExtRS\ExtRS.Tests\bin\Debug\net7.0-windows\es-CO\Sonrai.Ex
 C:\source\open-source\ExtRS\ExtRS.Tests\bin\Debug\net7.0-windows\es-MX\Sonrai.ExtRS.resources.dll
 C:\source\open-source\ExtRS\ExtRS.Tests\bin\Debug\net7.0-windows\fr-CA\Sonrai.ExtRS.resources.dll
 C:\source\open-source\ExtRS\ExtRS.Tests\bin\Debug\net7.0-windows\fr-FR\Sonrai.ExtRS.resources.dll
-C:\source\open-source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.csproj.AssemblyReference.cache
-C:\source\open-source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.GeneratedMSBuildEditorConfig.editorconfig
-C:\source\open-source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.AssemblyInfoInputs.cache
-C:\source\open-source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.AssemblyInfo.cs
-C:\source\open-source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.csproj.CoreCompileInputs.cache
 C:\source\open-source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.csproj.CopyComplete
 C:\source\open-source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\ExtRS.Tests.dll
 C:\source\open-source\ExtRS\ExtRS.Tests\obj\Debug\net7.0-windows\refint\ExtRS.Tests.dll
