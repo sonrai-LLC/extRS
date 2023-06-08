@@ -1,28 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\source\\opensource\\ExtRS\\ExtRS\\ExtRS.csproj": {}
+    "C:\\source\\open-source\\ExtRS\\ExtRS\\ExtRS.csproj": {}
   },
   "projects": {
-    "C:\\source\\opensource\\ExtRS\\ExtRS\\ExtRS.csproj": {
+    "C:\\source\\open-source\\ExtRS\\ExtRS\\ExtRS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\source\\opensource\\ExtRS\\ExtRS\\ExtRS.csproj",
+        "projectUniqueName": "C:\\source\\open-source\\ExtRS\\ExtRS\\ExtRS.csproj",
         "projectName": "Sonrai.ExtRS",
-        "projectPath": "C:\\source\\opensource\\ExtRS\\ExtRS\\ExtRS.csproj",
-        "packagesPath": "C:\\Users\\radd\\.nuget\\packages\\",
-        "outputPath": "C:\\source\\opensource\\ExtRS\\ExtRS\\obj\\",
+        "projectPath": "C:\\source\\open-source\\ExtRS\\ExtRS\\ExtRS.csproj",
+        "packagesPath": "C:\\Users\\cfitz\\.nuget\\packages\\",
+        "outputPath": "C:\\source\\open-source\\ExtRS\\ExtRS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\radd\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\cfitz\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
