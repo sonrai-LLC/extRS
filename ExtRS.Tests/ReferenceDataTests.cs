@@ -57,5 +57,27 @@ namespace Sonrai.ExtRS.UnitTests
             var result = await ReferenceDataService.GetForexPrice("EURUSD", token);
             Assert.IsTrue(result.Length > 0);
         }
+
+        [TestMethod]
+        public async Task GetShippingRatesSucceeds()
+        {
+            var result = await ReferenceDataService.GetShippingRates("USPS", 2, 2, "53511", "53235", "CFITZ001");
+            Assert.IsTrue(result.Length > 0);
+            result = await ReferenceDataService.GetShippingRates("UPS", 2, 2, "53511", "53235", "CFITZ001");
+            Assert.IsTrue(result.Length > 0);
+            result = await ReferenceDataService.GetShippingRates("FedEx", 2, 2, "53511", "53235", "CFITZ001");
+            Assert.IsTrue(result.Length > 0);
+        }
+
+        [TestMethod]
+        public async Task GetTrackingInfoSucceeds()
+        {
+            var result = await ReferenceDataService.GetTrackingInfo("USPS", "1234346536345-32");
+            Assert.IsTrue(result.Length > 0);
+            result = await ReferenceDataService.GetTrackingInfo("UPS", "1234346536345-32");
+            Assert.IsTrue(result.Length > 0);
+            result = await ReferenceDataService.GetTrackingInfo("FedEx", "1234346536345-32");
+            Assert.IsTrue(result.Length > 0);
+        }
     }
 }

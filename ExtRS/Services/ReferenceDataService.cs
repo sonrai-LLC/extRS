@@ -43,5 +43,15 @@
             HttpClient client = new HttpClient();
             return await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/fx/{0}/top?token={1}", currencies, token));
         }
+
+        public static async Task<string> GetShippingRates(string shipper, int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId)
+        {
+            return "";
+        }
+
+        public static async Task<string> GetTrackingInfo(string shipper, string trackingNumber)
+        {
+            return "";
+        }
     }
 }
