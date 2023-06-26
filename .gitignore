@@ -425,3 +425,5 @@ __pycache__/
 /ExtRS.Tests/bin/Debug/net7.0-windows/runtimes/win/lib/net7.0/System.Runtime.Caching.dll
 /ExtRS.Tests/bin/Debug/net7.0-windows/runtimes/win/lib/net7.0/System.Security.Cryptography.ProtectedData.dll
 /ExtRS.Tests/bin/Debug/net7.0-windows/runtimes/win/lib/net7.0/System.Windows.Extensions.dll
+/ExtRS.Tests/bin/Debug/net7.0-windows/Dapper.dll
+/ExtRS.Tests/bin/Debug/net7.0-windows/runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll
