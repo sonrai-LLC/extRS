@@ -262,3 +262,8 @@ __pycache__/
 /ExtRS.API/ExtRS.API.csproj
 /ExtRS.CLI/ExtRS.CLI.csproj
 /.vs/ExtRS/DesignTimeBuild/.dtbcache.v2
+/ExtRS/obj/Debug/net7.0/ExtRS.GeneratedMSBuildEditorConfig.editorconfig
+/ExtRS.Tests/obj/Debug/net7.0-windows/ExtRS.Tests.GeneratedMSBuildEditorConfig.editorconfig
+/ExtRS.Portal
+/ExtRS.CLI/obj/Debug/net7.0/ExtRS.CLI.GeneratedMSBuildEditorConfig.editorconfig
+/ExtRS.API/obj/Debug/net7.0/ExtRS.API.GeneratedMSBuildEditorConfig.editorconfig
