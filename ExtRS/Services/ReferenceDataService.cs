@@ -53,7 +53,7 @@ namespace Sonrai.ExtRS
 
         #region Shipping Rate Request
 
-        public static async Task<string> GetShippingRates(string shipper, int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId, string clientId, string clientSecret, string apiKey)
+        public static async Task<string> GetShippingRates(string shipper, int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId = "", string clientId = "", string clientSecret = "")
         {
             switch (shipper)
             {
@@ -114,13 +114,13 @@ namespace Sonrai.ExtRS
 
         #region Tracking
 
-        public static async Task<string> GetTrackingInfo(string shipper, string trackingNumber, string userId, string clientId, string clientSecret, string apiKey)
+        public static async Task<string> GetTrackingInfo(string shipper, string trackingNumber, string userId = "", string clientId = "", string clientSecret = "")
         {
             switch (shipper)
             {
                 case "USPS": return await GetTrackingInfoUSPS(trackingNumber, userId);
-                case "UPS": return await GetTrackingInfoUPS(trackingNumber, clientId, clientSecret, apiKey);
-                case "FedEx": return await GetTrackingInfoFedEx(trackingNumber, clientId, clientSecret, apiKey);
+                case "UPS": return await GetTrackingInfoUPS(trackingNumber, clientId, clientSecret);
+                case "FedEx": return await GetTrackingInfoFedEx(trackingNumber, clientId, clientSecret);
                 default: return await GetTrackingInfoUSPS(trackingNumber, userId);
             }
         }
@@ -138,7 +138,7 @@ namespace Sonrai.ExtRS
             return response.ToString();
         }
 
-        public static async Task<string> GetTrackingInfoUPS(string trackingNumber, string clientId, string clientSecret, string apiKey)
+        public static async Task<string> GetTrackingInfoUPS(string trackingNumber, string clientId, string clientSecret, string token = "")
         {
             var client = new RestClient("https://apis-sandbox.fedex.com/track/v1");
             var request = new RestRequest("trackingnumbers", Method.Post);
@@ -151,7 +151,7 @@ namespace Sonrai.ExtRS
             return response.ToString();
         }
 
-        public static async Task<string> GetTrackingInfoFedEx(string trackingNumber, string clientId, string clientSecret, string apiKey)
+        public static async Task<string> GetTrackingInfoFedEx(string trackingNumber, string clientId, string clientSecret, string token = "")
         {
             var client = new RestClient("https://apis-sandbox.fedex.com/track/v1");
             var request = new RestRequest("trackingnumbers", Method.Post);
