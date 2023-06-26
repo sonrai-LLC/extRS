@@ -261,3 +261,4 @@ __pycache__/
 *.pyc
 /ExtRS.API/ExtRS.API.csproj
 /ExtRS.CLI/ExtRS.CLI.csproj
+/.vs/ExtRS/DesignTimeBuild/.dtbcache.v2
