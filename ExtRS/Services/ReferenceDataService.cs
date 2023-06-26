@@ -1,7 +1,11 @@
-﻿namespace Sonrai.ExtRS
+﻿using RestSharp;
+
+namespace Sonrai.ExtRS
 {
     public class ReferenceDataService
     {
+        #region Gen-Purpose
+
         public static async Task<string> GetSynonyms(string wordsPlusDelimited)
         {
             HttpClient client = new HttpClient();
@@ -44,14 +48,159 @@
             return await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/fx/{0}/top?token={1}", currencies, token));
         }
 
-        public static async Task<string> GetShippingRates(string shipper, int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId)
+        #endregion
+
+
+        #region Shipping Rate Request
+
+        public static async Task<string> GetShippingRates(string shipper, int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId, string clientId, string clientSecret, string apiKey)
+        {
+            switch (shipper)
+            {
+                case "USPS": return await GetShippingRatesUSPS(lbs, ounces, originPostalCode, destinationPostalCode, userId);
+                //case "UPS": return await GetShippingRatesUPS(lbs, ounces, originPostalCode, destinationPostalCode, userId);
+                //case "FedEx": return await GetShippingRatesFedEx(lbs, ounces, originPostalCode, destinationPostalCode, userId);
+                default: return await GetShippingRatesUSPS(lbs, ounces, originPostalCode, destinationPostalCode, userId);
+            }
+        }
+
+        public static async Task<string> GetShippingRatesUSPS(int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId)
+        {
+            var client = new RestClient("https://apis-sandbox.fedex.com/track/v1");
+            var request = new RestRequest("trackingnumbers", Method.Post);
+            request.AddHeader("Authorization", "Bearer ");
+            request.AddHeader("X-locale", "en_US");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("payload", string.Format(RateRequestUSPS, "", "", "q245346456", "FedEx", "q245346456-1"));
+            var response = client.Execute(request);
+            return response.ToString();
+        }
+
+        public static async Task<string> GetShippingRatesUPS(int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId, string clientId, string clientSecret, string apiKey)
         {
             return "";
         }
 
-        public static async Task<string> GetTrackingInfo(string shipper, string trackingNumber)
+        public static async Task<string> GetShippingRatesFedEx(int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId, string clientId, string clientSecret, string apiKey)
         {
             return "";
         }
+
+        #endregion
+
+
+        #region Shipping Rate Request Payload
+
+
+        public static string RateRequestUSPS = @"XML=<RateV4Request USERID='{0}'>
+            <Revision>2</Revision>
+            <Package ID='{1}'>
+                <Service>{2}</Service>
+                <ZipOrigination>{3}</ZipOrigination>
+                <ZipDestination>{4}</ZipDestination>
+                <Pounds>{5}</Pounds>
+                <Ounces>{6}</Ounces>
+                <Container>{7}</Container>
+                <Width>{8}</Width>
+                <Length>{9}</Length>
+                <Height>{10}</Height>
+                <Girth>{11}</Girth>
+                <Machinable>false</Machinable>
+            </Package>
+            </RateV4Request>";
+
+        #endregion
+
+
+        #region Tracking
+
+        public static async Task<string> GetTrackingInfo(string shipper, string trackingNumber, string userId, string clientId, string clientSecret, string apiKey)
+        {
+            switch (shipper)
+            {
+                case "USPS": return await GetTrackingInfoUSPS(trackingNumber, userId);
+                case "UPS": return await GetTrackingInfoUPS(trackingNumber, clientId, clientSecret, apiKey);
+                case "FedEx": return await GetTrackingInfoFedEx(trackingNumber, clientId, clientSecret, apiKey);
+                default: return await GetTrackingInfoUSPS(trackingNumber, userId);
+            }
+        }
+
+        public static async Task<string> GetTrackingInfoUSPS(string trackingNumber, string userId)
+        {
+            var client = new RestClient("https://secure.shippingapis.com/shippingapi.dll?API=RateV4");
+            var request = new RestRequest("trackingnumbers", Method.Post);
+            request.AddHeader("Authorization", "Bearer ");
+            request.AddHeader("X-locale", "en_US");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("payload", string.Format(TrackingRequestUSPS, "", "", "q245346456", "FedEx", "q245346456-1"));
+            var response = client.Execute(request);
+
+            return response.ToString();
+        }
+
+        public static async Task<string> GetTrackingInfoUPS(string trackingNumber, string clientId, string clientSecret, string apiKey)
+        {
+            var client = new RestClient("https://apis-sandbox.fedex.com/track/v1");
+            var request = new RestRequest("trackingnumbers", Method.Post);
+            request.AddHeader("Authorization", "Bearer ");
+            request.AddHeader("X-locale", "en_US");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("payload", string.Format(TrackingRequestUSPS, "", "", "q245346456", "FedEx", "q245346456-1"));
+            var response = client.Execute(request);
+
+            return response.ToString();
+        }
+
+        public static async Task<string> GetTrackingInfoFedEx(string trackingNumber, string clientId, string clientSecret, string apiKey)
+        {
+            var client = new RestClient("https://apis-sandbox.fedex.com/track/v1");
+            var request = new RestRequest("trackingnumbers", Method.Post);
+            request.AddHeader("Authorization", "Bearer ");
+            request.AddHeader("X-locale", "en_US");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("payload", string.Format(TrackingRequestFedEx, "", "", "q245346456", "FedEx", "q245346456-1"));
+            var response = client.Execute(request);
+
+            return response.ToString();
+        }
+
+        #endregion
+
+
+        #region Tracking Payload
+        //EMAIL_ALERT
+        public static string TrackingRequestUSPS = @"
+         {
+            'uniqueTrackingId': {0},
+            'approximateIntakeDate': {1},
+            'notifyEventTypes': ['{2}'],
+            'firstName': '{3}',
+            'lastName': '{4}',
+            'notifications': ['{5}']
+         }";
+
+        public static string TrackingRequestUPS = @"
+         <TrackRequest USERID='{0}'>
+            <TrackID ID='{1}'></TrackID>
+         </TrackRequest>";
+
+        public static string TrackingRequestFedEx = @"{
+              'includeDetailedScans': true,
+              'trackingInfo': [
+                {
+                  'shipDateBegin': '{0}',
+                  'shipDateEnd': '{1}',
+                  'trackingNumberInfo': {
+                    'trackingNumber': '{2}',
+                    'carrierCode': '{3}',
+                    'trackingNumberUniqueId': '{4}'
+                  }
+                }
+              ]
+            }";
+
+
+        #endregion
+
     }
 }
