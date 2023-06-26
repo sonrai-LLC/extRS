@@ -427,3 +427,8 @@ __pycache__/
 /ExtRS.Tests/bin/Debug/net7.0-windows/runtimes/win/lib/net7.0/System.Windows.Extensions.dll
 /ExtRS.Tests/bin/Debug/net7.0-windows/Dapper.dll
 /ExtRS.Tests/bin/Debug/net7.0-windows/runtimes/unix/lib/netcoreapp2.1/System.Data.SqlClient.dll
+/ExtRS/obj/Debug/net7.0/ExtRS.assets.cache
+/ExtRS.CLI/obj/Debug/net7.0/ExtRS.CLI.assets.cache
+/ExtRS.Tests/bin/Debug/net7.0-windows/CoverletSourceRootsMapping_ExtRS.Tests
+/ExtRS.Tests/obj/Debug/net7.0-windows/ExtRS.Tests.assets.cache
+/ExtRS.API/obj/Debug/net7.0/ExtRS.API.assets.cache
