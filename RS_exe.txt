@@ -1,7 +1,0 @@
-rs.exe -i ssrs_migration.rss -e Mgmt2010 -s https://SourceServer/ReportServer -u Domain\User -p password -v ts="https://TargetServer/reportserver" -v tu="Domain\Userser" -v tp="password"
-
-If you want to just audit a single server, use the same server for source and destination and cancel after step 1.
-
-rskeymgmt {-?}  
-
-rsconfig {-?}  
