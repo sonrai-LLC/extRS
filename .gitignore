@@ -432,3 +432,7 @@ __pycache__/
 /ExtRS.Tests/bin/Debug/net7.0-windows/CoverletSourceRootsMapping_ExtRS.Tests
 /ExtRS.Tests/obj/Debug/net7.0-windows/ExtRS.Tests.assets.cache
 /ExtRS.API/obj/Debug/net7.0/ExtRS.API.assets.cache
+/ExtRS.API/obj/Debug/net7.0/ExtRS.API.csproj.FileListAbsolute.txt
+/ExtRS/obj/Debug/net7.0/ExtRS.csproj.FileListAbsolute.txt
+/ExtRS.Tests/obj/Debug/net7.0-windows/ExtRS.Tests.csproj.FileListAbsolute.txt
+/ExtRS.CLI/obj/Debug/net7.0/ExtRS.CLI.csproj.FileListAbsolute.txt
