@@ -15,7 +15,7 @@ Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "ExtRS.Reports", "ExtRS.Repo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtRS.Portal", "ExtRS.Portal\ExtRS.Portal.csproj", "{EC878D5A-5880-40D2-A951-06002BA4AE12}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtRS.Mobile", "ExtRS.Mobile\ExtRS.Mobile.csproj", "{2B3A123C-2363-4C33-85D9-B81428BEBA57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtRS.XPlat", "ExtRS.Mobile\ExtRS.XPlat.csproj", "{2B3A123C-2363-4C33-85D9-B81428BEBA57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
