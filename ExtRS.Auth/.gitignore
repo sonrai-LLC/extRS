@@ -1,0 +1,15 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/obj/Debug
+/.vs
+/ExtRSAuth.Tests/bin/Debug/net6.0
+/ExtRSAuth.Tests/obj/Debug/net6.0
+/ExtRSAuth.Tests/obj
+/ExtRSAuth/Properties/Settings.settings
+/ExtRSAuth/Properties/Settings.Designer.cs
+/ExtRSAuth/app.config
+/ExtRSAuth/.vs
+/ExtRSAuth/obj
+/ExtRSAuth/bin/Debug
