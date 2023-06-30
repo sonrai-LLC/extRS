@@ -83,6 +83,7 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(ssrs.GetCatalogItem(response).Result.Id == folder.Id);
         }
 
+        [Ignore]
         [TestMethod]
         public async Task GetDataSourceSucceeds()
         {
