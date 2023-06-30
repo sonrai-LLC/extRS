@@ -19,9 +19,13 @@ namespace Sonrai.ExtRS
             MapPoint coords = _locationService.GetLatLongFromAddress(address.Replace(" ", "+") + "," + address.Replace(" ", "+") + "," + address.Replace(" ", "+"));
             Location location;
             if (coords != null)
+            {
                 location = new Location() { Lat = coords.Latitude.ToString(), Long = coords.Longitude.ToString() };
+            }
             else
+            {
                 return null;
+            }
 
             return location;
         }

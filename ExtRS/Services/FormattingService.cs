@@ -19,6 +19,7 @@ namespace Sonrai.ExtRS
         {
             return value.ToString("C");
         }
+
         public static decimal FromAbbreviatedValue(decimal value, string abbreviation)
         {
             switch (abbreviation)
