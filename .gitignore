@@ -437,3 +437,7 @@ __pycache__/
 /ExtRS.Tests/obj/Debug/net7.0-windows/ExtRS.Tests.csproj.FileListAbsolute.txt
 /ExtRS.CLI/obj/Debug/net7.0/ExtRS.CLI.csproj.FileListAbsolute.txt
 /.vs/ExtRS/v17/.suo
+/.vs/ExtRS/v17/.futdcache.v2
+/.vs/ExtRS/v17/.suo
+/.vs/ExtRS/v17/fileList.bin
+/.vs/ExtRS/DesignTimeBuild/.dtbcache.v2
