@@ -440,3 +440,17 @@ __pycache__/
 /.vs/ExtRS/v17/fileList.bin
 /.vs/ExtRS/DesignTimeBuild/.dtbcache.v2
 /ExtRS.Mobile/ExtRS.XPlat.csproj
+/ExtRS.Mobile/ExtRS.XPlat.csproj
+/ExtRS.Tests/obj/project.assets.json
+/ExtRS.Tests/obj/ExtRS.Tests.csproj.nuget.g.targets
+/ExtRS.Tests/obj/ExtRS.Tests.csproj.nuget.g.props
+/ExtRS.Tests/obj/ExtRS.Tests.csproj.nuget.dgspec.json
+/ExtRS.CLI/obj/project.assets.json
+/ExtRS.CLI/obj/ExtRS.CLI.csproj.nuget.g.targets
+/ExtRS.CLI/obj/ExtRS.CLI.csproj.nuget.dgspec.json
+/ExtRS.API/obj/project.assets.json
+/ExtRS.API/obj/ExtRS.API.csproj.nuget.g.targets
+/ExtRS.API/obj/ExtRS.API.csproj.nuget.dgspec.json
+/ExtRS/obj/project.assets.json
+/ExtRS/obj/ExtRS.csproj.nuget.g.targets
+/ExtRS/obj/ExtRS.csproj.nuget.dgspec.json
