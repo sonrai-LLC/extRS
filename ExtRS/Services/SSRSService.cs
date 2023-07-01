@@ -131,7 +131,7 @@ namespace Sonrai.ExtRS
         public async Task<string> GetParameterHtml(string pathOrId)
         {
             // TODO: will improve above method and implement this method
-            // in NET48 final version- v2, once ExtRS is converted to .NET 7+
+            // once ExtRS is fully implemented
             return "</>";
         }
     }   

@@ -259,8 +259,6 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-/ExtRS.API/ExtRS.API.csproj
-/ExtRS.CLI/ExtRS.CLI.csproj
 /ExtRS/bin/Debug/net7.0/en-IE/Sonrai.ExtRS.resources.dll
 /ExtRS/bin/Debug/net7.0/es-CO/Sonrai.ExtRS.resources.dll
 /ExtRS/bin/Debug/net7.0/es-MX/Sonrai.ExtRS.resources.dll
@@ -441,3 +439,18 @@ __pycache__/
 /.vs/ExtRS/v17/.suo
 /.vs/ExtRS/v17/fileList.bin
 /.vs/ExtRS/DesignTimeBuild/.dtbcache.v2
+/ExtRS.Mobile/ExtRS.XPlat.csproj
+/ExtRS.Mobile/ExtRS.XPlat.csproj
+/ExtRS.Tests/obj/project.assets.json
+/ExtRS.Tests/obj/ExtRS.Tests.csproj.nuget.g.targets
+/ExtRS.Tests/obj/ExtRS.Tests.csproj.nuget.g.props
+/ExtRS.Tests/obj/ExtRS.Tests.csproj.nuget.dgspec.json
+/ExtRS.CLI/obj/project.assets.json
+/ExtRS.CLI/obj/ExtRS.CLI.csproj.nuget.g.targets
+/ExtRS.CLI/obj/ExtRS.CLI.csproj.nuget.dgspec.json
+/ExtRS.API/obj/project.assets.json
+/ExtRS.API/obj/ExtRS.API.csproj.nuget.g.targets
+/ExtRS.API/obj/ExtRS.API.csproj.nuget.dgspec.json
+/ExtRS/obj/project.assets.json
+/ExtRS/obj/ExtRS.csproj.nuget.g.targets
+/ExtRS/obj/ExtRS.csproj.nuget.dgspec.json

@@ -4,6 +4,7 @@ namespace Sonrai.ExtRS
 {
     public class ReferenceDataService
     {
+
         #region Gen-Purpose
 
         public static async Task<string> GetSynonyms(string wordsPlusDelimited)
