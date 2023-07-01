@@ -441,3 +441,7 @@ __pycache__/
 /.vs/ExtRS/v17/.suo
 /.vs/ExtRS/v17/fileList.bin
 /.vs/ExtRS/DesignTimeBuild/.dtbcache.v2
+/ExtRS.Portal/Controllers/HomeController.cs
+/ExtRS.Mobile/ExtRS.XPlat.csproj
+/ExtRS.Mobile/ExtRS.XPlat.csproj
+/ExtRS.Mobile/ExtRS.XPlat.csproj
