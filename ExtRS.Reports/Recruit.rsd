@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>localhost</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@p1">
+          <DefaultValue>elijah-jamison</DefaultValue>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>String</rd:DbType>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>
+
+
+  /****** Script for SelectTopNRows command from SSMS  ******/
+SELECT 
+      r.[LocationID]
+      ,r.[LocationPH]
+      ,l.[Name]
+      ,r.[Class]
+      ,r.[Position]
+      ,r.[FirstName]
+      ,r.[LastName]
+      ,r.[Number]
+      ,r.[IsRecruit]
+      ,r.[Height]
+      ,r.[Weight]
+      ,r.[Lat]
+      ,r.[Long]
+      ,r.[City]
+      ,r.[Hometown]
+      ,r.[State]
+      ,r.[HighSchool]
+      ,r.[PrevSchools]
+      ,r.[RecruitingClass]
+      ,r.[Offers]
+      ,r.[StarAvg]
+      ,r.[ProfileImgURI]
+      ,r.[vResourceID]
+      ,r.[vResourceSlug]
+      ,r.[vTeamID]
+      ,r.[YouTubeURI]
+      ,r.[TwitterHandle]
+      ,r.[GraduationYear]
+      ,r.[Status]
+      ,r.[LastEdit]
+      ,r.[Active]
+  FROM [RESOURCE] r
+  INNER JOIN LOCATION l ON
+  l.VTeamID = r.LocationPH
+  WHERE [VResourceSlug] = @p1 AND LocationPH IS NOT NULL
+  GROUP BY 
+      r.[LocationID]
+      ,r.[LocationPH]
+	  ,l.[Name]
+      ,r.[Class]
+      ,r.[Position]
+      ,r.[FirstName]
+      ,r.[LastName]
+      ,r.[Number]
+      ,r.[IsRecruit]
+      ,r.[Height]
+      ,r.[Weight]
+      ,r.[Lat]
+      ,r.[Long]
+      ,r.[City]
+      ,r.[Hometown]
+      ,r.[State]
+      ,r.[HighSchool]
+      ,r.[PrevSchools]
+      ,r.[RecruitingClass]
+      ,r.[Offers]
+      ,r.[StarAvg]
+      ,r.[ProfileImgURI]
+      ,r.[vResourceID]
+      ,r.[vResourceSlug]
+      ,r.[vTeamID]
+      ,r.[YouTubeURI]
+      ,r.[TwitterHandle]
+      ,r.[GraduationYear]
+      ,r.[Status]
+      ,r.[LastEdit]
+      ,r.[Active]
+		</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="LocationPH">
+        <DataField>LocationPH</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="LocationID">
+        <DataField>LocationID</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Name">
+        <DataField>Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Class">
+        <DataField>Class</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Position">
+        <DataField>Position</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="FirstName">
+        <DataField>FirstName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="LastName">
+        <DataField>LastName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Number">
+        <DataField>Number</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="IsRecruit">
+        <DataField>IsRecruit</DataField>
+        <rd:TypeName>System.Boolean</rd:TypeName>
+      </Field>
+      <Field Name="Height">
+        <DataField>Height</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Weight">
+        <DataField>Weight</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Hometown">
+        <DataField>Hometown</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Lat">
+        <DataField>Lat</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="Long">
+        <DataField>Long</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="City">
+        <DataField>City</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="State">
+        <DataField>State</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="HighSchool">
+        <DataField>HighSchool</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PrevSchools">
+        <DataField>PrevSchools</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Status">
+        <DataField>Status</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="RecruitingClass">
+        <DataField>RecruitingClass</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Offers">
+        <DataField>Offers</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="StarAvg">
+        <DataField>StarAvg</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ProfileImgURI">
+        <DataField>ProfileImgURI</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="VResourceID">
+        <DataField>vResourceID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="vResourceSlug">
+        <DataField>vResourceSlug</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="vTeamID">
+        <DataField>vTeamID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="YouTubeURI">
+        <DataField>YouTubeURI</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="LastEdit">
+        <DataField>LastEdit</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="TwitterHandle">
+        <DataField>TwitterHandle</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Active">
+        <DataField>Active</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="GraduationYear">
+        <DataField>GraduationYear</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

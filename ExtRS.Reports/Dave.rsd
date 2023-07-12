@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Description />
+  <DataSet Name="TeamData">
+    <Query>
+      <DataSourceReference>localhost</DataSourceReference>
+      <CommandText>SELECT	DB_NAME(mf.database_id) AS [Database Name], 
+		mf.physical_name [Physical Name], 
+		num_of_reads, num_of_bytes_read, io_stall_read_ms, 
+		num_of_writes, num_of_bytes_written, io_stall_write_ms, 
+		io_stall, size_on_disk_bytes
+FROM	sys.dm_io_virtual_file_stats(null,null) AS vfs
+INNER JOIN sys.master_files AS mf
+              ON mf.database_id = vfs.database_id
+                 and mf.file_id = vfs.file_id
+ORDER BY io_stall DESC</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="Database_Name">
+        <DataField>Database Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Physical_Name">
+        <DataField>Physical Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="num_of_reads">
+        <DataField>num_of_reads</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="num_of_bytes_read">
+        <DataField>num_of_bytes_read</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="io_stall_read_ms">
+        <DataField>io_stall_read_ms</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="num_of_writes">
+        <DataField>num_of_writes</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="num_of_bytes_written">
+        <DataField>num_of_bytes_written</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="io_stall_write_ms">
+        <DataField>io_stall_write_ms</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="io_stall">
+        <DataField>io_stall</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+      <Field Name="size_on_disk_bytes">
+        <DataField>size_on_disk_bytes</DataField>
+        <rd:TypeName>System.Int64</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

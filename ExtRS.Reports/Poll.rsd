@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>localhost</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@p1">
+          <DefaultValue>Wisconsin</DefaultValue>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>String</rd:DbType>
+        </DataSetParameter>
+        <DataSetParameter Name="@p2">
+          <DefaultValue>Governor</DefaultValue>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>String</rd:DbType>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>  SELECT pollster,
+		 sponsors,
+                                       display_name,
+		 methodology,
+		 [state],
+		 [start_date],
+		 convert(date, [end_date]) end_date,
+		 office_type,
+		 party,
+		 candidate_name, 
+                                      convert(decimal(3,1), pct) pct
+  FROM POLLS
+  WHERE [State]=@p1 AND Office_Type=@p2
+  AND  [end_date] &gt; '9/15/22'
+  ORDER BY end_date DESC</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="pollster">
+        <DataField>pollster</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="sponsors">
+        <DataField>sponsors</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="display_name">
+        <DataField>display_name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="methodology">
+        <DataField>methodology</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="state">
+        <DataField>state</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="start_date">
+        <DataField>start_date</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="end_date">
+        <DataField>end_date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="office_type">
+        <DataField>office_type</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="party">
+        <DataField>party</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="candidate_name">
+        <DataField>candidate_name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="pct">
+        <DataField>pct</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

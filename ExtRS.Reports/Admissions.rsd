@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <Description />
+  <DataSet Name="dsAdmissions">
+    <Query>
+      <DataSourceReference>localhost</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@p1">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Int32</rd:DbType>
+        </DataSetParameter>
+        <DataSetParameter Name="@Qs">
+          <DefaultValue>=Nothing</DefaultValue>
+          <ReadOnly>false</ReadOnly>
+          <Nullable>true</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:UserDefined>true</rd:UserDefined>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>SELECT * FROM ReferenceData.dbo.ADMISSIONS WHERE ENROLLMENT_YEAR = 
+CASE @p1
+  WHEN 0 THEN ENROLLMENT_YEAR
+  ELSE @p1
+END</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="ENROLLMENT_YEAR">
+        <DataField>ENROLLMENT_YEAR</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="FULLNAME">
+        <DataField>FULLNAME</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="HOMETOWN">
+        <DataField>HOMETOWN</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="HIGHSCHOOL">
+        <DataField>HIGHSCHOOL</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="GPA">
+        <DataField>GPA</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ACT">
+        <DataField>ACT</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="SAT">
+        <DataField>SAT</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="EXTRACURR">
+        <DataField>EXTRACURR</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="STATUS">
+        <DataField>STATUS</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="NOTES">
+        <DataField>NOTES</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

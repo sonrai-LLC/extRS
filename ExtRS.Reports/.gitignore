@@ -1,0 +1,10 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/ExtRS.Reports.rptproj
+/bin/Debug/localhost-rs.rds
+/bin/Debug/localhost-rd.rds
+/bin/Debug/localhost-fs.rds
+/bin/Debug/ExtRS.NET48.rdl
+/bin/Debug/build.obj
