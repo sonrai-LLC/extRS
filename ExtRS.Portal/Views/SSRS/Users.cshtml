@@ -1,0 +1,87 @@
+﻿<script type="text/javascript" language="javascript" class="init">
+	var editor; // use a global for the submit and return data rendering in the examples
+	$(document).ready(function () {
+		var editor = new DataTable.Editor({
+			dataSrc: "",
+			ajax: "/api/users",
+			table: "#example",
+			fields: [
+			//	{
+			//	label: "UserID:",
+			//	name: "UserID",
+			//},
+			{ 
+				label: "UserType:",
+				name: "UserType"
+			},
+			{
+				label: "AuthType:",
+				name: "AuthType"
+			},
+			{
+				label: "UserName:",
+				name: "UserName"
+			}]
+		});
+
+		editor.on('create', function (e, json, data) {
+			// TODO: actions to pewrform after new records (NLog)
+		});
+
+		// Activate an inline edit on click of a table cell
+		$('#example').on('click', 'tbody td:not(:first-child)', function (e) {
+			editor.inline(this);
+		});
+
+		$('#example').DataTable({
+			dom: "Bfrtip21",
+			ajax: "/api/users",
+			order: [[1, 'asc']],
+			columns: [
+				//{
+				//	data: null,
+				//	defaultContent: '',
+				//	className: 'select-checkbox',
+				//	orderable: false
+				//},
+				//{ data: "UserID" },
+				{ data: "Users.UserType" },
+				{ data: "Users.AuthType" },
+				{ data: "Users.UserName" },
+				{ data: "UserContactInfo.DefaultEmailAddress" }
+				//{ data: "ServiceToken" },
+				//{ data: "Setting" },
+				//{ data: "ModifiedDate" }
+			],
+			select: {
+				style: 'os',
+				selector: 'td:first-child'
+			},
+			buttons: [
+				{ extend: "create", editor: editor },
+				{ extend: "edit", editor: editor } ,
+				{ extend: "remove", editor: editor }
+			]
+		});
+	});
+</script>
+<body id="body-pd" class="dt-example net">
+	<h4>RS Users</h4>
+	<div class="container">
+		<section>
+			<div class="demo-html">
+				<table id="example" class="display" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th></th>
+@*							<th>UserID</th>*@
+							<th>UserType</th>
+							<th>AuthType</th>
+							<th>UserName</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</section>
+	</div>
+</body>

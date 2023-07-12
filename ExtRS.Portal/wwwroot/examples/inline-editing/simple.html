@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<link rel="shortcut icon" type="image/ico" href="https://www.datatables.net/favicon.ico">
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
+	<title>Editor example - Simple inline editing</title>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.6.2/css/select.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/datetime/1.4.0/css/dataTables.dateTime.min.css">
+	<link rel="stylesheet" type="text/css" href="../../css/editor.dataTables.min.css">
+	<link rel="stylesheet" type="text/css" href="../resources/syntax/shCore.css">
+	<link rel="stylesheet" type="text/css" href="../resources/demo.css">
+	<style type="text/css" class="init">
+	
+	</style>
+	<script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/buttons/2.3.6/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/select/1.6.2/js/dataTables.select.min.js"></script>
+	<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/datetime/1.4.0/js/dataTables.dateTime.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../../js/dataTables.editor.min.js"></script>
+	<script type="text/javascript" language="javascript" src="../resources/syntax/shCore.js"></script>
+	<script type="text/javascript" language="javascript" src="../resources/demo.js"></script>
+	<script type="text/javascript" language="javascript" src="../resources/editor-demo.js"></script>
+	<script type="text/javascript" language="javascript" class="init">
+	
+
+
+var editor; // use a global for the submit and return data rendering in the examples
+
+$(document).ready(function() {
+	editor = new $.fn.dataTable.Editor( {
+		ajax: "/api/staff",
+		table: "#example",
+		fields: [ {
+				label: "First name:",
+				name: "first_name"
+			}, {
+				label: "Last name:",
+				name: "last_name"
+			}, {
+				label: "Position:",
+				name: "position"
+			}, {
+				label: "Office:",
+				name: "office"
+			}, {
+				label: "Extension:",
+				name: "extn"
+			}, {
+				label: "Start date:",
+				name: "start_date",
+				type: "datetime"
+			}, {
+				label: "Salary:",
+				name: "salary"
+			}
+		]
+	} );
+
+	// Activate an inline edit on click of a table cell
+	$('#example').on( 'click', 'tbody td:not(:first-child)', function (e) {
+		editor.inline( this );
+	} );
+
+	$('#example').DataTable( {
+		dom: "Bfrtip",
+		ajax: "/api/staff",
+		order: [[ 1, 'asc' ]],
+		columns: [
+			{
+				data: null,
+				defaultContent: '',
+				className: 'select-checkbox',
+				orderable: false
+			},
+			{ data: "first_name" },
+			{ data: "last_name" },
+			{ data: "position" },
+			{ data: "office" },
+			{ data: "start_date" },
+			{ data: "salary", render: $.fn.dataTable.render.number( ',', '.', 0, '$' ) }
+		],
+		select: {
+			style:    'os',
+			selector: 'td:first-child'
+		},
+		buttons: [
+			{ extend: "create", editor: editor },
+			{ extend: "edit",   editor: editor },
+			{ extend: "remove", editor: editor }
+		]
+	} );
+} );
+
+</script>
+</head>
+<body class="dt-example net">
+	<div class="container">
+		<section>
+			<div class="demo-html">
+				<table id="example" class="display" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th></th>
+							<th>First name</th>
+							<th>Last name</th>
+							<th>Position</th>
+							<th>Office</th>
+							<th width="18%">Start date</th>
+							<th>Salary</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+			<ul class="tabs">
+				<li class="active">Javascript</li>
+				<li>HTML</li>
+				<li>CSS</li>
+				<li>Ajax</li>
+				<li>Server-side script</li>
+			</ul>
+			<div class="tabs">
+				<div class="js">
+					<p>The Javascript shown below is used to initialise the table shown in this example:</p><code class="multiline language-js">var editor; // use a global for the submit and return data rendering in the examples
+
+$(document).ready(function() {
+	editor = new $.fn.dataTable.Editor( {
+		ajax: &quot;/api/staff&quot;,
+		table: &quot;#example&quot;,
+		fields: [ {
+				label: &quot;First name:&quot;,
+				name: &quot;first_name&quot;
+			}, {
+				label: &quot;Last name:&quot;,
+				name: &quot;last_name&quot;
+			}, {
+				label: &quot;Position:&quot;,
+				name: &quot;position&quot;
+			}, {
+				label: &quot;Office:&quot;,
+				name: &quot;office&quot;
+			}, {
+				label: &quot;Extension:&quot;,
+				name: &quot;extn&quot;
+			}, {
+				label: &quot;Start date:&quot;,
+				name: &quot;start_date&quot;,
+				type: &quot;datetime&quot;
+			}, {
+				label: &quot;Salary:&quot;,
+				name: &quot;salary&quot;
+			}
+		]
+	} );
+
+	// Activate an inline edit on click of a table cell
+	$(&#039;#example&#039;).on( &#039;click&#039;, &#039;tbody td:not(:first-child)&#039;, function (e) {
+		editor.inline( this );
+	} );
+
+	$(&#039;#example&#039;).DataTable( {
+		dom: &quot;Bfrtip&quot;,
+		ajax: &quot;/api/staff&quot;,
+		order: [[ 1, &#039;asc&#039; ]],
+		columns: [
+			{
+				data: null,
+				defaultContent: &#039;&#039;,
+				className: &#039;select-checkbox&#039;,
+				orderable: false
+			},
+			{ data: &quot;first_name&quot; },
+			{ data: &quot;last_name&quot; },
+			{ data: &quot;position&quot; },
+			{ data: &quot;office&quot; },
+			{ data: &quot;start_date&quot; },
+			{ data: &quot;salary&quot;, render: $.fn.dataTable.render.number( &#039;,&#039;, &#039;.&#039;, 0, &#039;$&#039; ) }
+		],
+		select: {
+			style:    &#039;os&#039;,
+			selector: &#039;td:first-child&#039;
+		},
+		buttons: [
+			{ extend: &quot;create&quot;, editor: editor },
+			{ extend: &quot;edit&quot;,   editor: editor },
+			{ extend: &quot;remove&quot;, editor: editor }
+		]
+	} );
+} );</code>
+					
+	</div>
+  </section>
+</body>
+</html>
