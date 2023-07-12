@@ -455,3 +455,4 @@ __pycache__/
 /ExtRS/obj/ExtRS.csproj.nuget.g.targets
 /ExtRS/obj/ExtRS.csproj.nuget.dgspec.json
 /.vs/ExtRS/DesignTimeBuild/.dtbcache.v2
+/ExtRS.Portal/ExtRS.Portal.csproj
