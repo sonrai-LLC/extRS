@@ -2,7 +2,7 @@
 <RptDataSource xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Name="localhost">
   <ConnectionProperties>
     <Extension>SQL</Extension>
-    <ConnectString>Data Source=.;Initial Catalog=Fissonrai</ConnectString>
+    <ConnectString>Data Source=.;Initial Catalog=fissonrai</ConnectString>
   </ConnectionProperties>
   <DataSourceID>6f4e8cda-310d-4ade-bbbe-83569ae794e3</DataSourceID>
 </RptDataSource>
