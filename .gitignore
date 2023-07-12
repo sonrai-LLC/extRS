@@ -454,3 +454,4 @@ __pycache__/
 /ExtRS/obj/project.assets.json
 /ExtRS/obj/ExtRS.csproj.nuget.g.targets
 /ExtRS/obj/ExtRS.csproj.nuget.dgspec.json
+/.vs/ExtRS/DesignTimeBuild/.dtbcache.v2
