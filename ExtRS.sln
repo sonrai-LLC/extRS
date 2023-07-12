@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtRS", "ExtRS\ExtRS.csproj
 EndProject
 Project("{F14B399A-7131-4C87-9E4B-1186C45EF12D}") = "ExtRS.Reports", "ExtRS.Reports\ExtRS.Reports.rptproj", "{E9A7AE7E-6B3A-4E13-9BB9-477921BEC534}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtRS.Portal", "ExtRS.Portal\ExtRS.Portal.csproj", "{00C06F3D-147A-4270-A4A2-961903F14A78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtRS.Portal", "ExtRS.Portal\ExtRS.Portal.csproj", "{8AB0E94E-B84C-4BA5-8B91-D8E9613C7F46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -55,12 +55,12 @@ Global
 		{E9A7AE7E-6B3A-4E13-9BB9-477921BEC534}.Release|Any CPU.ActiveCfg = Release
 		{E9A7AE7E-6B3A-4E13-9BB9-477921BEC534}.Release|Any CPU.Build.0 = Release
 		{E9A7AE7E-6B3A-4E13-9BB9-477921BEC534}.Release|Any CPU.Deploy.0 = Release
-		{00C06F3D-147A-4270-A4A2-961903F14A78}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00C06F3D-147A-4270-A4A2-961903F14A78}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00C06F3D-147A-4270-A4A2-961903F14A78}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
-		{00C06F3D-147A-4270-A4A2-961903F14A78}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
-		{00C06F3D-147A-4270-A4A2-961903F14A78}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00C06F3D-147A-4270-A4A2-961903F14A78}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AB0E94E-B84C-4BA5-8B91-D8E9613C7F46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB0E94E-B84C-4BA5-8B91-D8E9613C7F46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AB0E94E-B84C-4BA5-8B91-D8E9613C7F46}.DebugLocal|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AB0E94E-B84C-4BA5-8B91-D8E9613C7F46}.DebugLocal|Any CPU.Build.0 = Debug|Any CPU
+		{8AB0E94E-B84C-4BA5-8B91-D8E9613C7F46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AB0E94E-B84C-4BA5-8B91-D8E9613C7F46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
