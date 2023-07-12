@@ -421,7 +421,7 @@
       <Width>8in</Width>
       <Page>
         <PageHeader>
-          <Height>0.79111in</Height>
+          <Height>0.76333in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -458,7 +458,7 @@
               <Value>wisconsin</Value>
               <Sizing>FitProportional</Sizing>
               <Left>6.56in</Left>
-              <Height>0.79111in</Height>
+              <Height>0.76333in</Height>
               <Width>1.12in</Width>
               <ZIndex>1</ZIndex>
               <Style>
