@@ -456,3 +456,9 @@ __pycache__/
 /ExtRS/obj/ExtRS.csproj.nuget.dgspec.json
 /.vs/ExtRS/DesignTimeBuild/.dtbcache.v2
 /ExtRS.Portal/ExtRS.Portal.csproj
+/ExtRS.Reports/ExtRS.Reports.rptproj.rsuser
+/.vs/ExtRS/v17/TestStore/0/testlog.manifest
+/.vs/ExtRS/v17/.futdcache.v2
+/.vs/ExtRS/v17/.suo
+/.vs/ExtRS/v17/fileList.bin
+/.vs/ExtRS/DesignTimeBuild/.dtbcache.v2
