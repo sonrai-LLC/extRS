@@ -51,6 +51,7 @@
   </PropertyGroup>
   <ItemGroup>
     <DataSet Include="Admissions.rsd" />
+    <DataSet Include="Attendance.rsd" />
     <DataSet Include="Bertand.rsd" />
     <DataSet Include="BinGan.rsd" />
     <DataSet Include="City.rsd" />
@@ -68,7 +69,6 @@
     <DataSet Include="Poll.rsd" />
     <DataSet Include="PollStates.rsd" />
     <DataSet Include="PrimaryImage.rsd" />
-    <DataSet Include="Randall.rsd" />
     <DataSet Include="Recruit.rsd" />
     <DataSet Include="Recruiting.rsd" />
     <DataSet Include="Rx.rsd" />
@@ -76,7 +76,6 @@
     <DataSet Include="Sommarskog.rsd" />
     <DataSet Include="Student.rsd" />
     <DataSet Include="Team.rsd" />
-    <DataSet Include="Tripp.rsd" />
     <DataSet Include="Voter.rsd" />
   </ItemGroup>
   <ItemGroup>
@@ -84,12 +83,9 @@
   </ItemGroup>
   <ItemGroup>
     <Report Include="Admissions.rdl" />
-    <Report Include="Anomolies.rdl" />
-    <Report Include="Attendance.rdl" />
     <Report Include="AttendanceByStudent.rdl" />
     <Report Include="BacklogRanking.rdl" />
     <Report Include="BankStatement.rdl" />
-    <Report Include="Bertrand.rdl" />
     <Report Include="BinGan.rdl" />
     <Report Include="Briefing.rdl" />
     <Report Include="Coach.rdl" />
@@ -97,18 +93,17 @@
     <Report Include="Dave.rdl" />
     <Report Include="DMFs.rdl" />
     <Report Include="DMVs.rdl" />
-    <Report Include="ExtRS.NET48.rdl" />
+    <Report Include="ExtRSNET48.rdl" />
     <Report Include="FactSheet.rdl" />
-    <Report Include="FieldReport.rdl" />
-    <Report Include="FootprintMap.rdl" />
     <Report Include="Fundraising.rdl" />
+    <Report Include="GameAttendence.rdl" />
     <Report Include="GenericBar.rdl" />
     <Report Include="GenericLine.rdl" />
+    <Report Include="Incident.rdl" />
     <Report Include="InsuranceClaimReport.rdl" />
     <Report Include="Invoice.rdl" />
     <Report Include="IoTDataAlert.rdl" />
     <Report Include="KnowledgeBase.rdl" />
-    <Report Include="League.rdl" />
     <Report Include="LeagueSM.rdl" />
     <Report Include="LocationInfo.rdl" />
     <Report Include="Locations.rdl" />
@@ -119,6 +114,7 @@
     <Report Include="OrganizationInfo.rdl" />
     <Report Include="Ozar.rdl" />
     <Report Include="Player.rdl" />
+    <Report Include="Polls.rdl" />
     <Report Include="Recruit.rdl" />
     <Report Include="RecruitingReport.rdl" />
     <Report Include="ReportCard.rdl" />
@@ -126,13 +122,12 @@
     <Report Include="RxUsage.rdl" />
     <Report Include="SalesPerformance.rdl" />
     <Report Include="Scatter.rdl" />
+    <Report Include="SchoolAttendance.rdl" />
     <Report Include="SecPortfolio.rdl" />
     <Report Include="SecurityPerformance.rdl" />
     <Report Include="ServiceCall.rdl" />
-    <Report Include="Sommarskog.rdl" />
     <Report Include="SpendAnalysis.rdl" />
     <Report Include="Team.rdl" />
-    <Report Include="USStatePolls.rdl" />
     <Report Include="VoterRegistration.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />

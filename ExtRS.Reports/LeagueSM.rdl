@@ -9,7 +9,7 @@
       <am:Name>SSDTRS</am:Name>
       <am:Version>17.5.33530.505</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2023-07-01T05:29:27.8916098Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2023-07-12T03:48:21.3811318Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
@@ -104,7 +104,7 @@ SELECT 15, 21, 'YSU'</CommandText>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>Small Multiples...</Value>
+                                <Value>Small Multiples...  </Value>
                                 <Style />
                               </TextRun>
                             </TextRuns>
@@ -619,8 +619,8 @@ SELECT 15, 21, 'YSU'</CommandText>
             <DataSetName>DataSet1</DataSetName>
             <Top>0.67987in</Top>
             <Left>1.155in</Left>
-            <Height>1.59167in</Height>
-            <Width>3.59167in</Width>
+            <Height>1.59166in</Height>
+            <Width>3.59166in</Width>
             <Style>
               <Border>
                 <Style>None</Style>

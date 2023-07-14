@@ -9,7 +9,7 @@
       <am:Name>SSDTRS</am:Name>
       <am:Version>17.5.33530.505</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2023-07-12T00:45:15.3071348Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2023-07-12T03:52:51.1657527Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
@@ -2929,7 +2929,7 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Sales Performance vs. Targets</Value>
+                      <Value>Sales Performance vs. Targets </Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
                         <FontSize>24pt</FontSize>

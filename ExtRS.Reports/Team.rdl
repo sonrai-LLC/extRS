@@ -9,7 +9,7 @@
       <am:Name>SSDTRS</am:Name>
       <am:Version>17.5.33530.505</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2023-06-22T01:48:15.1845107Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2023-07-12T23:00:13.2892352Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
@@ -303,6 +303,14 @@
           <DataField>PrimaryContactImg</DataField>
           <rd:TypeName>System.Byte[]</rd:TypeName>
         </Field>
+        <Field Name="PrimaryColorA">
+          <DataField>PrimaryColorA</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PrimaryColorB">
+          <DataField>PrimaryColorB</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
       </Fields>
     </DataSet>
     <DataSet Name="PrimaryImage">
@@ -444,7 +452,6 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -1213,7 +1220,7 @@
                           <Color>Green</Color>
                           <Width>3pt</Width>
                         </Border>
-                        <Color>Lime</Color>
+                        <Color>=Fields!PrimaryColorA.Value</Color>
                       </Style>
                       <ChartMarker>
                         <Size>1.75pt</Size>
