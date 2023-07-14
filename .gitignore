@@ -457,3 +457,4 @@ __pycache__/
 /.vs/ExtRS/DesignTimeBuild/.dtbcache.v2
 /ExtRS.Portal/ExtRS.Portal.csproj
 /.vs/ExtRS/v17/.suo
+/ExtRS.Reports/ExtRS.Reports.rptproj.rsuser
