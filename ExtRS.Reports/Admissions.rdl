@@ -9,7 +9,7 @@
       <am:Name>SSDTRS</am:Name>
       <am:Version>17.5.33530.505</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2023-07-12T00:41:25.9604133Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2023-07-13T23:21:18.1129215Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
@@ -597,15 +597,16 @@
             </TablixRowHierarchy>
             <DataSetName>Admissions</DataSetName>
             <Top>0.13137in</Top>
+            <Left>0.18056in</Left>
             <Height>0.43in</Height>
             <Width>7.34167in</Width>
             <Style />
           </Tablix>
         </ReportItems>
-        <Height>0.56137in</Height>
+        <Height>0.91137in</Height>
         <Style />
       </Body>
-      <Width>7.36668in</Width>
+      <Width>7.67501in</Width>
       <Page>
         <PageHeader>
           <Height>0.69723in</Height>
@@ -622,6 +623,7 @@
                       <Style>
                         <FontSize>20pt</FontSize>
                         <FontWeight>Bold</FontWeight>
+                        <Color>Gold</Color>
                       </Style>
                     </TextRun>
                     <TextRun>
@@ -629,6 +631,7 @@
                       <Style>
                         <FontSize>20pt</FontSize>
                         <FontWeight>Normal</FontWeight>
+                        <Color>Gold</Color>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -637,10 +640,13 @@
               </Paragraphs>
               <rd:DefaultName>textbox1</rd:DefaultName>
               <Top>0.175in</Top>
-              <Left>0.6in</Left>
-              <Height>0.37779in</Height>
-              <Width>6.08124in</Width>
+              <Left>0.70833in</Left>
+              <Height>0.45279in</Height>
+              <Width>5.97291in</Width>
               <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
                 <PaddingTop>2pt</PaddingTop>
@@ -652,7 +658,7 @@
               <Value>universitymisourilogo</Value>
               <Sizing>FitProportional</Sizing>
               <Top>0.175in</Top>
-              <Left>0.07223in</Left>
+              <Left>0.18056in</Left>
               <Height>0.45279in</Height>
               <Width>0.45833in</Width>
               <ZIndex>1</ZIndex>
@@ -667,6 +673,7 @@
             <Border>
               <Style>None</Style>
             </Border>
+            <BackgroundColor>MidnightBlue</BackgroundColor>
           </Style>
         </PageHeader>
         <PageFooter>
@@ -674,6 +681,55 @@
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
+            <Textbox Name="Textbox23">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>© </Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <Color>Gold</Color>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Year(Today())</Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <Color>Gold</Color>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value> - sonraí LLC</Value>
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                        <Color>Gold</Color>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox23</rd:DefaultName>
+              <Top>0.2147in</Top>
+              <Left>0.18056in</Left>
+              <Height>0.26667in</Height>
+              <Width>1.375in</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
             <Textbox Name="Textbox9">
               <CanGrow>true</CanGrow>
               <KeepTogether>true</KeepTogether>
@@ -682,17 +738,21 @@
                   <TextRuns>
                     <TextRun>
                       <Value>=DateTime.Now.ToString()</Value>
-                      <Style />
+                      <Style>
+                        <FontSize>8pt</FontSize>
+                        <Color>White</Color>
+                      </Style>
                     </TextRun>
                   </TextRuns>
                   <Style />
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox8</rd:DefaultName>
-              <Top>0.2147in</Top>
-              <Left>6.49792in</Left>
+              <Top>0.08774in</Top>
+              <Left>6.80626in</Left>
               <Height>0.39363in</Height>
               <Width>0.86875in</Width>
+              <ZIndex>1</ZIndex>
               <Style>
                 <Border>
                   <Style>None</Style>
@@ -708,6 +768,7 @@
             <Border>
               <Style>None</Style>
             </Border>
+            <BackgroundColor>MidnightBlue</BackgroundColor>
           </Style>
         </PageFooter>
         <LeftMargin>0.5in</LeftMargin>

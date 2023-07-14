@@ -3,8 +3,8 @@
   <DataSet Name="DataSet1">
     <Query>
       <DataSourceReference>localhost</DataSourceReference>
-      <CommandType>StoredProcedure</CommandType>
-      <CommandText>sp_Blitz</CommandText>
+      <CommandText>master.dbo.sp_Blitz</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
     </Query>
     <Fields>
       <Field Name="Priority">

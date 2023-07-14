@@ -4,7 +4,6 @@ namespace Sonrai.ExtRS
 {
     public class ReferenceDataService
     {
-
         #region Gen-Purpose
 
         public static async Task<string> GetSynonyms(string wordsPlusDelimited)
@@ -25,6 +24,9 @@ namespace Sonrai.ExtRS
             return await client.GetStringAsync(string.Format("https://api.country.is/{0}", ip));
         }
 
+        #endregion
+
+        #region Market Data
         public static async Task<string> GetTickerInfo(string ticker, string token)
         {
             HttpClient client = new HttpClient();
@@ -49,10 +51,21 @@ namespace Sonrai.ExtRS
             return await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/fx/{0}/top?token={1}", currencies, token));
         }
 
+        public string GetTwelveData()
+        {
+            var client = new RestClient("https://twelve-data1.p.rapidapi.com/price?symbol=AMZN&format=json&outputsize=30");
+            var request = new RestRequest("price", Method.Get);
+            request.AddHeader("X-RapidAPI-Key", "76ec5ebe2cmsh2f7ff7de7c01fe8p1add7ejsn7d187081087a");
+            request.AddHeader("X-RapidAPI-Host", "twelve-data1.p.rapidapi.com");
+            RestResponse response = client.Execute(request);
+            //return ""; //https://api.twelvedata.com/logo/ge.com
+
+            return response.StatusCode.ToString();
+        }
+
         #endregion
 
-
-        #region Shipping Rate Request
+        #region Shipping Rates
 
         public static async Task<string> GetShippingRates(string shipper, int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId = "", string clientId = "", string clientSecret = "")
         {
@@ -74,6 +87,7 @@ namespace Sonrai.ExtRS
             request.AddHeader("Content-Type", "application/json");
             request.AddParameter("payload", string.Format(RateRequestUSPS, "", "", "q245346456", "FedEx", "q245346456-1"));
             var response = client.Execute(request);
+
             return response.ToString();
         }
 
@@ -86,12 +100,6 @@ namespace Sonrai.ExtRS
         {
             return "";
         }
-
-        #endregion
-
-
-        #region Shipping Rate Request Payload
-
 
         public static string RateRequestUSPS = @"XML=<RateV4Request USERID='{0}'>
             <Revision>2</Revision>
@@ -111,7 +119,6 @@ namespace Sonrai.ExtRS
             </RateV4Request>";
 
         #endregion
-
 
         #region Tracking
 
@@ -165,10 +172,6 @@ namespace Sonrai.ExtRS
             return response.ToString();
         }
 
-        #endregion
-
-
-        #region Tracking Payload
         //EMAIL_ALERT
         public static string TrackingRequestUSPS = @"
          {
@@ -202,6 +205,5 @@ namespace Sonrai.ExtRS
 
 
         #endregion
-
     }
 }
