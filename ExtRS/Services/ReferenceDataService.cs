@@ -1,4 +1,5 @@
-﻿using RestSharp;
+﻿using Newtonsoft.Json;
+using RestSharp;
 using System.Text;
 
 namespace Sonrai.ExtRS
@@ -68,7 +69,7 @@ namespace Sonrai.ExtRS
 
         #region Shipping
 
-        public static RestResponse GetAuthToken(string shipper, string clientId, string clientSecret, string accountCode = "", string redirectUrl = "")
+        public static string GetAuthToken(string shipper, string clientId, string clientSecret, string accountCode = "", string redirectUrl = "")
         {
             switch (shipper)
             {
@@ -78,36 +79,38 @@ namespace Sonrai.ExtRS
             }
         }
 
-        public static RestResponse GetAuthTokenUPS(string clientId, string clientSecret, string accountCode, string redirectUrl)
+        public static string GetAuthTokenUPS(string clientId, string clientSecret, string accountCode, string redirectUrl)
         {
             var client = new RestClient("https://wwwcie.ups.com/security/v1/oauth/");
             var request = new RestRequest("token", Method.Post);
             var authString = Convert.ToBase64String(Encoding.UTF8.GetBytes(clientId + ":" + clientSecret));
             request.AddHeader("Authorization", "Basic " + authString);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-            request.AddBody("grant_type=client_credentials"); //&code={0}&redirect_uri={1} accountCode, redirectUrl
+            request.AddBody("grant_type=client_credentials");
             RestResponse response = client.Execute(request);
+            dynamic obj = JsonConvert.DeserializeObject<dynamic>(response.Content!);
 
-            return response;
+            return obj["access_token"];
         }
         
-        public static RestResponse GetAuthTokenFedEx(string clientId, string clientSecret)
+        public static string GetAuthTokenFedEx(string clientId, string clientSecret)
         {
             var client = new RestClient("https://apis-sandbox.fedex.com/oauth/");
             var request = new RestRequest("token", Method.Post);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddBody(string.Format("grant_type=client_credentials&client_id={0}&client_secret={1}", clientId, clientSecret));
             RestResponse response = client.Execute(request);
+            dynamic obj = JsonConvert.DeserializeObject<dynamic>(response.Content!);
 
-            return response;
+            return obj["access_token"];
         }
 
-        public static RestResponse GetShippingRates(string service, string shipper, int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId = "", string clientId = "", string clientSecret = "")
+        public static RestResponse GetShippingRates(string service, string shipper, int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId = "", string authToken = "")
         {
             switch (shipper)
             {
                 case "USPS": return GetShippingRatesUSPS(lbs, ounces, originPostalCode, destinationPostalCode, userId, service);
-                //case "UPS": return await GetShippingRatesUPS(lbs, ounces, originPostalCode, destinationPostalCode, userId);
+                case "UPS": return GetShippingRatesUPS(lbs, ounces, originPostalCode, destinationPostalCode, );
                 //case "FedEx": return await GetShippingRatesFedEx(lbs, ounces, originPostalCode, destinationPostalCode, userId);
                 default: return GetShippingRatesUSPS(lbs, ounces, originPostalCode, destinationPostalCode, userId, service);
             }
@@ -124,9 +127,17 @@ namespace Sonrai.ExtRS
             return response;
         }
 
-        public static RestResponse GetShippingRatesUPS(int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId, string clientId, string clientSecret, string apiKey)
+        public static RestResponse GetShippingRatesUPS(int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string authToken)
         {
-            return new RestResponse();
+            var client = new RestClient("https://apis-sandbox.fedex.com/track/v1");
+            var request = new RestRequest("trackingnumbers", Method.Post);
+            request.AddHeader("Authorization", "Bearer ");
+            request.AddHeader("X-locale", "en_US");
+            request.AddHeader("Content-Type", "application/json");
+            request.AddParameter("payload", string.Format(RateRequestUSPS, "", "", "q245346456", "FedEx", "q245346456-1"));
+            var response = client.Execute(request);
+
+            return response;
         }
 
         public static RestResponse GetShippingRatesFedEx(int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId, string clientId, string clientSecret, string apiKey)
@@ -181,14 +192,14 @@ namespace Sonrai.ExtRS
             return response;
         }
 
-        public static RestResponse GetTrackingInfoUPS(string trackingNumber, string token = "")
+        public static RestResponse GetTrackingInfoUPS(string trackingNumber, string authToken)
         {
-            var client = new RestClient("https://apis-sandbox.fedex.com/track/v1");
-            var request = new RestRequest("trackingnumbers", Method.Post);
-            request.AddHeader("Authorization", "Bearer ");
+            var client = new RestClient(string.Format("https://wwwcie.ups.com/api/track/v1/details/{0}", trackingNumber));
+            var request = new RestRequest("details", Method.Get);
+            request.AddHeader("Authorization", "Bearer " + authToken);
             request.AddHeader("X-locale", "en_US");
-            request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("payload", string.Format(TrackingRequestUSPS, "", "", "q245346456", "FedEx", "q245346456-1"));
+            request.AddHeader("transId", "1234567");
+            request.AddHeader("transactionSrc", "fissonrai.io");
             var response = client.Execute(request);
 
             return response;
@@ -198,10 +209,9 @@ namespace Sonrai.ExtRS
         {
             var client = new RestClient("https://apis-sandbox.fedex.com/track/v1");
             var request = new RestRequest("trackingnumbers", Method.Post);
-            request.AddHeader("Authorization", "Bearer ");
+            request.AddHeader("Authorization", "Bearer " + authToken);
             request.AddHeader("X-locale", "en_US");
-            request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("payload", string.Format(TrackingRequestFedEx, "", "", "q245346456", "FedEx", "q245346456-1"));
+            request.AddBody(TrackingRequestFedEx.Replace("{0}", trackingNumber).Replace("{1}", "FDXE").Replace("{2}", trackingNumber + "-1"));
             var response = client.Execute(request);
 
             return response;
@@ -212,32 +222,19 @@ namespace Sonrai.ExtRS
             <TrackID ID='{1}'></TrackID>
          </TrackRequest>";
 
-        //EMAIL_ALERT
-        public static string TrackingRequestUPS = @"
-         {
-            'uniqueTrackingId': {0},
-            'approximateIntakeDate': {1},
-            'notifyEventTypes': ['{2}'],
-            'firstName': '{3}',
-            'lastName': '{4}',
-            'notifications': ['{5}']
-         }";
 
         public static string TrackingRequestFedEx = @"{
               'includeDetailedScans': true,
               'trackingInfo': [
                 {
-                  'shipDateBegin': '{0}',
-                  'shipDateEnd': '{1}',
                   'trackingNumberInfo': {
-                    'trackingNumber': '{2}',
-                    'carrierCode': '{3}',
-                    'trackingNumberUniqueId': '{4}'
+                    'trackingNumber': '{0}',
+                    'carrierCode': '{1}',
+                    'trackingNumberUniqueId': '{2}'
                   }
                 }
-              ]
-            }";
-
+             ]}
+           }";
 
         #endregion
     }
