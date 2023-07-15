@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RestSharp;
 using System.Threading.Tasks;
 
 namespace Sonrai.ExtRS.UnitTests
@@ -58,28 +59,35 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(result.Length > 0);
         }
 
-        [Ignore]
         [TestMethod]
-        public async Task GetShippingRatesSucceeds()
+        public void GetAuthTokensSucceeds()
         {
-            var result = await ReferenceDataService.GetShippingRates("USPS", 2, 2, "53511", "53235", "CFITZ001");
-            Assert.IsTrue(result.Length > 0);
-            result = await ReferenceDataService.GetShippingRates("UPS", 2, 2, "53511", "53235", "CFITZ001");
-            Assert.IsTrue(result.Length > 0);
-            result = await ReferenceDataService.GetShippingRates("FedEx", 2, 2, "53511", "53235", "CFITZ001");
-            Assert.IsTrue(result.Length > 0);
+            var result = ReferenceDataService.GetAuthToken("UPS", "h4EOs5OQVkzzATVpEzILm4GGIOwgNPooYzGnsRuxg9yFQ3Lb", "TUAPkGeNKJCqMmf3ErUZmEzTjv13CnlBWe9Gl60IdMhVpfPwmVTa1DgxAuYCnwVA", "5DD50B188C74A581", "https://fissonrai.io");
+            Assert.IsTrue(result.IsSuccessful);
+            result = ReferenceDataService.GetAuthToken("FedEx", "l7254d78ae8b824b178c6096cd02867c58", "79e65ed3083541ecbfa829a9dfea1b58");
+            Assert.IsTrue(result.IsSuccessful);
         }
 
-        [Ignore]
         [TestMethod]
-        public async Task GetTrackingInfoSucceeds()
+        public void GetShippingRatesSucceeds()
         {
-            var result = await ReferenceDataService.GetTrackingInfo("USPS", "1234346536345-32");
-            Assert.IsTrue(result.Length > 0);
-            result = await ReferenceDataService.GetTrackingInfo("UPS", "1234346536345-32");
-            Assert.IsTrue(result.Length > 0);
-            result = await ReferenceDataService.GetTrackingInfo("FedEx", "1234346536345-32");
-            Assert.IsTrue(result.Length > 0);
+            RestResponse result = ReferenceDataService.GetShippingRates("PRIORITY", "USPS", 5, 3, "53511", "53235", "3SONRA323Q721");
+            Assert.IsTrue(result.IsSuccessful);
+            //result = a//it ReferenceDataService.GetShippingRates("UPS", 2, 2, "53511", "53235", "CFITZ001");
+            //Assert.IsT//e(result.Length > 0);
+            //result = a//it ReferenceDataService.GetShippingRates("FedEx", 2, 2, "53511", "53235", "CFITZ001");
+            //Assert.IsT//e(result.Length > 0);
+        }
+
+        [TestMethod]
+        public void GetTrackingInfoSucceeds()
+        {
+            var result = ReferenceDataService.GetTrackingInfo("USPS", "3SONRA323Q721", "3SONRA323Q721");
+            Assert.IsTrue(result.IsSuccessful);
+            //result = a//it ReferenceDataService.GetShippingRates("UPS", 2, 2, "53511", "53235", "CFITZ001");
+            //Assert.IsT//e(result.Length > 0);
+            //result = a//it ReferenceDataService.GetShippingRates("FedEx", 2, 2, "53511", "53235", "CFITZ001");
+            //Assert.IsT//e(result.Length > 0);
         }
     }
 }

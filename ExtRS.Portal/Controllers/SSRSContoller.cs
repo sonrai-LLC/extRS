@@ -28,6 +28,10 @@ namespace ExtRS.Portal.Controllers
         {
             return View("Users");
         }
+        public IActionResult Reports()
+        {
+            return View("Reports");
+        }
 
         public IActionResult Staff()
         {
