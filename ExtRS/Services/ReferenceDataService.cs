@@ -122,7 +122,7 @@ namespace Sonrai.ExtRS
             {
                 case "USPS": return GetShippingRatesUSPS(lbs, ounces, origin, destination, userId, service, "1ST", isProd);
                 case "UPS": return GetShippingRatesUPS(lbs, ounces, origin, destination, authToken, service, shipperNumber, isProd);
-                //case "FedEx": return GetShippingRatesFedEx(lbs, ounces, originPostalCode, destinationPostalCode, authToken, "", isProd);
+                case "FedEx": return GetShippingRatesFedEx(lbs, ounces, origin, destination, authToken, "", isProd);
                 default: return GetShippingRatesUSPS(lbs, ounces, origin, destination, userId, service, "1ST", isProd);
             }
         }

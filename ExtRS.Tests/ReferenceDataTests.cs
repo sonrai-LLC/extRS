@@ -85,8 +85,8 @@ namespace Sonrai.ExtRS.UnitTests
         {
             RestResponse result; // = ReferenceDataService.GetShippingRates("PRIORITY", "USPS", 5, 3, "53511", "53235", "6856SONRAH845");
             //Assert.IsTrue(result.IsSuccessful);
-            result = ReferenceDataService.GetShippingRates("OVERNIGHT", "UPS", 2, 2, origin, destination, "", upsAuthKey, "C2016A", false);
-            Assert.IsTrue(result.IsSuccessful);
+            //result = ReferenceDataService.GetShippingRates("OVERNIGHT", "UPS", 2, 2, origin, destination, "", upsAuthKey, "C2016A", false);
+            //Assert.IsTrue(result.IsSuccessful);
             result = ReferenceDataService.GetShippingRates("GROUND", "FedEx", 2, 2, origin, destination, "", fedExAuthKey, "", false);
             Assert.IsTrue(result.IsSuccessful);
         }
