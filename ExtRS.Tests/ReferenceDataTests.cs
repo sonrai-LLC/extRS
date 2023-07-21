@@ -12,16 +12,19 @@ namespace Sonrai.ExtRS.UnitTests
         public readonly string tiingoAuthToken = "9fa5a9bfbcc5cdb6ea5cd9da8acc6dd2de079d67";
         ReferenceDataService.Address origin = new ReferenceDataService.Address() { AddressLine = "2042 Oakland Ave.", City = "Milwaukee", State = "WI", PostalCode = "53204", Country = "US" };
         ReferenceDataService.Address destination = new ReferenceDataService.Address() { AddressLine = "742 Harrison Ave.", City = "Beloit", State = "WI", PostalCode = "53511", Country = "US" };
-        public static string upsAuthKey;
-        public static string fedExAuthKey;
+        public static string upsAuthKey = "";
+        public static string fedExAuthKey = "";
 
         [TestInitialize]
         public void TestInitialize()
         {
-            upsAuthKey = ReferenceDataService.GetAuthToken("UPS", "h4EOs5OQVkzzATVpEzILm4GGIOwgNPooYzGnsRuxg9yFQ3Lb", "TUAPkGeNKJCqMmf3ErUZmEzTjv13CnlBWe9Gl60IdMhVpfPwmVTa1DgxAuYCnwVA", "5DD50B188C74A581", "https://fissonrai.io");
-            Assert.IsTrue(upsAuthKey.Length > 0);
-            fedExAuthKey = ReferenceDataService.GetAuthToken("FedEx", "l7254d78ae8b824b178c6096cd02867c58", "79e65ed3083541ecbfa829a9dfea1b58");
-            Assert.IsTrue(fedExAuthKey.Length > 0);
+            if(upsAuthKey == "")
+            {
+                upsAuthKey = ReferenceDataService.GetAuthToken("UPS", "h4EOs5OQVkzzATVpEzILm4GGIOwgNPooYzGnsRuxg9yFQ3Lb", "TUAPkGeNKJCqMmf3ErUZmEzTjv13CnlBWe9Gl60IdMhVpfPwmVTa1DgxAuYCnwVA", "5DD50B188C74A581", "https://fissonrai.io");
+                Assert.IsTrue(upsAuthKey.Length > 0);
+                fedExAuthKey = ReferenceDataService.GetAuthToken("FedEx", "l7254d78ae8b824b178c6096cd02867c58", "79e65ed3083541ecbfa829a9dfea1b58");
+                Assert.IsTrue(fedExAuthKey.Length > 0);
+            }
         }
 
         [TestMethod]
@@ -83,10 +86,10 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public void GetShippingRatesSucceeds()
         {
-            RestResponse result; // = ReferenceDataService.GetShippingRates("PRIORITY", "USPS", 5, 3, "53511", "53235", "6856SONRAH845");
-            //Assert.IsTrue(result.IsSuccessful);
-            //result = ReferenceDataService.GetShippingRates("OVERNIGHT", "UPS", 2, 2, origin, destination, "", upsAuthKey, "C2016A", false);
-            //Assert.IsTrue(result.IsSuccessful);
+            RestResponse result = ReferenceDataService.GetShippingRates("PRIORITY", "USPS", 5, 3, origin, destination, "6856SONRAH845", "", "", false);
+            Assert.IsTrue(result.IsSuccessful);
+            result = ReferenceDataService.GetShippingRates("OVERNIGHT", "UPS", 2, 2, origin, destination, "", upsAuthKey, "C2016A", false);
+            Assert.IsTrue(result.IsSuccessful);
             result = ReferenceDataService.GetShippingRates("GROUND", "FedEx", 2, 2, origin, destination, "", fedExAuthKey, "", false);
             Assert.IsTrue(result.IsSuccessful);
         }

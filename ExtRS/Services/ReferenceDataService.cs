@@ -156,12 +156,13 @@ namespace Sonrai.ExtRS
 
         public static RestResponse GetShippingRatesFedEx(int lbs, decimal ounces, Address origin, Address destination, string authToken, string userId = "", bool isProd = false)
         {
-            var client = new RestClient(string.Format("{0}/rate/v1/", isProd ? fedexProd : fedexTest));
-            var request = new RestRequest("trackingnumbers", Method.Post);
-            request.AddHeader("Authorization", "Bearer ");
+            var client = new RestClient(string.Format("{0}//rate/v1/rates/", isProd ? fedexProd : fedexTest));
+            var request = new RestRequest("quotes", Method.Post);
+            request.AddHeader("Authorization", "Bearer " + authToken);
             request.AddHeader("X-locale", "en_US");
             request.AddHeader("Content-Type", "application/json");
-            request.AddBody(RateRequestFedEx.Replace("{0}", "").Replace("{0}", ""));
+            string content = RateRequestFedEx.Replace("{0}", origin.PostalCode).Replace("{1}", destination.PostalCode).Replace("{2}", lbs.ToString());
+            request.AddBody(content);
             var response = client.Execute(request);
 
             return response;
@@ -249,20 +250,22 @@ namespace Sonrai.ExtRS
           }
         }";
 
+       
+
         public static string RateRequestFedEx = @"{
           ""accountNumber"": {
-            ""value"": ""{0}""
+            ""value"": ""XXXXX7364""
           },
           ""requestedShipment"": {
             ""shipper"": {
               ""address"": {
-                ""postalCode"": {1},
+                ""postalCode"": {0},
                 ""countryCode"": ""US""
               }
             },
             ""recipient"": {
               ""address"": {
-                ""postalCode"": {2},
+                ""postalCode"": {1},
                 ""countryCode"": ""US""
               }
             },
@@ -274,8 +277,8 @@ namespace Sonrai.ExtRS
             ""requestedPackageLineItems"": [
               {
                 ""weight"": {
-                  ""units"": ""{3}"",
-                  ""value"": {4}
+                  ""units"": ""LB"",
+                  ""value"": {2}
                 }
               }
             ]
