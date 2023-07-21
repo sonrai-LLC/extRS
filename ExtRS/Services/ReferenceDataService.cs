@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 using System.Text;
+using System.Web;
 
 namespace Sonrai.ExtRS
 {
@@ -79,12 +80,12 @@ namespace Sonrai.ExtRS
         public static string fedexProd = "https://apis-sandbox.fedex.com/";
 
 
-        public static string GetAuthToken(Shipper shipper, string clientId, string clientSecret, string accountCode = "", string redirectUrl = "")
+        public static string GetAuthToken(string shipper, string clientId, string clientSecret, string accountCode = "", string redirectUrl = "")
         {
             switch (shipper)
             {
-                case Shipper.UPS: return GetAuthTokenUPS(clientId, clientSecret, accountCode, redirectUrl);
-                case Shipper.FedEx: return GetAuthTokenFedEx(clientId, clientSecret);
+                case "UPS": return GetAuthTokenUPS(clientId, clientSecret, accountCode, redirectUrl);
+                case "FedEx": return GetAuthTokenFedEx(clientId, clientSecret);
                 default: return GetAuthTokenUPS(clientId, clientSecret, accountCode, redirectUrl);
             }
         }
@@ -115,21 +116,21 @@ namespace Sonrai.ExtRS
             return obj["access_token"];
         }
 
-        public static RestResponse GetShippingRates(string service, string shipper, int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId = "", string authToken = "", bool isProd = false)
+        public static RestResponse GetShippingRates(string service, string shipper, int lbs, decimal ounces, Address origin, Address destination, string userId = "", string authToken = "", string shipperNumber = "", bool isProd = false)
         {
             switch (shipper)
             {
-                case "USPS": return GetShippingRatesUSPS(lbs, ounces, originPostalCode, destinationPostalCode, userId, service, "", isProd);
-                //case "UPS": return GetShippingRatesUPS(lbs, ounces, originPostalCode, destinationPostalCode, authToken, isProd);
-                //case "FedEx": return GetShippingRatesFedEx(lbs, ounces, originPostalCode, destinationPostalCode, authToken, "", isProd);
-                default: return GetShippingRatesUSPS(lbs, ounces, originPostalCode, destinationPostalCode, userId, service, "", isProd);
+                case "USPS": return GetShippingRatesUSPS(lbs, ounces, origin, destination, userId, service, "1ST", isProd);
+                case "UPS": return GetShippingRatesUPS(lbs, ounces, origin, destination, authToken, service, shipperNumber, isProd);
+                case "FedEx": return GetShippingRatesFedEx(lbs, ounces, origin, destination, authToken, "", isProd);
+                default: return GetShippingRatesUSPS(lbs, ounces, origin, destination, userId, service, "1ST", isProd);
             }
         }
 
-        public static RestResponse GetShippingRatesUSPS(int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string userId, string service, string packageId = "ABC123", bool isProd = false)
+        public static RestResponse GetShippingRatesUSPS(int lbs, decimal ounces, Address origin, Address destination, string userId, string service, string packageId = "1ST", bool isProd = false)
         {
             var client = new RestClient(string.Format("{0}/shippingapi.dll?API=RateV4&XML=", isProd ? uspsProd : uspsTest)
-            + string.Format(RateRequestUSPS, userId, packageId, service, originPostalCode, destinationPostalCode, lbs, ounces));
+            + string.Format(RateRequestUSPS, userId, packageId, service, origin.PostalCode, destination.PostalCode, lbs, ounces));
             var request = new RestRequest();
             request.AddHeader("Content-Type", "application/xml");
             var response = client.Execute(request);
@@ -137,33 +138,37 @@ namespace Sonrai.ExtRS
             return response;
         }
 
-        public static RestResponse GetShippingRatesUPS(int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string authToken, bool isProd = false)
+        public static RestResponse GetShippingRatesUPS(int lbs, decimal ounces, Address origin, Address destination, string authToken, string service, string shipperNumber, bool isProd = false)
         {
-            var client = new RestClient(string.Format("{0}/rating/v1/rate", isProd ?  upsProd : upsTest));
-            var request = new RestRequest("trackingnumbers", Method.Post);
-            request.AddHeader("Authorization", "Bearer ");
+            var client = new RestClient(string.Format("{0}rating/v1/", isProd ?  upsProd : upsTest));  //C2016A
+            var request = new RestRequest("rate", Method.Post);
+            request.AddHeader("Authorization", "Bearer " + authToken);
             request.AddHeader("X-locale", "en_US");
             request.AddHeader("Content-Type", "application/json");
-            request.AddBody(string.Format(RateRequestUPS, "", "", "q245346456", "FedEx", "q245346456-1"));
+            string content = RateRequestUPS.Replace("{0}", "extrs").Replace("{1}", "extrs").Replace("{2}", shipperNumber).Replace("{3}", origin.AddressLine)
+                .Replace("{4}", origin.City).Replace("{5}", origin.State).Replace("{6}", origin.PostalCode).Replace("{7}", origin.Country).Replace("{8}", destination.AddressLine)
+                .Replace("{9}", destination.City).Replace("{10}", destination.State).Replace("{11}", destination.PostalCode).Replace("{12}", destination.Country).Replace("{13}", service).Replace("{14}", lbs.ToString());
+            request.AddBody(content);
             var response = client.Execute(request);
 
             return response;
         }
 
-        public static RestResponse GetShippingRatesFedEx(int lbs, decimal ounces, string originPostalCode, string destinationPostalCode, string authToken, string userId = "", bool isProd = false)
+        public static RestResponse GetShippingRatesFedEx(int lbs, decimal ounces, Address origin, Address destination, string authToken, string userId = "", bool isProd = false)
         {
-            var client = new RestClient(string.Format("{0}/rate/v1/", isProd ? fedexProd : fedexTest));
-            var request = new RestRequest("trackingnumbers", Method.Post);
-            request.AddHeader("Authorization", "Bearer ");
+            var client = new RestClient(string.Format("{0}//rate/v1/rates/", isProd ? fedexProd : fedexTest));
+            var request = new RestRequest("quotes", Method.Post);
+            request.AddHeader("Authorization", "Bearer " + authToken);
             request.AddHeader("X-locale", "en_US");
             request.AddHeader("Content-Type", "application/json");
-            request.AddBody(RateRequestFedEx.Replace("{0}", "").Replace("{0}", ""));
+            string content = RateRequestFedEx.Replace("{0}", origin.PostalCode).Replace("{1}", destination.PostalCode).Replace("{2}", lbs.ToString());
+            request.AddBody(content);
             var response = client.Execute(request);
 
             return response;
         }
 
-        public static string RateRequestUSPS = @"XML=<RateV4Request USERID='{0}'>
+        public static string RateRequestUSPS = @"<RateV4Request USERID='{0}'>
             <Revision>2</Revision>
             <Package ID='{1}'>
                 <Service>{2}</Service>
@@ -181,99 +186,86 @@ namespace Sonrai.ExtRS
             </RateV4Request>";
 
         public static string RateRequestUPS = @"{
-          ""RateRequest"": {
-            ""Request"": {
-              ""TransactionReference"": {
-                ""CustomerContext"": ""sonrai"",
-                ""TransactionIdentifier"": ""abc123456789""
+          RateRequest: {
+            Request: {
+              TransactionReference: {
+                CustomerContext: '{0}',
+                TransactionIdentifier: '000-11-2222-3'
               }
             },
-            ""Shipment"": {
-              ""Shipper"": {
-                ""Name"": ""{0}"",
-                ""ShipperNumber"": ""{1}"",
-                ""Address"": {
-                  ""AddressLine"": [
-                    ""{2}""
+            Shipment: {
+              Shipper: {
+                Name: '{1}',
+                ShipperNumber: '{2}',
+                Address: {
+                  AddressLine: [
+                    '{3}',
                   ],
-                  ""City"": ""{3}"",
-                  ""StateProvinceCode"": ""{4}"",
-                  ""PostalCode"": ""{5}"",
-                  ""CountryCode"": ""US""
+                  City: '{4}',
+                  StateProvinceCode: '{5}',
+                  PostalCode: '{6}',
+                  CountryCode: '{7}'
                 }
               },
-              ""ShipTo"": {
-                ""Name"": ""{6}"",
-                ""Address"": {
-                  ""AddressLine"": [
-                    ""{7}""
+              ShipTo: {
+                Address: {
+                  AddressLine: [
+                    '{8}'
                   ],
-                  ""City"": ""{8}"",
-                  ""StateProvinceCode"": ""{9}"",
-                  ""PostalCode"": ""{10}"",
-                  ""CountryCode"": ""US""
+                  City: '{9}',
+                  StateProvinceCode: '{10}',
+                  PostalCode: '{11}',
+                  CountryCode: '{12}'
                 }
               },
-              ""ShipFrom"": {
-                ""Name"": ""{1}"",
-                ""Address"": {
-                  ""AddressLine"": [
-                    ""{2}""
-                  ],
-                  ""City"": ""{3}"",
-                  ""StateProvinceCode"": ""{4}"",
-                  ""PostalCode"": ""{5}"",
-                  ""CountryCode"": ""US""
-                }
-              },
-              ""PaymentDetails"": {
-                ""ShipmentCharge"": {
-                  ""Type"": ""01"",
-                  ""BillShipper"": {
-                    ""AccountNumber"": ""{0}""
+              PaymentDetails: {
+                ShipmentCharge: {
+                  Type: '01',
+                  BillShipper: {
+                    AccountNumber: '{2}'
                   }
                 }
               },
-              ""Service"": {
-                ""Code"": ""03"",
-                ""Description"": ""{11}""
+              Service: {
+                Code: '02',                Description: '{13}'
               },
-              ""NumOfPieces"": ""1"",
-              ""Package"": {
-                ""SimpleRate"": {
-                  ""Description"": ""SimpleRateDescription"",
-                  ""Code"": ""XS""
+              Package: {
+                SimpleRate: {
+                  Description: 'SimpleRateDescription',
+                  Code: 'XS'
                 },
-                ""PackagingType"": {
-                  ""Code"": ""02"",
-                  ""Description"": ""Packaging""
-                },      
-                ""PackageWeight"": {
-                  ""UnitOfMeasurement"": {
-                    ""Code"": ""LBS"",
-                    ""Description"": ""Pounds""
+                PackagingType: {
+                  Code: '02',
+                  Description: 'Packaging'
+                },
+                PackageWeight: {
+                  UnitOfMeasurement: {
+                    Code: 'LBS',
+                    Description: 'Pounds'
                   },
-                  ""Weight"": ""{12}""
+                  Weight: '{14}'
                 }
               }
             }
           }
         }";
 
+       
+
         public static string RateRequestFedEx = @"{
           ""accountNumber"": {
-            ""value"": ""{0}""
+            ""value"": ""XXXXX7364""
           },
           ""requestedShipment"": {
             ""shipper"": {
               ""address"": {
-                ""postalCode"": {1},
+                ""postalCode"": {0},
                 ""countryCode"": ""US""
               }
             },
             ""recipient"": {
               ""address"": {
-                ""postalCode"": {2},
+                ""postalCode"": {1},
                 ""countryCode"": ""US""
               }
             },
@@ -285,8 +277,8 @@ namespace Sonrai.ExtRS
             ""requestedPackageLineItems"": [
               {
                 ""weight"": {
-                  ""units"": ""{3}"",
-                  ""value"": {4}
+                  ""units"": ""LB"",
+                  ""value"": {2}
                 }
               }
             ]
@@ -359,11 +351,13 @@ namespace Sonrai.ExtRS
              ]}
            }";
 
-        public enum Shipper
+        public struct Address
         {
-            USPS,
-            UPS,
-            FedEx
+            public string AddressLine;
+            public string City;
+            public string State;
+            public string PostalCode;
+            public string Country;
         }
 
         #endregion
