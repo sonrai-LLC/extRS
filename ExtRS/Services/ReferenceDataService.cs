@@ -79,12 +79,12 @@ namespace Sonrai.ExtRS
         public static string fedexProd = "https://apis-sandbox.fedex.com/";
 
 
-        public static string GetAuthToken(string shipper, string clientId, string clientSecret, string accountCode = "", string redirectUrl = "")
+        public static string GetAuthToken(Shipper shipper, string clientId, string clientSecret, string accountCode = "", string redirectUrl = "")
         {
             switch (shipper)
             {
-                case "UPS": return GetAuthTokenUPS(clientId, clientSecret, accountCode, redirectUrl);
-                case "FedEx": return GetAuthTokenFedEx(clientId, clientSecret);
+                case Shipper.UPS: return GetAuthTokenUPS(clientId, clientSecret, accountCode, redirectUrl);
+                case Shipper.FedEx: return GetAuthTokenFedEx(clientId, clientSecret);
                 default: return GetAuthTokenUPS(clientId, clientSecret, accountCode, redirectUrl);
             }
         }
@@ -358,6 +358,13 @@ namespace Sonrai.ExtRS
                 }
              ]}
            }";
+
+        public enum Shipper
+        {
+            USPS,
+            UPS,
+            FedEx
+        }
 
         #endregion
     }
