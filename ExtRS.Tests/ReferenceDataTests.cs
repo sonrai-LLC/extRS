@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 using System.Threading.Tasks;
 using Sonrai.ExtRS;
+using static Sonrai.ExtRS.ReferenceDataService;
 
 namespace Sonrai.ExtRS.UnitTests
 {
@@ -20,9 +21,9 @@ namespace Sonrai.ExtRS.UnitTests
         {
             if(upsAuthKey == "")
             {
-                upsAuthKey = ReferenceDataService.GetAuthToken("UPS", "h4EOs5OQVkzzATVpEzILm4GGIOwgNPooYzGnsRuxg9yFQ3Lb", "TUAPkGeNKJCqMmf3ErUZmEzTjv13CnlBWe9Gl60IdMhVpfPwmVTa1DgxAuYCnwVA", "5DD50B188C74A581", "https://fissonrai.io");
+                upsAuthKey = ReferenceDataService.GetAuthToken(Shipper.UPS, "h4EOs5OQVkzzATVpEzILm4GGIOwgNPooYzGnsRuxg9yFQ3Lb", "TUAPkGeNKJCqMmf3ErUZmEzTjv13CnlBWe9Gl60IdMhVpfPwmVTa1DgxAuYCnwVA", "5DD50B188C74A581", "https://fissonrai.io");
                 Assert.IsTrue(upsAuthKey.Length > 0);
-                fedExAuthKey = ReferenceDataService.GetAuthToken("FedEx", "l7254d78ae8b824b178c6096cd02867c58", "79e65ed3083541ecbfa829a9dfea1b58");
+                fedExAuthKey = ReferenceDataService.GetAuthToken(Shipper.FedEx, "l7254d78ae8b824b178c6096cd02867c58", "79e65ed3083541ecbfa829a9dfea1b58");
                 Assert.IsTrue(fedExAuthKey.Length > 0);
             }
         }
@@ -86,24 +87,24 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public void GetShippingRatesSucceeds()
         {
-            RestResponse result = ReferenceDataService.GetShippingRates("PRIORITY", "USPS", 5, 3, origin, destination, "6856SONRAH845", "", "", false);
+            RestResponse result = ReferenceDataService.GetShippingRates(Shipper.USPS, "PRIORITY", 5, 3, origin, destination, "6856SONRAH845", "", "", false);
             Assert.IsTrue(result.IsSuccessful);
-            result = ReferenceDataService.GetShippingRates("OVERNIGHT", "UPS", 2, 2, origin, destination, "", upsAuthKey, "C2016A", false);
+            result = ReferenceDataService.GetShippingRates(Shipper.UPS, "OVERNIGHT", 2, 2, origin, destination, "", upsAuthKey, "C2016A", false);
             Assert.IsTrue(result.IsSuccessful);
-            result = ReferenceDataService.GetShippingRates("GROUND", "FedEx", 2, 2, origin, destination, "", fedExAuthKey, "", false);
+            result = ReferenceDataService.GetShippingRates(Shipper.FedEx, "GROUND", 2, 2, origin, destination, "", fedExAuthKey, "", false);
             Assert.IsTrue(result.IsSuccessful);
         }
 
         [TestMethod]
         public void GetTrackingInfoSucceeds()
         {
-            var result = ReferenceDataService.GetTrackingInfo("USPS", "3SONRA323Q721", "3SONRA323Q721");
+            var result = ReferenceDataService.GetTrackingInfo(Shipper.USPS, "3SONRA323Q721", "3SONRA323Q721");
             Assert.IsTrue(result.IsSuccessful);
             string authToken = ReferenceDataService.GetAuthTokenUPS("h4EOs5OQVkzzATVpEzILm4GGIOwgNPooYzGnsRuxg9yFQ3Lb", "TUAPkGeNKJCqMmf3ErUZmEzTjv13CnlBWe9Gl60IdMhVpfPwmVTa1DgxAuYCnwVA", "", "https://fissonrai.io");
-            result = ReferenceDataService.GetTrackingInfo("UPS", "", "", authToken);
+            result = ReferenceDataService.GetTrackingInfo(Shipper.UPS, "", "", authToken);
             Assert.IsTrue(result.IsSuccessful);
             authToken = ReferenceDataService.GetAuthTokenFedEx("l7254d78ae8b824b178c6096cd02867c58", "79e65ed3083541ecbfa829a9dfea1b58");
-            result = ReferenceDataService.GetTrackingInfo("FedEx", "9261299991099834284833", "", authToken);
+            result = ReferenceDataService.GetTrackingInfo(Shipper.FedEx, "9261299991099834284833", "", authToken);
             Assert.IsTrue(result.IsSuccessful);
         }
     }
