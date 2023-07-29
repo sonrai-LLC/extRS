@@ -101,6 +101,38 @@ namespace Sonrai.ExtRS.Models
 
     }
 
+    public class ParameterValue
+    {
+        public string Name;
+        public string Value;
+        public bool IsValueFieldReference;
+    }
+
+    public enum ParameterState
+    {
+        HasValidValue, 
+        MissingValidValue, 
+        HasOutstandingDependencies, 
+        DynamicValuesUnavailable
+    }
+
+    public enum ParameterType
+    {
+        Boolean,
+        DateTime, 
+        Integer, 
+        Float, 
+        String
+    }
+
+    public enum ParameterVisibility
+    {
+        Visible,
+        Hidden,
+        Internal
+    }
+    
+
     public class DataSource : CatalogItem
     {
         [JsonProperty("IsEnabled")]
