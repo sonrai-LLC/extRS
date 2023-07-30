@@ -131,4 +131,12 @@ namespace Sonrai.ExtRS.Models
         Forms,
         ExtRSAuth
     }
+
+    public enum HttpVerbs
+    {
+        POST,
+        GET,
+        PUT,
+        DELETE
+    }
 }

@@ -22,7 +22,7 @@ namespace Sonrai.ExtRS
             serverUrl = string.Format("https://{0}/reports/api/v2.0/", conn.ServerName);
         }
 
-        public async Task<HttpResponseMessage> CallApi(string verb, string operation, string content = "", string parameters = "")
+        public async Task<HttpResponseMessage> CallApi(HttpVerbs verb, string operation, string content = "", string parameters = "")
         {
             HttpResponseMessage response = new HttpResponseMessage();
             HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
@@ -32,14 +32,14 @@ namespace Sonrai.ExtRS
                 {
                     switch (verb)
                     {
-                        case "GET":
-                            return await client.GetAsync(serverUrl + operation);
-                        case "POST":
+                        case HttpVerbs.POST:
                             return await client.PostAsync(serverUrl + operation, httpContent);
-                        case "DELETE":
+                        case HttpVerbs.GET:
+                            return await client.GetAsync(serverUrl + operation);
+                        case HttpVerbs.PUT:
                             return await client.DeleteAsync(serverUrl + operation);
-                        case "PUT":
-                            return await client.PutAsync(serverUrl + operation, httpContent);
+                        case HttpVerbs.DELETE:
+                            return await client.DeleteAsync(serverUrl + operation);
                     }
                 }
 
@@ -97,7 +97,7 @@ namespace Sonrai.ExtRS
 
         public async Task<string> GetCatalogItemHtml(string pathOrId, string onClick = "", string css = "")
         {
-            var response = await CallApi("GET", string.Format("CatalogItems(path='{0}')", pathOrId));
+            var response = await CallApi(HttpVerbs.GET, string.Format("CatalogItems(path='{0}')", pathOrId));
             CatalogItem catalogItem = await GetCatalogItem(response);
             StringBuilder sb = new StringBuilder();
 
