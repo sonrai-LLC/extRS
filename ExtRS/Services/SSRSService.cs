@@ -47,28 +47,33 @@ namespace Sonrai.ExtRS
             }
         }
 
-        public async Task<Report> GetReport(HttpResponseMessage response)
+        public async Task<Report> GetReport(string idOrPath)
         {
+            var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})", idOrPath));
             return JsonConvert.DeserializeObject<Report>(await response.Content.ReadAsStringAsync())!;
         }
 
-        public async Task<CatalogItem> GetCatalogItem(HttpResponseMessage response)
+        public async Task<CatalogItem> GetCatalogItem(string idOrPath)
         {
+            var response = await CallApi(HttpVerbs.GET, string.Format("CatalogItems({0})", idOrPath));
             return JsonConvert.DeserializeObject<CatalogItem>(await response.Content.ReadAsStringAsync())!;
         }
 
-        public async Task<Folder> GetFolder(HttpResponseMessage response)
+        public async Task<Folder> GetFolder(string idOrPath)
         {
+            var response = await CallApi(HttpVerbs.GET, string.Format("Folders({0})", idOrPath));
             return JsonConvert.DeserializeObject<Folder>(await response.Content.ReadAsStringAsync())!;
         }
 
-        public async Task<DataSource> GetDataSource(HttpResponseMessage response)
+        public async Task<DataSource> GetDataSource(string idOrPath)
         {
+            var response = await CallApi(HttpVerbs.GET, string.Format("DataSources({0})", idOrPath));
             return JsonConvert.DeserializeObject<DataSource>(await response.Content.ReadAsStringAsync())!;
         }
 
-        public async Task<DataSet> GetDataSet(HttpResponseMessage response)
+        public async Task<DataSet> GetDataSet(string idOrPath)
         {
+            var response = await CallApi(HttpVerbs.GET, string.Format("DataSets({0})", idOrPath));
             return JsonConvert.DeserializeObject<DataSet>(await response.Content.ReadAsStringAsync())!;
         }
 
@@ -97,8 +102,7 @@ namespace Sonrai.ExtRS
 
         public async Task<string> GetCatalogItemHtml(string pathOrId, string onClick = "", string css = "")
         {
-            var response = await CallApi(HttpVerbs.GET, string.Format("CatalogItems(path='{0}')", pathOrId));
-            CatalogItem catalogItem = await GetCatalogItem(response);
+            CatalogItem catalogItem = await GetCatalogItem(pathOrId);
             StringBuilder sb = new StringBuilder();
 
             switch (catalogItem.Type)

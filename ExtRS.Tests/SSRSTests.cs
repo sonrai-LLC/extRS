@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Sonrai.ExtRS.Models;
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -54,9 +55,8 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetCatalogItemSucceeds()
         {
-            var response = await ssrs.CallApi(HttpVerbs.GET, "CatalogItems(path='/Reports/Folder/10k')");
-            CatalogItem catalogItem = JsonConvert.DeserializeObject<CatalogItem>(await response.Content.ReadAsStringAsync());
-            Assert.IsTrue(ssrs.GetCatalogItem(response).Result.Id == catalogItem.Id);
+            CatalogItem dataSource = await ssrs.GetCatalogItem("path='/Reports/Team'");
+            Assert.IsTrue(dataSource.Name != null);
         }
 
         [TestMethod]
@@ -69,35 +69,30 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetReportSucceeds()
         {
-            var response = await ssrs.CallApi(HttpVerbs.GET, "Reports(path='/Reports/Team')");
-            Report report= JsonConvert.DeserializeObject<Report>(await response.Content.ReadAsStringAsync()); 
-            Assert.IsTrue(report.Name.Length > 0); 
-            Assert.IsTrue(ssrs.GetReport(response).Result.Id != null);
+            Report report = await ssrs.GetReport("path='/Reports/Team'");
+            Assert.IsTrue(report.Name != null); 
         }
 
         [TestMethod]
         public async Task GetFolderSucceeds()
         {
-            var response = await ssrs.CallApi(HttpVerbs.GET, "Folders(path='/Reports/Folder')");
-            Folder folder = JsonConvert.DeserializeObject<Folder>(await response.Content.ReadAsStringAsync());
-            Assert.IsTrue(ssrs.GetCatalogItem(response).Result.Id == folder.Id);
+            Folder folder = await ssrs.GetFolder("path='/Reports'");
+            Assert.IsTrue(folder.Name != null);
         }
 
         [Ignore]
         [TestMethod]
         public async Task GetDataSourceSucceeds()
         {
-            var response = await ssrs.CallApi(HttpVerbs.GET, "DataSources(path='/Data Sources/localhost')");
-            DataSource dataSource = JsonConvert.DeserializeObject<DataSource>(await response.Content.ReadAsStringAsync());
-            Assert.IsTrue(ssrs.GetCatalogItem(response).Result.Id == dataSource.Id);
+            DataSource dataSource = await ssrs.GetDataSource("path='/Data Sources/localhost'");
+            Assert.IsTrue(dataSource.Name != null);
         }
 
         [TestMethod]
         public async Task GetDataSetSucceeds()
         {
-            var response = await ssrs.CallApi(HttpVerbs.GET, "DataSets(path='/DataSets/PlayerData')");
-            DataSet dataset = JsonConvert.DeserializeObject<DataSet>(await response.Content.ReadAsStringAsync());
-            Assert.IsTrue(ssrs.GetCatalogItem(response).Result.Id == dataset.Id);
+            DataSet dataSource = await ssrs.GetDataSet("path='/DataSets/Team'");
+            Assert.IsTrue(dataSource.Name != null);
         }
 
         [TestMethod]
@@ -163,14 +158,14 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetParameterHtmlSucceeds()
         {
-            var parameterResponse = await ssrs.GetParameterHtml("/Reports/Team");
+            var parameterResponse = await ssrs.GetParameterHtml("path='/Reports/Team'");
 
         }
 
         [TestMethod]
         public async Task GetCatalogItemHtmlSucceeds()
         {
-            string catalogItemResponse = await ssrs.GetCatalogItemHtml("/Reports/Team");
+            string catalogItemResponse = await ssrs.GetCatalogItemHtml("path='/Reports/Team'");
             Assert.IsTrue(catalogItemResponse.ToString().Contains("<div "));
             Assert.IsTrue(catalogItemResponse.ToString().Contains("</div>"));
         }
