@@ -11,6 +11,13 @@
 	<RepositoryUrl>https://github.com/sonrai-LLC/ExtRS</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
 	<PackageTags>ssrs;reporting services;t-sql;sql server;pbi;reports;custom assemblies; gis; encryption; formatting</PackageTags>
+	<ApplicationIcon>ExtRS.ico</ApplicationIcon>
+	<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	<Title>ExtRS</Title>
+	<PackageProjectUrl>https://github.com/sonrai-LLC/ExtRS</PackageProjectUrl>
+	<PackageReadmeFile>README.md</PackageReadmeFile>
+	<AnalysisLevel>none</AnalysisLevel>
+	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,6 +32,7 @@
 
   <ItemGroup>
     <Content Include="Data\SQLServer\T-SQL\UsefulQueries.sql" />
+    <Content Include="ExtRS.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -137,6 +145,18 @@
 
   <ItemGroup>
     <None Update="Data\ExtRS.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="ExtRS.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="LICENSE.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="README.md">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
