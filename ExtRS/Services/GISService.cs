@@ -30,6 +30,11 @@ namespace Sonrai.ExtRS
             return location;
         }
 
+        public bool ValidateAddress(string address)
+        {
+           return GetLocation(address) != null;
+        }
+
         public List<Location> GetLocations(List<string> addresses)
         {
             var locations = new List<Location>();

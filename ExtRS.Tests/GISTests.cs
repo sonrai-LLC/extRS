@@ -15,7 +15,21 @@ namespace Sonrai.ExtRS.UnitTests
         }
 
         [TestMethod]
-        public void GetLocationSucceeds()
+        public void ValidateAddressSucceeds()
+        {
+            var result = gis.ValidateAddress("Beloit, WI");
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void ValidateAddressFails()
+        {
+            var result = gis.ValidateAddress("ccccc, cccc");
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void GetLocationFails()
         {
             var result = gis.GetLocation("Beloit, WI");
             Assert.IsTrue(result.Long.Length > 0);
