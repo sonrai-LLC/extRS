@@ -100,7 +100,7 @@ namespace Sonrai.ExtRS.Models
     {
 
     }
-
+    
     public class DataSource : CatalogItem
     {
         [JsonProperty("IsEnabled")]
@@ -130,5 +130,13 @@ namespace Sonrai.ExtRS.Models
         Windows,
         Forms,
         ExtRSAuth
+    }
+
+    public enum HttpVerbs
+    {
+        POST,
+        GET,
+        PUT,
+        DELETE
     }
 }

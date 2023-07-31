@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using Sonrai.ExtRS.Models;
 using System;
+using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -33,71 +34,65 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task CreateSessionSucceeds()
         {
-            HttpResponseMessage result = await ssrs.CallApi("POST", "Session", "{" + defaultCreds + "}");
+            HttpResponseMessage result = await ssrs.CallApi(HttpVerbs.POST, "Session", "{" + defaultCreds + "}");
             Assert.IsTrue(Convert.ToString(result.StatusCode) == "Created");
         }
 
         [TestMethod]
         public async Task DeleteSessionSucceeds()
         {
-            var result = await ssrs.CallApi("DELETE", "Session");
+            var result = await ssrs.CallApi(HttpVerbs.DELETE, "Session");
             Assert.IsTrue(Convert.ToString(result.StatusCode) == "OK");
         }
 
         [TestMethod]
         public async Task GetAllCatalogItemsSucceeds()
         {
-            var result = await ssrs.CallApi("GET", "CatalogItems");
+            var result = await ssrs.CallApi(HttpVerbs.GET, "CatalogItems");
             Assert.IsNotNull(Convert.ToString(result.StatusCode) == "OK");
         }
 
         [TestMethod]
         public async Task GetCatalogItemSucceeds()
         {
-            var response = await ssrs.CallApi("GET", "CatalogItems(path='/Reports/Folder/10k')");
-            CatalogItem catalogItem = JsonConvert.DeserializeObject<CatalogItem>(await response.Content.ReadAsStringAsync());
-            Assert.IsTrue(ssrs.GetCatalogItem(response).Result.Id == catalogItem.Id);
+            CatalogItem dataSource = await ssrs.GetCatalogItem("path='/Reports/Team'");
+            Assert.IsTrue(dataSource.Name != null);
         }
 
         [TestMethod]
         public async Task GetAllReportsSucceeds()
         {
-            var result = await ssrs.CallApi("GET", "Reports");
+            var result = await ssrs.CallApi(HttpVerbs.GET, "Reports");
             Assert.IsNotNull(result);
         }
 
         [TestMethod]
         public async Task GetReportSucceeds()
         {
-            var response = await ssrs.CallApi("GET", "Reports(path='/Reports/Team')");
-            Report report= JsonConvert.DeserializeObject<Report>(await response.Content.ReadAsStringAsync()); 
-            Assert.IsTrue(report.Name.Length > 0); 
-            Assert.IsTrue(ssrs.GetReport(response).Result.Id != null);
+            Report report = await ssrs.GetReport("path='/Reports/Team'");
+            Assert.IsTrue(report.Name != null); 
         }
 
         [TestMethod]
         public async Task GetFolderSucceeds()
         {
-            var response = await ssrs.CallApi("GET", "Folders(path='/Reports/Folder')");
-            Folder folder = JsonConvert.DeserializeObject<Folder>(await response.Content.ReadAsStringAsync());
-            Assert.IsTrue(ssrs.GetCatalogItem(response).Result.Id == folder.Id);
+            Folder folder = await ssrs.GetFolder("path='/Reports'");
+            Assert.IsTrue(folder.Name != null);
         }
 
         [Ignore]
         [TestMethod]
         public async Task GetDataSourceSucceeds()
         {
-            var response = await ssrs.CallApi("GET", "DataSources(path='/Data Sources/localhost')");
-            DataSource dataSource = JsonConvert.DeserializeObject<DataSource>(await response.Content.ReadAsStringAsync());
-            Assert.IsTrue(ssrs.GetCatalogItem(response).Result.Id == dataSource.Id);
+            DataSource dataSource = await ssrs.GetDataSource("path='/Data Sources/localhost'");
+            Assert.IsTrue(dataSource.Name != null);
         }
 
         [TestMethod]
         public async Task GetDataSetSucceeds()
         {
-            var response = await ssrs.CallApi("GET", "DataSets(path='/DataSets/PlayerData')");
-            DataSet dataset = JsonConvert.DeserializeObject<DataSet>(await response.Content.ReadAsStringAsync());
-            Assert.IsTrue(ssrs.GetCatalogItem(response).Result.Id == dataset.Id);
+            DataSet dataSource = await ssrs.GetDataSet("path='/DataSets/Team'");
+            Assert.IsTrue(dataSource.Name != null);
         }
 
         [TestMethod]
@@ -122,14 +117,14 @@ namespace Sonrai.ExtRS.UnitTests
                               "\"HasParameters\": \"false\"," +
                               "\"IsFavorite\": \"false\"";
 
-            var postResp = await ssrs.CallApi("POST", "Reports", "{" + content + "}");
+            var postResp = await ssrs.CallApi(HttpVerbs.POST, "Reports", "{" + content + "}");
             Assert.IsTrue(postResp.IsSuccessStatusCode);   
             
-            var getResponse = await ssrs.CallApi("GET", postResp.Headers.Location.Segments[4]);
+            var getResponse = await ssrs.CallApi(HttpVerbs.GET, postResp.Headers.Location.Segments[4]);
             Assert.IsTrue(getResponse.IsSuccessStatusCode);
 
-            var deleteResp = await ssrs.CallApi("DELETE", postResp.Headers.Location.Segments[4]);
-            Assert.IsTrue(deleteResp.IsSuccessStatusCode);
+            var delResp = await ssrs.CallApi(HttpVerbs.DELETE, postResp.Headers.Location.Segments[4]);
+            Assert.IsTrue(delResp.IsSuccessStatusCode);
         }
 
         [TestMethod]
@@ -150,27 +145,27 @@ namespace Sonrai.ExtRS.UnitTests
                                "\"Content\": \"U29tZSB0ZXh0IGhlcmUuLi4uLi4uLi4=\"," +
                                "\"IsFavorite\": \"false\"";
 
-            var result = await ssrs.CallApi("POST", "Resources", "{" + content + "}");
+            var result = await ssrs.CallApi(HttpVerbs.POST, "Resources", "{" + content + "}");
             Assert.IsTrue(result.IsSuccessStatusCode);
 
-            var getResponse = await ssrs.CallApi("GET", result.Headers.Location.Segments[4]);
+            var getResponse = await ssrs.CallApi(HttpVerbs.GET, result.Headers.Location.Segments[4]);
             Assert.IsTrue(getResponse.IsSuccessStatusCode);
 
-            var delResult = await ssrs.CallApi("DELETE", result.Headers.Location.Segments[4]);
+            var delResult = await ssrs.CallApi(HttpVerbs.DELETE, result.Headers.Location.Segments[4]);
             Assert.IsTrue(result.IsSuccessStatusCode);
         }
 
         [TestMethod]
         public async Task GetParameterHtmlSucceeds()
         {
-            var parameterResponse = await ssrs.GetParameterHtml("/Reports/Team");
+            var parameterResponse = await ssrs.GetParameterHtml("path='/Reports/Team'");
 
         }
 
         [TestMethod]
         public async Task GetCatalogItemHtmlSucceeds()
         {
-            string catalogItemResponse = await ssrs.GetCatalogItemHtml("/Reports/Team");
+            string catalogItemResponse = await ssrs.GetCatalogItemHtml("path='/Reports/Team'");
             Assert.IsTrue(catalogItemResponse.ToString().Contains("<div "));
             Assert.IsTrue(catalogItemResponse.ToString().Contains("</div>"));
         }

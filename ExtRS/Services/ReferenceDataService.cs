@@ -80,12 +80,12 @@ namespace Sonrai.ExtRS
         public static string fedexProd = "https://apis-sandbox.fedex.com/";
 
 
-        public static string GetAuthToken(string shipper, string clientId, string clientSecret, string accountCode = "", string redirectUrl = "")
+        public static string GetAuthToken(Shipper shipper, string clientId, string clientSecret, string accountCode = "", string redirectUrl = "")
         {
             switch (shipper)
             {
-                case "UPS": return GetAuthTokenUPS(clientId, clientSecret, accountCode, redirectUrl);
-                case "FedEx": return GetAuthTokenFedEx(clientId, clientSecret);
+                case Shipper.UPS: return GetAuthTokenUPS(clientId, clientSecret, accountCode, redirectUrl);
+                case Shipper.FedEx: return GetAuthTokenFedEx(clientId, clientSecret);
                 default: return GetAuthTokenUPS(clientId, clientSecret, accountCode, redirectUrl);
             }
         }
@@ -116,13 +116,13 @@ namespace Sonrai.ExtRS
             return obj["access_token"];
         }
 
-        public static RestResponse GetShippingRates(string service, string shipper, int lbs, decimal ounces, Address origin, Address destination, string userId = "", string authToken = "", string shipperNumber = "", bool isProd = false)
+        public static RestResponse GetShippingRates(Shipper shipper, string service, int lbs, decimal ounces, Address origin, Address destination, string userId = "", string authToken = "", string shipperNumber = "", bool isProd = false)
         {
             switch (shipper)
             {
-                case "USPS": return GetShippingRatesUSPS(lbs, ounces, origin, destination, userId, service, "1ST", isProd);
-                case "UPS": return GetShippingRatesUPS(lbs, ounces, origin, destination, authToken, service, shipperNumber, isProd);
-                case "FedEx": return GetShippingRatesFedEx(lbs, ounces, origin, destination, authToken, "", isProd);
+                case Shipper.USPS: return GetShippingRatesUSPS(lbs, ounces, origin, destination, userId, service, "1ST", isProd);
+                case Shipper.UPS: return GetShippingRatesUPS(lbs, ounces, origin, destination, authToken, service, shipperNumber, isProd);
+                case Shipper.FedEx: return GetShippingRatesFedEx(lbs, ounces, origin, destination, authToken, "", isProd);
                 default: return GetShippingRatesUSPS(lbs, ounces, origin, destination, userId, service, "1ST", isProd);
             }
         }
@@ -227,7 +227,8 @@ namespace Sonrai.ExtRS
                 }
               },
               Service: {
-                Code: '02',                Description: '{13}'
+                Code: '02',
+                Description: '{13}'
               },
               Package: {
                 SimpleRate: {
@@ -285,13 +286,13 @@ namespace Sonrai.ExtRS
           }
         }";
 
-        public static RestResponse GetTrackingInfo(string shipper, string trackingNumber, string userId = "", string authToken = "")
+        public static RestResponse GetTrackingInfo(Shipper shipper, string trackingNumber, string userId = "", string authToken = "")
         {
             switch (shipper)
             {
-                case "USPS": return GetTrackingInfoUSPS(trackingNumber, userId);
-                case "UPS": return GetTrackingInfoUPS(trackingNumber, authToken);
-                case "FedEx": return GetTrackingInfoFedEx(trackingNumber, authToken);
+                case Shipper.USPS: return GetTrackingInfoUSPS(trackingNumber, userId);
+                case Shipper.UPS: return GetTrackingInfoUPS(trackingNumber, authToken);
+                case Shipper.FedEx: return GetTrackingInfoFedEx(trackingNumber, authToken);
                 default: return GetTrackingInfoUSPS(trackingNumber, userId);
             }
         }
@@ -359,6 +360,14 @@ namespace Sonrai.ExtRS
             public string PostalCode;
             public string Country;
         }
+
+        public enum Shipper
+        {
+            USPS,
+            UPS,
+            FedEx
+        }
+
 
         #endregion
     }
