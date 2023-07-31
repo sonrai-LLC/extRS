@@ -1,6 +1,11 @@
 MIT License
 
-Copyright (c) 2023 sonrai LLC
+Copyright for portions of sp_Blitz are held by Brent Ozar as part of project 
+tigertoolbox and are provided under the MIT license:
+https://github.com/BrentOzarULTD/SQL-Server-First-Responder-Kit
+
+
+Copyright (c) 2022 sonrai LLC
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
