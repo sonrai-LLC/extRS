@@ -77,6 +77,20 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<DataSet>(await response.Content.ReadAsStringAsync())!;
         }
 
+        // TODO: create test
+        public async Task<DataSetParameter> GetDataSetParameterDefinition(string idOrPath)
+        {
+            var response = await CallApi(HttpVerbs.GET, string.Format("DataSets({0})/ParameterDefinitions", idOrPath));
+            return JsonConvert.DeserializeObject<DataSetParameter>(await response.Content.ReadAsStringAsync())!;
+        }
+
+        public async Task<ReportParameterDefinitions> GetReportParameterDefinition(string idOrPath)
+        {
+            var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/ParameterDefinitions", idOrPath));
+            var parms = JsonConvert.DeserializeObject<ReportParameterDefinitions>(await response.Content.ReadAsStringAsync())!;
+            return parms;
+        }
+
         public static string GetCredentialJson(string user, string password, string domain)
         {
             return string.Format("\"UserName\":\"{0}\",\"Password\": \"{1}\",\"Domain\":\"{2}\"", user, password, domain);
@@ -134,6 +148,7 @@ namespace Sonrai.ExtRS
 
         public async Task<string> GetParameterHtml(string pathOrId)
         {
+            ReportParameterDefinitions definitions = await GetReportParameterDefinition(pathOrId);
             // TODO: will improve above method and implement this method
             // once ExtRS is fully implemented
             return "</>";

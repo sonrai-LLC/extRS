@@ -159,7 +159,6 @@ namespace Sonrai.ExtRS.UnitTests
         public async Task GetParameterHtmlSucceeds()
         {
             var parameterResponse = await ssrs.GetParameterHtml("path='/Reports/Team'");
-
         }
 
         [TestMethod]

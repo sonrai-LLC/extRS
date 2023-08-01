@@ -639,6 +639,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ExtRS\ExtRS.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Reference Include="DataTables-Editor-Server">
       <HintPath>wwwroot\lib\netcoreapp2.1\DataTables-Editor-Server.dll</HintPath>
     </Reference>

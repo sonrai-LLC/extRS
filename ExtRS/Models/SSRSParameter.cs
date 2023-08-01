@@ -1,5 +1,15 @@
-﻿namespace Sonrai.ExtRS.Models
+﻿using Newtonsoft.Json;
+using NLog.Layouts;
+
+namespace Sonrai.ExtRS.Models
 {
+    public class ReportParameterDefinitions
+    {
+        [JsonProperty("@odata.context")]
+        public string context;
+        public List<ReportParameterDefinition> value;
+    }
+
     public class ReportParameterDefinition
     {
         public bool AllowBlank;
@@ -14,7 +24,7 @@
         public ReportParameterState ParameterState;
         public ReportParameterType ParameterType;
         public ReportParameterVisibility ParameterVisibility;
-        public string Prommpt;
+        public string Prompt;
         public bool PromptUser;
         public bool QueryParameter;
         public List<ValidValue> ValidValues;
