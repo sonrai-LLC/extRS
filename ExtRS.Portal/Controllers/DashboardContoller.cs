@@ -5,18 +5,18 @@ using System.Diagnostics;
 
 namespace ExtRS.Portal.Controllers
 {
-    public class SSRSController : Controller
+    public class DashboardController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<DashboardController> _logger;
 
-        public SSRSController(ILogger<HomeController> logger)
+        public DashboardController(ILogger<DashboardController> logger)
         {
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Dashboard()
         {
-            return View(new SSRSView { SelectedView = "Index" }); ;
+            return View();
         }
 
         public IActionResult Privacy()
@@ -41,7 +41,7 @@ namespace ExtRS.Portal.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorView { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

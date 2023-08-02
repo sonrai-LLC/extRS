@@ -2,7 +2,7 @@
 
 namespace ExtRS.Portal.Models
 {
-    public class UserModel
+    public class UserView
     {
         public Guid UserID { get; set; }
 

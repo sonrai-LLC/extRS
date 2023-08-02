@@ -88,6 +88,7 @@ namespace Sonrai.ExtRS
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/ParameterDefinitions", idOrPath));
             var parms = JsonConvert.DeserializeObject<ReportParameterDefinitions>(await response.Content.ReadAsStringAsync())!;
+
             return parms;
         }
 

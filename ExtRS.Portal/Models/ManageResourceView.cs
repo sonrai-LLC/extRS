@@ -1,6 +1,6 @@
 ﻿namespace ExtRS.Portal.Domain.Models
 {
-    public class RSManagement
+    public class ManageResourceView
     {
 
     }
