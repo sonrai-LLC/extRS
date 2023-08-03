@@ -1,6 +1,6 @@
 ﻿namespace ExtRS.Portal.Domain.Models
 {
-    public class ResourcesView
+    public class CatalogItemView
     {
        public string SelectedView = string.Empty;
     }
