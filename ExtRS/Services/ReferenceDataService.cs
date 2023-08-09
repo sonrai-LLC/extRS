@@ -2,6 +2,7 @@
 using RestSharp;
 using System.Text;
 using System.Web;
+using static System.Net.WebRequestMethods;
 
 namespace Sonrai.ExtRS
 {
@@ -333,7 +334,18 @@ namespace Sonrai.ExtRS
             return response;
         }
 
-        public static string TrackingRequestUSPS = @"
+		public static RestResponse GetVerifyAddressUSPS(string userId, string address1, string address2, string city, string state, string zip, bool isProd = false)
+		{
+			var client = new RestClient(isProd ? uspsProd : uspsTest + "shippingapi.dll?API=Verify&XML=" +
+				string.Format(VerifyAddressUSPS, userId, address1, address2, city, state, zip));
+			var request = new RestRequest();
+			request.AddHeader("Content-Type", "application/xml");
+			var response = client.Execute(request);
+
+			return response;
+		}
+
+		public static string TrackingRequestUSPS = @"
          <TrackRequest USERID='{0}'>
             <TrackID ID='{1}'></TrackID>
          </TrackRequest>";
@@ -351,6 +363,20 @@ namespace Sonrai.ExtRS
                 }
              ]}
            }";
+
+		//https://secure.shippingapis.com/shippingapi.dll?API=Verify&XML=
+		public static string VerifyAddressUSPS = @"
+        <AddressValidateRequest USERID=""{0}"">
+        <Revision>1</Revision>
+        <Address ID=""0"">
+        <Address1>{1}</Address1>
+        <Address2>{2}</Address2>
+        <City>{3}</City>
+        <State>{4}</State>
+        <Zip5>{5}</Zip5>
+        <Zip4/>
+        </Address>
+        </AddressValidateRequest>";
 
         public struct Address
         {

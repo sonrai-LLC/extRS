@@ -96,6 +96,14 @@ namespace Sonrai.ExtRS.UnitTests
         }
 
         [TestMethod]
+        public void GetVerifyAddressSucceeds()
+        {
+            RestResponse result = ReferenceDataService.GetVerifyAddressUSPS("6856SONRAH845", "2079 Yorkshire Dr.", "", "Beloit", "WI", "53511", false);
+			Assert.IsFalse(result.Content!.Contains("Invalid"));
+			Assert.IsTrue(result.IsSuccessful);
+        }
+
+		[TestMethod]
         public void GetTrackingInfoSucceeds()
         {
             var result = ReferenceDataService.GetTrackingInfo(Shipper.USPS, "3SONRA323Q721", "3SONRA323Q721");
