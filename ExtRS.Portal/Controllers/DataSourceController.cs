@@ -5,11 +5,11 @@ using System.Diagnostics;
 
 namespace ExtRS.Portal.Controllers
 {
-    public class ReportController : Controller
+    public class DataSourceController : Controller
     {
-        private readonly ILogger<ReportController> _logger;
+        private readonly ILogger<DataSourceController> _logger;
 
-        public ReportController(ILogger<ReportController> logger)
+        public DataSourceController(ILogger<DataSourceController> logger)
         {
             _logger = logger;
         }
