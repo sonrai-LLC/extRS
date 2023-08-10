@@ -1,6 +1,5 @@
 ﻿<head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-
     <title>ExtRS Portal</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/ju/jq-3.6.0/moment-2.18.1/dt-1.13.4/b-2.3.6/date-1.4.0/sl-1.6.2/datatables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/keytable/2.9.0/css/keyTable.dataTables.min.css">
@@ -81,15 +80,15 @@
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div>
-                <a href="@Url.Action("index", "ssrs")" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">ExtRS Portal</span> </a>
-                <div class="nav_list"> <a href="@Url.Action("index", "ssrs")" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i>
+                <a href="@Url.Action("index", "Reports")" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">ExtRS Portal</span> </a>
+                <div class="nav_list"> <a href="@Url.Action("index", "Reports")" class="nav_link active"> <i class='bx bx-grid-alt nav_icon'></i>
                     <span class="nav_name">Dashboard</span> </a>
-                    <a href="@Url.Action("Reports", "SSRS")" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">SSRS</span> </a>
-                    <a href="@Url.Action("users", "ssrs")" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a>
+                    <a href="@Url.Action("Reports", "Report")" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">SSRS</span> </a>
+                    <a href="@Url.Action("Users", "User")" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a>
                     <a href="#" class="nav_link"> <i class='bx bx-message-square-detail nav_icon'></i> <span class="nav_name">Messages</span> </a>
                     <a href="#" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Bookmark</span> </a>
                     <a href="#" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Files</span> </a>
-                    <a id="staffLink" href="@Url.Action("staff", "ssrs")" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span class="nav_name">Stats</span> </a>
+                <a id="staffLink" href="@Url.Action("Staff", "Staff")" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span class="nav_name">Stats</span> </a>
                 </div>
             </div>
             <a href="#" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">SignOut</span></a>
@@ -98,6 +97,7 @@
     <!--Container Main start-->
     <div class="height-100 bg-light">
         @RenderBody()
+        @RenderSection("Scripts", required: false)
     <p style="font-size:8pt; float:right">© sonrai 2023</p>
     </div>
     <!--Container Main end-->
