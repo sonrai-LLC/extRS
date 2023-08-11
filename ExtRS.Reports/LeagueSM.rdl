@@ -1,16 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
-  <am:AuthoringMetadata>
-    <am:CreatedBy>
-      <am:Name>SSDTRS</am:Name>
-      <am:Version>17.5.33530.505</am:Version>
-    </am:CreatedBy>
-    <am:UpdatedBy>
-      <am:Name>SSDTRS</am:Name>
-      <am:Version>17.5.33530.505</am:Version>
-    </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2023-07-12T03:48:21.3811318Z</am:LastModifiedTimestamp>
-  </am:AuthoringMetadata>
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily">
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -25,63 +14,41 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="DataSet1">
-      <Query>
-        <DataSourceName>localhost</DataSourceName>
-        <CommandText>SELECT 2 as A, 6 as B, 'MKE' as Team
-UNION ALL
-SELECT 11, 22,  'MKE'
-UNION ALL
-SELECT 21, 21,  'MKE'
-UNION ALL
-SELECT 31, 22,  'MKE'
-UNION ALL
-SELECT 21, 23,  'MKE'
-UNION ALL
-SELECT 51, 50,  'MKE'
-UNION ALL
-SELECT 15, 21,  'MKE'
-UNION ALL
-SELECT 2, 6,  'NKY'
-UNION ALL
-SELECT 11, 22, 'NKY'
-UNION ALL
-SELECT 21, 21, 'NKY'
-UNION ALL
-SELECT 31, 22, 'NKY'
-UNION ALL
-SELECT 21, 23, 'NKY'
-UNION ALL
-SELECT 51, 50, 'NKY'
-UNION ALL
-SELECT 15, 21, 'NKY'
-UNION ALL
-SELECT 2, 6,  'NKY'
-UNION ALL
-SELECT 11, 22, 'YSU'
-UNION ALL
-SELECT 21, 21, 'YSU'
-UNION ALL
-SELECT 31, 22, 'YSU'
-UNION ALL
-SELECT 21, 23, 'YSU'
-UNION ALL
-SELECT 51, 50, 'YSU'
-UNION ALL
-SELECT 15, 21, 'YSU'</CommandText>
-        <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
-      </Query>
+    <DataSet Name="NCAAMConferences">
+      <SharedDataSet>
+        <SharedDataSetReference>NCAAMConferences</SharedDataSetReference>
+      </SharedDataSet>
       <Fields>
-        <Field Name="A">
-          <DataField>A</DataField>
+        <Field Name="Conf">
+          <DataField>Conf</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+      </Fields>
+    </DataSet>
+    <DataSet Name="LeagueSM">
+      <SharedDataSet>
+        <SharedDataSetReference>LeagueSM</SharedDataSetReference>
+        <QueryParameters>
+          <QueryParameter Name="@p1">
+            <Value>=Parameters!p1.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </SharedDataSet>
+      <Fields>
+        <Field Name="Season">
+          <DataField>Season</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
-        <Field Name="B">
-          <DataField>B</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
+        <Field Name="Conf">
+          <DataField>Conf</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Team">
           <DataField>Team</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Wins">
+          <DataField>Wins</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>
@@ -104,7 +71,7 @@ SELECT 15, 21, 'YSU'</CommandText>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value>Small Multiples...  </Value>
+                                <Value />
                                 <Style />
                               </TextRun>
                             </TextRuns>
@@ -132,16 +99,16 @@ SELECT 15, 21, 'YSU'</CommandText>
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.79583in</Width>
+                  <Width>0.03125in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
                 <TablixRow>
-                  <Height>1.29583in</Height>
+                  <Height>2.30277in</Height>
                   <TablixCells>
                     <TablixCell>
                       <CellContents>
-                        <Textbox Name="Textbox4">
+                        <Textbox Name="Season">
                           <CanGrow>true</CanGrow>
                           <KeepTogether>true</KeepTogether>
                           <Paragraphs>
@@ -155,7 +122,7 @@ SELECT 15, 21, 'YSU'</CommandText>
                               <Style />
                             </Paragraph>
                           </Paragraphs>
-                          <rd:DefaultName>Textbox4</rd:DefaultName>
+                          <rd:DefaultName>Season</rd:DefaultName>
                           <Style>
                             <Border>
                               <Color>LightGrey</Color>
@@ -182,7 +149,7 @@ SELECT 15, 21, 'YSU'</CommandText>
                     </GroupExpressions>
                   </Group>
                   <TablixHeader>
-                    <Size>0.29583in</Size>
+                    <Size>0.03125in</Size>
                     <CellContents>
                       <Textbox Name="Textbox3">
                         <CanGrow>true</CanGrow>
@@ -191,7 +158,7 @@ SELECT 15, 21, 'YSU'</CommandText>
                           <Paragraph>
                             <TextRuns>
                               <TextRun>
-                                <Value />
+                                <Value>Season</Value>
                                 <Style />
                               </TextRun>
                             </TextRuns>
@@ -212,6 +179,9 @@ SELECT 15, 21, 'YSU'</CommandText>
                       </Textbox>
                     </CellContents>
                   </TablixHeader>
+                  <Visibility>
+                    <Hidden>true</Hidden>
+                  </Visibility>
                 </TablixMember>
               </TablixMembers>
             </TablixColumnHierarchy>
@@ -224,76 +194,63 @@ SELECT 15, 21, 'YSU'</CommandText>
                     </GroupExpressions>
                   </Group>
                   <TablixHeader>
-                    <Size>1.79583in</Size>
+                    <Size>6.08333in</Size>
                     <CellContents>
                       <Chart Name="Chart1">
                         <ChartCategoryHierarchy>
                           <ChartMembers>
                             <ChartMember>
-                              <Group Name="ChartGroup" />
-                              <Label />
+                              <Group Name="Chart1_CategoryGroup1">
+                                <GroupExpressions>
+                                  <GroupExpression>=Fields!Season.Value</GroupExpression>
+                                </GroupExpressions>
+                              </Group>
+                              <SortExpressions>
+                                <SortExpression>
+                                  <Value>=Fields!Season.Value</Value>
+                                </SortExpression>
+                              </SortExpressions>
+                              <Label>=Fields!Season.Value</Label>
                             </ChartMember>
                           </ChartMembers>
                         </ChartCategoryHierarchy>
                         <ChartSeriesHierarchy>
                           <ChartMembers>
                             <ChartMember>
-                              <Label>A</Label>
-                            </ChartMember>
-                            <ChartMember>
-                              <Label>B</Label>
+                              <Group Name="Chart1_SeriesGroup">
+                                <GroupExpressions>
+                                  <GroupExpression>=Fields!Team.Value</GroupExpression>
+                                </GroupExpressions>
+                              </Group>
+                              <SortExpressions>
+                                <SortExpression>
+                                  <Value>=Fields!Team.Value</Value>
+                                </SortExpression>
+                              </SortExpressions>
+                              <Label>=Fields!Team.Value</Label>
                             </ChartMember>
                           </ChartMembers>
                         </ChartSeriesHierarchy>
                         <ChartData>
                           <ChartSeriesCollection>
-                            <ChartSeries Name="A">
+                            <ChartSeries Name="Wins">
                               <ChartDataPoints>
                                 <ChartDataPoint>
                                   <ChartDataPointValues>
-                                    <Y>=Sum(Fields!A.Value)</Y>
+                                    <Y>=Fields!Wins.Value</Y>
                                   </ChartDataPointValues>
                                   <ChartDataLabel>
                                     <Style />
                                   </ChartDataLabel>
-                                  <Style />
+                                  <Style>
+                                    <Color>DarkBlue</Color>
+                                  </Style>
                                   <ChartMarker>
-                                    <Style />
-                                  </ChartMarker>
-                                  <DataElementOutput>Output</DataElementOutput>
-                                </ChartDataPoint>
-                              </ChartDataPoints>
-                              <Type>Line</Type>
-                              <Subtype>Smooth</Subtype>
-                              <Style />
-                              <ChartEmptyPoints>
-                                <Style />
-                                <ChartMarker>
-                                  <Style />
-                                </ChartMarker>
-                                <ChartDataLabel>
-                                  <Style />
-                                </ChartDataLabel>
-                              </ChartEmptyPoints>
-                              <ValueAxisName>Primary</ValueAxisName>
-                              <CategoryAxisName>Primary</CategoryAxisName>
-                              <ChartSmartLabel>
-                                <CalloutLineColor>Black</CalloutLineColor>
-                                <MinMovingDistance>0pt</MinMovingDistance>
-                              </ChartSmartLabel>
-                            </ChartSeries>
-                            <ChartSeries Name="B">
-                              <ChartDataPoints>
-                                <ChartDataPoint>
-                                  <ChartDataPointValues>
-                                    <Y>=Sum(Fields!B.Value)</Y>
-                                  </ChartDataPointValues>
-                                  <ChartDataLabel>
-                                    <Style />
-                                  </ChartDataLabel>
-                                  <Style />
-                                  <ChartMarker>
-                                    <Style />
+                                    <Style>
+                                      <Border>
+                                        <Width>3pt</Width>
+                                      </Border>
+                                    </Style>
                                   </ChartMarker>
                                   <DataElementOutput>Output</DataElementOutput>
                                 </ChartDataPoint>
@@ -570,20 +527,6 @@ SELECT 15, 21, 'YSU'</CommandText>
                             <ColumnSeparatorColor>Black</ColumnSeparatorColor>
                           </ChartLegend>
                         </ChartLegends>
-                        <ChartTitles>
-                          <ChartTitle Name="Default">
-                            <Caption>=Fields!Team.Value</Caption>
-                            <Style>
-                              <BackgroundGradientType>None</BackgroundGradientType>
-                              <FontSize>9pt</FontSize>
-                              <FontWeight>Normal</FontWeight>
-                              <TextAlign>Left</TextAlign>
-                              <VerticalAlign>Top</VerticalAlign>
-                              <Color>#a6a6a6</Color>
-                            </Style>
-                            <Position>TopLeft</Position>
-                          </ChartTitle>
-                        </ChartTitles>
                         <Palette>Pastel</Palette>
                         <ChartBorderSkin>
                           <Style>
@@ -601,7 +544,7 @@ SELECT 15, 21, 'YSU'</CommandText>
                             <VerticalAlign>Top</VerticalAlign>
                           </Style>
                         </ChartNoDataMessage>
-                        <DataSetName>DataSet1</DataSetName>
+                        <DataSetName>LeagueSM</DataSetName>
                         <Style>
                           <Border>
                             <Color>LightGrey</Color>
@@ -611,16 +554,22 @@ SELECT 15, 21, 'YSU'</CommandText>
                           <BackgroundGradientType>None</BackgroundGradientType>
                         </Style>
                       </Chart>
+                      <rd:Selected>true</rd:Selected>
                     </CellContents>
                   </TablixHeader>
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>DataSet1</DataSetName>
-            <Top>0.67987in</Top>
-            <Left>1.155in</Left>
-            <Height>1.59166in</Height>
-            <Width>3.59166in</Width>
+            <RepeatColumnHeaders>true</RepeatColumnHeaders>
+            <RepeatRowHeaders>true</RepeatRowHeaders>
+            <FixedColumnHeaders>true</FixedColumnHeaders>
+            <FixedRowHeaders>true</FixedRowHeaders>
+            <KeepTogether>true</KeepTogether>
+            <DataSetName>LeagueSM</DataSetName>
+            <Top>0.01389in</Top>
+            <Left>1.0625in</Left>
+            <Height>2.33402in</Height>
+            <Width>6.11458in</Width>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -628,13 +577,13 @@ SELECT 15, 21, 'YSU'</CommandText>
             </Style>
           </Tablix>
         </ReportItems>
-        <Height>4.48139in</Height>
+        <Height>2.84597in</Height>
         <Style />
       </Body>
       <Width>8in</Width>
       <Page>
         <PageHeader>
-          <Height>0.72513in</Height>
+          <Height>0.68in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -645,7 +594,23 @@ SELECT 15, 21, 'YSU'</CommandText>
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>HORIZON LEAGUE - </Value>
+                      <Value xml:space="preserve">  </Value>
+                      <Style>
+                        <FontFamily>Segoe UI Light</FontFamily>
+                        <FontSize>24pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=UCase(Parameters!p1.Value)</Value>
+                      <Style>
+                        <FontFamily>Segoe UI Light</FontFamily>
+                        <FontSize>24pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value> - </Value>
                       <Style>
                         <FontFamily>Segoe UI Light</FontFamily>
                         <FontSize>24pt</FontSize>
@@ -665,6 +630,7 @@ SELECT 15, 21, 'YSU'</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>textbox1</rd:DefaultName>
+              <Top>0.09028in</Top>
               <Height>0.57583in</Height>
               <Width>6.34375in</Width>
               <Style>
@@ -682,7 +648,7 @@ SELECT 15, 21, 'YSU'</CommandText>
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>0.47917in</Height>
+          <Height>0.4375in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -701,7 +667,7 @@ SELECT 15, 21, 'YSU'</CommandText>
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox8</rd:DefaultName>
-              <Top>0.18111in</Top>
+              <Top>0.1875in</Top>
               <Left>7in</Left>
               <Height>0.25in</Height>
               <Width>1in</Width>
@@ -730,10 +696,50 @@ SELECT 15, 21, 'YSU'</CommandText>
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="p1">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>Horizon</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>p1</Prompt>
+      <ValidValues>
+        <DataSetReference>
+          <DataSetName>NCAAMConferences</DataSetName>
+          <ValueField>Conf</ValueField>
+          <LabelField>Conf</LabelField>
+        </DataSetReference>
+      </ValidValues>
+    </ReportParameter>
+    <ReportParameter Name="Qs">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>dsrthjdrjty</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Qs</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
+  </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
       <NumberOfRows>2</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>p1</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Qs</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <EmbeddedImages>

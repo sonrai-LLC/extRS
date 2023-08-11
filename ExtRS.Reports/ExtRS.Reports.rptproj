@@ -63,7 +63,9 @@
     <DataSet Include="Hallengran.rsd" />
     <DataSet Include="Insurance.rsd" />
     <DataSet Include="Knowledge.rsd" />
+    <DataSet Include="LeagueSM.rsd" />
     <DataSet Include="Locations.rsd" />
+    <DataSet Include="NCAAMConferences.rsd" />
     <DataSet Include="Ozar.rsd" />
     <DataSet Include="Player.rsd" />
     <DataSet Include="Poll.rsd" />
@@ -119,6 +121,7 @@
     <Report Include="RecruitingReport.rdl" />
     <Report Include="ReportCard.rdl" />
     <Report Include="ResourceInfo.rdl" />
+    <Report Include="ResourcesByState.rdl" />
     <Report Include="RxUsage.rdl" />
     <Report Include="SalesPerformance.rdl" />
     <Report Include="Scatter.rdl" />
