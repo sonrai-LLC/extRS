@@ -5,11 +5,11 @@ using System.Diagnostics;
 
 namespace ExtRS.Portal.Controllers
 {
-    public class ReportController : Controller
+	public class ReportController : Controller
     {
         private readonly ILogger<ReportController> _logger;
 
-        public ReportController(ILogger<ReportController> logger)
+		public ReportController(ILogger<ReportController> logger)
         {
             _logger = logger;
         }
@@ -28,7 +28,8 @@ namespace ExtRS.Portal.Controllers
         {
             return View("Users");
         }
-        public IActionResult Reports()
+
+		public IActionResult Reports()
         {
             return View("Reports");
         }

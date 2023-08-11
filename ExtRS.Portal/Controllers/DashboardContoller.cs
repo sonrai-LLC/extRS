@@ -1,7 +1,11 @@
 ﻿using ExtRS.Portal.Domain.Models;
 using ExtRS.Portal.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sonrai.ExtRS;
+using Sonrai.ExtRS.Models;
 using System.Diagnostics;
+using System.Net.Http;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -14,8 +18,15 @@ namespace ExtRS.Portal.Controllers
             _logger = logger;
         }
 
-        public IActionResult Dashboard()
+        //[Authorize]
+        public async Task<IActionResult> Dashboard()
         {
+			var httpClient = new HttpClient();
+			SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
+			connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, "", connection.ServerName);
+			var ssrs = new SSRSService(connection);
+
+            Report report = await ssrs.GetReport("path='/Reports/Team'");
             return View();
         }
 
