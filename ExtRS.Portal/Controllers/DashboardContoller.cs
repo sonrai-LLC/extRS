@@ -27,7 +27,9 @@ namespace ExtRS.Portal.Controllers
 			var ssrs = new SSRSService(connection);
 
             Report report = await ssrs.GetReport("path='/Reports/Team'");
-            return View();
+            ReportView viewModel = new ReportView { Report = report };
+
+            return View(viewModel);
         }
 
         public IActionResult Privacy()

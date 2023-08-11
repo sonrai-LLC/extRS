@@ -6223,7 +6223,7 @@ textarea.form-control-lg {
   left: 0;
   z-index: 1040;
   width: 100vw;
-  height: 100vh;
+/*  height: 100vh;*/
   background-color: #000;
 }
 .offcanvas-backdrop.fade {
@@ -6931,11 +6931,11 @@ textarea.form-control-lg {
 }
 
 .vh-100 {
-  height: 100vh !important;
+ /* height: 100vh !important;*/
 }
 
 .min-vh-100 {
-  min-height: 100vh !important;
+ /* min-height: 100vh !important;*/
 }
 
 .flex-fill {
