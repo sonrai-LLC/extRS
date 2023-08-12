@@ -41,12 +41,18 @@ namespace ExtRS.Portal.Controllers
         {
             return View("Users");
         }
-        public IActionResult Reports()
+
+		public IActionResult DataSources()
+		{
+			return View("Reports");
+		}
+
+		public IActionResult Datasets()
         {
             return View("Reports");
         }
 
-        public IActionResult Staff()
+        public IActionResult Admin()
         {
             return View("Staff");
         }

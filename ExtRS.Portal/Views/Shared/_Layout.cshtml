@@ -263,20 +263,20 @@
     <div class="l-navbar" id="nav-bar">
         <nav class="nav">
             <div>
-            <a href="@Url.Action("index", "dashboard")" class="nav_logo"> <i class='bx bx-layer nav_logo-icon'></i> <span class="nav_logo-name">ExtRS Portal</span> </a>
-            <div class="nav_list">
-                <a href="@Url.Action("index", "dashboard")" class="nav_link active">
-                    <i class='bx bx-grid-alt nav_icon'></i>
-                    <span class="nav_name">Dashboard</span> </a>
-                    <a href="@Url.Action("Reports", "dashboard")" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">SSRS</span> </a>
-                <a href="@Url.Action("Users", "dashboard")" class="nav_link"> <i class='bx bx-user nav_icon'></i> <span class="nav_name">Users</span> </a>
-                    <a href="#" class="nav_link"> <i class='bx bx-message-square-detail nav_icon'></i> <span class="nav_name">Messages</span> </a>
-                    <a href="#" class="nav_link"> <i class='bx bx-bookmark nav_icon'></i> <span class="nav_name">Bookmark</span> </a>
-                    <a href="#" class="nav_link"> <i class='bx bx-folder nav_icon'></i> <span class="nav_name">Files</span> </a>
-                <a id="staffLink" href="@Url.Action("Staff", "dashboard")" class="nav_link"> <i class='bx bx-bar-chart-alt-2 nav_icon'></i> <span class="nav_name">Stats</span> </a>
-                </div>
+            <a href="@Url.Action("Dashboard", "Dashboard")" class="nav_logo"><i class='bx bx-layer nav_logo-icon'></i><span class="nav_logo-name">ExtRS Portal</span></a>
+             <div class="nav_list">
+                    <a href="@Url.Action("Dashboard", "Dashboard")" class="nav_link active"><i class='bx bx-tachometer nav_icon'></i><span class="nav_name">Dashboard</span></a>
+                    <a href="@Url.Action("Users", "Dashboard")" class="nav_link"> <i class='bx bx-cube nav_icon'></i><span class="nav_name">Data Sources</span></a>
+                    <a href="@Url.Action("Users", "Dashboard")" class="nav_link"> <i class='bx bx-table nav_icon'></i><span class="nav_name">Datasets</span></a>
+                    <a href="@Url.Action("Dashboard", "Dashboard")" class="nav_link"> <i class='bx bx-stats nav_icon'></i> <span class="nav_name">Reports</span></a>
+                    <a href="@Url.Action("Users", "dashboard")" class="nav_link"> <i class='bx bx-time nav_icon'></i> <span class="nav_name">Subscriptions</span></a>
+                    <a href="@Url.Action("Users", "dashboard")" class="nav_link"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">Stats</span></a>
+                    <a href="@Url.Action("Admin", "dashboard")" class="nav_link"><i class='bx bx-wrench nav_icon'></i><span class="nav_name">Settings</span></a>
+                    <a href="@Url.Action("Admin", "dashboard")" class="nav_link"><i class='bx bx-shield nav_icon'></i><span class="nav_name">Admin</span></a>
+                    <br /> <br />
+                    <a href="#" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">SignOut</span></a>
+              </div>
             </div>
-            <a href="#" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">SignOut</span></a>
         </nav>
     </div>
     <!--Container Main start-->
