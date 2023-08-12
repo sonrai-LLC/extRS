@@ -1,5 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily">
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
+  <am:AuthoringMetadata>
+    <am:CreatedBy>
+      <am:Name>SSDTRS</am:Name>
+      <am:Version>17.5.33530.505</am:Version>
+    </am:CreatedBy>
+    <am:UpdatedBy>
+      <am:Name>SSDTRS</am:Name>
+      <am:Version>17.5.33530.505</am:Version>
+    </am:UpdatedBy>
+    <am:LastModifiedTimestamp>2023-08-11T23:55:32.0527047Z</am:LastModifiedTimestamp>
+  </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -554,7 +565,6 @@
                           <BackgroundGradientType>None</BackgroundGradientType>
                         </Style>
                       </Chart>
-                      <rd:Selected>true</rd:Selected>
                     </CellContents>
                   </TablixHeader>
                 </TablixMember>
@@ -632,7 +642,7 @@
               <rd:DefaultName>textbox1</rd:DefaultName>
               <Top>0.09028in</Top>
               <Height>0.57583in</Height>
-              <Width>6.34375in</Width>
+              <Width>7.87916in</Width>
               <Style>
                 <PaddingLeft>2pt</PaddingLeft>
                 <PaddingRight>2pt</PaddingRight>
@@ -701,7 +711,7 @@
       <DataType>String</DataType>
       <DefaultValue>
         <Values>
-          <Value>Horizon</Value>
+          <Value>Horizon League</Value>
         </Values>
       </DefaultValue>
       <Prompt>p1</Prompt>

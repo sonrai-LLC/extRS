@@ -5,7 +5,7 @@
       <DataSourceReference>localhost</DataSourceReference>
       <DataSetParameters>
         <DataSetParameter Name="@p1">
-          <DefaultValue>horizon</DefaultValue>
+          <DefaultValue>Horizon League</DefaultValue>
           <ReadOnly>false</ReadOnly>
           <Nullable>false</Nullable>
           <OmitFromQuery>false</OmitFromQuery>
