@@ -1,10 +1,12 @@
-﻿using Sonrai.ExtRS.Models;
+﻿using ExtRS.Portal.Models;
+using Sonrai.ExtRS.Models;
 
-namespace ExtRS.Portal.Domain.Models
+namespace ExtRS.Portal.Models
 {
-    public class ReportView
+    public class ReportView : LayoutModel
     {
-       public Report Report;
-       public string SelectedView = string.Empty;
+        public Report Report;
+        private string _currentTab;
+        public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
     }
 }

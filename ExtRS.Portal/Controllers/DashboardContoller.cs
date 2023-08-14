@@ -1,7 +1,8 @@
-﻿using ExtRS.Portal.Domain.Models;
+﻿using ExtRS.Portal.Models;
 using ExtRS.Portal.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Sonrai.ExtRS;
 using Sonrai.ExtRS.Models;
 using System.Diagnostics;
@@ -27,7 +28,7 @@ namespace ExtRS.Portal.Controllers
 			var ssrs = new SSRSService(connection);
 
             Report report = await ssrs.GetReport("path='/Reports/Team'");
-            ReportView viewModel = new ReportView { Report = report };
+            ReportView viewModel = new ReportView { Report = report, CurrentTab = "Dashboard" };
 
             return View(viewModel);
         }
@@ -37,24 +38,57 @@ namespace ExtRS.Portal.Controllers
             return View();
         }
 
-        public IActionResult Users()
+        public async Task<IActionResult> Users()
         {
-            return View("Users");
+
+            var httpClient = new HttpClient();
+            SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, "", connection.ServerName);
+            var ssrs = new SSRSService(connection);
+
+            Report report = await ssrs.GetReport("path='/Reports/Team'");
+            ReportView viewModel = new ReportView { Report = report, CurrentTab = "Users" };
+
+            return RedirectToAction("Index", "Dataset", viewModel);
         }
 
-		public IActionResult DataSources()
+        public async Task<IActionResult> DataSources()
 		{
-			return View("Reports");
-		}
+            var httpClient = new HttpClient();
+            SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, "", connection.ServerName);
+            var ssrs = new SSRSService(connection);
 
-		public IActionResult Datasets()
-        {
-            return View("Reports");
+            Report report = await ssrs.GetReport("path='/Reports/Team'");
+            ReportView viewModel = new ReportView { Report = report, CurrentTab = "DataSources" };
+
+            return RedirectToAction("Index", "DataSource", viewModel);
         }
 
-        public IActionResult Admin()
+        public async Task<IActionResult> Reports()
         {
-            return View("Staff");
+            var httpClient = new HttpClient();
+            SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, "", connection.ServerName);
+            var ssrs = new SSRSService(connection);
+
+            Report report = await ssrs.GetReport("path='/Reports/Team'");
+            ReportView viewModel = new ReportView { Report = report, CurrentTab = "Reports" };
+
+            return RedirectToAction("Index", "Report", viewModel);
+        }
+
+        public async Task<IActionResult> Admin()
+        {
+            var httpClient = new HttpClient();
+            SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, "", connection.ServerName);
+            var ssrs = new SSRSService(connection);
+
+            Report report = await ssrs.GetReport("path='/Reports/Team'");
+            ReportView viewModel = new ReportView { Report = report, CurrentTab = "Admin" };
+
+            return RedirectToAction("Index", "Admin", viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

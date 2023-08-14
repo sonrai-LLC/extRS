@@ -1,9 +1,14 @@
-﻿<head>
+﻿@model LayoutModel
+<head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>ExtRS Portal</title>
     <style>
         body-box-shadow {
            box-shadow: 5px 10px 8px #888888
+        }
+        @if(Model.CurrentTab == "Reports")
+        {
+          // 
         }
     </style>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/ju/jq-3.6.0/moment-2.18.1/dt-1.13.4/b-2.3.6/date-1.4.0/sl-1.6.2/datatables.min.css">
@@ -36,10 +41,9 @@
     <script type="text/javascript" language="javascript" src="~/examples/resources/syntax/shCore.js"></script>
     <script type="text/javascript" language="javascript" src="~/examples/resources/demo.js"></script>
     <script type="text/javascript" language="javascript" src="~/examples/resources/editor-demo.js"></script>
-    </head>
+    </head>  
     <header class="header" id="header">
-        <div class="header_toggle"><i class='bx bx-menu' id="header-toggle"></i></div>
-        <div class="header_img"> <img src="https://avatars.githubusercontent.com/u/96353388?v=4" alt=""></div>  
+@*        <div class="header_img"> <img src="https://avatars.githubusercontent.com/u/96353388?v=4" alt=""></div>  *@
         <style>
         @@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
@@ -183,9 +187,9 @@
                 background-color: var(--white-color)
             }
 
-       /* .height-100 {
+        .height-100 {
             height: 100vh
-        }*/
+        }
 
         @@media screen and (min-width: 768px) {
             body {
@@ -221,7 +225,7 @@
             }
         }
         </style>
-        <script>
+       <script>
             document.addEventListener("DOMContentLoaded", function(event) {
             const showNavbar = (toggleId, navId, bodyId, headerId) => {
             const toggle = document.getElementById(toggleId),
@@ -229,8 +233,8 @@
             bodypd = document.getElementById(bodyId),
             headerpd = document.getElementById(headerId)
 
-            // Validate that all variables exist
-            if(toggle && nav && bodypd && headerpd){
+            // Validate that all variables exist  ...//&& bodypd
+            if(toggle && nav && headerpd){ 
             toggle.addEventListener('click', ()=>{
             // show navbar
             nav.classList.toggle('show')
@@ -242,39 +246,39 @@
             headerpd.classList.toggle('body-pd')
             })}}
 
-            showNavbar('header-toggle','nav-bar','body-pd','header')
-            /*===== LINK ACTIVE =====*/
-            const linkColor = document.querySelectorAll('.nav_link')
+            showNavbar('header-toggle','nav-bar','body-pd','header');
+            ///*===== LINK ACTIVE =====*/
+            //const linkColor = document.querySelectorAll('.nav_link')
 
-            function colorLink(){
-            if(linkColor){
-            linkColor.forEach(l=> l.classList.remove('active'))
-            this.classList.add('active')}
-            }
+            //function colorLink(){
+            //if(linkColor){
+            //linkColor.forEach(l=> l.classList.remove('active'))
+            //this.classList.add('active')}
+            //}
             
-            linkColor.forEach(l=> l.addEventListener('click', colorLink))
+            //linkColor.forEach(l=> l.addEventListener('click', colorLink))
 
              // Your code to run since DOM is loaded and ready
              // TODO: implement more dyn here
             
         });
-        </script>
+    </script>
     </header>
-    <div class="l-navbar" id="nav-bar">
+   <div class="l-navbar navbar-collapse" id="nav-bar">
         <nav class="nav">
             <div>
-            <a href="@Url.Action("Dashboard", "Dashboard")" class="nav_logo"><i class='bx bx-layer nav_logo-icon'></i><span class="nav_logo-name">ExtRS Portal</span></a>
+            <div class="header_toggle" style="margin-left:14%;"><i class='bx bx-menu' id="header-toggle" style="color:#ffffff"></i></div><br />
              <div class="nav_list">
-                    <a href="@Url.Action("Dashboard", "Dashboard")" class="nav_link active"><i class='bx bx-tachometer nav_icon'></i><span class="nav_name">Dashboard</span></a>
-                    <a href="@Url.Action("Users", "Dashboard")" class="nav_link"> <i class='bx bx-cube nav_icon'></i><span class="nav_name">Data Sources</span></a>
-                    <a href="@Url.Action("Users", "Dashboard")" class="nav_link"> <i class='bx bx-table nav_icon'></i><span class="nav_name">Datasets</span></a>
-                    <a href="@Url.Action("Dashboard", "Dashboard")" class="nav_link"> <i class='bx bx-stats nav_icon'></i> <span class="nav_name">Reports</span></a>
-                    <a href="@Url.Action("Users", "dashboard")" class="nav_link"> <i class='bx bx-time nav_icon'></i> <span class="nav_name">Subscriptions</span></a>
-                    <a href="@Url.Action("Users", "dashboard")" class="nav_link"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">Stats</span></a>
-                    <a href="@Url.Action("Admin", "dashboard")" class="nav_link"><i class='bx bx-wrench nav_icon'></i><span class="nav_name">Settings</span></a>
-                    <a href="@Url.Action("Admin", "dashboard")" class="nav_link"><i class='bx bx-shield nav_icon'></i><span class="nav_name">Admin</span></a>
+                    <a href="#" class="nav_link"><i class='bx bx-tachometer nav_icon'></i><span class="nav_name">Dashboard</span></a>
+                    <a href="@Url.Action("DataSources", "Dashboard")" class="nav_link @(Model.CurrentTab == "DataSources" ? "active" : "")"><i class='bx bx-cube nav_icon'></i><span class="nav_name">Data Sources</span></a>
+                    <a href="@Url.Action("Datasets", "Dashboard")" class="nav_link @(Model.CurrentTab == "Datasets" ? "active" : "")"><i class='bx bx-table nav_icon'></i><span class="nav_name">Datasets</span></a>
+                    <a href="@Url.Action("Reports", "Dashboard")" class="nav_link @(Model.CurrentTab == "Reports" ? "active" : "")"><i class='bx bx-line-chart nav_icon'></i> <span class="nav_name">Reports</span></a>
+                    <a href="@Url.Action("Subscriptions", "Dashboard")" class="nav_link @(Model.CurrentTab == "Subscriptions" ? "active" : "")"> <i class='bx bx-time nav_icon'></i> <span class="nav_name">Subscriptions</span></a>
+                    <a href="@Url.Action("Stats", "Dashboard")" class="nav_link @(Model.CurrentTab == "Stats" ? "active" : "")"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">Stats</span></a>
+                    <a href="@Url.Action("Settings", "Dashboard")" class="nav_link @(Model.CurrentTab == "Settings" ? "active" : "")"><i class='bx bx-wrench nav_icon'></i><span class="nav_name">Settings</span></a>
+                    <a href="@Url.Action("Admin", "dasDashboardhboard")" class="nav_link @(Model.CurrentTab == "Admin" ? "active" : "")"><i class='bx bx-shield nav_icon'></i><span class="nav_name">Admin</span></a>
                     <br /> <br />
-                    <a href="#" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">SignOut</span></a>
+                    <a href="#" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span></a>
               </div>
             </div>
         </nav>

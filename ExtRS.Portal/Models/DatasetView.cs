@@ -1,4 +1,4 @@
-﻿namespace ExtRS.Portal.Domain.Models
+﻿namespace ExtRS.Portal.Models
 {
     public class DatasetView
     {
