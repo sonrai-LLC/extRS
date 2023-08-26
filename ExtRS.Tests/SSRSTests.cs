@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using ExtRS.Tests.Properties;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Sonrai.ExtRS.Models;
 using System;
@@ -13,22 +14,22 @@ namespace Sonrai.ExtRS.UnitTests
     {
         SSRSService ssrs;
         HttpClient httpClient;
-        readonly string defaultCreds = "\"UserName\": " + "\"ExtRSAuth\",  " + "\"Password\": \"\", " + " \"Domain\": \"localhost\"";
+        readonly string defaultCreds = "\"UserName\": " + "\"ExtRSAuth\",  " + "\"Password\": \"" + Resources.passphrase + "\", \"Domain\": \"localhost\"";
 
         [TestInitialize]
         public async Task InitializeTests()
         {
             httpClient = new HttpClient();
             SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, "", connection.ServerName);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, Resources.passphrase, connection.ServerName);
             ssrs = new SSRSService(connection);
         }
 
         [TestMethod]
         public async Task GetGetSqlAuthCookieSucceeds()
         {
-            var result = await SSRSService.GetSqlAuthCookie(httpClient, "ExtRSAuth", "", "localhost");
-            Assert.IsNotNull(result);
+            var cookieString = await SSRSService.GetSqlAuthCookie(httpClient, "ExtRSAuth", "", "localhost");
+            Assert.IsTrue(cookieString.Length > 0);
         }
 
         [TestMethod]
@@ -49,7 +50,7 @@ namespace Sonrai.ExtRS.UnitTests
         public async Task GetAllCatalogItemsSucceeds()
         {
             var result = await ssrs.CallApi(HttpVerbs.GET, "CatalogItems");
-            Assert.IsNotNull(Convert.ToString(result.StatusCode) == "OK");
+            Assert.IsTrue(Convert.ToString(result.StatusCode) == "OK");
         }
 
         [TestMethod]
@@ -63,7 +64,7 @@ namespace Sonrai.ExtRS.UnitTests
         public async Task GetAllReportsSucceeds()
         {
             var result = await ssrs.CallApi(HttpVerbs.GET, "Reports");
-            Assert.IsNotNull(result);
+            Assert.IsTrue(Convert.ToString(result.StatusCode) == "OK");
         }
 
         [TestMethod]
@@ -155,10 +156,13 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(result.IsSuccessStatusCode);
         }
 
+        [Ignore]
         [TestMethod]
         public async Task GetParameterHtmlSucceeds()
         {
-            var parameterResponse = await ssrs.GetParameterHtml("path='/Reports/Team'");
+            var result = await ssrs.GetParameterHtml("path='/Reports/Team'");
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.Contains("<") && result.Contains("/>"));
         }
 
         [TestMethod]

@@ -4,42 +4,45 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Net;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
+using System.Configuration;
+using ExtRS.Properties;
 
 namespace Sonrai.ExtRS
 {
     public class SSRSService
     {
-        public SSRSConnection conn;
-        private HttpClient client;
-        CookieContainer cookieContainer = new CookieContainer();
-        string serverUrl;
+        public SSRSConnection _conn;
+        private HttpClient _client;
+        CookieContainer _cookieContainer = new CookieContainer();
+        string _serverUrl;
        
         public SSRSService(SSRSConnection connection)
         {          
-            conn = connection;
-            client = new HttpClient();
-            cookieContainer.Add(new Cookie("sqlAuthCookie", conn.SqlAuthCookie, "/", "localhost"));
-            serverUrl = string.Format("https://{0}/reports/api/v2.0/", conn.ServerName);
+            _conn = connection;
+            _client = new HttpClient();
+            _cookieContainer.Add(new Cookie("sqlAuthCookie", _conn.SqlAuthCookie, "/", "localhost"));
+            _serverUrl = string.Format("https://{0}/reports/api/v2.0/", _conn.ServerName);
         }
 
         public async Task<HttpResponseMessage> CallApi(HttpVerbs verb, string operation, string content = "", string parameters = "")
         {
             HttpResponseMessage response = new HttpResponseMessage();
             HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
-            using (var handler = new HttpClientHandler() { CookieContainer = cookieContainer })
+            using (var handler = new HttpClientHandler() { CookieContainer = _cookieContainer })
             {
-                using (client = new HttpClient(handler))
+                using (_client = new HttpClient(handler))
                 {
                     switch (verb)
                     {
                         case HttpVerbs.POST:
-                            return await client.PostAsync(serverUrl + operation, httpContent);
+                            return await _client.PostAsync(_serverUrl + operation, httpContent);
                         case HttpVerbs.GET:
-                            return await client.GetAsync(serverUrl + operation);
+                            return await _client.GetAsync(_serverUrl + operation);
                         case HttpVerbs.PUT:
-                            return await client.DeleteAsync(serverUrl + operation);
+                            return await _client.DeleteAsync(_serverUrl + operation);
                         case HttpVerbs.DELETE:
-                            return await client.DeleteAsync(serverUrl + operation);
+                            return await _client.DeleteAsync(_serverUrl + operation);
                     }
                 }
 
@@ -99,8 +102,9 @@ namespace Sonrai.ExtRS
 
         public static async Task<string> GetSqlAuthCookie(HttpClient client, string user = "ExtRSAuth", string password = "", string domain = "localhost")
         {
+
             string cookie = "";
-            StringContent httpContent = new StringContent("{" + GetCredentialJson(user, password, domain) + "}", Encoding.UTF8, "application/json");
+            StringContent httpContent = new StringContent("{" + GetCredentialJson(user, Resources.passphrase, domain) + "}", Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
             HttpHeaders headers = response.Headers;
@@ -152,7 +156,7 @@ namespace Sonrai.ExtRS
             ReportParameterDefinitions definitions = await GetReportParameterDefinition(pathOrId);
             // TODO: will improve above method and implement this method
             // once ExtRS is fully implemented
-            return "</>";
+            return "";
         }
     }   
 }
