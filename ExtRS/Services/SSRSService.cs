@@ -7,6 +7,7 @@ using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using ExtRS.Properties;
+using IO.Swagger.Model;
 
 namespace Sonrai.ExtRS
 {
@@ -87,10 +88,18 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<DataSetParameter>(await response.Content.ReadAsStringAsync())!;
         }
 
-        public async Task<ReportParameterDefinitions> GetReportParameterDefinition(string idOrPath)
+        public async Task<List<ReportParameterDefinition>> GetReportParameterDefinition(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/ParameterDefinitions", idOrPath));
-            var parms = JsonConvert.DeserializeObject<ReportParameterDefinitions>(await response.Content.ReadAsStringAsync())!;
+            List<ReportParameterDefinition> parms = JsonConvert.DeserializeObject<List<ReportParameterDefinition>>(await response.Content.ReadAsStringAsync())!;
+
+            return parms;
+        }
+
+        public async Task<ReportParameterDefinition> GetReportParameterDefinitions()
+        {
+            var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/ParameterDefinitions"));
+            var parms = JsonConvert.DeserializeObject<ReportParameterDefinition>(await response.Content.ReadAsStringAsync())!;
 
             return parms;
         }
@@ -102,7 +111,6 @@ namespace Sonrai.ExtRS
 
         public static async Task<string> GetSqlAuthCookie(HttpClient client, string user = "ExtRSAuth", string password = "", string domain = "localhost")
         {
-
             string cookie = "";
             StringContent httpContent = new StringContent("{" + GetCredentialJson(user, Resources.passphrase, domain) + "}", Encoding.UTF8, "application/json");
 
@@ -124,7 +132,7 @@ namespace Sonrai.ExtRS
             CatalogItem catalogItem = await GetCatalogItem(pathOrId);
             StringBuilder sb = new StringBuilder();
 
-            switch (catalogItem.Type)
+            switch (catalogItem.Type.ToString())
             {
                 case "Folder":
                     {
@@ -153,7 +161,7 @@ namespace Sonrai.ExtRS
 
         public async Task<string> GetParameterHtml(string pathOrId)
         {
-            ReportParameterDefinitions definitions = await GetReportParameterDefinition(pathOrId);
+            List<ReportParameterDefinition> definitions = await GetReportParameterDefinition(pathOrId);
             // TODO: will improve above method and implement this method
             // once ExtRS is fully implemented
             return "";

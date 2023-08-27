@@ -1,0 +1,92 @@
+﻿
+<script type="text/javascript" language="javascript" class="init">
+	var editor; // use a global for the submit and return data rendering in the examples
+	$(document).ready(function () {
+		var editor = new DataTable.Editor({
+			dataSrc: "",
+			ajax: "/usersettings/users",
+			table: "#example",
+			fields: [
+			//	{
+			//	label: "UserID:",
+			//	name: "UserID",
+			//},
+			//{ 
+			//	label: "Id:",
+			//		name: "Id"
+			//},
+			{
+				label: "Type:",
+					name: "Type"
+			},
+			{
+				label: "UserName:",
+				name: "UserName"
+			},
+			{
+				label: "Email:",
+					name: "Email"
+			}]
+		});
+
+		editor.on('create', function (e, json, data) {
+			// TODO: actions to pewrform after new records (NLog)
+		});
+
+		// Activate an inline edit on click of a table cell
+		$('#example').on('click', 'tbody td:not(:first-child)', function (e) {
+			editor.inline(this);
+		});
+
+		$('#example').DataTable({
+			dom: "Bfrtip21",
+			ajax: "/usersettings/users",
+			order: [[1, 'asc']],
+			columns: [
+				//{
+				//	data: null,
+				//	defaultContent: '',
+				//	className: 'select-checkbox',
+				//	orderable: false
+				//},
+				//{ data: "UserID" },
+				//{ data: "Id" },
+				{ data: "Type" },
+				{ data: "UserName" },
+				{ data: "Email" }
+				//{ data: "ServiceToken" },
+				//{ data: "Setting" },
+				//{ data: "ModifiedDate" }
+			],
+			select: {
+				style: 'os',
+				selector: 'td:first-child'
+			},
+			buttons: [
+				{ extend: "create", editor: editor },
+				{ extend: "edit", editor: editor } ,
+				{ extend: "remove", editor: editor }
+			]
+		});
+	});
+</script>
+<body id="body-pd" class="dt-example net">
+	<h4>RS Users</h4>
+	<div class="container">
+		<section>
+			<div class="demo-html">
+				<table id="example" class="display" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th></th>
+							<th>ID</th>
+							<th>Type</th>
+							<th>UserName</th>
+							<th>Email</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</section>
+	</div>
+</body>

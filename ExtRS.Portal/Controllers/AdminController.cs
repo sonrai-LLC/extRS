@@ -1,47 +1,34 @@
-﻿//using ExtRS.Portal.Models;
-//using ExtRS.Portal.Models;
-//using Microsoft.AspNetCore.Mvc;
-//using System.Diagnostics;
+﻿using ExtRS.Portal.Models;
+using Microsoft.AspNetCore.Mvc;
+using Sonrai.ExtRS.Models;
+using Sonrai.ExtRS;
+using System.Diagnostics;
+using IO.Swagger.Model;
 
-//namespace ExtRS.Portal.Controllers
-//{
-//    public class SSRSController : Controller
-//    {
-//        private readonly ILogger<SSRSController> _logger;
+namespace ExtRS.Portal.Controllers
+{
+    public class AdminController : Controller
+    {
+        private readonly ILogger<AdminController> _logger;
+        private readonly IConfiguration _configuration;
 
-//        public SSRSController(ILogger<SSRSController> logger)
-//        {
-//            _logger = logger;
-//        }
+        public AdminController(ILogger<AdminController> logger, IConfiguration configuration)
+        {
+            _logger = logger;
+            _configuration = configuration;
+        }
 
-//        public IActionResult Index()
-//        {
-//            return View();
-//        }
+        public async Task<IActionResult> Admin()
+        {
+            var httpClient = new HttpClient();
+            SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, _configuration["passphrase"]!, connection.ServerName);
+            var ssrs = new SSRSService(connection);
 
-//        public IActionResult Privacy()
-//        {
-//            return View();
-//        }
+            Report report = await ssrs.GetReport("path='/Reports/Team'");
+            AdminView model = new AdminView { AdminID = Guid.NewGuid(), AdminUser = "Admin" };
 
-//        public IActionResult Users()
-//        {
-//            return View("Users");
-//        }
-//        public IActionResult Reports()
-//        {
-//            return View("Reports");
-//        }
-
-//        public IActionResult Staff()
-//        {
-//            return View("Staff");
-//        }
-
-//        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-//        public IActionResult Error()
-//        {
-//            return View(new ErrorView { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-//        }
-//    }
-//}
+            return View(model);
+        }
+    }
+}

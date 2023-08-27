@@ -1,9 +1,123 @@
-﻿@model ExtRS.Portal.Models.ReportView
-	<h4>Dashboard</h4>
+﻿
+<script type="text/javascript" language="javascript" class="init">
+	var editor; // use a global for the submit and return data rendering in the examples
+	$(document).ready(function () {
+
+		$('#staffLink').addClass('active');
+
+		var editor = new DataTable.Editor({
+			dataSrc: "",
+			ajax: "/stats/stats",
+			table: "#example",
+			fields: [{
+				label: "First name:",
+				name: "first_name"
+			}, {
+				label: "Last name:",
+				name: "last_name"
+			}, {
+				label: "Position:",
+				name: "position"
+			}, {
+				label: "Office:",
+				name: "office"
+			}, {
+				label: "Extension:",
+				name: "extn"
+			}, {
+				label: "Start date:",
+				name: "start_date",
+				type: "datetime"
+			}, {
+				label: "Salary:",
+				name: "salary"
+			}],
+			table: '#example',
+			formOptions: {
+				inline: {
+					onBlur: 'submit'
+				}
+			}
+		});
+
+		//editor.on('create', function (e, json, data) {
+		//	// TODO: actions to pewrform after new records (NLog)
+		//});
+
+		//editor.on('initSubmit', function (e, json, data) {
+		//	if (editor.field('salary').val().indexOf("M") != -1) {
+		//		editor.field('salary').val('1000000');
+		//	}
+		//});
+
+		//ctivate an inline edit on click of a table cell
+		$('#example').on('click', 'tbody td:not(:first-child)', function (e) {
+			editor.inline(this);
+		});
+
+		var table = $('#example').DataTable({
+			dom: "Bfrtip",
+			ajax: "/stats/stats",
+			columns: [
+				{
+					data: null,
+					defaultContent: '',
+					className: 'select-checkbox',
+					orderable: false
+				},
+				{ data: "first_name" },
+				{ data: "last_name" },
+				{ data: "position" },
+				{ data: "office" },
+				{ data: "start_date" },
+				{ data: "salary", render: $.fn.DataTable.render.number(',', '.', 0, '$') }
+			],
+			select: {
+				style: 'os',
+				selector: 'td:first-child'
+			},
+			order: [[1, 'asc']],
+			keys: {
+				columns: ':not(:first-child)',
+				keys: [9],
+				editor: editor,
+				editOnFocus: true
+			},
+			buttons: [
+				{ extend: "create", editor: editor },
+				{ extend: "edit", editor: editor },
+				{ extend: "remove", editor: editor }
+			]
+		});
+		//new $.fn.dataTable.KeyTable(table, {
+		//	// options
+		//});
+	});
+</script>
+<body id="body-pd" class="dt-example net">
+	<h4>RS Staff</h4>
 	<div class="container">
-	<section>
-		<div style="box-shadow: 5px 10px 8px #888888;">
-			<iframe height="500" width="850" src="https://localhost/ReportServer/Pages/ReportViewer.aspx?/Reports/LeagueSM&rs:embed=true" class="body-box-shadow"></iframe>
+		<section>
+			<div class="demo-html">
+				@*				<div>
+				<b>
+				RS User Management
+				</b>
+				</div>*@
+				<table id="example" class="display" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th></th>
+							<th>First name</th>
+							<th>Last name</th>
+							<th>Position</th>
+							<th>Office</th>
+							<th width="18%">Start date</th>
+							<th>Salary</th>
+						</tr>
+					</thead>
+				</table>
 			</div>
 		</section>
 	</div>
+</body>

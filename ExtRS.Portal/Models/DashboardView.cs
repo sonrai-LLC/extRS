@@ -1,7 +1,14 @@
-﻿namespace ExtRS.Portal.Models
+﻿using IO.Swagger.Model;
+using Microsoft.AspNetCore.Components;
+using Sonrai.ExtRS.Models;
+
+namespace ExtRS.Portal.Models
 {
-    public class SSRSView
+    public class DashboardView : LayoutView
     {
-       public string SelectedView = string.Empty;
+        public string SelectedView = string.Empty;
+        private string _currentTab;
+        public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
+        public Report Report { get; set; }
     }
 }
