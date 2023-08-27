@@ -1,9 +1,10 @@
 ﻿using ExtRS.Portal.Models;
+using IO.Swagger.Model;
 using Sonrai.ExtRS.Models;
 
 namespace ExtRS.Portal.Models
 {
-    public class ReportView : LayoutModel
+    public class ReportView : LayoutView
     {
         public Report Report;
         private string _currentTab;

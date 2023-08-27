@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Sonrai.ExtRS.Models;
+using IO.Swagger.Model;
 using System;
 using System.IO;
 using System.Net.Http;
@@ -81,7 +82,6 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(folder.Name != null);
         }
 
-        [Ignore]
         [TestMethod]
         public async Task GetDataSourceSucceeds()
         {
