@@ -16,6 +16,11 @@ namespace EditorNetCoreDemo.Controllers
             _configuration = configuration;
         }
 
+        public ActionResult StatsLink() 
+        {
+            return View("Stats", new StatsView2() { CurrentTab = "Stats" });
+        }
+
         //[Route("api/stats")]
         [HttpGet]
         [HttpPost]

@@ -1,26 +1,31 @@
-﻿<script type="text/javascript" language="javascript" class="init">
+﻿
+<script type="text/javascript" language="javascript" class="init">
 	var editor; // use a global for the submit and return data rendering in the examples
 	$(document).ready(function () {
 		var editor = new DataTable.Editor({
 			dataSrc: "",
-			ajax: "/api/users",
+			ajax: "/usersettings/users",
 			table: "#example",
 			fields: [
 			//	{
 			//	label: "UserID:",
 			//	name: "UserID",
 			//},
-			{ 
-				label: "UserType:",
-				name: "UserType"
-			},
+			//{ 
+			//	label: "Id:",
+			//		name: "Id"
+			//},
 			{
-				label: "AuthType:",
-				name: "AuthType"
+				label: "Type:",
+					name: "Type"
 			},
 			{
 				label: "UserName:",
 				name: "UserName"
+			},
+			{
+				label: "Email:",
+					name: "Email"
 			}]
 		});
 
@@ -35,7 +40,7 @@
 
 		$('#example').DataTable({
 			dom: "Bfrtip21",
-			ajax: "/api/users",
+			ajax: "/usersettings/users",
 			order: [[1, 'asc']],
 			columns: [
 				//{
@@ -45,10 +50,10 @@
 				//	orderable: false
 				//},
 				//{ data: "UserID" },
-				{ data: "Users.UserType" },
-				{ data: "Users.AuthType" },
-				{ data: "Users.UserName" },
-				{ data: "UserContactInfo.DefaultEmailAddress" }
+				//{ data: "Id" },
+				{ data: "Type" },
+				{ data: "UserName" },
+				{ data: "Email" }
 				//{ data: "ServiceToken" },
 				//{ data: "Setting" },
 				//{ data: "ModifiedDate" }
@@ -74,10 +79,10 @@
 					<thead>
 						<tr>
 							<th></th>
-@*							<th>UserID</th>*@
-							<th>UserType</th>
-							<th>AuthType</th>
+							<th>ID</th>
+							<th>Type</th>
 							<th>UserName</th>
+							<th>Email</th>
 						</tr>
 					</thead>
 				</table>

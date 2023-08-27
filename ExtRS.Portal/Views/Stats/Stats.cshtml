@@ -1,4 +1,5 @@
-﻿<script type="text/javascript" language="javascript" class="init">
+﻿
+<script type="text/javascript" language="javascript" class="init">
 	var editor; // use a global for the submit and return data rendering in the examples
 	$(document).ready(function () {
 
@@ -6,7 +7,7 @@
 
 		var editor = new DataTable.Editor({
 			dataSrc: "",
-			ajax: "/api/staff",
+			ajax: "/stats/stats",
 			table: "#example",
 			fields: [{
 				label: "First name:",
@@ -56,7 +57,7 @@
 
 		var table = $('#example').DataTable({
 			dom: "Bfrtip",
-			ajax: "/api/staff",
+			ajax: "/stats/stats",
 			columns: [
 				{
 					data: null,

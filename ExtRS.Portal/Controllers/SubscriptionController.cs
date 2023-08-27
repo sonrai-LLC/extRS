@@ -27,10 +27,10 @@ namespace ExtRS.Portal.Controllers
             connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, "", connection.ServerName);
             var ssrs = new SSRSService(connection);
 
-            Report report = await ssrs.GetReport("path='/Reports/Team'");
-            ReportView viewModel = new ReportView { Report = report, CurrentTab = "DataSources" };
+            //Report report = await ssrs.GetReport("path='/Reports/Team'");
+            SubscriptionView model = new SubscriptionView { CurrentTab = "Subscription" };
 
-            return View(viewModel);
+            return View(model);
         }
 
         public IActionResult Subscription(ReportView view)

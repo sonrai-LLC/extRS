@@ -2,10 +2,8 @@
 
 namespace ExtRS.Portal.Models
 {
-    public class StatsView : LayoutView
+    public class StatsView
     {
-        private string _currentTab;
-        public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
 
         public string first_name { get; set; }
 
@@ -24,5 +22,15 @@ namespace ExtRS.Portal.Models
         public decimal salary { get; set; }
 
         public string start_date { get; set; }
+    }
+
+    public class StatsView2 : LayoutView
+    {
+        private string _currentTab;
+        public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
+
+        public Guid UserID { get; set; }
+
+        public string DefaultEmailAddress { get; set; }
     }
 }

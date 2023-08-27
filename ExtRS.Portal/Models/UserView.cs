@@ -11,4 +11,15 @@ namespace ExtRS.Portal.Models
 
         public string DefaultEmailAddress { get; set; }
     }
+
+    public class UserView2
+    {
+        public int Id { get; set; }
+
+        public string Type { get; set; }
+
+        public string UserName { get; set; }
+
+        public string Email { get; set; }
+    }
 }
