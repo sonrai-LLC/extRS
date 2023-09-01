@@ -55,10 +55,7 @@ namespace Sonrai.ExtRS
         public async Task<List<Report>> GetReports()
         {
             var response = await CallApi(HttpVerbs.GET, "Reports");
-            string content = await response.Content.ReadAsStringAsync();
-            List<Report> reports = JsonConvert.DeserializeObject<ODataReports>(content)!.Value;
-
-            return reports;
+            return JsonConvert.DeserializeObject<ODataReports>(await response.Content.ReadAsStringAsync())!.Value;
         }
 
         public async Task<Report> GetReport(string idOrPath)
@@ -67,10 +64,22 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<Report>(await response.Content.ReadAsStringAsync())!;
         }
 
+        public async Task<ODataCatalogItems> GetCatalogItems()
+        {
+            var response = await CallApi(HttpVerbs.GET, "CatalogItems");
+            return JsonConvert.DeserializeObject<ODataCatalogItems>(await response.Content.ReadAsStringAsync())!;
+        }
+
         public async Task<CatalogItem> GetCatalogItem(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("CatalogItems({0})", idOrPath));
             return JsonConvert.DeserializeObject<CatalogItem>(await response.Content.ReadAsStringAsync())!;
+        }
+
+        public async Task<ODataFolders> GetFolders()
+        {
+            var response = await CallApi(HttpVerbs.GET, "Folders");
+            return JsonConvert.DeserializeObject<ODataFolders>(await response.Content.ReadAsStringAsync())!;
         }
 
         public async Task<Folder> GetFolder(string idOrPath)
@@ -79,10 +88,22 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<Folder>(await response.Content.ReadAsStringAsync())!;
         }
 
+        public async Task<DataSource> GetDataSources()
+        {
+            var response = await CallApi(HttpVerbs.GET, "DataSources");
+            return JsonConvert.DeserializeObject<DataSource>(await response.Content.ReadAsStringAsync())!;
+        }
+
         public async Task<DataSource> GetDataSource(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("DataSources({0})", idOrPath));
             return JsonConvert.DeserializeObject<DataSource>(await response.Content.ReadAsStringAsync())!;
+        }
+
+        public async Task<DataSet> GetDataSets()
+        {
+            var response = await CallApi(HttpVerbs.GET, "DataSets");
+            return JsonConvert.DeserializeObject<DataSet>(await response.Content.ReadAsStringAsync())!;
         }
 
         public async Task<DataSet> GetDataSet(string idOrPath)
