@@ -8,31 +8,31 @@ using IO.Swagger.Model;
 
 namespace ExtRS.Portal.Controllers
 {
-	public class ReportController : Controller
+	public class ReportsController : Controller
     {
-        private readonly ILogger<ReportController> _logger;
+        private readonly ILogger<ReportsController> _logger;
         private readonly IConfiguration _configuration;
 
-        public ReportController(ILogger<ReportController> logger, IConfiguration configuration)
+        public ReportsController(ILogger<ReportsController> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
         }
 
-        public async Task<IActionResult> Reports(ReportView view)
+        public async Task<IActionResult> Reports(ReportsView view)
         {
             var httpClient = new HttpClient();
             SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
             connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, "", connection.ServerName);
             var ssrs = new SSRSService(connection);
 
-            Report report = await ssrs.GetReport("path='/Reports/Team'");
-            ReportView model = new ReportView { Report = report, CurrentTab = "Reports" };
+            List<Report> reports = await ssrs.GetReports();
+            ReportsView model = new ReportsView { Reports = reports, CurrentTab = "Reports" };
 
             return View(model);
         }
 
-        public IActionResult Report(ReportView view)
+        public IActionResult Report(ReportsView view)
         {
             return View("Reports", view);
         }

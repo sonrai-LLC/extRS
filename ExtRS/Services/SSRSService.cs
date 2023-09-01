@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using ExtRS.Properties;
 using IO.Swagger.Model;
+using Newtonsoft.Json.Linq;
 
 namespace Sonrai.ExtRS
 {
@@ -49,6 +50,15 @@ namespace Sonrai.ExtRS
 
                 return null;
             }
+        }
+
+        public async Task<List<Report>> GetReports()
+        {
+            var response = await CallApi(HttpVerbs.GET, "Reports");
+            string content = await response.Content.ReadAsStringAsync();
+            List<Report> reports = JsonConvert.DeserializeObject<ODataReports>(content)!.Value;
+
+            return reports;
         }
 
         public async Task<Report> GetReport(string idOrPath)

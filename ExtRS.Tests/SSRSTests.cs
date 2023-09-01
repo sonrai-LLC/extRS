@@ -64,8 +64,8 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetAllReportsSucceeds()
         {
-            var result = await ssrs.CallApi(HttpVerbs.GET, "Reports");
-            Assert.IsTrue(Convert.ToString(result.StatusCode) == "OK");
+            List<Report> reports = await ssrs.GetReports();
+            Assert.IsTrue(reports.Count > 0);
         }
 
         [TestMethod]

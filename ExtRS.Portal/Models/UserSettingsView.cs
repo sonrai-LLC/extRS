@@ -2,7 +2,7 @@
 
 namespace ExtRS.Portal.Models
 {
-    public class UserView : LayoutView
+    public class UserSettingsView : LayoutView
     {
         private string _currentTab;
         public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }

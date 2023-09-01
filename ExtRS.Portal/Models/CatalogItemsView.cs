@@ -2,7 +2,7 @@
 
 namespace ExtRS.Portal.Models
 {
-    public class CatalogItemView : LayoutView
+    public class CatalogItemsView : LayoutView
     {
         public string SelectedView = string.Empty;
         private string _currentTab;

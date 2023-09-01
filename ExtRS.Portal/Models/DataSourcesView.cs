@@ -3,7 +3,7 @@ using Sonrai.ExtRS.Models;
 
 namespace ExtRS.Portal.Models
 {
-    public class DataSourceView : LayoutView
+    public class DataSourcesView : LayoutView
     {
         public string SelectedView = string.Empty;
         private string _currentTab;

@@ -2,7 +2,7 @@
 
 namespace ExtRS.Portal.Models
 {
-    public class SubscriptionView : LayoutView
+    public class SubscriptionsView : LayoutView
     {
         public Guid UserID { get; set; }
 

@@ -9,18 +9,18 @@ using IO.Swagger.Model;
 
 namespace ExtRS.Portal.Controllers
 {
-    public class SubscriptionController : Controller
+    public class SubscriptionsController : Controller
     {
-        private readonly ILogger<SubscriptionController> _logger;
+        private readonly ILogger<SubscriptionsController> _logger;
         private readonly IConfiguration _configuration;
 
-        public SubscriptionController(ILogger<SubscriptionController> logger, IConfiguration configuration)
+        public SubscriptionsController(ILogger<SubscriptionsController> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
         }
 
-        public async Task<IActionResult> Subscriptions(SubscriptionView view)
+        public async Task<IActionResult> Subscriptions(SubscriptionsView view)
         {
             var httpClient = new HttpClient();
             SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
@@ -28,12 +28,12 @@ namespace ExtRS.Portal.Controllers
             var ssrs = new SSRSService(connection);
 
             //Report report = await ssrs.GetReport("path='/Reports/Team'");
-            SubscriptionView model = new SubscriptionView { CurrentTab = "Subscriptions" };
+            SubscriptionsView model = new SubscriptionsView { CurrentTab = "Subscriptions" };
 
             return View(model);
         }
 
-        public IActionResult Subscription(ReportView view)
+        public IActionResult Subscription(ReportsView view)
         {
             return View("Subscription", view);
         }

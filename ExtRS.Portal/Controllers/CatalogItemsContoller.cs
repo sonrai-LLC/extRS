@@ -5,11 +5,11 @@ using System.Diagnostics;
 
 namespace ExtRS.Portal.Controllers
 {
-    public class CatalogItemContoller : Controller
+    public class CatalogItemsContoller : Controller
     {
-        private readonly ILogger<CatalogItemContoller> _logger;
+        private readonly ILogger<CatalogItemsContoller> _logger;
 
-        public CatalogItemContoller(ILogger<CatalogItemContoller> logger)
+        public CatalogItemsContoller(ILogger<CatalogItemsContoller> logger)
         {
             _logger = logger;
         }

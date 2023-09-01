@@ -10,8 +10,8 @@ namespace IO.Swagger.Model {
   /// <summary>
   /// 
   /// </summary>
-  [DataContract]
-  public class Report : CatalogItem {
+  [JsonObject]
+  public class Report : Resource {
     /// <summary>
     /// A boolean value that indicates whether the Report has DataSources associated with it.
     /// </summary>

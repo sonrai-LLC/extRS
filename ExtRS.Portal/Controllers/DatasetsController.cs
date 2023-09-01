@@ -1,5 +1,4 @@
 ﻿using ExtRS.Portal.Models;
-using ExtRS.Portal.Models;
 using Microsoft.AspNetCore.Mvc;
 using Sonrai.ExtRS.Models;
 using Sonrai.ExtRS;
@@ -8,33 +7,39 @@ using IO.Swagger.Model;
 
 namespace ExtRS.Portal.Controllers
 {
-    public class DataSourceController : Controller
+    public class DatasetsController : Controller
     {
-        private readonly ILogger<DataSourceController> _logger;
+        private readonly ILogger<DatasetsController> _logger;
         private readonly IConfiguration _configuration;
 
-        public DataSourceController(ILogger<DataSourceController> logger, IConfiguration configuration)
+        public DatasetsController(ILogger<DatasetsController> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
         }
 
-        public async Task<IActionResult> DataSources()
+        public async Task<IActionResult> DataSets()
         {
             var httpClient = new HttpClient();
             SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
             connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, _configuration["passphrase"]!, connection.ServerName);
             var ssrs = new SSRSService(connection);
 
-            DataSource dataSources = await ssrs.GetDataSource("path='/Data Sources/localhost'");
-            DataSourceView model = new DataSourceView { CurrentTab = "DataSources" };
+            List<Report> report = await ssrs.GetReports();
 
+            DatasetsView model = new DatasetsView() { CurrentTab = "Datasets" };
             return View(model);
         }
 
-        public IActionResult DataSource(ReportView view)
+        public IActionResult Dataset()
         {
-            return View(view);
+            return View("_Datasets");
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorView { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

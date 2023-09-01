@@ -4,9 +4,9 @@ using Sonrai.ExtRS.Models;
 
 namespace ExtRS.Portal.Models
 {
-    public class ReportView : LayoutView
+    public class ReportsView : LayoutView
     {
-        public Report Report;
+        public List<Report> Reports;
         private string _currentTab;
         public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
     }
