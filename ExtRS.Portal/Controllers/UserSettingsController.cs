@@ -61,7 +61,7 @@ namespace EditorNetCoreDemo.Controllers
 
         public ActionResult UserSettings()
         {
-            return View("Users", new UserView() { CurrentTab = "User" });
+            return View("Users", new UserView() { CurrentTab = "UserSettings" });
             //var httpClient = new HttpClient();
             //SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
             //connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, _configuration["passphrase"], connection.ServerName);

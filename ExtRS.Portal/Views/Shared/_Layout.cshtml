@@ -269,7 +269,7 @@
             <div>
             <div class="header_toggle" style="margin-left:14%;"><i class='bx bx-menu' id="header-toggle" style="color:#ffffff"></i></div><br />
              <div class="nav_list">
-                    <a href="@Url.Action("Dashboard", "Dashboard")" class="nav_link"><i class='bx bx-tachometer nav_icon'></i><span class="nav_name">Dashboard</span></a>
+                    <a href="@Url.Action("Dashboard", "Dashboard")" class="nav_link @(Model.CurrentTab == "Dashboard" ? "active" : "")"><i class='bx bx-tachometer nav_icon'></i><span class="nav_name">Dashboard</span></a>
                     <a href="@Url.Action("DataSources", "DataSource")" class="nav_link @(Model.CurrentTab == "DataSources" ? "active" : "")"><i class='bx bx-cube nav_icon'></i><span class="nav_name">Data Sources</span></a>
                     <a href="@Url.Action("Datasets", "Dataset")" class="nav_link @(Model.CurrentTab == "Datasets" ? "active" : "")"><i class='bx bx-table nav_icon'></i><span class="nav_name">Datasets</span></a>
                     <a href="@Url.Action("Reports", "Report")" class="nav_link @(Model.CurrentTab == "Reports" ? "active" : "")"><i class='bx bx-line-chart nav_icon'></i> <span class="nav_name">Reports</span></a>

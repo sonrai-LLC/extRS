@@ -27,7 +27,7 @@ namespace ExtRS.Portal.Controllers
             var ssrs = new SSRSService(connection);
 
             Report report = await ssrs.GetReport("path='/Reports/Team'");
-            ReportView model = new ReportView { Report = report, CurrentTab = "Report" };
+            ReportView model = new ReportView { Report = report, CurrentTab = "Reports" };
 
             return View(model);
         }

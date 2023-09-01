@@ -27,7 +27,7 @@ namespace ExtRS.Portal.Controllers
 
             Report report = await ssrs.GetReport("path='/Reports/Team'");
 
-            DatasetView model = new DatasetView() { CurrentTab = "Dataset" };
+            DatasetView model = new DatasetView() { CurrentTab = "Datasets" };
             return View(model);
         }
 

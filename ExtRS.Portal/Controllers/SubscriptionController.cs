@@ -28,7 +28,7 @@ namespace ExtRS.Portal.Controllers
             var ssrs = new SSRSService(connection);
 
             //Report report = await ssrs.GetReport("path='/Reports/Team'");
-            SubscriptionView model = new SubscriptionView { CurrentTab = "Subscription" };
+            SubscriptionView model = new SubscriptionView { CurrentTab = "Subscriptions" };
 
             return View(model);
         }

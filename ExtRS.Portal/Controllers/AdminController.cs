@@ -26,7 +26,7 @@ namespace ExtRS.Portal.Controllers
             var ssrs = new SSRSService(connection);
 
             Report report = await ssrs.GetReport("path='/Reports/Team'");
-            AdminView model = new AdminView { AdminID = Guid.NewGuid(), AdminUser = "Admin" };
+            AdminView model = new AdminView { AdminID = Guid.NewGuid(), CurrentTab = "Admin" };
 
             return View(model);
         }

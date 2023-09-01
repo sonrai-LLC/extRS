@@ -27,7 +27,7 @@ namespace ExtRS.Portal.Controllers
             var ssrs = new SSRSService(connection);
 
             DataSource dataSources = await ssrs.GetDataSource("path='/Data Sources/localhost'");
-            DataSourceView model = new DataSourceView { CurrentTab = "DataSource" };
+            DataSourceView model = new DataSourceView { CurrentTab = "DataSources" };
 
             return View(model);
         }
