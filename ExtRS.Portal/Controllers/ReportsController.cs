@@ -21,9 +21,9 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<IActionResult> Reports(ReportsView view)
         {
-            var httpClient = new HttpClient();
+            var _httpClient = new HttpClient();
             SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, "", connection.ServerName);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, connection.Administrator, "", connection.ServerName);
             var ssrs = new SSRSService(connection);
 
             List<Report> reports = await ssrs.GetReports();

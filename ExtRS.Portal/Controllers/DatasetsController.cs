@@ -20,14 +20,14 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<IActionResult> DataSets()
         {
-            var httpClient = new HttpClient();
+            var _httpClient = new HttpClient();
             SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, _configuration["passphrase"]!, connection.ServerName);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, connection.Administrator, _configuration["passphrase"]!, connection.ServerName);
             var ssrs = new SSRSService(connection);
 
-            List<Report> report = await ssrs.GetReports();
+            List<DataSet> datasets = await ssrs.GetDataSets();
 
-            DatasetsView model = new DatasetsView() { CurrentTab = "Datasets" };
+            DatasetsView model = new DatasetsView() { CurrentTab = "Datasets", Datasets = datasets };
             return View(model);
         }
 

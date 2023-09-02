@@ -21,13 +21,13 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<IActionResult> DataSources()
         {
-            var httpClient = new HttpClient();
+            var HttpClient = new HttpClient();
             SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, _configuration["passphrase"]!, connection.ServerName);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(HttpClient, connection.Administrator, _configuration["passphrase"]!, connection.ServerName);
             var ssrs = new SSRSService(connection);
 
-            DataSource dataSources = await ssrs.GetDataSource("path='/Data Sources/localhost'");
-            DataSourcesView model = new DataSourcesView { CurrentTab = "DataSources" };
+            List<DataSource> dataSources = await ssrs.GetDataSources();
+            DataSourcesView model = new DataSourcesView { CurrentTab = "DataSources", DataSources = dataSources };
 
             return View(model);
         }

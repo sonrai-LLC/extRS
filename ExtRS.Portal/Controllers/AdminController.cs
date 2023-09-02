@@ -20,9 +20,9 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<IActionResult> Admin()
         {
-            var httpClient = new HttpClient();
+            var _httpClient = new HttpClient();
             SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, _configuration["passphrase"]!, connection.ServerName);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, connection.Administrator, _configuration["passphrase"]!, connection.ServerName);
             var ssrs = new SSRSService(connection);
 
             Report report = await ssrs.GetReport("path='/Reports/Team'");

@@ -16,10 +16,10 @@ This package includes the following components:
         [TestInitialize]
         public async Task InitializeTests()
         {
-            httpClient = new HttpClient();
+            _httpClient = new _httpClient();
             SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", 
             AuthenticationType.ExtRSAuth);
-            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, 
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, 
             connection.Administrator, "", connection.ServerName);
             ssrs = new SSRSService(connection);
         }
@@ -42,7 +42,7 @@ This package includes the following components:
         public SSRSService(SSRSConnection connection)
         {          
             conn = connection;
-            client = new HttpClient();
+            client = new _httpClient();
             cookieContainer.Add(new Cookie("sqlAuthCookie", conn.SqlAuthCookie, "/", "localhost"));
             serverUrl = string.Format("https://{0}/reports/api/v2.0/", conn.ServerName);
         }

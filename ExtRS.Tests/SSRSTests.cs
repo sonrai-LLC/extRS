@@ -13,8 +13,8 @@ namespace Sonrai.ExtRS.UnitTests
     [TestClass]
     public class SSRSTests
     {
-        SSRSService ssrs;
-        HttpClient httpClient;
+        private SSRSService ssrs;
+        private HttpClient httpClient;
         readonly string defaultCreds = "\"UserName\": " + "\"ExtRSAuth\",  " + "\"Password\": \"" + Resources.passphrase + "\", \"Domain\": \"localhost\"";
 
         [TestInitialize]
@@ -50,8 +50,8 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetAllCatalogItemsSucceeds()
         {
-            var result = await ssrs.CallApi(HttpVerbs.GET, "CatalogItems");
-            Assert.IsTrue(Convert.ToString(result.StatusCode) == "OK");
+            var catalogItems = await ssrs.GetCatalogItems();
+            Assert.IsTrue(catalogItems.Count > 0);
         }
 
         [TestMethod]
@@ -76,6 +76,13 @@ namespace Sonrai.ExtRS.UnitTests
         }
 
         [TestMethod]
+        public async Task GetFoldersSucceeds()
+        {
+            List<Folder> folders = await ssrs.GetFolders();
+            Assert.IsTrue(folders.Count > 0);
+        }
+
+        [TestMethod]
         public async Task GetFolderSucceeds()
         {
             Folder folder = await ssrs.GetFolder("path='/Reports'");
@@ -83,10 +90,24 @@ namespace Sonrai.ExtRS.UnitTests
         }
 
         [TestMethod]
+        public async Task GetDataSourcesSucceeds()
+        {
+            List<DataSource> dataSources = await ssrs.GetDataSources();
+            Assert.IsTrue(dataSources.Count > 0);
+        }
+
+        [TestMethod]
         public async Task GetDataSourceSucceeds()
         {
             DataSource dataSource = await ssrs.GetDataSource("path='/Data Sources/localhost'");
             Assert.IsTrue(dataSource.Name != null);
+        }
+
+        [TestMethod]
+        public async Task GetDataSetsSucceeds()
+        {
+            List<DataSet> datasets = await ssrs.GetDataSets();
+            Assert.IsTrue(datasets.Count > 0);
         }
 
         [TestMethod]

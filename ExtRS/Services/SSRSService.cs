@@ -64,10 +64,10 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<Report>(await response.Content.ReadAsStringAsync())!;
         }
 
-        public async Task<ODataCatalogItems> GetCatalogItems()
+        public async Task<List<CatalogItem>> GetCatalogItems()
         {
             var response = await CallApi(HttpVerbs.GET, "CatalogItems");
-            return JsonConvert.DeserializeObject<ODataCatalogItems>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<ODataCatalogItems>(await response.Content.ReadAsStringAsync())!.Value;
         }
 
         public async Task<CatalogItem> GetCatalogItem(string idOrPath)
@@ -76,10 +76,10 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<CatalogItem>(await response.Content.ReadAsStringAsync())!;
         }
 
-        public async Task<ODataFolders> GetFolders()
+        public async Task<List<Folder>> GetFolders()
         {
             var response = await CallApi(HttpVerbs.GET, "Folders");
-            return JsonConvert.DeserializeObject<ODataFolders>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<ODataFolders>(await response.Content.ReadAsStringAsync())!.Value;
         }
 
         public async Task<Folder> GetFolder(string idOrPath)
@@ -88,10 +88,10 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<Folder>(await response.Content.ReadAsStringAsync())!;
         }
 
-        public async Task<DataSource> GetDataSources()
+        public async Task<List<DataSource>> GetDataSources()
         {
             var response = await CallApi(HttpVerbs.GET, "DataSources");
-            return JsonConvert.DeserializeObject<DataSource>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<ODataDataSources>(await response.Content.ReadAsStringAsync())!.Value;
         }
 
         public async Task<DataSource> GetDataSource(string idOrPath)
@@ -100,10 +100,10 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<DataSource>(await response.Content.ReadAsStringAsync())!;
         }
 
-        public async Task<DataSet> GetDataSets()
+        public async Task<List<DataSet>> GetDataSets()
         {
             var response = await CallApi(HttpVerbs.GET, "DataSets");
-            return JsonConvert.DeserializeObject<DataSet>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<ODataDataSets>(await response.Content.ReadAsStringAsync())!.Value;
         }
 
         public async Task<DataSet> GetDataSet(string idOrPath)
@@ -112,7 +112,6 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<DataSet>(await response.Content.ReadAsStringAsync())!;
         }
 
-        // TODO: create test
         public async Task<DataSetParameter> GetDataSetParameterDefinition(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("DataSets({0})/ParameterDefinitions", idOrPath));

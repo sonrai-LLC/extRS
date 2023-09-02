@@ -3,7 +3,6 @@
   <ConnectionProperties>
     <Extension>SQL</Extension>
     <ConnectString>Data Source=.;Initial Catalog=Fissonrai</ConnectString>
-    <IntegratedSecurity>true</IntegratedSecurity>
   </ConnectionProperties>
   <DataSourceID>6f4e8cda-310d-4ade-bbbe-83569ae794e3</DataSourceID>
 </RptDataSource>
