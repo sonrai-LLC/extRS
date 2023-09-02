@@ -5,6 +5,7 @@ using Sonrai.ExtRS.Models;
 using Sonrai.ExtRS;
 using System.Diagnostics;
 using IO.Swagger.Model;
+using System.IO;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -12,29 +13,33 @@ namespace ExtRS.Portal.Controllers
     {
         private readonly ILogger<ReportsController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly SSRSConnection _connection;
+        private readonly HttpClient _httpClient;
+        private SSRSService _ssrs;
 
-        public ReportsController(ILogger<ReportsController> logger, IConfiguration configuration)
+		public ReportsController(ILogger<ReportsController> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
-        }
+			_httpClient = new HttpClient();
+			_connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
+			_connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, "", _connection.ServerName).Result;
+			_ssrs = new SSRSService(_connection);
+		}
 
         public async Task<IActionResult> Reports(ReportsView view)
-        {
-            var _httpClient = new HttpClient();
-            SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, connection.Administrator, "", connection.ServerName);
-            var ssrs = new SSRSService(connection);
-
-            List<Report> reports = await ssrs.GetReports();
+        {			
+			List<Report> reports = await _ssrs.GetReports();
             ReportsView model = new ReportsView { Reports = reports, CurrentTab = "Reports" };
 
             return View(model);
         }
 
-        public IActionResult Report(ReportsView view)
-        {
-            return View("Reports", view);
+        public async Task<IActionResult> Report(string reportName)
+		{
+            Report report = await _ssrs.GetReport(string.Format("path='/Reports/{0}'", reportName));
+            ReportsView view = new ReportsView() { SelectedReport = report };
+            return View("_Report", view);
         }
     }
 }
