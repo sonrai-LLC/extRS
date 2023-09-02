@@ -42,7 +42,7 @@ namespace Sonrai.ExtRS
                         case HttpVerbs.GET:
                             return await _client.GetAsync(_serverUrl + operation);
                         case HttpVerbs.PUT:
-                            return await _client.DeleteAsync(_serverUrl + operation);
+                            return await _client.PutAsync(_serverUrl + operation, httpContent);
                         case HttpVerbs.DELETE:
                             return await _client.DeleteAsync(_serverUrl + operation);
                     }
