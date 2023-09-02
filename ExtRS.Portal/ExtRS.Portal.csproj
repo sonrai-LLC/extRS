@@ -37,15 +37,15 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="Views\Report\_Report.cshtml">
+    <Content Update="Views\Reports\_Report.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Views\Dataset\Datasets.cshtml">
+    <Content Update="Views\Datasets\Datasets.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Update="Views\Report\Reports.cshtml">
+    <Content Update="Views\Reports\Reports.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
