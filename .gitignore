@@ -467,3 +467,5 @@ __pycache__/
 /.vs/ExtRS/v17/fileList.bin
 /.vs/ExtRS/v17/.futdcache.v2
 /.vs/ExtRS/DesignTimeBuild/.dtbcache.v2
+/ExtRS.API/obj/Debug/net7.0/apphost.exe
+/ExtRS.CLI/obj/Debug/net7.0/apphost.exe
