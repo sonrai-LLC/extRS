@@ -469,3 +469,4 @@ __pycache__/
 /.vs/ExtRS/DesignTimeBuild/.dtbcache.v2
 /ExtRS.API/obj/Debug/net7.0/apphost.exe
 /ExtRS.CLI/obj/Debug/net7.0/apphost.exe
+/.vs/ExtRS/FileContentIndex/read.lock
