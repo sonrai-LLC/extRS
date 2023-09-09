@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace ExtRS.Portal.Models
 {
     public class AdminView : LayoutView
-    {
+	{
         private string _currentTab;
 
         public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }

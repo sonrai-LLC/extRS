@@ -1,11 +1,14 @@
 ﻿using ExtRS.Portal.Models;
-using ExtRS.Portal.Models;
 using Microsoft.AspNetCore.Mvc;
 using Sonrai.ExtRS.Models;
 using Sonrai.ExtRS;
 using System.Diagnostics;
 using IO.Swagger.Model;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
+using ExtRS.Portal.Areas.Identity.Pages.Account;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -41,5 +44,11 @@ namespace ExtRS.Portal.Controllers
             ReportsView view = new ReportsView() { SelectedReport = report };
             return View("_Report", view);
         }
-    }
+
+		public async Task<IActionResult> Login()
+		{
+            ViewData.Clear();
+            return View("_LoginPartial");
+		}
+	}
 }

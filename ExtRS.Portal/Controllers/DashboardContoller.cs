@@ -23,7 +23,6 @@ namespace ExtRS.Portal.Controllers
             _configuration = configuration;
         }
 
-        //[Authorize]
         public async Task<IActionResult> Dashboard()
         {
 			var _httpClient = new HttpClient();
@@ -37,7 +36,8 @@ namespace ExtRS.Portal.Controllers
             return View(model);
         }
 
-        public IActionResult Privacy()
+		[Authorize]
+		public IActionResult Privacy()
         {
             return View();
         }
