@@ -1,12 +1,13 @@
 ﻿@model DatasetsView
 <h4>Datasets.</h4>
-<div class="container" style="background-color:#ffffff">
-	<section>
-		@foreach (var dataset in Model.Datasets)
-		{
+
+@foreach (var dataset in Model.Datasets)
+{
+	<div class="container" style="background-color:#ffffff">
+		<section>
 			<div style="background-color:#ffffff; box-shadow: 5px 10px 8px #888888;">
 				<a href="@string.Format("https://localhost/Reports/manage/catalogitem/properties/Datasets/{0}", dataset.Name)">@dataset.Name</a>
 			</div>
-		}
-	</section>
-</div>
+		</section>
+	</div>
+}

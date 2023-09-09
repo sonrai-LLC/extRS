@@ -3,20 +3,32 @@
   <DataSet Name="DataSet1">
     <Query>
       <DataSourceReference>localhost</DataSourceReference>
-      <CommandText>SELECT * FROM Locations.dbo.Locations WHERE Type = 1</CommandText>
+      <CommandText>SELECT * FROM fissonrai.dbo.LOCATION WHERE OrgID = 16</CommandText>
     </Query>
     <Fields>
       <Field Name="ID">
         <DataField>ID</DataField>
         <rd:TypeName>System.Int32</rd:TypeName>
       </Field>
+      <Field Name="OrgID">
+        <DataField>OrgID</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
       <Field Name="Name">
         <DataField>Name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Org">
+        <DataField>Org</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="Contact">
         <DataField>Contact</DataField>
         <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="ETeamID">
+        <DataField>ETeamID</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
       </Field>
       <Field Name="Email">
         <DataField>Email</DataField>
@@ -24,6 +36,14 @@
       </Field>
       <Field Name="Website">
         <DataField>Website</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="VTeamID">
+        <DataField>VTeamID</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="RTeamID">
+        <DataField>RTeamID</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="Phone">
@@ -34,12 +54,24 @@
         <DataField>ContactKey</DataField>
         <rd:TypeName>System.Int32</rd:TypeName>
       </Field>
+      <Field Name="ShortName">
+        <DataField>ShortName</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
       <Field Name="StreetAddress1">
         <DataField>StreetAddress1</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
+      <Field Name="LogoURI">
+        <DataField>LogoURI</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
       <Field Name="StreetAddress2">
         <DataField>StreetAddress2</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Mascot">
+        <DataField>Mascot</DataField>
         <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="City">
@@ -60,15 +92,11 @@
       </Field>
       <Field Name="PrimaryContact">
         <DataField>PrimaryContact</DataField>
-        <rd:TypeName>System.Int32</rd:TypeName>
+        <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="Notes">
         <DataField>Notes</DataField>
         <rd:TypeName>System.String</rd:TypeName>
-      </Field>
-      <Field Name="Type">
-        <DataField>Type</DataField>
-        <rd:TypeName>System.Int32</rd:TypeName>
       </Field>
       <Field Name="Lat">
         <DataField>Lat</DataField>
@@ -113,6 +141,70 @@
       <Field Name="VolunteerInterest">
         <DataField>VolunteerInterest</DataField>
         <rd:TypeName>System.Boolean</rd:TypeName>
+      </Field>
+      <Field Name="Region">
+        <DataField>Region</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="MetadataJSON">
+        <DataField>MetadataJSON</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="MetadataMarkup">
+        <DataField>MetadataMarkup</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="TempLong">
+        <DataField>TempLong</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="TempLat">
+        <DataField>TempLat</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="PrimaryColor">
+        <DataField>PrimaryColor</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="AlternateColor">
+        <DataField>AlternateColor</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PrimaryContactID">
+        <DataField>PrimaryContactID</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="TotalResources">
+        <DataField>TotalResources</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="Venue">
+        <DataField>Venue</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="FollowerURI">
+        <DataField>FollowerURI</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="YouTubeURI">
+        <DataField>YouTubeURI</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="LastEdit">
+        <DataField>LastEdit</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="PrimaryContactImg">
+        <DataField>PrimaryContactImg</DataField>
+        <rd:TypeName>System.Byte[]</rd:TypeName>
+      </Field>
+      <Field Name="PrimaryColorA">
+        <DataField>PrimaryColorA</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PrimaryColorB">
+        <DataField>PrimaryColorB</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
       </Field>
     </Fields>
   </DataSet>

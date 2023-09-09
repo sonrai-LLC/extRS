@@ -2,7 +2,7 @@
 
 namespace ExtRS.Portal.Models
 {
-    public abstract class LayoutView
+    public class LayoutView
     {
         public virtual string? CurrentTab { get; set; }
     }

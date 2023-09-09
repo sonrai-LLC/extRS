@@ -1,16 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
-  <am:AuthoringMetadata>
-    <am:CreatedBy>
-      <am:Name>SSDTRS</am:Name>
-      <am:Version>17.5.33530.505</am:Version>
-    </am:CreatedBy>
-    <am:UpdatedBy>
-      <am:Name>SSDTRS</am:Name>
-      <am:Version>17.5.33530.505</am:Version>
-    </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2023-07-12T03:48:51.2822430Z</am:LastModifiedTimestamp>
-  </am:AuthoringMetadata>
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:cl="http://schemas.microsoft.com/sqlserver/reporting/2010/01/componentdefinition" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily">
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -21,9 +10,9 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="dsRecruit">
+    <DataSet Name="Recruit">
       <SharedDataSet>
-        <SharedDataSetReference>RecruitData</SharedDataSetReference>
+        <SharedDataSetReference>Recruit</SharedDataSetReference>
         <QueryParameters>
           <QueryParameter Name="@p1">
             <Value>=Parameters!p1.Value</Value>
@@ -31,10 +20,6 @@
         </QueryParameters>
       </SharedDataSet>
       <Fields>
-        <Field Name="ID">
-          <DataField>ID</DataField>
-          <rd:TypeName>System.Int32</rd:TypeName>
-        </Field>
         <Field Name="LocationPH">
           <DataField>LocationPH</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -149,7 +134,7 @@
         </Field>
         <Field Name="Active">
           <DataField>Active</DataField>
-          <rd:TypeName>System.Boolean</rd:TypeName>
+          <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="TwitterHandle">
           <DataField>TwitterHandle</DataField>
@@ -161,7 +146,7 @@
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="dsPrimaryImage">
+    <DataSet Name="PrimaryImage">
       <SharedDataSet>
         <SharedDataSetReference>PrimaryImage</SharedDataSetReference>
         <QueryParameters>
@@ -912,7 +897,7 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>dsRecruit</DataSetName>
+            <DataSetName>Recruit</DataSetName>
             <Top>1.10792in</Top>
             <Height>0.43in</Height>
             <Width>8.20602in</Width>
@@ -999,7 +984,7 @@
       <DataType>String</DataType>
       <DefaultValue>
         <Values>
-          <Value>7971</Value>
+          <Value>elijah-jamison</Value>
         </Values>
       </DefaultValue>
       <Prompt>p1</Prompt>
@@ -1072,9 +1057,6 @@ wMewX5WClJaT7ykI8Ww6z4ZXQE78seLMjWU+URtixOC3a66n+4aA3dwbXBFQOygMpQCgFAKAUAoBQCgF
     </EmbeddedImage>
   </EmbeddedImages>
   <Language>en-US</Language>
-  <CodeModules>
-    <CodeModule>Sonrai.ExtRS.NETFramework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</CodeModule>
-  </CodeModules>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>2f23c619-acab-4968-b67d-44d0d5fa92a8</rd:ReportID>

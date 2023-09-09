@@ -9,7 +9,7 @@
           <ReadOnly>false</ReadOnly>
           <Nullable>false</Nullable>
           <OmitFromQuery>false</OmitFromQuery>
-          <rd:DbType>Int32</rd:DbType>
+          <rd:DbType>Object</rd:DbType>
         </DataSetParameter>
         <DataSetParameter Name="@Qs">
           <DefaultValue>=Nothing</DefaultValue>

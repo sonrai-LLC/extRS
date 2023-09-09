@@ -1,12 +1,13 @@
 ﻿@model DataSourcesView
 <h4>Data Sources.</h4>
-<div class="container" style="background-color:#ffffff">
-	<section>
+
 		@foreach(var dataSource in Model.DataSources)
 		{
-			<div style="background-color:#ffffff; box-shadow: 5px 10px 8px #888888;">
-				<a href="@string.Format("https://localhost/Reports/manage/catalogitem/properties/Data%20Sources/{0}", dataSource.Name)">@dataSource.Name</a>
+			<div class="container" style="background-color:#ffffff">
+				<section>
+					<div style="background-color:#ffffff; box-shadow: 5px 10px 8px #888888;">
+						<a href="@string.Format("https://localhost/Reports/manage/catalogitem/properties/Data%20Sources/{0}", dataSource.Name)">@dataSource.Name</a>
+					</div>
+				</section>
 			</div>
 		}
-	</section>
-</div>

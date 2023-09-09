@@ -75,7 +75,7 @@ builder.Services
 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
 options =>
 {
-    options.LoginPath = new PathString("/Reports/Login");
+    options.LoginPath = new PathString("/UserSettings/Login");
     options.AccessDeniedPath = new PathString("/error");
 })
 .AddGoogle(googleOptions =>
@@ -118,7 +118,7 @@ app.UseEndpoints(endpoints =>
 {
 	endpoints.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Dashboard}/{action=Privacy}");
+	pattern: "{controller=UserSettings}/{action=Privacy}");
 	endpoints.MapRazorPages();
 });
 

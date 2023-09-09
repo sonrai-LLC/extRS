@@ -44,11 +44,5 @@ namespace ExtRS.Portal.Controllers
             ReportsView view = new ReportsView() { SelectedReport = report };
             return View("_Report", view);
         }
-
-		public async Task<IActionResult> Login()
-		{
-            ViewData.Clear();
-            return View("_LoginPartial");
-		}
 	}
 }

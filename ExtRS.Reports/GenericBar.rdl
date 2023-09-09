@@ -1,16 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
-  <am:AuthoringMetadata>
-    <am:CreatedBy>
-      <am:Name>SSDTRS</am:Name>
-      <am:Version>17.5.33530.505</am:Version>
-    </am:CreatedBy>
-    <am:UpdatedBy>
-      <am:Name>SSDTRS</am:Name>
-      <am:Version>17.5.33530.505</am:Version>
-    </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2023-07-12T03:45:11.0347683Z</am:LastModifiedTimestamp>
-  </am:AuthoringMetadata>
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily">
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -21,11 +10,24 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="AdmissionsData">
+    <DataSet Name="Admissions">
       <SharedDataSet>
-        <SharedDataSetReference>AdmissionsData</SharedDataSetReference>
+        <SharedDataSetReference>Admissions</SharedDataSetReference>
+        <QueryParameters>
+          <QueryParameter Name="@p1">
+            <Value>=Parameters!p1.Value</Value>
+          </QueryParameter>
+          <QueryParameter Name="@Qs">
+            <Value>=Parameters!Qs.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
       </SharedDataSet>
       <Fields>
+        <Field Name="ENROLLMENT_YEAR">
+          <DataField>ENROLLMENT_YEAR</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
         <Field Name="FULLNAME">
           <DataField>FULLNAME</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -722,7 +724,7 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>AdmissionsData</DataSetName>
+            <DataSetName>Admissions</DataSetName>
             <Top>1.57292in</Top>
             <Height>0.43in</Height>
             <Width>7.33806in</Width>
@@ -817,9 +819,18 @@
     <ReportParameter Name="Qs">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value>=Nothing</Value>
+        </Values>
+      </DefaultValue>
       <AllowBlank>true</AllowBlank>
       <Prompt>Qs</Prompt>
       <Hidden>true</Hidden>
+    </ReportParameter>
+    <ReportParameter Name="p1">
+      <DataType>Integer</DataType>
+      <Prompt>p1</Prompt>
     </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
@@ -831,6 +842,11 @@
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>Qs</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>p1</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

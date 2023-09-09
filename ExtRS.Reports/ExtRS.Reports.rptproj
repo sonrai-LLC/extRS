@@ -93,8 +93,8 @@
     <Report Include="Coach.rdl" />
     <Report Include="ControlLimits.rdl" />
     <Report Include="Dave.rdl" />
-    <Report Include="DMFs.rdl" />
-    <Report Include="DMVs.rdl" />
+    <Report Include="DMF.rdl" />
+    <Report Include="DMV.rdl" />
     <Report Include="ExtRSNET48.rdl" />
     <Report Include="FactSheet.rdl" />
     <Report Include="Fundraising.rdl" />

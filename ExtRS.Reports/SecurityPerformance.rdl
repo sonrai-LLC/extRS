@@ -1,16 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
-  <am:AuthoringMetadata>
-    <am:CreatedBy>
-      <am:Name>SSDTRS</am:Name>
-      <am:Version>17.5.33530.505</am:Version>
-    </am:CreatedBy>
-    <am:UpdatedBy>
-      <am:Name>SSDTRS</am:Name>
-      <am:Version>17.5.33530.505</am:Version>
-    </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2023-07-12T03:55:15.8134260Z</am:LastModifiedTimestamp>
-  </am:AuthoringMetadata>
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily">
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -22,21 +11,37 @@
   </DataSources>
   <DataSets>
     <DataSet Name="PlayerData">
-      <Query>
-        <DataSourceName>localhost</DataSourceName>
-        <CommandText>SELECT top 2 * FROM C00RDS.dbo.RESOURCE</CommandText>
-      </Query>
+      <SharedDataSet>
+        <SharedDataSetReference>Player</SharedDataSetReference>
+        <QueryParameters>
+          <QueryParameter Name="@p1">
+            <Value>=Parameters!p1.Value</Value>
+          </QueryParameter>
+        </QueryParameters>
+      </SharedDataSet>
       <Fields>
         <Field Name="ID">
           <DataField>ID</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="LocationPH">
+          <DataField>LocationPH</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="LocationID">
           <DataField>LocationID</DataField>
           <rd:TypeName>System.Int32</rd:TypeName>
         </Field>
+        <Field Name="HOMETOWN">
+          <DataField>Hometown</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Class">
           <DataField>Class</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="HIGHSCHOOL">
+          <DataField>HighSchool</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="Position">
@@ -59,6 +64,10 @@
           <DataField>IsRecruit</DataField>
           <rd:TypeName>System.Boolean</rd:TypeName>
         </Field>
+        <Field Name="STATUS">
+          <DataField>Status</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
         <Field Name="Height">
           <DataField>Height</DataField>
           <rd:TypeName>System.String</rd:TypeName>
@@ -67,9 +76,9 @@
           <DataField>Weight</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="Hometown">
-          <DataField>Hometown</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+        <Field Name="Lat">
+          <DataField>Lat</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="City">
           <DataField>City</DataField>
@@ -79,16 +88,12 @@
           <DataField>State</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
-        <Field Name="HighSchool">
-          <DataField>HighSchool</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
+        <Field Name="Long">
+          <DataField>Long</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
         </Field>
         <Field Name="PrevSchools">
           <DataField>PrevSchools</DataField>
-          <rd:TypeName>System.String</rd:TypeName>
-        </Field>
-        <Field Name="Status">
-          <DataField>Status</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
         <Field Name="RecruitingClass">
@@ -122,6 +127,10 @@
         <Field Name="LastEdit">
           <DataField>LastEdit</DataField>
           <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="Active">
+          <DataField>Active</DataField>
+          <rd:TypeName>System.Boolean</rd:TypeName>
         </Field>
       </Fields>
     </DataSet>
@@ -1074,10 +1083,43 @@
       </Page>
     </ReportSection>
   </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="p1">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>/players/da-kquan-davis</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>p1</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="Qs">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value>=Nothing</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>Qs</Prompt>
+    </ReportParameter>
+  </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
       <NumberOfColumns>4</NumberOfColumns>
       <NumberOfRows>2</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>p1</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Qs</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
     </GridLayoutDefinition>
   </ReportParametersLayout>
   <EmbeddedImages>

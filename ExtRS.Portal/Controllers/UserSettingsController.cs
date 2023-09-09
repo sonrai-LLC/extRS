@@ -72,5 +72,17 @@ namespace EditorNetCoreDemo.Controllers
 
             //return RedirectToAction("Index", "Dataset", model);
         }
+
+        public async Task<IActionResult> Login()
+        {
+            ViewData.Clear();
+            return View("_LoginPartial");
+        }
+
+        //[Authorize]
+        public IActionResult Privacy()
+        {
+            return View();
+        }
     }
 }
