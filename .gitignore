@@ -470,3 +470,12 @@ __pycache__/
 /ExtRS.API/obj/Debug/net7.0/apphost.exe
 /ExtRS.CLI/obj/Debug/net7.0/apphost.exe
 /.vs/ExtRS/FileContentIndex/read.lock
+/ExtRS/obj/Release/net7.0/ExtRS.assets.cache
+/ExtRS/obj/Release/net7.0/ExtRS.csproj.AssemblyReference.cache
+/ExtRS/obj/Release/net7.0/ExtRS.GeneratedMSBuildEditorConfig.editorconfig
+/ExtRS.API/obj/Release/net7.0/ExtRS.API.csproj.AssemblyReference.cache
+/ExtRS.API/obj/Release/net7.0/ExtRS.API.GeneratedMSBuildEditorConfig.editorconfig
+/ExtRS.Portal/Properties/PublishProfiles/sonrai-web-prod - Zip Deploy.pubxml
+/ExtRS.Portal/Properties/ServiceDependencies/sonrai-web-prod - Zip Deploy/profile.arm.json
+/ExtRS.CLI/obj/Release/net7.0/ExtRS.CLI.csproj.AssemblyReference.cache
+/ExtRS.CLI/obj/Release/net7.0/ExtRS.CLI.GeneratedMSBuildEditorConfig.editorconfig
