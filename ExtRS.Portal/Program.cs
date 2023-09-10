@@ -16,20 +16,20 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers().AddNewtonsoftJson(); // Required in .NET Core 3 and later. Optional before
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
-builder.Services.AddRateLimiter(options =>
-{
-	options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
-	{
-		return RateLimitPartition.GetFixedWindowLimiter(partitionKey: httpContext.Request.Headers.Host.ToString(), partition =>
-			new FixedWindowRateLimiterOptions
-			{
-				PermitLimit = 20,
-				AutoReplenishment = true,
-				Window = TimeSpan.FromSeconds(10)
-			});
-	});
-});
-builder.Services.AddDistributedMemoryCache();
+//builder.Services.AddRateLimiter(options =>
+//{
+//	options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+//	{
+//		return RateLimitPartition.GetFixedWindowLimiter(partitionKey: httpContext.Request.Headers.Host.ToString(), partition =>
+//			new FixedWindowRateLimiterOptions
+//			{
+//				PermitLimit = 20,
+//				AutoReplenishment = true,
+//				Window = TimeSpan.FromSeconds(10)
+//			});
+//	});
+//});
+//builder.Services.AddDistributedMemoryCache();
 //builder.Services.AddSession(options =>
 //{
 //	options.Cookie.Name = "_dltdgst";
@@ -78,7 +78,7 @@ else
     app.UseHsts();
 }
 
-app.UseRateLimiter();
+//app.UseRateLimiter();
 app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -90,7 +90,7 @@ app.UseEndpoints(endpoints =>
 {
 	endpoints.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=UserSettings}/{action=Privacy}");
+	pattern: "{controller=Reports}/{action=Reports}");
 	endpoints.MapRazorPages();
 });
 
