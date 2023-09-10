@@ -6,7 +6,7 @@
         @foreach (var dataSource in Model.DataSources)
         {
             <div class="bg-dark" style="box-shadow: 5px 10px 8px #888888;">
-                <a><span class="nav_link" style="float:right">...</span></a><a href="@string.Format("https://localhost/Reportserver/Data+Sources?%2fData+Sources/{0}", dataSource.Name)" class="nav_link"><i class="bx bx-cube"></i><span class="nav_name">@dataSource.Name</span></a>
+                <a><span class="nav_link" style="float:right">...</span></a><a href="@string.Format("https://{0}/Reportserver/Data+Sources?%2fData+Sources/{1}", @Model.ReportServerName, dataSource.Name)" class="nav_link"><i class="bx bx-cube"></i><span class="nav_name">@dataSource.Name</span></a>
             </div>
         }
     </section>

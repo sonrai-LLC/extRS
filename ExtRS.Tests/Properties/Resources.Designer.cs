@@ -68,5 +68,14 @@ namespace ExtRS.Tests.Properties {
                 return ResourceManager.GetString("passphrase", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ssrssrv.net.
+        /// </summary>
+        internal static string ReportServerName {
+            get {
+                return ResourceManager.GetString("ReportServerName", resourceCulture);
+            }
+        }
     }
 }

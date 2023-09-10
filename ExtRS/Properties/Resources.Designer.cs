@@ -59,14 +59,5 @@ namespace ExtRS.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to This_IS_a_simpl_Passphrase.
-        /// </summary>
-        internal static string passphrase {
-            get {
-                return ResourceManager.GetString("passphrase", resourceCulture);
-            }
-        }
     }
 }

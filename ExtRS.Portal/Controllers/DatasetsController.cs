@@ -4,6 +4,8 @@ using ExtRS.Portal.Models;
 using Sonrai.ExtRS;
 using Sonrai.ExtRS.Models;
 using System.Diagnostics;
+using System.Data;
+using DataSet = ReportingServices.Api.Models.DataSet;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -20,21 +22,22 @@ namespace ExtRS.Portal.Controllers
             _logger = logger;
             _configuration = configuration;
             _httpClient = new HttpClient();
-            _connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["passphrase"]!, _connection.ServerName).Result;
-            _ssrs = new SSRSService(_connection);
+            _connection = new SSRSConnection(_configuration["ReportServerName"]!, "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["extrspassphrase"]!, _connection.ServerName).Result;
+            _ssrs = new SSRSService(_connection, _configuration);
         }
         public async Task<IActionResult> DataSets()
         {
             List<DataSet> datasets = await _ssrs.GetDataSets();
 
-            DatasetsView model = new DatasetsView() { CurrentTab = "Datasets", Datasets = datasets };
+            DatasetsView model = new DatasetsView() { CurrentTab = "Datasets", Datasets = datasets, ReportServerName = _configuration["ReportServerName"]! };
             return View(model);
         }
 
         public IActionResult Dataset()
         {
-            return View("_Datasets");
+            DatasetsView model = new DatasetsView() { CurrentTab = "Datasets", ReportServerName = _configuration["ReportServerName"]! };
+            return View("_Dataset");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

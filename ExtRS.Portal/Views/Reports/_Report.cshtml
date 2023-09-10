@@ -1,8 +1,9 @@
-﻿@model ReportsView
+﻿@model ReportView
+
 <div class="container" style="background-color:#ffffff">
 	<section>
 		<div style="background-color:#ffffff; box-shadow: 5px 10px 8px #888888;">
-			<iframe height="875" width="900" src="@string.Format("https://localhost/ReportServer/Pages/ReportViewer.aspx?/Reports/{0}&rs:embed=true", @Model.SelectedReport.Name) class="body-box-shadow"></iframe>
+			<iframe height="875" width="900" src="@Model.SelectedReport.Uri" class="body-box-shadow"></iframe>
 		</div>
 	</section>
 </div>

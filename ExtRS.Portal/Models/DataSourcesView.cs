@@ -5,8 +5,9 @@ namespace ExtRS.Portal.Models
 {
     public class DataSourcesView : LayoutView
     {
-        public string SelectedView = string.Empty;
         private string _currentTab;
+        public string SelectedView = string.Empty;
+        public string ReportServerName;
         public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
         public List<DataSource> DataSources;
     }

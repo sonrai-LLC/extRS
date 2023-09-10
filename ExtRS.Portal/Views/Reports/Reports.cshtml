@@ -6,9 +6,10 @@
         @foreach (var report in Model.Reports)
         {
             <div class="bg-dark" style="box-shadow: 5px 10px 8px #888888;">
-                <a><span class="nav_link" style="float:right">...</span></a><a href="@Url.Action("Report", "Reports", new { reportName = report.Name})" class="nav_link"><i class="bx bx-line-chart"></i><span class="nav_name">@report.Name</span></a>
+                <a><span class="nav_link" style="float:right">...</span></a><a href="@report.Uri" class="nav_link" target="_blank"><i class="bx bx-line-chart"></i><span class="nav_name">@report.Name</span></a>
             </div>
         }
     </section>
 </div>
 @* https://localhost/Reports/manage/catalogitem/properties/Reports/{Dave}** TODO: add this as option in "..."" manage view*@
+@*<a href="@Url.Action("Report", "Reports", new { reportName = report.Name})" class="nav_link">*@

@@ -3,6 +3,7 @@ using ExtRS.Portal.Models;
 using ReportingServices.Api.Models;
 using Sonrai.ExtRS;
 using Sonrai.ExtRS.Models;
+using System.Security.Policy;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -19,15 +20,22 @@ namespace ExtRS.Portal.Controllers
             _logger = logger;
             _configuration = configuration;
             _httpClient = new HttpClient();
-            _connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["passphrase"]!, _connection.ServerName).Result;
-            _ssrs = new SSRSService(_connection);
+            _connection = new SSRSConnection(_configuration["ReportServerName"]!, "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["extrspassphrase"]!, _connection.ServerName).Result;
+            _ssrs = new SSRSService(_connection, _configuration);
         }
 
         public async Task<IActionResult> Reports(ReportsView view)
         {			
 			List<Report> reports = await _ssrs.GetReports();
-            ReportsView model = new ReportsView { Reports = reports, CurrentTab = "Reports" };
+
+            foreach(var report in reports)
+            {
+                string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true", _ssrs._conn.ServerName, report.Name);
+                report.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+            }
+
+            ReportsView model = new ReportsView { Reports = reports, CurrentTab = "Reports", ReportServerName = _configuration["ReportServerName"]! };
 
             return View(model);
         }
@@ -35,7 +43,11 @@ namespace ExtRS.Portal.Controllers
         public async Task<IActionResult> Report(string reportName)
 		{
             Report report = await _ssrs.GetReport(string.Format("path='/Reports/{0}'", reportName));
-            ReportsView view = new ReportsView() { SelectedReport = report };
+
+            string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true", _ssrs._conn.ServerName, report.Name);
+            report.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!); // + "?Url=" + uri;
+
+            ReportView view = new ReportView() { SelectedReport = report };
             return View("_Report", view);
         }
 	}

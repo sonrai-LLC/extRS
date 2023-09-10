@@ -120,4 +120,7 @@
   <data name="passphrase" xml:space="preserve">
     <value>This_IS_a_simpl_Passphrase</value>
   </data>
+  <data name="ReportServerName" xml:space="preserve">
+    <value>ssrssrv.net</value>
+  </data>
 </root>

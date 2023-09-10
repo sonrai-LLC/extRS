@@ -58,8 +58,8 @@ namespace EditorNetCoreDemo.Controllers
         {
             return View("Users", new UserSettingsView() { CurrentTab = "UserSettings" });
             //var _httpClient = new _httpClient();
-            //SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            //connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, connection.Administrator, _configuration["passphrase"], connection.ServerName);
+            //SSRSConnection connection = new SSRSConnection(_configuration["ReportServerName"]!, "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            //connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, connection.Administrator, _configuration["extrspassphrase"], connection.ServerName);
             //var ssrs = new SSRSService(connection);
 
             //Report report = await ssrs.GetReport("path='/Reports/Team'");

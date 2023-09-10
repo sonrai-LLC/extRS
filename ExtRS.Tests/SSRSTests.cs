@@ -21,9 +21,9 @@ namespace Sonrai.ExtRS.UnitTests
         public async Task InitializeTests()
         {
             httpClient = new HttpClient();
-            SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            SSRSConnection connection = new SSRSConnection(Resources.ReportServerName, "ExtRSAuth", AuthenticationType.ExtRSAuth);
             connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, Resources.passphrase, connection.ServerName);
-            ssrs = new SSRSService(connection);
+            ssrs = new SSRSService(connection, null);
         }
 
         [TestMethod]

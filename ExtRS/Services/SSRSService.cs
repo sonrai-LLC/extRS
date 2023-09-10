@@ -1,34 +1,36 @@
-﻿using Sonrai.ExtRS.Models;
+﻿using Microsoft.Extensions.Configuration;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Net;
 using Newtonsoft.Json;
-using Microsoft.Extensions.Configuration;
-using System.Configuration;
-using ExtRS.Properties;
 using ReportingServices.Api.Models;
-using Newtonsoft.Json.Linq;
+using Sonrai.ExtRS.Models;
+using System.Security.Policy;
+using System;
 
 namespace Sonrai.ExtRS
 {
     public class SSRSService
     {
+        public IConfiguration _configuration;
         public SSRSConnection _conn;
         private HttpClient _client;
         CookieContainer _cookieContainer = new CookieContainer();
         string _serverUrl;
        
-        public SSRSService(SSRSConnection connection)
+        public SSRSService(SSRSConnection connection, IConfiguration? configuration)
         {          
             _conn = connection;
             _client = new HttpClient();
-            _cookieContainer.Add(new Cookie("sqlAuthCookie", _conn.SqlAuthCookie, "/", "localhost"));
+            _cookieContainer.Add(new Cookie("sqlAuthCookie", _conn.SqlAuthCookie, "/", configuration == null ? "localhost" : configuration["ReportServerName"]!));
             _serverUrl = string.Format("https://{0}/reports/api/v2.0/", _conn.ServerName);
+            _configuration = configuration;
         }
 
         public async Task<HttpResponseMessage> CallApi(HttpVerbs verb, string operation, string content = "", string parameters = "")
         {
+            EncryptionService encrypt = new EncryptionService();
             HttpResponseMessage response = new HttpResponseMessage();
             HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
             using (var handler = new HttpClientHandler() { CookieContainer = _cookieContainer })
@@ -142,7 +144,7 @@ namespace Sonrai.ExtRS
         public static async Task<string> GetSqlAuthCookie(HttpClient client, string user = "ExtRSAuth", string password = "", string domain = "localhost")
         {
             string cookie = "";
-            StringContent httpContent = new StringContent("{" + GetCredentialJson(user, Resources.passphrase, domain) + "}", Encoding.UTF8, "application/json");
+            StringContent httpContent = new StringContent("{" + GetCredentialJson(user, password, domain) + "}", Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
             HttpHeaders headers = response.Headers;

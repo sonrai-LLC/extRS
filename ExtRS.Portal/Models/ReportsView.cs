@@ -10,8 +10,18 @@ namespace ExtRS.Portal.Models
 	{
         public List<Report> Reports;
         public Report SelectedReport;
+        public string ReportServerName;
         private string _currentTab;
 
 		public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
+    }
+
+    public class ReportView : LayoutView
+    {
+        public Report SelectedReport;
+        public string ReportServerName;
+        private string _currentTab;
+
+        public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
     }
 }
