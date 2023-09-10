@@ -1,14 +1,14 @@
 ﻿@model DataSourcesView
-<h4>Data Sources.</h4>
+<h4>&nbsp;Data Sources.</h4>
 
-<div class="container" style="background-color:#ffffff">
+<div class="container">
     <section>
         @foreach (var dataSource in Model.DataSources)
         {
-            <div style="background-color:#ffffff; box-shadow: 5px 10px 8px #888888;">
-                <a href="@string.Format("https://localhost/Reportserver/Data+Sources?%2fData+Sources/{0}", dataSource.Name)" class="nav_link"><span class="nav_name">@dataSource.Name</span></a>
+            <div class="bg-dark" style="box-shadow: 5px 10px 8px #888888;">
+                <a><span class="nav_link" style="float:right">...</span></a><a href="@string.Format("https://localhost/Reportserver/Data+Sources?%2fData+Sources/{0}", dataSource.Name)" class="nav_link"><i class="bx bx-cube"></i><span class="nav_name">@dataSource.Name</span></a>
             </div>
         }
     </section>
 </div>
-@* https://localhost/Reports/manage/catalogitem/properties/Data%20Sources/** TODO: add this as option in ... control view*@
+@* https://localhost/Reports/manage/catalogitem/properties/Data%20Sources/** TODO: add this as option in "..."" manage view*@

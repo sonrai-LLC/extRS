@@ -1,13 +1,14 @@
 ﻿@model ReportsView
-<h4>Reports.</h4>
+<h4>&nbsp;Reports.</h4>
 
-<div class="container" style="background-color:#ffffff">
+<div class="container">
     <section>
         @foreach (var report in Model.Reports)
         {
-            <div style="background-color:#ffffff; box-shadow: 5px 10px 8px #888888;">
-                <a href="@Url.Action("Report", "Reports", new { reportName = report.Name})" class="nav_link"><span class="nav_name">@report.Name</span></a>
+            <div class="bg-dark" style="box-shadow: 5px 10px 8px #888888;">
+                <a><span class="nav_link" style="float:right">...</span></a><a href="@Url.Action("Report", "Reports", new { reportName = report.Name})" class="nav_link"><i class="bx bx-line-chart"></i><span class="nav_name">@report.Name</span></a>
             </div>
         }
     </section>
 </div>
+@* https://localhost/Reports/manage/catalogitem/properties/Reports/{Dave}** TODO: add this as option in "..."" manage view*@

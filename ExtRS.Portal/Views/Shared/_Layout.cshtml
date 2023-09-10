@@ -4,7 +4,7 @@
     <title>ExtRS Portal</title>
     <style>
         body-box-shadow {
-           box-shadow: 5px 10px 8px #888888
+            box-shadow: 5px 10px 8px #888888
         }
     </style>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/ju/jq-3.6.0/moment-2.18.1/dt-1.13.4/b-2.3.6/date-1.4.0/sl-1.6.2/datatables.min.css">
@@ -36,17 +36,17 @@
     <script type="text/javascript" language="javascript" src="~/examples/resources/syntax/shCore.js"></script>
     <script type="text/javascript" language="javascript" src="~/examples/resources/demo.js"></script>
     <script type="text/javascript" language="javascript" src="~/examples/resources/editor-demo.js"></script>
-    </head>  
-    <header class="header" id="header">
-@*        <div class="header_img"> <img src="https://avatars.githubusercontent.com/u/96353388?v=4" alt=""></div>  *@
-        <style>
+</head>
+<header class="header" id="header">
+    @*        <div class="header_img"> <img src="https://avatars.githubusercontent.com/u/96353388?v=4" alt=""></div>  *@
+    <style>
         @@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap");
 
         :root {
             --header-height: 5px;
             --nav-width: 68px;
             --first-color: #000223;
-            --first-color-light: #AFA5D9;
+            --first-color-light: lightblue;
             --white-color: limegreen;
             --body-font: 'Nunito', sans-serif;
             --normal-font-size: 1rem;
@@ -68,7 +68,9 @@
             font-family: var(--body-font);
             font-size: var(--normal-font-size);
             transition: .5s;
-            background-color: #ffffff
+            background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+            -color: #background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
+            color:#ffffff;
         }
 
         a {
@@ -104,9 +106,9 @@
             overflow: hidden
         }
 
-        .header_img img {
-            width: 40px
-        }
+            .header_img img {
+                width: 40px
+            }
 
         .l-navbar {
             position: fixed;
@@ -157,10 +159,10 @@
             transition: .3s
         }
 
-        .nav_link:hover {
-            color: var(--white-color);
-            font-weight: bold;
-        }
+            .nav_link:hover {
+                color: var(--white-color);
+                font-weight: bold;
+            }
 
         .nav_icon {
             font-size: 1.25rem
@@ -198,8 +200,8 @@
             }
 
             .header {
-/*                height: calc(var(--header-height) + 1rem);
-                padding: 0 2rem 0 calc(var(--nav-width) + 2rem)*/
+                /*                height: calc(var(--header-height) + 1rem);
+                                padding: 0 2rem 0 calc(var(--nav-width) + 2rem)*/
             }
 
             .header_img {
@@ -224,29 +226,31 @@
                 padding-left: calc(var(--nav-width) + 188px)
             }
         }
-        </style>
-       <script>
-            document.addEventListener("DOMContentLoaded", function(event) {
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function (event) {
             const showNavbar = (toggleId, navId, bodyId, headerId) => {
-            const toggle = document.getElementById(toggleId),
-            nav = document.getElementById(navId),
-            bodypd = document.getElementById(bodyId),
-            headerpd = document.getElementById(headerId)
+                const toggle = document.getElementById(toggleId),
+                    nav = document.getElementById(navId),
+                    bodypd = document.getElementById(bodyId),
+                    headerpd = document.getElementById(headerId)
 
-            // Validate that all variables exist  ...//&& bodypd
-            if(toggle && nav && headerpd){ 
-            toggle.addEventListener('click', ()=>{
-            // show navbar
-            nav.classList.toggle('show')
-            // change icon
-            toggle.classList.toggle('bx-x')
-            // add padding to body
-            bodypd.classList.toggle('body-pd')
-            // add padding to header
-            headerpd.classList.toggle('body-pd')
-            })}}
+                // Validate that all variables exist  ...//&& bodypd
+                if (toggle && nav && headerpd) {
+                    toggle.addEventListener('click', () => {
+                        // show navbar
+                        nav.classList.toggle('show')
+                        // change icon
+                        toggle.classList.toggle('bx-x')
+                        // add padding to body
+                        bodypd.classList.toggle('body-pd')
+                        // add padding to header
+                        headerpd.classList.toggle('body-pd')
+                    })
+                }
+            }
 
-            showNavbar('header-toggle','nav-bar','body-pd','header');
+            showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
             ///*===== LINK ACTIVE =====*/
             //const linkColor = document.querySelectorAll('.nav_link')
 
@@ -255,43 +259,43 @@
             //linkColor.forEach(l=> l.classList.remove('active'))
             //this.classList.add('active')}
             //}
-            
+
             //linkColor.forEach(l=> l.addEventListener('click', colorLink))
 
-             // Your code to run since DOM is loaded and ready
-             // TODO: implement more dyn here
-            
+            // Your code to run since DOM is loaded and ready
+            // TODO: implement more dyn here
+
         });
     </script>
-    </header>
-   <div class="l-navbar navbar-collapse" id="nav-bar">
-        <nav class="nav">
-            <div>
+</header>
+<div class="l-navbar navbar-collapse" id="nav-bar">
+    <nav class="nav">
+        <div>
             <div class="header_toggle" style="margin-left:14%;"><i class='bx bx-menu' id="header-toggle" style="color:#ffffff"></i></div><br />
-             <div class="nav_list">
-                    <a href="@Url.Action("Dashboard", "Dashboard")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Dashboard" ? "active" : "")"><i class='bx bx-tachometer nav_icon'></i><span class="nav_name">Dashboard</span></a>
-                    <a href="@Url.Action("DataSources", "DataSources")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "DataSources" ? "active" : "")"><i class='bx bx-cube nav_icon'></i><span class="nav_name">Data Sources</span></a>
-                    <a href="@Url.Action("Datasets", "Datasets")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Datasets" ? "active" : "")"><i class='bx bx-table nav_icon'></i><span class="nav_name">Datasets</span></a>
-                    <a href="@Url.Action("Reports", "Reports")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Reports" ? "active" : "")"><i class='bx bx-line-chart nav_icon'></i> <span class="nav_name">Reports</span></a>
-                    <a href="@Url.Action("Subscriptions", "Subscriptions")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Subscriptions" ? "active" : "")"> <i class='bx bx-time nav_icon'></i> <span class="nav_name">Subscriptions</span></a>
-                    <a href="@Url.Action("StatsLink", "Stats")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Stats" ? "active" : "")"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">Stats</span></a>
-                    <a href="@Url.Action("UserSettings", "UserSettings")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "UserSettings" ? "active" : "")"><i class='bx bx-wrench nav_icon'></i><span class="nav_name">Settings</span></a>
-                    <a href="@Url.Action("Admin", "Admin")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Admin" ? "active" : "")"><i class='bx bx-shield nav_icon'></i><span class="nav_name">Admin</span></a>
-                    <br /> <br />
-                    <a href="#" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span></a>
-              </div>
+            <div class="nav_list">
+                <a href="@Url.Action("Dashboard", "Dashboard")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Dashboard" ? "active" : "")"><i class='bx bx-tachometer nav_icon'></i><span class="nav_name">Dashboard</span></a>
+                <a href="@Url.Action("DataSources", "DataSources")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "DataSources" ? "active" : "")"><i class='bx bx-cube nav_icon'></i><span class="nav_name">Data Sources</span></a>
+                <a href="@Url.Action("Datasets", "Datasets")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Datasets" ? "active" : "")"><i class='bx bx-table nav_icon'></i><span class="nav_name">Datasets</span></a>
+                <a href="@Url.Action("Reports", "Reports")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Reports" ? "active" : "")"><i class='bx bx-line-chart nav_icon'></i> <span class="nav_name">Reports</span></a>
+                <a href="@Url.Action("Subscriptions", "Subscriptions")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Subscriptions" ? "active" : "")"> <i class='bx bx-time nav_icon'></i> <span class="nav_name">Subscriptions</span></a>
+                @*<a href="@Url.Action("StatsLink", "Stats")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Stats" ? "active" : "")"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">Stats</span></a>
+                <a href="@Url.Action("UserSettings", "UserSettings")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "UserSettings" ? "active" : "")"><i class='bx bx-wrench nav_icon'></i><span class="nav_name">Settings</span></a> *@
+                <a href="@Url.Action("Admin", "Admin")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Admin" ? "active" : "")"><i class='bx bx-shield nav_icon'></i><span class="nav_name">Admin</span></a>
+                <br /> <br /> <br /> <br />
+                <a href="#" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span></a>
             </div>
-        </nav>
-    </div>
-    <!--Container Main start-->
-    <div class="bg-light">
-       @* <script src="https://unpkg.com/htmx.org@1.9.4"></script>
-        <!-- have a button POST a click via AJAX -->
-        <button hx-post="/Report/Reports" hx-swap="outerHTML">
-            Click Me
-        </button>*@
-        @RenderBody()
+        </div>
+    </nav>
+</div>
+<!--Container Main start- TODO: implement darkmode here -->
+<div class="bg-dark">
+    @* <script src="https://unpkg.com/htmx.org@1.9.4"></script>
+    <!-- have a button POST a click via AJAX -->
+    <button hx-post="/Report/Reports" hx-swap="outerHTML">
+    Click Me
+    </button>*@
+    @RenderBody()
     <p style="font-size:8pt; float:right">© sonrai 2023</p>
-    </div>
-    <!--Container Main end-->
-    @*template ref: https://bbbootstrap.com/snippets/bootstrap-5-sidebar-menu-toggle-button-34132202*@
+</div>
+<!--Container Main end-->
+@*template ref: https://bbbootstrap.com/snippets/bootstrap-5-sidebar-menu-toggle-button-34132202*@

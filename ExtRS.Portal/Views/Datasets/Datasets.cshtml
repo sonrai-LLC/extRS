@@ -1,14 +1,14 @@
 ﻿@model DatasetsView
-<h4>Datasets.</h4>
+<h4>&nbsp;Datasets.</h4>
 
-<div class="container" style="background-color:#ffffff">
+<div class="container">
     <section>
         @foreach (var dataset in Model.Datasets)
         {
-            <div style="background-color:#ffffff; box-shadow: 5px 10px 8px #888888;">
-                <a href="@string.Format("https://localhost/Reportserver/Datasets?%2fDatasets/{0}", dataset.Name)" class="nav_link"><span class="nav_name">@dataset.Name</span></a>
+            <div class="bg-dark" style="box-shadow: 5px 10px 8px #888888;">
+                <a><span class="nav_link" style="float:right">...</span></a><a href="@string.Format("https://localhost/Reportserver/Datasets?%2fDatasets/{0}", dataset.Name)" class="nav_link"><i class="bx bx-table"></i><span class="nav_name">@dataset.Name</span></a>
             </div>
         }
     </section>
 </div>
-@* https://localhost/Reports/manage/catalogitem/properties/Datasets/** TODO: add this as option in ... control view*@
+@* https://localhost/Reports/manage/catalogitem/properties/Datasets/** TODO: add this as option in "..."" manage view*@
