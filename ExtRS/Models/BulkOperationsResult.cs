@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ReportingServices.Api.Models {
 
   /// <summary>
   /// Result of bulk operations like MoveItems and DeleteItems

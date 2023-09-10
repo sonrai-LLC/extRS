@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ReportingServices.Api.Models {
 
   /// <summary>
   /// An object that specifies the parts of a report parameter that can be modified outside of the RDL definition.

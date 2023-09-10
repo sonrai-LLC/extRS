@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ReportingServices.Api.Models {
 
   /// <summary>
   /// An object that defines the recurrence of a schedule. When defining the recurrence, only one of the recurrence types can be set.

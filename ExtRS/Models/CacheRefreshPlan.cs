@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ReportingServices.Api.Models {
 
   /// <summary>
   /// An object that specifies a plan for data cache refresh. The plan can be stored and re-used by multiple CatalogItems.

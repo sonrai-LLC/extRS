@@ -1,4 +1,4 @@
-﻿using IO.Swagger.Model;
+﻿using ReportingServices.Api.Models;
 using Microsoft.AspNetCore.Components;
 using Sonrai.ExtRS.Models;
 

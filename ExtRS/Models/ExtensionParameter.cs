@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ReportingServices.Api.Models {
 
   /// <summary>
   /// An object that contains the definition of a Reporting Services extension&#39;s parameter.

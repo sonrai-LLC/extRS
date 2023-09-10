@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ReportingServices.Api.Models {
 
   /// <summary>
   /// An enumeration of values that specify the visibility of a report parameter, as to whether it is visible at runtime, hidden at runtime, or internal, meaning only visible in the definition.

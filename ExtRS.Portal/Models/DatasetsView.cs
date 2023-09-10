@@ -1,4 +1,4 @@
-﻿using IO.Swagger.Model;
+﻿using ReportingServices.Api.Models;
 
 namespace ExtRS.Portal.Models
 {

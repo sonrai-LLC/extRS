@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ReportingServices.Api.Models {
 
   /// <summary>
   /// An object that defines a subscription. A Reporting Services subscription allows a user to subscribe to a Report or Data Source and then to automatically receive an update whenever the item is updated.

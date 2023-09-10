@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json;
 using Sonrai.ExtRS.Models;
-using IO.Swagger.Model;
+using ReportingServices.Api.Models;
 using System;
 using System.IO;
 using System.Net.Http;

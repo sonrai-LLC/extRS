@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using DataTables;
 using ExtRS.Portal.Models;
-using Microsoft.Data.SqlClient;
+using Sonrai.ExtRS;
+using Sonrai.ExtRS.Models;
 
 namespace EditorNetCoreDemo.Controllers
 {
@@ -9,11 +11,18 @@ namespace EditorNetCoreDemo.Controllers
     {
         private readonly ILogger<StatsController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly SSRSConnection _connection;
+        private readonly HttpClient _httpClient;
+        private SSRSService _ssrs;
 
         public StatsController(ILogger<StatsController> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
+            _httpClient = new HttpClient();
+            _connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["passphrase"]!, _connection.ServerName).Result;
+            _ssrs = new SSRSService(_connection);
         }
 
         public ActionResult StatsLink() 

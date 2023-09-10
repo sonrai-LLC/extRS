@@ -1,11 +1,5 @@
-﻿using ExtRS.Portal.Models;
+﻿using Microsoft.AspNetCore.Mvc;
 using ExtRS.Portal.Models;
-using Microsoft.AspNetCore.Mvc;
-using Sonrai.ExtRS.Models;
-using Sonrai.ExtRS;
-using System.Diagnostics;
-using EditorNetCoreDemo.Controllers;
-using IO.Swagger.Model;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -22,12 +16,6 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<IActionResult> Subscriptions(SubscriptionsView view)
         {
-            var _httpClient = new HttpClient();
-            SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, connection.Administrator, "", connection.ServerName);
-            var ssrs = new SSRSService(connection);
-
-            //Report report = await ssrs.GetReport("path='/Reports/Team'");
             SubscriptionsView model = new SubscriptionsView { CurrentTab = "Subscriptions" };
 
             return View(model);

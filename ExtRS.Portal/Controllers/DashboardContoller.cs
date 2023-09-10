@@ -1,14 +1,8 @@
-﻿using ExtRS.Portal.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using ReportingServices.Api.Models;
 using ExtRS.Portal.Models;
-using IO.Swagger.Model;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Sonrai.ExtRS;
 using Sonrai.ExtRS.Models;
-using System.Configuration;
-using System.Diagnostics;
-using System.Net.Http;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -16,21 +10,23 @@ namespace ExtRS.Portal.Controllers
     {
         private readonly ILogger<DashboardController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly SSRSConnection _connection;
+        private readonly HttpClient _httpClient;
+        private SSRSService _ssrs;
 
         public DashboardController(ILogger<DashboardController> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
+            _httpClient = new HttpClient();
+            _connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["passphrase"]!, _connection.ServerName).Result;
+            _ssrs = new SSRSService(_connection);
         }
 
         public async Task<IActionResult> Dashboard()
         {
-			var _httpClient = new HttpClient();
-			SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
-			connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, connection.Administrator, _configuration["passphrase"]!, connection.ServerName);
-			var ssrs = new SSRSService(connection);
-
-            Report report = await ssrs.GetReport("path='/Reports/Team'");
+            Report report = await _ssrs.GetReport("path='/Reports/Team'");
             DashboardView model = new DashboardView { Report = report, CurrentTab = "Dashboard" };
 
             return View(model);

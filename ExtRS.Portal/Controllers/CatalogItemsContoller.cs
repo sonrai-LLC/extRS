@@ -1,6 +1,6 @@
-﻿using ExtRS.Portal.Models;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using ExtRS.Portal.Models;
 
 namespace ExtRS.Portal.Controllers
 {

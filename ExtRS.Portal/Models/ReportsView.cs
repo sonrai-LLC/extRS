@@ -1,6 +1,6 @@
 ﻿using ExtRS.Portal.Areas.Identity.Pages.Account;
 using ExtRS.Portal.Models;
-using IO.Swagger.Model;
+using ReportingServices.Api.Models;
 using Microsoft.AspNetCore.Identity;
 using Sonrai.ExtRS.Models;
 

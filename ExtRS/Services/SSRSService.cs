@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
 using System.Configuration;
 using ExtRS.Properties;
-using IO.Swagger.Model;
+using ReportingServices.Api.Models;
 using Newtonsoft.Json.Linq;
 
 namespace Sonrai.ExtRS

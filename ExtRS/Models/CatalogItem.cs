@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ReportingServices.Api.Models {
 
   /// <summary>
   /// CatalogItem is an abstract type that contains the common properties of all the types of CatalogItems. Hence, it is the base type from which the other CatalogItem types are derived.

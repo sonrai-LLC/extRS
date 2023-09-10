@@ -1,9 +1,9 @@
-﻿using ExtRS.Portal.Models;
-using Microsoft.AspNetCore.Mvc;
-using Sonrai.ExtRS.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using ReportingServices.Api.Models;
+using ExtRS.Portal.Models;
 using Sonrai.ExtRS;
+using Sonrai.ExtRS.Models;
 using System.Diagnostics;
-using IO.Swagger.Model;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -11,21 +11,22 @@ namespace ExtRS.Portal.Controllers
     {
         private readonly ILogger<DatasetsController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly SSRSConnection _connection;
+        private readonly HttpClient _httpClient;
+        private SSRSService _ssrs;
 
         public DatasetsController(ILogger<DatasetsController> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
+            _httpClient = new HttpClient();
+            _connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["passphrase"]!, _connection.ServerName).Result;
+            _ssrs = new SSRSService(_connection);
         }
-
         public async Task<IActionResult> DataSets()
         {
-            var _httpClient = new HttpClient();
-            SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, connection.Administrator, _configuration["passphrase"]!, connection.ServerName);
-            var ssrs = new SSRSService(connection);
-
-            List<DataSet> datasets = await ssrs.GetDataSets();
+            List<DataSet> datasets = await _ssrs.GetDataSets();
 
             DatasetsView model = new DatasetsView() { CurrentTab = "Datasets", Datasets = datasets };
             return View(model);

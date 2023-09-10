@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace IO.Swagger.Model {
+namespace ReportingServices.Api.Models {
 
   /// <summary>
   /// This object holds credentials for connections to an external data source. The object is stored on the Report Server for later retrieval and use. NOTE: This object represents a security risk as its properties can be seen in plain text over the HTTP protocol; HTTPS is recommended.
