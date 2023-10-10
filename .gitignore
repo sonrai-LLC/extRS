@@ -479,3 +479,6 @@ __pycache__/
 /ExtRS.Portal/Properties/ServiceDependencies/sonrai-web-prod - Zip Deploy/profile.arm.json
 /ExtRS.CLI/obj/Release/net7.0/ExtRS.CLI.csproj.AssemblyReference.cache
 /ExtRS.CLI/obj/Release/net7.0/ExtRS.CLI.GeneratedMSBuildEditorConfig.editorconfig
+/ExtRS.Portal/Properties/PublishProfiles/extrs-portal - Zip Deploy.pubxml
+/ExtRS.Portal/Properties/PublishProfiles/extrs-prod - Zip Deploy.pubxml
+/ExtRS.Portal/Properties/PublishProfiles/extrs-win-dev - Web Deploy.pubxml
