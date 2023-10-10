@@ -70,7 +70,7 @@ namespace ExtRS.Tests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ssrssrv.net.
+        ///   Looks up a localized string similar to localhost.
         /// </summary>
         internal static string ReportServerName {
             get {

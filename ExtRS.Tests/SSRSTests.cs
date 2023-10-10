@@ -15,7 +15,7 @@ namespace Sonrai.ExtRS.UnitTests
     {
         private SSRSService ssrs;
         private HttpClient httpClient;
-        readonly string defaultCreds = "\"UserName\": " + "\"ExtRSAuth\",  " + "\"Password\": \"" + Resources.passphrase + "\", \"Domain\": \"localhost\"";
+        readonly string defaultCreds = "\"UserName\": " + "\"ExtRSAuth\",  " + "\"Password\": \"" + Resources.passphrase + "\", \"Domain\": \"" + Resources.ReportServerName + "\"";
 
         [TestInitialize]
         public async Task InitializeTests()
@@ -29,7 +29,7 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetGetSqlAuthCookieSucceeds()
         {
-            var cookieString = await SSRSService.GetSqlAuthCookie(httpClient, "ExtRSAuth", "", "localhost");
+            var cookieString = await SSRSService.GetSqlAuthCookie(httpClient, "ExtRSAuth", Resources.passphrase, Resources.ReportServerName);
             Assert.IsTrue(cookieString.Length > 0);
         }
 
