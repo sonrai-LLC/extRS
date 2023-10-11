@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using ExtRS.Portal.Models;
+using Sonrai.ExtRS.Models;
+using System.ComponentModel.Design;
 
 namespace ExtRS.Portal.Controllers
 {
-    public class CatalogItemsContoller : Controller
+    public class CatalogItemsController : Controller
     {
-        private readonly ILogger<CatalogItemsContoller> _logger;
+        private readonly ILogger<CatalogItemsController> _logger;
 
-        public CatalogItemsContoller(ILogger<CatalogItemsContoller> logger)
+        public CatalogItemsController(ILogger<CatalogItemsController> logger)
         {
             _logger = logger;
         }
@@ -16,6 +18,13 @@ namespace ExtRS.Portal.Controllers
         public IActionResult Index()
         {
             return View();
+        }
+
+        //[DisableRequestSizeLimit]
+        //[HttpPost]
+        public async Task<IActionResult> GetManageResourceModal()
+        {
+            return PartialView("_ManageResource"); //model
         }
 
         public IActionResult Privacy()

@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Controllers\CatalogItemsContoller.cs~RF109f071.TMP" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="wwwroot\images\bx-stats-up.jpg" />
     <None Include="wwwroot\js\site.js" />
   </ItemGroup>
