@@ -37,7 +37,7 @@
     <OverwriteDataSources>False</OverwriteDataSources>
     <TargetServerVersion>SSRS2016</TargetServerVersion>
     <Platform>Win32</Platform>
-    <TargetReportFolder>DemoReports</TargetReportFolder>
+    <TargetReportFolder>Reports</TargetReportFolder>
     <TargetDatasetFolder>Datasets</TargetDatasetFolder>
     <TargetDatasourceFolder>Data Sources</TargetDatasourceFolder>
     <TargetReportPartFolder>Report Parts</TargetReportPartFolder>

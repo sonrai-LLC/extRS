@@ -4,22 +4,23 @@
 <#============================================================================
   File:     powershellSamples.ps1
   Summary:  Demonstrates examples to upload/download/delete an item in RS. 
---------------------------------------------------------------------
-    
- This source code is intended only as a supplement to Microsoft
- Development Tools and/or on-line documentation. See these other
- materials for detailed information regarding Microsoft code 
- samples.
- THIS CODE AND INFORMATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF 
- ANY KIND, EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO 
- THE IMPLIED WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A
- PARTICULAR PURPOSE.
 ===========================================================================#>
 
-$ReportPortalUri = 'http://myserver/reports'
+$user = 'ExtRSAuth'
+$pass = 'passphrase'
+$pair = "$($user):$($pass)"
+$encodedCreds = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($pair))
+$basicAuthValue = "Basic $encodedCreds"
 
+$Headers = @{
+    Authorization = $basicAuthValue
+}
+
+$ReportPortalUri = 'https://localhost/reports'
+
+# Upload
 Write-Host "Upload an item..."
-$uploadItemPath = 'C:\reports\test.rdl'
+$uploadItemPath = 'C:\source\test.rdl'
 $catalogItemsUri = $ReportPortalUri + "/api/v2.0/CatalogItems"
 $bytes = [System.IO.File]::ReadAllBytes($uploadItemPath)
 $payload = @{
@@ -29,20 +30,16 @@ $payload = @{
     "Name" = 'test';
     "Path" = '/test';
     } | ConvertTo-Json
-Invoke-WebRequest -Uri $catalogItemsUri -Method Post -Body $payload -ContentType "application/json" -UseDefaultCredentials | Out-Null
+Invoke-WebRequest -Uri $catalogItemsUri -Method Post -Body $payload -ContentType "application/json" -Headers $Headers | Out-Null
 
-
+# Download
 Write-Host "Download an item..."
-$downloadPath = 'C:\download\test.rdl'
-$catalogItemsApi = $ReportPortalUri + "/api/v2.0/CatalogItems(Path='/test')/Content/$value"
-$url = [string]::Format($catalogItemsApi, $item)
-$response = Invoke-WebRequest -Uri $url -Method Get -UseDefaultCredentials
+$downloadPath = 'C:\source\downloaded\test.rdl'
+$catalogItemsUri = $ReportPortalUri + "/api/v2.0/CatalogItems(Path='/test')/Content/`$value"
+$response = Invoke-WebRequest -Uri $catalogItemsUri -Method Get -Headers $Headers
 [System.IO.File]::WriteAllBytes($downloadPath, $response.Content)
 
-
+# Delete
 Write-Host "Delete an item..."
 $url = $ReportPortalUri + "/api/v2.0/CatalogItems(Path='/test')"
-Invoke-WebRequest -Uri $url -Method Delete -UseDefaultCredentials | Out-Null
-
-
-
+Invoke-WebRequest -Uri $url -Method Delete -UseDefaultCredentials -Headers $Headers | Out-Null
