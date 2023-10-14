@@ -7,7 +7,7 @@ namespace Sonrai.ExtRS.CLI
     {
         static void Main()
         {
-            //Console.Write("HEYYYYY");
+            Console.Write("HEYYYYY");
             //Console.WriteLine(":::::::::::::::::::::::");
             //var resp = Console.ReadLine();
             //Console.WriteLine("OHHH" + " KEYYYY" + resp);
