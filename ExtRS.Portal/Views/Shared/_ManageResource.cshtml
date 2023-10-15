@@ -1,6 +1,7 @@
-﻿<div>
-    x
-    <a href="#">_______________</a>
-    <a href="#">_______________</a>
-    <a href="#">_______________</a>
+﻿@using ReportingServices.Api.Models
+@model CatalogItem
+
+<div style="background-color:#ffffff">
+    <a href=@string.Format("https://localhost/Reports/api/v2.0/catalogitems({0})/Content/$value", Model.Id)>Download</a>
+    <a href=@string.Format("https://localhost/Reports/manage/catalogitem/properties/Reports/{0}?_pk=qty80h00", Model.Name) target="_blank">Manage</a>
 </div>

@@ -3,16 +3,27 @@ using System.Diagnostics;
 using ExtRS.Portal.Models;
 using Sonrai.ExtRS.Models;
 using System.ComponentModel.Design;
+using ReportingServices.Api.Models;
+using Sonrai.ExtRS;
 
 namespace ExtRS.Portal.Controllers
 {
     public class CatalogItemsController : Controller
     {
         private readonly ILogger<CatalogItemsController> _logger;
+        private readonly IConfiguration _configuration;
+        private readonly SSRSConnection _connection;
+        private readonly HttpClient _httpClient;
+        private SSRSService _ssrs;
 
-        public CatalogItemsController(ILogger<CatalogItemsController> logger)
+        public CatalogItemsController(ILogger<CatalogItemsController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            _configuration = configuration;
+            _httpClient = new HttpClient();
+            _connection = new SSRSConnection(_configuration["ReportServerName"]!, "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["extrspassphrase"]!, _connection.ServerName).Result;
+            _ssrs = new SSRSService(_connection, _configuration);
         }
 
         public IActionResult Index()
@@ -20,11 +31,11 @@ namespace ExtRS.Portal.Controllers
             return View();
         }
 
-        //[DisableRequestSizeLimit]
-        //[HttpPost]
-        public async Task<IActionResult> GetManageResourceModal()
+        [HttpGet]
+        public async Task<IActionResult> GetManageResourceModal(string id)
         {
-            return PartialView("_ManageResource"); //model
+            CatalogItem catalogItem = await _ssrs.GetCatalogItem(id);
+            return PartialView("_ManageResource", catalogItem);
         }
 
         public IActionResult Privacy()

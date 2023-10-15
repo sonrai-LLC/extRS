@@ -8,11 +8,11 @@
         });
     });
 
-    function asyncManageResourceModal() {
+    function asyncManageResourceModal(id) {
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '/CatalogItems/GetManageResourceModal',
-            //data: { "customerId": customerId },
+            data: { "id": id },
             success: function (response) {
                 $('#dialog').html(response);
                 $('#dialog').dialog('open');
@@ -33,7 +33,7 @@
         @foreach (var report in Model.Reports)
         {
             <div class="bg-dark" style="box-shadow: 5px 10px 8px #888888;">
-                <span class="nav_link" style="float:right" onclick="asyncManageResourceModal();">...</span><a href="@report.Uri" class="nav_link" target="_blank"><i class="bx bx-line-chart"></i><span class="nav_name">@report.Name</span></a>
+                <span class="nav_link" style="float:right" onclick="asyncManageResourceModal('@report.Id');">...</span><a href="@report.Uri" class="nav_link" target="_blank"><i class="bx bx-line-chart"></i><span class="nav_name">@report.Name</span></a>
             </div>
         }
     </section>
