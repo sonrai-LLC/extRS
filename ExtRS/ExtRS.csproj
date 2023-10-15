@@ -21,8 +21,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Data\PBI\**" />
+    <Compile Remove="Data\Python\**" />
+    <Compile Remove="Data\R\**" />
+    <Compile Remove="Data\SQLServer\SSIS\**" />
     <Compile Remove="Data\SQLServer\SSRS\**" />
+    <EmbeddedResource Remove="Data\PBI\**" />
+    <EmbeddedResource Remove="Data\Python\**" />
+    <EmbeddedResource Remove="Data\R\**" />
+    <EmbeddedResource Remove="Data\SQLServer\SSIS\**" />
     <EmbeddedResource Remove="Data\SQLServer\SSRS\**" />
+    <None Remove="Data\PBI\**" />
+    <None Remove="Data\Python\**" />
+    <None Remove="Data\R\**" />
+    <None Remove="Data\SQLServer\SSIS\**" />
     <None Remove="Data\SQLServer\SSRS\**" />
   </ItemGroup>
 
@@ -37,7 +49,7 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
-    <Content Include="Data\SQLServer\T-SQL\UsefulQueries.sql" />
+    <Content Include="Data\SQLServer\T-SQL\SSRS.sql" />
     <Content Include="ExtRS.ico" />
   </ItemGroup>
 
@@ -133,14 +145,6 @@
       <LastGenOutput>Resources.fr-FR.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Data\Python\" />
-    <Folder Include="Data\R\" />
-    <Folder Include="Data\PBI\NewFolder\" />
-    <Folder Include="Data\SQLServer\SSIS\Ad-hoc\" />
-    <Folder Include="Data\SQLServer\SSIS\Scheduled\" />
   </ItemGroup>
 
   <ItemGroup>
