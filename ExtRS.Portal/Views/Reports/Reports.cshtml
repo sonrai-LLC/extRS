@@ -1,21 +1,42 @@
 ﻿@model ReportsView
+<style>
+    .ui-dialog-titlebar-close {
+        display: none;
+    }
+
+    .ui-dialog-titlebar {
+        display: none;
+    } 
+</style>
 <script>
-    $(document).ready(function( $ ) {
-        $("#dialog").dialog({
-            autoOpen: false,
-            modal: true,
-            title: "View Details"
+    $(document).ready(function ($) {
+        $("body").on("click", function () {
+            $(".ui-dialog.clickoncloseoutside:visible")
+                .find(".ui-dialog-content")
+                .dialog("close");
         });
     });
 
     function asyncManageResourceModal(id) {
+        $(".ui-dialog-content").dialog("close");
+
+        let dialogId = "#dialog" + id;
+        $(dialogId).dialog({
+            autoOpen: false,
+            modal: false,
+            show: { effect: 'fade', duration: 10 },
+            hide: { effect: 'fade', duration: 100 },
+            dialogClass: "clickoncloseoutside",
+            position: { my: "right top", at: "right top", of: "#" + id }
+        });
+
         $.ajax({
             type: 'GET',
             url: '/CatalogItems/GetManageResourceModal',
             data: { "id": id },
             success: function (response) {
-                $('#dialog').html(response);
-                $('#dialog').dialog('open');
+                $(dialogId).html(response);
+                $(dialogId).dialog('open');
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -23,7 +44,7 @@
             error: function (arg) {
                 console.log(arg);
             }
-        }); 
+        });
     }
 </script>
 <h4>&nbsp;Reports.</h4>
@@ -32,14 +53,15 @@
     <section>
         @foreach (var report in Model.Reports)
         {
+            <div id=@("dialog" + report.Id) class="dialog" style="display: none">
+            </div>
             <div class="bg-dark" style="box-shadow: 5px 10px 8px #888888;">
-                <span class="nav_link" style="float:right" onclick="asyncManageResourceModal('@report.Id');">...</span><a href="@report.Uri" class="nav_link" target="_blank"><i class="bx bx-line-chart"></i><span class="nav_name">@report.Name</span></a>
+                <span id="@report.Id" class="nav_link" style="float:right" onclick="asyncManageResourceModal('@report.Id');">
+                    <a href="#">
+                        ...
+                    </a>
+                </span><a href="@report.Uri" class="nav_link" target="_blank"><i class="bx bx-line-chart"></i><span class="nav_name">@report.Name</span></a>
             </div>
         }
     </section>
-</div>
-@* https://localhost/Reports/manage/catalogitem/properties/Reports/{Dave}** TODO: add this as option in "..."" manage view*@
-@*<a href="@Url.Action("Report", "Reports", new { reportName = report.Name})" class="nav_link">*@
-
-<div id="dialog" style="display: none">
 </div>
