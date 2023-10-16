@@ -5,6 +5,7 @@ using System.Threading.RateLimiting;
 using ExtRS.Portal.Data;
 using ExtRS.Portal.Models;
 using Sonrai.ExtRS;
+using Azure.Identity;
 
 //DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
 var builder = WebApplication.CreateBuilder(args);
@@ -73,6 +74,8 @@ if (app.Environment.IsDevelopment())
 }
 else
 {
+    var keyVaultEndpoint = new Uri("https://sonraivault.vault.azure.net/");
+    builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
