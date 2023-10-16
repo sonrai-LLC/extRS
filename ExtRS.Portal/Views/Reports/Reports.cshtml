@@ -18,18 +18,9 @@
     });
 
     function asyncManageResourceModal(id) {
-        $(".ui-dialog-content").dialog("close");
-
+        wireManageResourceModal(id);
         let dialogId = "#dialog" + id;
-        $(dialogId).dialog({
-            autoOpen: false,
-            modal: false,
-            show: { effect: 'fade', duration: 10 },
-            hide: { effect: 'fade', duration: 100 },
-            dialogClass: "clickoncloseoutside",
-            position: { my: "right top", at: "right top", of: "#" + id }
-        });
-
+        $(".ui-dialog-content").dialog("close");
         $.ajax({
             type: 'GET',
             url: '/CatalogItems/GetManageResourceModal',
@@ -44,6 +35,17 @@
             error: function (arg) {
                 console.log(arg);
             }
+        });
+    }
+
+    function wireManageResourceModal(id) {
+        let dialogId = "#dialog" + id;
+        $(dialogId).dialog({
+            autoOpen: false,
+            modal: false,
+            hide: { effect: 'drop', duration: 200 },
+            dialogClass: "clickoncloseoutside",
+            position: { my: "right top", at: "right top", of: "#" + id }
         });
     }
 </script>
