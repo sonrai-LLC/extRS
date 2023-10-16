@@ -4,12 +4,12 @@ using ExtRS.Portal.Models;
 
 namespace EditorNetCoreDemo.Controllers
 {
-    public class UserSettingsController : Controller
+    public class SettingsController : Controller
     {
-        private readonly ILogger<UserSettingsController> _logger;
+        private readonly ILogger<SettingsController> _logger;
         private readonly IConfiguration _configuration;
 
-        public UserSettingsController(ILogger<UserSettingsController> logger, IConfiguration configuration)
+        public SettingsController(ILogger<SettingsController> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
@@ -54,9 +54,9 @@ namespace EditorNetCoreDemo.Controllers
             return Json(null);
         }
 
-        public ActionResult UserSettings()
+        public ActionResult Settings()
         {
-            return View("Users", new UserSettingsView() { CurrentTab = "UserSettings" });
+            return View("Users", new SettingsView() { CurrentTab = "Settings" });
             //var _httpClient = new _httpClient();
             //SSRSConnection connection = new SSRSConnection(_configuration["ReportServerName"]!, "ExtRSAuth", AuthenticationType.ExtRSAuth);
             //connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, connection.Administrator, _configuration["extrspassphrase"], connection.ServerName);

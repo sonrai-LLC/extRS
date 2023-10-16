@@ -267,6 +267,13 @@
         });
     </script>
 </header>
+<div class="breadcrumb">
+@Html.ActionLink(ViewContext.RouteData.Values["controller"]!.ToString()!.Replace("DataSources", "Data Sources"), ViewContext.RouteData.Values["controller"]!.ToString(), ViewContext.RouteData.Values["controller"]!.ToString())
+@if (ViewContext.RouteData.Values["action"]!.ToString() != ViewContext.RouteData.Values["controller"]!.ToString())
+{
+    @:&nbsp;>&nbsp;@Html.ActionLink(ViewContext.RouteData.Values["action"]!.ToString(), ViewContext.RouteData.Values["action"]!.ToString(), ViewContext.RouteData.Values["controller"]!.ToString())
+}
+</div>
 <div class="l-navbar navbar-collapse" id="nav-bar">
     <nav class="nav">
         <div>
@@ -281,10 +288,10 @@
 @*                 <a href="@Url.Action("StatsLink", "Stats")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Stats" ? "active" : "")"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">Stats</span></a>  *@     
                 @* <a href="@Url.Action("Admin", "Admin")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Admin" ? "active" : "")"><i class='bx bx-shield nav_icon'></i><span class="nav_name">Admin</span></a> *@
                 <br /> <br /> <br /> <br />
-                <a href="@Url.Action("UserSettings", "UserSettings")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "UserSettings" ? "active" : "")"><i class='bx bx-wrench nav_icon'></i><span class="nav_name">guest</span></a>
+                <a href="@Url.Action("Settings", "Settings")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Settings" ? "active" : "")"><i class='bx bx-wrench nav_icon'></i><span class="nav_name">guest</span></a>
                 <a href="#" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span></a>
             </div>
-        </div>
+        </div
     </nav>
 </div>
 <div class="bg-dark">

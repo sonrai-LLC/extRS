@@ -4,7 +4,7 @@
 	$(document).ready(function () {
 		var editor = new DataTable.Editor({
 			dataSrc: "",
-			ajax: "/usersettings/users",
+			ajax: "/Settings/users",
 			table: "#example",
 			fields: [
 			//	{
@@ -40,7 +40,7 @@
 
 		$('#example').DataTable({
 			dom: "Bfrtip21",
-			ajax: "/usersettings/users",
+			ajax: "/Settings/users",
 			order: [[1, 'asc']],
 			columns: [
 				//{
@@ -71,7 +71,6 @@
 	});
 </script>
 <body id="body-pd" class="dt-example net">
-	<h4>Settings.</h4>
 	<div class="container">
 		<section>
 			<div class="demo-html">

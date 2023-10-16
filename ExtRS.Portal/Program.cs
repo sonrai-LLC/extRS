@@ -48,7 +48,7 @@ builder.Services.AddScoped<EncryptionService>();
 //.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
 //options =>
 //{
-//    options.LoginPath = new PathString("/UserSettings/Login");
+//    options.LoginPath = new PathString("/Settings/Login");
 //    options.AccessDeniedPath = new PathString("/error");
 //})
 //.AddGoogle(googleOptions =>

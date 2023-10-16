@@ -26,7 +26,7 @@ namespace ExtRS.Portal.Controllers
             _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["extrspassphrase"]!, _connection.ServerName).Result;
             _ssrs = new SSRSService(_connection, _configuration);
         }
-        public async Task<IActionResult> DataSets()
+        public async Task<IActionResult> Datasets()
         {
             List<DataSet> datasets = await _ssrs.GetDataSets();
 

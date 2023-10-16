@@ -40,6 +40,15 @@ a {
 	text-decoration: none;
 }
 
+.breadcrumb a {
+	color: lightblue !important;
+	font-weight: bold;
+}
+
+.breadcrumb a:hover {
+	color: lime !important;
+}
+
 p > a:hover {
 	text-decoration: underline;
 }

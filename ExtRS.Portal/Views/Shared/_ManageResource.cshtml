@@ -4,10 +4,11 @@
 
 @model CatalogItem
 
+@* Reports *@
 <div style="background-color:#ffffff; font-size:11pt">
     <span style="font-size:14pt; font-weight:bold">@Model.Name</span><br />
-    <a href=@Url.Action(@"Report?reportName="+@Model.Name, "Reports") target="_blank">Open</a><br />
-    <a href=@string.Format("https://{0}/Reports/api/v2.0/catalogitems({1})/Content/$value", @Configuration["ReportServerName"], Model.Id)>Download</a><br />
+    <a href=@Url.Action(@"CatalogItems?Id="+@Model.Id, "Reports") target="_blank">Open</a><br />
+    <a href=@Url.Action(@"Download?Id="+@Model.Id, "CatalogItems") target="_blank">Download</a><br />
 @*     <a href=@string.Format("https://{0}/Reports/manage/catalogitem/properties/Reports/{1}", @Configuration["ReportServerName"], Model.Name) target="_blank">Manage</a><br />
     <a href=@string.Format("reportbuilder:Action=Edit&ItemPath={0}&Endpoint=https%3A%2F%2F{1}%3A443%2FReportServer", Model.Path, @Configuration["ReportServerName"]) target="_blank">Edit in Report Builder</a><br /> *@
     <br/>
