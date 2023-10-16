@@ -3,6 +3,8 @@ ExtRS is a .NET class library for extending the capabilities of Reporting Servic
 
 SSRS ain't dead- it's just a niche tool that hasn't fully realized its potential- yet. 🤷‍♂️
 
+Here, hosted on Azure is an implementation of ExtRS in an SSRS client that exposes some of the default SSRS Portal feature set: https://extrsportal.azurewebsites.net
+
 # Requirements
 This plug-in works as a drop-in Nuget package for .NET projects as well an SSRS Custom Assembly as described by Microsoft here: https://docs.microsoft.com/en-us/sql/reporting-services/custom-assemblies/using-custom-assemblies-with-reports?view=sql-server-ver15
 
