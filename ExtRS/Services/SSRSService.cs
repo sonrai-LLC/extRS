@@ -24,7 +24,7 @@ namespace Sonrai.ExtRS
             _conn = connection;
             _client = new HttpClient();
             _cookieContainer.Add(new Cookie("sqlAuthCookie", _conn.SqlAuthCookie, "/", configuration == null ? "localhost" : configuration["ReportServerName"]!));
-            _serverUrl = string.Format("https://{0}/reports/api/v2.0/", _conn.ServerName);
+            _serverUrl = string.Format("https://{0}/reports/api/v2.0/", _conn.ReportServerName);
             _configuration = configuration;
         }
 
@@ -76,6 +76,12 @@ namespace Sonrai.ExtRS
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("CatalogItems({0})", idOrPath));
             return JsonConvert.DeserializeObject<CatalogItem>(await response.Content.ReadAsStringAsync())!;
+        }
+
+        public async Task<string> GetCatalogItemContent(string idOrPath)
+        {
+            var response = await CallApi(HttpVerbs.GET, string.Format("CatalogItems({0})/Content/$value", idOrPath));
+            return await response.Content.ReadAsStringAsync()!;
         }
 
         public async Task<List<Folder>> GetFolders()

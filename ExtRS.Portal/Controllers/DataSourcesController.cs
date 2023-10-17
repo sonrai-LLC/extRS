@@ -20,13 +20,19 @@ namespace ExtRS.Portal.Controllers
             _configuration = configuration;
             _httpClient = new HttpClient();
             _connection = new SSRSConnection(_configuration["ReportServerName"]!, "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["extrspassphrase"]!, _connection.ServerName).Result;
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
             _ssrs = new SSRSService(_connection, _configuration);
         }
 
         public async Task<IActionResult> DataSources()
         {
             List<DataSource> dataSources = await _ssrs.GetDataSources();
+            foreach (var dataSource in dataSources)
+            {
+                string uri = string.Format("https://{0}/Reportserver/Data+Sources?%2fData+Sources/{1}", _ssrs._conn.ReportServerName, dataSource.Name);
+                dataSource.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+            }
+
             DataSourcesView model = new DataSourcesView { CurrentTab = "DataSources", DataSources = dataSources, ReportServerName = _configuration["ReportServerName"]! };
 
             return View(model);

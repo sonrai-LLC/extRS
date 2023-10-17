@@ -40,6 +40,10 @@ a {
 	text-decoration: none;
 }
 
+.ui-widget-content a:hover {
+	font-weight: bold !important;
+}
+
 .breadcrumb a {
 	color: lightblue !important;
 	font-weight: bold;

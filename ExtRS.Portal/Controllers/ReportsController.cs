@@ -21,7 +21,7 @@ namespace ExtRS.Portal.Controllers
             _configuration = configuration;
             _httpClient = new HttpClient();
             _connection = new SSRSConnection(_configuration["ReportServerName"]!, "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["extrspassphrase"]!, _connection.ServerName).Result;
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
             _ssrs = new SSRSService(_connection, _configuration);
         }
 
@@ -31,7 +31,7 @@ namespace ExtRS.Portal.Controllers
 
             foreach(var report in reports)
             {
-                string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true", _ssrs._conn.ServerName, report.Name);
+                string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true", _ssrs._conn.ReportServerName, report.Name);
                 report.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
             }
 
@@ -44,7 +44,7 @@ namespace ExtRS.Portal.Controllers
 		{
             Report report = await _ssrs.GetReport(string.Format("path='/Reports/{0}'", reportName));
 
-            string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true", _ssrs._conn.ServerName, report.Name);
+            string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true", _ssrs._conn.ReportServerName, report.Name);
             report.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!); // + "?Url=" + uri;
 
             ReportView view = new ReportView() { SelectedReport = report };

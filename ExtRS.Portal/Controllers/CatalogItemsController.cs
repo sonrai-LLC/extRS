@@ -5,6 +5,10 @@ using Sonrai.ExtRS.Models;
 using System.ComponentModel.Design;
 using ReportingServices.Api.Models;
 using Sonrai.ExtRS;
+using System.Text;
+using System.IO;
+using System;
+using System.Security.Policy;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -22,7 +26,7 @@ namespace ExtRS.Portal.Controllers
             _configuration = configuration;
             _httpClient = new HttpClient();
             _connection = new SSRSConnection(_configuration["ReportServerName"]!, "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["extrspassphrase"]!, _connection.ServerName).Result;
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
             _ssrs = new SSRSService(_connection, _configuration);
         }
 
@@ -36,6 +40,60 @@ namespace ExtRS.Portal.Controllers
         {
             CatalogItem catalogItem = await _ssrs.GetCatalogItem(id);
             return PartialView("_ManageResource", catalogItem);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Open(string id)
+        {
+            CatalogItem item = await _ssrs.GetCatalogItem(id);
+            string openUrl = "";
+            switch (item.Type)
+            {
+                case "DataSource":
+                    openUrl = string.Format("https://{0}/Reportserver/Data+Sources?%2fData+Sources/{1}", _ssrs._conn.ReportServerName, item.Name);
+                    openUrl += "&Qs=" + EncryptionService.Encrypt(openUrl, _configuration["cle"]!);
+                    break;
+                case "DataSet":
+                    openUrl = string.Format("https://{0}/Reportserver/Datasets?%2fDatasets/{1}", _ssrs._conn.ReportServerName, item.Name);
+                    openUrl += "&Qs=" + EncryptionService.Encrypt(openUrl, _configuration["cle"]!);
+                    break;
+                case "Report":
+                    openUrl = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true", _ssrs._conn.ReportServerName, item.Name);
+                    openUrl += "&Qs=" + EncryptionService.Encrypt(openUrl, _configuration["cle"]!);
+                    break;
+                default:
+                    openUrl = "unknown.xml";
+                    break;
+            }
+
+            return Redirect(openUrl);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Download(string id)
+        {
+            CatalogItem item = await _ssrs.GetCatalogItem(id);
+            string fileName;
+            switch (item.Type)
+            {
+                case "DataSource":
+                    fileName = item.Name + ".rds";
+                    break;
+                case "DataSet":
+                    fileName = item.Name + ".rsd";
+                    break;
+                case "Report":
+                    fileName = item.Name + ".rdl";
+                    break;
+                default:
+                    fileName = "unknown.xml";
+                    break;
+            }
+
+            string contentAsString = await _ssrs.GetCatalogItemContent(id);
+            byte[] content = Encoding.ASCII.GetBytes(contentAsString);
+            var contentType = "APPLICATION/octet-stream";
+            return File(new MemoryStream(content), contentType, fileName);
         }
 
         public IActionResult Privacy()

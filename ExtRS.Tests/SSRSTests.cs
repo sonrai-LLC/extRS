@@ -22,7 +22,7 @@ namespace Sonrai.ExtRS.UnitTests
         {
             httpClient = new HttpClient();
             SSRSConnection connection = new SSRSConnection(Resources.ReportServerName, "ExtRSAuth", AuthenticationType.ExtRSAuth);
-            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, Resources.passphrase, connection.ServerName);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, Resources.passphrase, connection.ReportServerName);
             ssrs = new SSRSService(connection, null);
         }
 

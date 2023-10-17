@@ -6,10 +6,15 @@
     <section>
         @foreach (var dataset in Model.Datasets)
         {
-            <div class="bg-dark" style="box-shadow: 5px 10px 8px #888888;">
-                <a><span class="nav_link" style="float:right">...</span></a><a href="@string.Format("https://{0}/Reportserver/Datasets?%2fDatasets/{1}", @Model.ReportServerName, dataset.Name)" class="nav_link"><i class="bx bx-table"></i><span class="nav_name">@dataset.Name</span></a>
+            <div id=@("dialog" + dataset.Id) class="dialog" style="display: none">
+            </div>
+            <div class="bg-dark" style="box-shadow: 2.5px 5px 4px #888888;">
+                <span id="@dataset.Id" class="nav_link" style="float:right" onclick="asyncManageResourceModal('@dataset.Id');">
+                    <a href="#">
+                        ...
+                    </a>
+                </span><a href="@dataset.Uri" class="nav_link" target="_blank"><i class="bx bx-line-chart"></i><span class="nav_name">@dataset.Name</span></a>
             </div>
         }
     </section>
 </div>
-@* https://localhost/Reports/manage/catalogitem/properties/Datasets/** TODO: add this as option in "..."" manage view*@
