@@ -1,9 +1,9 @@
-# ExtRS
-ExtRS is a .NET class library for extending the capabilities of Reporting Services, among other things. With ExtRS, (pronounced "extras"), common public API endpoints and SDK clients are consolidated into a utility .dll containing features that can compliment your .NET development. ExtRS also contains a simplified interface to the SSRS v2 API for programmatically managing SSRS catalog item types (CatalogItem, Report, DataSource, DataSet, etc.).
+# extRS
+extRS is a .NET class library for extending the capabilities of Reporting Services, among other things. With extRS, (pronounced "extras"), common public API endpoints and SDK clients are consolidated into a utility .dll containing features that can compliment your .NET development. extRS also contains a simplified interface to the SSRS v2 API for programmatically managing SSRS catalog item types (CatalogItem, Report, DataSource, DataSet, etc.).
 
 SSRS ain't dead- it's just a niche tool that hasn't fully realized its potential- yet. 🤷‍♂️
 
-Here is an implementation of ExtRS in the form of an SSRS client (ExtRS.Portal.csproj) that exposes some of the default SSRS Portal feature set: https://extrsportal.azurewebsites.net
+Here is an implementation of extRS in the form of an SSRS client (extRS.Portal.csproj) that exposes some of the default SSRS Portal feature set: https://extrsportal.azurewebsites.net
 
 # Requirements
 This plug-in works as a drop-in Nuget package for .NET projects as well an SSRS Custom Assembly as described by Microsoft here: https://docs.microsoft.com/en-us/sql/reporting-services/custom-assemblies/using-custom-assemblies-with-reports?view=sql-server-ver15
@@ -19,7 +19,7 @@ This package includes the following components:
         public async Task InitializeTests()
         {
             httpClient = new HttpClient();
-            SSRSConnection connection = new SSRSConnection("localhost", "ExtRSAuth", 
+            SSRSConnection connection = new SSRSConnection("localhost", "extRSAuth", 
             AuthenticationType.ExtRSAuth);
             connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, 
             connection.Administrator, "", connection.ServerName);
