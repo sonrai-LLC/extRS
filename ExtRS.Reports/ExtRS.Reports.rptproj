@@ -56,6 +56,7 @@
     <DataSet Include="BinGan.rsd" />
     <DataSet Include="City.rsd" />
     <DataSet Include="Coach.rsd" />
+    <DataSet Include="D1MBBCoaches.rsd" />
     <DataSet Include="Dave.rsd" />
     <DataSet Include="Device.rsd" />
     <DataSet Include="Election.rsd" />
@@ -79,6 +80,7 @@
     <DataSet Include="Student.rsd" />
     <DataSet Include="Team.rsd" />
     <DataSet Include="Voter.rsd" />
+    <DataSet Include="vTeamIDs.rsd" />
   </ItemGroup>
   <ItemGroup>
     <DataSource Include="localhost.rds" />
