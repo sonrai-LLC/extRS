@@ -12,7 +12,7 @@
                     <a href="#">
                         ...
                     </a>
-                </span><a href="@report.Uri" class="nav_link" target="_blank"><i class="bx bx-line-chart"></i><span class="nav_name">@report.Name</span></a>
+                </span><a href="@report.Uri" class="nav_link" @Model.OpenInLinksNewTab ? "target=_blank"><i class="bx bx-line-chart"></i><span class="nav_name">@report.Name</span></a>
             </div>
         }
     </section>

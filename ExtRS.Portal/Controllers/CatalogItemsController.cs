@@ -39,7 +39,7 @@ namespace ExtRS.Portal.Controllers
         public async Task<IActionResult> GetManageResourceModal(string id)
         {
             CatalogItem catalogItem = await _ssrs.GetCatalogItem(id);
-            return PartialView("_ManageResource", catalogItem);
+            return PartialView("_ManageCatalogItem", catalogItem);
         }
 
         [HttpGet]
@@ -50,19 +50,13 @@ namespace ExtRS.Portal.Controllers
             switch (item.Type)
             {
                 case "DataSource":
-                    openUrl = string.Format("https://{0}/Reportserver/Data+Sources?%2fData+Sources/{1}", _ssrs._conn.ReportServerName, item.Name);
-                    openUrl += "&Qs=" + EncryptionService.Encrypt(openUrl, _configuration["cle"]!);
-                    break;
+                    return Redirect(Url.Action("DataSource", "DataSources", new { id = id })!);
                 case "DataSet":
-                    openUrl = string.Format("https://{0}/Reportserver/Datasets?%2fDatasets/{1}", _ssrs._conn.ReportServerName, item.Name);
-                    openUrl += "&Qs=" + EncryptionService.Encrypt(openUrl, _configuration["cle"]!);
-                    break;
+                    return Redirect(Url.Action("Dataset", "Datasets", new { id = id })!);
                 case "Report":
-                    openUrl = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true", _ssrs._conn.ReportServerName, item.Name);
-                    openUrl += "&Qs=" + EncryptionService.Encrypt(openUrl, _configuration["cle"]!);
-                    break;
+                    return Redirect(Url.Action("Report", "Reports", new { id = id })!);
                 default:
-                    openUrl = "unknown.xml";
+                    openUrl = "unknown.htm";
                     break;
             }
 

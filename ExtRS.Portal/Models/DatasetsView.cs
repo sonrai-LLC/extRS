@@ -10,4 +10,13 @@ namespace ExtRS.Portal.Models
         public List<DataSet> Datasets;
         public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
     }
+
+    public class DatasetView : LayoutView
+    {
+        public string ReportServerName;
+        private string _currentTab;
+        public DataSet SelectedDataSet;
+
+        public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
+    }
 }

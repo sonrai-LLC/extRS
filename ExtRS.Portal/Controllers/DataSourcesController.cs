@@ -29,7 +29,7 @@ namespace ExtRS.Portal.Controllers
             List<DataSource> dataSources = await _ssrs.GetDataSources();
             foreach (var dataSource in dataSources)
             {
-                string uri = string.Format("https://{0}/Reportserver/Data+Sources?%2fData+Sources/{1}", _ssrs._conn.ReportServerName, dataSource.Name);
+                string uri = string.Format(Url.ActionLink("DataSource", "DataSources", new { dataSourceName = dataSource.Name })!);
                 dataSource.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
             }
 
@@ -38,10 +38,23 @@ namespace ExtRS.Portal.Controllers
             return View(model);
         }
 
-        public IActionResult DataSource(DataSourcesView view)
+        public async Task<IActionResult> DataSource(string dataSourceName, string id)
         {
-            view = new DataSourcesView { CurrentTab = "DataSources", ReportServerName = _configuration["ReportServerName"]! };
-            return View(view);
+            DataSource dataSource;
+            if (dataSourceName is not null)
+            {
+                dataSource = await _ssrs.GetDataSource(string.Format("path='/Data Sources/{0}'", dataSourceName));
+            }
+            else
+            {
+                dataSource = await _ssrs.GetDataSource(id);
+            }
+
+            string uri = string.Format("https://{0}/Reportserver/Data+Sources?%2fData+Sources/{1}", _ssrs._conn.ReportServerName, dataSource.Name);
+            dataSource.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+
+            DataSourceView view = new DataSourceView { CurrentTab = "DataSources", SelectedDataSource = dataSource, ReportServerName = _configuration["ReportServerName"]! };
+            return View("_DataSource", view);
         }
     }
 }

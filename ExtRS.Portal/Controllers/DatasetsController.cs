@@ -31,7 +31,7 @@ namespace ExtRS.Portal.Controllers
             List<DataSet> datasets = await _ssrs.GetDataSets();
             foreach (var dataset in datasets)
             {
-                string uri = string.Format("https://{0}/Reportserver/Datasets?%2fDatasets/{1}", _ssrs._conn.ReportServerName, dataset.Name);
+                string uri = string.Format(Url.ActionLink("Dataset", "Datasets", new { dataSetName = dataset.Name })!);
                 dataset.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
             }       
 
@@ -39,10 +39,23 @@ namespace ExtRS.Portal.Controllers
             return View(model);
         }
 
-        public IActionResult Dataset()
+        public async Task<IActionResult> Dataset(string dataSetName, string id)
         {
-            DatasetsView model = new DatasetsView() { CurrentTab = "Datasets", ReportServerName = _configuration["ReportServerName"]! };
-            return View("_Dataset");
+            DataSet dataset;
+            if (dataSetName is not null)
+            {
+                dataset = await _ssrs.GetDataSet(string.Format("path='/Datasets/{0}'", dataSetName));
+            }
+            else
+            {
+                dataset = await _ssrs.GetDataSet(id);
+            }
+
+            string uri = string.Format("https://{0}/Reportserver/Datasets?%2fDatasets/{1}", _ssrs._conn.ReportServerName, dataset.Name);
+            dataset.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+
+            DatasetView view = new DatasetView { CurrentTab = "DataSets", SelectedDataSet = dataset, ReportServerName = _configuration["ReportServerName"]! };
+            return View("_DataSet", view);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
