@@ -17,21 +17,28 @@
             Highcharts.chart('container', {
                 chart: {
                     type: 'bar',
-                    height: 600
+                    height: 600,
+                    backgroundColor: '#000000',
+                    style: {
+                        fontFamily: 'monospace',
+                    }
                 },
                 title: {
-                    text: 'SSRS Server Monitoring'
+                    text: 'SSRS Server Monitoring',
+                    style: {
+                        color: "lightblue"
+                    }
                 },
                 legend: {
                     enabled: false
                 },
                 subtitle: {
-                    text: 'Instance Load'
+                    text: 'CPU Pressure'
                 },
                 data: {
                     csvURL: 'https://demo-live-data.highcharts.com/vs-load.csv',
                     enablePolling: true,
-                    dataRefreshRate: 1
+                    dataRefreshRate: .25
                 },
                 plotOptions: {
                     bar: {
@@ -86,7 +93,8 @@
                     type: 'category',
                     labels: {
                         style: {
-                            fontSize: '10px'
+                            fontSize: '10px',
+                            color: "lightblue"
                         }
                     }
                 },

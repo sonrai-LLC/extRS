@@ -93,7 +93,7 @@ app.UseEndpoints(endpoints =>
 {
 	endpoints.MapControllerRoute(
 	name: "default",
-	pattern: "{controller=Reports}/{action=Reports}");
+	pattern: "{controller=Dashboard}/{action=Dashboard}");
 	endpoints.MapRazorPages();
 });
 
