@@ -1,3 +1,19 @@
 ﻿@model SubscriptionsView
 
 &nbsp;
+<div class="container">
+    <section>
+        @foreach (var subscription in Model.Subscriptions)
+        {
+            <div id=@("dialog" + subscription.Id) class="dialog" style="display: none">
+            </div>
+            <div class="bg-dark" style="box-shadow: 2.5px 5px 4px #888888;">
+                <span id="@subscription.Id" class="nav_link" style="float:right" onclick="asyncManageResourceModal('@subscription.Id');">
+                    <a href="#">
+                        ...
+                    </a>
+                </span><a href="@subscription.Uri" class="nav_link" @Model.OpenInLinksNewTab ? "target=_blank"><i class="bx bx-cube"></i><span class="nav_name">@subscription.Description</span></a>
+            </div>
+        }
+    </section>
+</div>

@@ -120,6 +120,18 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<DataSet>(await response.Content.ReadAsStringAsync())!;
         }
 
+        public async Task<List<Subscription>> GetSubscriptions()
+        {
+            var response = await CallApi(HttpVerbs.GET, "Subscriptions");
+            return JsonConvert.DeserializeObject<ODataSubscriptions>(await response.Content.ReadAsStringAsync())!.Value;
+        }
+
+        public async Task<Subscription> GetSubscription(string idOrPath)
+        {
+            var response = await CallApi(HttpVerbs.GET, string.Format("Subscriptions({0})", idOrPath));
+            return JsonConvert.DeserializeObject<Subscription>(await response.Content.ReadAsStringAsync())!;
+        }
+
         public async Task<DataSetParameter> GetDataSetParameterDefinition(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("DataSets({0})/ParameterDefinitions", idOrPath));

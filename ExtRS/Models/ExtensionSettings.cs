@@ -25,7 +25,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="ParameterValues", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ParameterValues")]
-    public ParameterValue ParameterValues { get; set; }
+    public List<ParameterValue> ParameterValues { get; set; }
 
 
     /// <summary>

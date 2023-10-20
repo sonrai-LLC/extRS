@@ -54,8 +54,8 @@ namespace ExtRS.Portal.Controllers
             string uri = string.Format("https://{0}/Reportserver/Datasets?%2fDatasets/{1}", _ssrs._conn.ReportServerName, dataset.Name);
             dataset.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
 
-            DatasetView view = new DatasetView { CurrentTab = "DataSets", SelectedDataSet = dataset, ReportServerName = _configuration["ReportServerName"]! };
-            return View("_DataSet", view);
+            DatasetView view = new DatasetView { CurrentTab = "Datasets", SelectedDataSet = dataset, ReportServerName = _configuration["ReportServerName"]! };
+            return View("_Dataset", view);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
