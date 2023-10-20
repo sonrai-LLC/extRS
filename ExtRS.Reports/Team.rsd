@@ -13,11 +13,12 @@
         </DataSetParameter>
       </DataSetParameters>
       <CommandText>SELECT        h.Team, h.Season, h.Rank, h.Conf, h.Wins, h.Losses, h.WinPct, h.ConfWins, h.ConfLosses, h.ConfWinPct, h.SRS, h.SOS, h.Pts, h.Opp_Pts, h.AP_Pre, h.AP_Min, h.VTAP_FinaleamID, h.NCAATourney, h.NCAATSeed, h.Coach, l.ID, 
-                         l.OrgID, l.Org, l.ETeamID, l.VTeamID, l.RTeamID, l.Name, l.ShortName, l.LogoURI, l.Mascot, l.Contact, l.Email, l.Website, l.Phone, l.ContactKey, l.StreetAddress1, l.StreetAddress2, l.City, l.State, l.Zip, l.Notes, l.Lat, l.Long, 
+                         l.OrgID, o.Name, l.ETeamID, l.VTeamID, l.RTeamID, l.Name, l.ShortName, l.LogoURI, l.Mascot, l.Contact, l.Email, l.Website, l.Phone, l.ContactKey, l.StreetAddress1, l.StreetAddress2, l.City, l.State, l.Zip, l.Notes, l.Lat, l.Long, 
                          l.Petitions, l.Flyers, l.Posters, l.LastDropoffDateTime, l.LastPickUpDateTime, l.LastOutOfStockDateTime, l.AllTimeOutofStock, l.Unsupportive, l.VolunteerInterest, l.Region, l.MetadataJSON, l.MetadataMarkup, l.TempLong, 
                          l.TempLat, l.PrimaryColor, l.AlternateColor, l.LocationContact, l.PrimaryContact, l.PrimaryContactID, l.TotalResources, l.Venue, l.FollowerURI, l.YouTubeURI, l.LastEdit, l.PrimaryContactImg, l.PrimaryColorA, l.PrimaryColorB 
 FROM            ReferenceData.dbo.DI_MBB_HISTORY AS h INNER JOIN
                          Fissonrai.dbo.LOCATION AS l ON h.Team = l.RTeamID
+						 INNER JOIN fissonrai.dbo.ORGANIZATION o ON l.OrgID = o.ID
 WHERE        (l.VTeamID = @p1)
 ORDER BY h.Season DESC</CommandText>
     </Query>
