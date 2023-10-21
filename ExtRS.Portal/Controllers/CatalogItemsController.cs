@@ -36,9 +36,10 @@ namespace ExtRS.Portal.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetManageResourceModal(string id)
+        public async Task<IActionResult> GetManageCatalogItemModal(string id)
         {
             CatalogItem catalogItem = await _ssrs.GetCatalogItem(id);
+            
             return PartialView("_ManageCatalogItem", catalogItem);
         }
 
@@ -90,6 +91,25 @@ namespace ExtRS.Portal.Controllers
             return File(new MemoryStream(content), contentType, fileName);
         }
 
+        public async Task<IActionResult> Delete(string id)
+        {
+            CatalogItem item = await _ssrs.GetCatalogItem(id);
+            string type = item.Type!;
+            bool isDeleted = await _ssrs.DeleteCatalogItem(id);
+
+            switch (type)
+            {
+                case "DataSource":
+                    return RedirectToAction("DataSources", "DataSources");
+                case "DataSet":
+                    return RedirectToAction("DataSets", "DataSets");
+                case "Report":
+                    return RedirectToAction("Reports", "Reports");
+                default:
+                    return RedirectToAction("Reports", "Reports");
+            }
+        }
+
         public IActionResult Privacy()
         {
             return View();
@@ -99,6 +119,7 @@ namespace ExtRS.Portal.Controllers
         {
             return View("Users");
         }
+
         public IActionResult Reports()
         {
             return View("Reports");

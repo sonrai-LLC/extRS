@@ -26,6 +26,7 @@ namespace ExtRS.Portal.Controllers
             _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
             _ssrs = new SSRSService(_connection, _configuration);
         }
+
         public async Task<IActionResult> Subscriptions()
         {
             List<Subscription> subscriptions = await _ssrs.GetSubscriptions();
@@ -37,6 +38,30 @@ namespace ExtRS.Portal.Controllers
 
             SubscriptionsView model = new SubscriptionsView() { CurrentTab = "Subscriptions", Subscriptions = subscriptions, ReportServerName = _configuration["ReportServerName"]! };
             return View(model);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetManageSubscriptionModal(string id)
+        {
+            Subscription subscription;
+            subscription = await _ssrs.GetSubscription(id);
+
+            return PartialView("_ManageSubscription", subscription);
+        }
+
+        public async Task<IActionResult> Delete(string id)
+        {
+            bool isDeleted = await _ssrs.DeleteSubscription(id);
+            List<Subscription> subscriptions = await _ssrs.GetSubscriptions();
+
+            foreach (var subscription in subscriptions)
+            {
+                string uri = string.Format(Url.ActionLink("Subscription", "Subscriptions", new { id = subscription.Id })!);
+                subscription.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+            }
+
+            SubscriptionsView model = new SubscriptionsView() { CurrentTab = "Subscriptions", Subscriptions = subscriptions, ReportServerName = _configuration["ReportServerName"]! };
+            return View("Subscriptions", model);
         }
 
         public async Task<IActionResult> Subscription(string? subscriptionName, string id)

@@ -1,0 +1,17 @@
+﻿@using ReportingServices.Api.Models
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
+
+@model Subscription
+
+<div style="background-color:#ffffff; font-size:11pt">
+    <span style="font-size:14pt; font-weight:bold">@Model.Description</span><br />
+    <a href=@Url.Action("Subscription", "Subscriptions", new { id = @Model.Id }) target="_blank">Open</a><br />
+    <a href=@Url.Action("Download", "Subscriptions", new { id = @Model.Id }) style="pointer-events: none; color: gray">Download</a><br />
+    <a href=@Url.Action("Delete", "Subscriptions", new { id = @Model.Id })>Delete</a><br />
+    <a href=@Url.Action("Manage", "Subscriptions", new { id = @Model.Id }) style="pointer-events: none; color: gray" target="_blank">Manage</a><br />
+    <br/>
+    <div style="font-size:7pt">
+        Changed by @Model.ModifiedBy on @Convert.ToDateTime(@Model.ModifiedDate).ToShortDateString() at @Convert.ToDateTime(@Model.ModifiedDate).ToLongTimeString()<br />
+    </div>
+</div>

@@ -1,7 +1,7 @@
 ﻿@model LayoutView
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title>extRS Portal</title>
+    <title>extRS</title>
     <style>
         body-box-shadow {
             box-shadow: 5px 10px 8px #888888
@@ -68,7 +68,6 @@
             padding: 0 1rem;
             font-family: var(--body-font);
             font-size: var(--normal-font-size);
-            transition: .5s;
             background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
             -color: #background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
             color:#ffffff;
@@ -89,7 +88,6 @@
             padding: 0 1rem;
             background-color: var(--first-color);
             z-index: var(--z-fixed);
-            transition: .5s
         }
 
         .header_toggle {
@@ -134,7 +132,8 @@
             grid-template-columns: max-content max-content;
             align-items: center;
             column-gap: 1rem;
-            padding: .5rem 0 .5rem 1.5rem
+            padding: .5rem 0 .5rem 1.5rem;
+            overflow: hidden;
         }
 
         .nav_logo {
@@ -290,7 +289,28 @@
         $(".ui-dialog-content").dialog("close");
         $.ajax({
             type: 'GET',
-            url: '/CatalogItems/GetManageResourceModal',
+            url: '/CatalogItems/GetManageCatalogItemModal',
+            data: { "id": id },
+            success: function (response) {
+                $(dialogId).html(response);
+                $(dialogId).dialog('open');
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (arg) {
+                console.log(arg);
+            }
+        });
+    }
+
+        function asyncManageSubscriptionModal(id) {
+        wireManageResourceModal(id);
+        let dialogId = "#dialog" + id;
+        $(".ui-dialog-content").dialog("close");
+        $.ajax({
+            type: 'GET',
+            url: '/Subscriptions/GetManageSubscriptionModal',
             data: { "id": id },
             success: function (response) {
                 $(dialogId).html(response);

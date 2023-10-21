@@ -84,6 +84,12 @@ namespace Sonrai.ExtRS
             return await response.Content.ReadAsStringAsync()!;
         }
 
+        public async Task<bool> DeleteCatalogItem(string idOrPath)
+        {
+            var response = await CallApi(HttpVerbs.DELETE, string.Format("CatalogItems({0})", idOrPath));
+            return true;
+        }
+
         public async Task<List<Folder>> GetFolders()
         {
             var response = await CallApi(HttpVerbs.GET, "Folders");
@@ -124,6 +130,12 @@ namespace Sonrai.ExtRS
         {
             var response = await CallApi(HttpVerbs.GET, "Subscriptions");
             return JsonConvert.DeserializeObject<ODataSubscriptions>(await response.Content.ReadAsStringAsync())!.Value;
+        }
+
+        public async Task<bool> DeleteSubscription(string idOrPath)
+        {
+            var response = await CallApi(HttpVerbs.DELETE, string.Format("Subscriptions({0})", idOrPath));
+            return true;
         }
 
         public async Task<Subscription> GetSubscription(string idOrPath)
