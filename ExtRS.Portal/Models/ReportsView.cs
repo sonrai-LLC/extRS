@@ -24,4 +24,14 @@ namespace ExtRS.Portal.Models
 
         public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
     }
+
+    public class SnapshotHistoryView : LayoutView
+    {
+        public List<HistorySnapshot> HistorySnapshots;
+        public string ReportServerName;
+        private string _currentTab;
+
+        public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
+    }
+
 }

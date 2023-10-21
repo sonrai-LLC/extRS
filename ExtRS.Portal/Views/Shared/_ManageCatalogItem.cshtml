@@ -9,6 +9,11 @@
     <a href=@Url.Action("Open", "CatalogItems", new { id = @Model.Id }) target="_blank">Open</a><br />
     <a href=@Url.Action("Download", "CatalogItems", new { id = @Model.Id })>Download</a><br />
     <a href=@Url.Action("Move", "CatalogItems", new { id = @Model.Id }) style="pointer-events: none; color: gray">Move</a><br />
+    @if(Model.Type == "Report")
+    {
+        <a href=@Url.Action("CreateSnapshot", "Reports", new { id = @Model.Id })>Create Snapshot</a><br />
+        <a href=@Url.Action("SnapshotHistory", "Reports", new { id = @Model.Id })>Snapshot History</a><br />
+    }
     <a href=@Url.Action("Delete", "CatalogItems", new { id = @Model.Id })>Delete</a><br />
     <a href=@Url.Action("Manage", "CatalogItems", new { id = @Model.Id }) style="pointer-events: none; color: gray" target="_blank">Manage</a><br />
     <br/>
