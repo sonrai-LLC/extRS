@@ -38,7 +38,6 @@ namespace ExtRS.Portal.Controllers
             }
 
             ReportsView model = new ReportsView { Reports = reports, CurrentTab = "Reports", ReportServerName = _configuration["ReportServerName"]! };
-
             return View(model);
         }
 
@@ -60,20 +59,24 @@ namespace ExtRS.Portal.Controllers
             return View("_Report", view);
         }
 
+        public async Task<IActionResult> CreateReportSnapshot(string id)
+        {
+            await _ssrs.CreateReportSnapshot(id);
+            List<HistorySnapshot> snapshots = await _ssrs.GetReportSnapshotHistory(id);
+            return View("_SnapshotHistory", new SnapshotHistoryView { CurrentTab = "Reports", SnapShotCreated = true, HistorySnapshots = snapshots, ReportId = id });
+        }
+
+        [HttpPost]
+        public async Task CreateReportSnapshotAjax(string id)
+        {
+            await _ssrs.CreateReportSnapshot(id);
+        }
+
         public async Task<IActionResult> SnapshotHistory(string id)
         {
-            List<HistorySnapshot> snapshots = await _ssrs.GetReportSnapshotHistory(id);
+            var snapshots = await _ssrs.GetReportSnapshotHistory(id);
 
-            foreach (var snapshot in snapshots)
-            {
-
-               // string uri = string.Format(Url.ActionLink("Report", "Reports", new { reportName = snapshot.Name })!);
-                //snapshot.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
-            }
-
-            //ReportsView model = new ReportsView { Reports = reports, CurrentTab = "Reports", ReportServerName = _configuration["ReportServerName"]! };
-
-            return View("_SnapshotHistory", new SnapshotHistoryView { HistorySnapshots = snapshots, CurrentTab = "Reports" });
+            return View("_SnapshotHistory", new SnapshotHistoryView { HistorySnapshots = snapshots, CurrentTab = "Reports", ReportId = id });
         }      
     }
 }

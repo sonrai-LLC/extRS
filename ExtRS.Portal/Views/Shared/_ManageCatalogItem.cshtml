@@ -3,20 +3,40 @@
 @inject IConfiguration Configuration
 
 @model CatalogItem
+<script>
+    function snapshotToastr(id, message) {
+        $.ajax({
+            type: 'POST',
+            url: '/Reports/CreateReportSnapshotAjax',
+            data: { "id": id },
+            success: function (response) {
+                toastr.success(message);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (arg) {
+                console.log(arg);
+            }
+        });
+    }
+</script>
 
 <div style="background-color:#ffffff; font-size:11pt">
     <span style="font-size:14pt; font-weight:bold">@Model.Name</span><br />
     <a href=@Url.Action("Open", "CatalogItems", new { id = @Model.Id }) target="_blank">Open</a><br />
     <a href=@Url.Action("Download", "CatalogItems", new { id = @Model.Id })>Download</a><br />
     <a href=@Url.Action("Move", "CatalogItems", new { id = @Model.Id }) style="pointer-events: none; color: gray">Move</a><br />
-    @if(Model.Type == "Report")
+    @if (Model.Type == "Report")
     {
-        <a href=@Url.Action("CreateSnapshot", "Reports", new { id = @Model.Id })>Create Snapshot</a><br />
+        <a onclick="snapshotToastr('@Model.Id', 'Snapshot created')">Create Snapshot</a><br />
         <a href=@Url.Action("SnapshotHistory", "Reports", new { id = @Model.Id })>Snapshot History</a><br />
     }
-    <a href=@Url.Action("Delete", "CatalogItems", new { id = @Model.Id })>Delete</a><br />
-    <a href=@Url.Action("Manage", "CatalogItems", new { id = @Model.Id }) style="pointer-events: none; color: gray" target="_blank">Manage</a><br />
-    <br/>
+    @if (@Configuration["ReportServerName"] == "localhost")
+    {
+        <a href=@Url.Action("Delete", "CatalogItems", new { id = @Model.Id })>Delete</a><br />
+    }
+    <a href=@Url.Action("Manage", "CatalogItems", new { id = @Model.Id }) style="pointer-events: none; color: gray" target="_blank">Manage</a><br /><br />
     <div style="font-size:7pt">
         Created by @Model.CreatedBy on @Convert.ToDateTime(@Model.CreatedDate).ToShortDateString() at @Convert.ToDateTime(@Model.CreatedDate).ToLongTimeString()<br />
         Changed by @Model.ModifiedBy on @Convert.ToDateTime(@Model.CreatedDate).ToShortDateString() at @Convert.ToDateTime(@Model.ModifiedDate).ToLongTimeString()<br />

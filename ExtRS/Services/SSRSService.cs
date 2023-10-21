@@ -66,10 +66,10 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
         }
 
-        public async Task<List<HistorySnapshot>> CreateReportSnapshot(string id)
+        public async Task<bool> CreateReportSnapshot(string id)
         {
-            var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots", id));
-            return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
+            var response = await CallApi(HttpVerbs.POST, string.Format("Reports({0})/HistorySnapshots", id));
+            return true;
         }
 
         public async Task<Report> GetReport(string idOrPath)
