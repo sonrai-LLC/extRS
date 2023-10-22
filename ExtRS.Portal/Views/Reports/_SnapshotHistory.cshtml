@@ -12,17 +12,17 @@
 </style>
 
 <script>
-
-
     function confirmdeleteReportSnapshot(id, historyId, message) {
-        $('<div id="deleteConfirm" style="padding: 10px; max-width: 500px; word-wrap: break-word;">Delete report snapshot?</div>').dialog({
+        $('<div id="deleteConfirm" style="padding: 10px">Delete report snapshot?</div>').dialog({
             autoOpen: true,
             modal: false,
             title: 'Confirm',
+            center: false,
             buttons: {
                 "OK": function () {
                     $(this).dialog("close");
                     deleteReportSnapshot(id, historyId, message);
+                    location.reload();
                 },
                 "Cancel": function () {
                     $(this).dialog("close");
@@ -39,9 +39,8 @@
             beforeSend: function (e) {
 
             },
-            success: function (response) {
+            success: function (response) {                         
                 toastr.success(message);
-                location.reload();
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -51,17 +50,16 @@
             }
         });
     }
-
 </script>
 
 <div class="container">
-    <a onclick="snapshotToastr('@Model.ReportId', 'Snapshot created'); location.reload();">Create Snapshot</a><br />
+    <a href="@Url.Action("CreateReportSnapshot", "Reports", new { id = Model.ReportId })">Create Snapshot</a><br />
     <section>
         @foreach (var snapshot in Model.HistorySnapshots)
         {
             <div class="bg-dark" style="box-shadow: 2.5px 5px 4px #888888;">
                 <span id="@snapshot.Id" class="nav_link" style="float:right" onclick="confirmdeleteReportSnapshot('@Model.ReportId', '@snapshot.Id', 'Snapshot deleted');">
-                    <a href="#">
+                    <a href="#/">
                         x
                     </a>
                 </span>
