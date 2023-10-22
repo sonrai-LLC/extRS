@@ -280,12 +280,13 @@
         });
     </script>
     <script>
+        let confirmResult = undefined;
     $(document).ready(function ($) {
         $("body").on("click", function () {
             $(".ui-dialog.clickoncloseoutside:visible")
                 .find(".ui-dialog-content")
                 .dialog("close");
-        });
+        }); 
     });
 
     function asyncManageResourceModal(id) {
@@ -309,7 +310,7 @@
         });
     }
 
-        function asyncManageSubscriptionModal(id) {
+   function asyncManageSubscriptionModal(id) {
         wireManageResourceModal(id);
         let dialogId = "#dialog" + id;
         $(".ui-dialog-content").dialog("close");
@@ -337,9 +338,27 @@
             modal: false,
             hide: { effect: 'drop', duration: 200 },
             dialogClass: "clickoncloseoutside",
-            position: { my: "right top", at: "left center", of: "#" + id }
+            position: { my: "right top", at: "left", of: "#" + id }
         });
     }
+
+    function snapshotToastr(id, message) {
+        $.ajax({
+            type: 'POST',
+            url: '/Reports/CreateReportSnapshotAjax',
+            data: { "id": id },
+            success: function (response) {
+                toastr.success(message);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (arg) {
+                console.log(arg);
+            }
+        });
+    }
+
 </script>
 </header>
 <div class="breadcrumb">

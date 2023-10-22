@@ -6,7 +6,7 @@ namespace Sonrai.ExtRS.Models
     {
         public HttpClient _httpClient { get; set; }
         public string SqlAuthCookie;
-        public string Administrator = "ExtRSAuth";
+        public string Administrator = "extRSAuth";
         public string serName;
         public string UserRole;
         public string ReportServerName;

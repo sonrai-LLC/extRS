@@ -72,6 +72,12 @@ namespace Sonrai.ExtRS
             return true;
         }
 
+        public async Task<bool> DeleteReportSnapshot(string id, string historyId)
+        {
+            var response = await CallApi(HttpVerbs.DELETE, string.Format("Reports({0})/HistorySnapshots({1})", id, historyId));
+            return true;
+        }
+
         public async Task<Report> GetReport(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})", idOrPath));
@@ -183,7 +189,7 @@ namespace Sonrai.ExtRS
             return string.Format("\"UserName\":\"{0}\",\"Password\": \"{1}\",\"Domain\":\"{2}\"", user, password, domain);
         }
 
-        public static async Task<string> GetSqlAuthCookie(HttpClient client, string user = "ExtRSAuth", string password = "", string domain = "localhost")
+        public static async Task<string> GetSqlAuthCookie(HttpClient client, string user = "extRSAuth", string password = "", string domain = "localhost")
         {
             string cookie = "";
             StringContent httpContent = new StringContent("{" + GetCredentialJson(user, password, domain) + "}", Encoding.UTF8, "application/json");

@@ -3,24 +3,6 @@
 @inject IConfiguration Configuration
 
 @model CatalogItem
-<script>
-    function snapshotToastr(id, message) {
-        $.ajax({
-            type: 'POST',
-            url: '/Reports/CreateReportSnapshotAjax',
-            data: { "id": id },
-            success: function (response) {
-                toastr.success(message);
-            },
-            failure: function (response) {
-                alert(response.responseText);
-            },
-            error: function (arg) {
-                console.log(arg);
-            }
-        });
-    }
-</script>
 
 <div style="background-color:#ffffff; font-size:11pt">
     <span style="font-size:14pt; font-weight:bold">@Model.Name</span><br />

@@ -1,9 +1,5 @@
 ﻿@model ReportsView
 
-<script>
-
-</script>
-
 <div class="container">
     <section>
         @foreach (var report in Model.Reports)
@@ -12,7 +8,7 @@
             </div>
             <div class="bg-dark" style="box-shadow: 2.5px 5px 4px #888888;">
                 <span id="@report.Id" class="nav_link" style="float:right" onclick="asyncManageResourceModal('@report.Id');">
-                    <a href="#">
+                    <a href="#/">
                         ...
                     </a>
                 </span><a href="@report.Uri" class="nav_link" @Model.OpenInLinksNewTab ? "target=_blank"><i class="bx bx-line-chart"></i><span class="nav_name">@report.Name</span></a>

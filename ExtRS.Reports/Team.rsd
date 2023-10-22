@@ -12,8 +12,8 @@
           <rd:DbType>Object</rd:DbType>
         </DataSetParameter>
       </DataSetParameters>
-      <CommandText>SELECT        h.Team, h.Season, h.Rank, h.Conf, h.Wins, h.Losses, h.WinPct, h.ConfWins, h.ConfLosses, h.ConfWinPct, h.SRS, h.SOS, h.Pts, h.Opp_Pts, h.AP_Pre, h.AP_Min, h.VTAP_FinaleamID, h.NCAATourney, h.NCAATSeed, h.Coach, l.ID, 
-                         l.OrgID, o.Name, l.ETeamID, l.VTeamID, l.RTeamID, l.Name, l.ShortName, l.LogoURI, l.Mascot, l.Contact, l.Email, l.Website, l.Phone, l.ContactKey, l.StreetAddress1, l.StreetAddress2, l.City, l.State, l.Zip, l.Notes, l.Lat, l.Long, 
+      <CommandText>SELECT        h.Team, h.Season, h.Rank, h.Wins, h.Losses, h.WinPct, h.ConfWins, h.ConfLosses, h.ConfWinPct, h.SRS, h.SOS, h.Pts, h.Opp_Pts, h.AP_Pre, h.AP_Min, h.VTAP_FinaleamID, h.NCAATourney, h.NCAATSeed, h.Coach, l.ID, 
+                         l.OrgID, o.Name as Conf, l.ETeamID, l.VTeamID, l.RTeamID, l.Name, l.ShortName, l.LogoURI, l.Mascot, l.Contact, l.Email, l.Website, l.Phone, l.ContactKey, l.StreetAddress1, l.StreetAddress2, l.City, l.State, l.Zip, l.Notes, l.Lat, l.Long, 
                          l.Petitions, l.Flyers, l.Posters, l.LastDropoffDateTime, l.LastPickUpDateTime, l.LastOutOfStockDateTime, l.AllTimeOutofStock, l.Unsupportive, l.VolunteerInterest, l.Region, l.MetadataJSON, l.MetadataMarkup, l.TempLong, 
                          l.TempLat, l.PrimaryColor, l.AlternateColor, l.LocationContact, l.PrimaryContact, l.PrimaryContactID, l.TotalResources, l.Venue, l.FollowerURI, l.YouTubeURI, l.LastEdit, l.PrimaryContactImg, l.PrimaryColorA, l.PrimaryColorB 
 FROM            ReferenceData.dbo.DI_MBB_HISTORY AS h INNER JOIN
@@ -110,10 +110,6 @@ ORDER BY h.Season DESC</CommandText>
       <Field Name="OrgID">
         <DataField>OrgID</DataField>
         <rd:TypeName>System.Int32</rd:TypeName>
-      </Field>
-      <Field Name="Org">
-        <DataField>Org</DataField>
-        <rd:TypeName>System.String</rd:TypeName>
       </Field>
       <Field Name="ETeamID">
         <DataField>ETeamID</DataField>

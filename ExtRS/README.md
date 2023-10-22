@@ -17,7 +17,7 @@ This package includes the following components:
         public async Task InitializeTests()
         {
             _httpClient = new _httpClient();
-            SSRSConnection connection = new SSRSConnection(_configuration["ReportServerName"]!, "ExtRSAuth", 
+            SSRSConnection connection = new SSRSConnection(_configuration["ReportServerName"]!, "extRSAuth", 
             AuthenticationType.ExtRSAuth);
             connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, 
             connection.Administrator, "", connection.ServerName);
