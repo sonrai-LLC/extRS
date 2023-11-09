@@ -12,7 +12,7 @@
 </style>
 
 <script>
-    function confirmdeleteReportSnapshot(id, historyId, message) {
+    function confirmDeleteReportSnapshot(id, historyId, message) {
         $('<div id="deleteConfirm" style="padding: 10px">Delete report snapshot?</div>').dialog({
             autoOpen: true,
             modal: false,
@@ -58,7 +58,7 @@
         @foreach (var snapshot in Model.HistorySnapshots)
         {
             <div class="bg-dark" style="box-shadow: 2.5px 5px 4px #888888;">
-                <span id="@snapshot.Id" class="nav_link" style="float:right" onclick="confirmdeleteReportSnapshot('@Model.ReportId', '@snapshot.Id', 'Snapshot deleted');">
+                <span id="@snapshot.Id" class="nav_link" style="float:right" onclick="confirmDeleteReportSnapshot('@Model.ReportId', '@snapshot.Id', 'Snapshot deleted');">
                     <a href="#/">
                         x
                     </a>
