@@ -69,7 +69,7 @@ namespace ExtRS.Portal.Controllers
             uri += "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
 
             ReportView view = new ReportView() { SelectedReport = new Report { Uri = uri } };
-            return View("_Report", view);
+            return PartialView("_Report", view);
         }
 
         public async Task<IActionResult> CreateReportSnapshot(string id)
