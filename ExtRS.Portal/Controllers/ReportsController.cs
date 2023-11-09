@@ -76,7 +76,7 @@ namespace ExtRS.Portal.Controllers
         {
             await _ssrs.CreateReportSnapshot(id);
             List<HistorySnapshot> snapshots = await _ssrs.GetReportSnapshotHistory(id);
-            return View("_SnapshotHistory", new SnapshotHistoryView { CurrentTab = "Reports", SnapShotCreated = true, HistorySnapshots = snapshots, ReportId = id });
+            return RedirectToAction("SnapshotHistory", new { id = id });
         }
 
         public async Task<bool> DeleteReportSnapshotAjax(string id, string historyId)
