@@ -346,7 +346,7 @@
         $.ajax({
             type: 'POST',
             url: '/Reports/CreateReportSnapshotAjax',
-            data: { "id": id },
+            data: { reportId: id },
             success: function (response) {
                 toastr.success(message);
             },
@@ -385,7 +385,7 @@
                 <a href="@Url.Action("Settings", "Settings")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Settings" ? "active" : "")"><i class='bx bx-wrench nav_icon'></i><span class="nav_name">guest</span></a>
                 <a href="#" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span></a>
             </div>
-        </div
+        </div>
     </nav>
 </div>
 <div class="bg-dark">

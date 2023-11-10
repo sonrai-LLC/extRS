@@ -1,4 +1,5 @@
 ﻿@using ReportingServices.Api.Models
+@using ExtRS.Portal.Controllers;
 @model SnapshotHistoryView
 
 <style>
@@ -12,7 +13,25 @@
 </style>
 
 <script>
-    function confirmDeleteReportSnapshot(id, historyId, message) {
+    function createReportSnapshot(reportId, message) {
+        $.ajax({
+            type: 'POST',
+            url: '/Reports/CreateReportSnapshotAjax',
+            data: { reportId: '@Model.ReportId' },
+            success: function (response) {
+                toastr.success(message);
+                $('#snapshots').html(response);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (arg) {
+                console.log(arg);
+            }
+        });
+    }
+
+    function confirmDeleteReportSnapshot(reportId, historyId, message) {
         $('<div id="deleteConfirm" style="padding: 10px">Delete report snapshot?</div>').dialog({
             autoOpen: true,
             modal: false,
@@ -21,8 +40,7 @@
             buttons: {
                 "OK": function () {
                     $(this).dialog("close");
-                    deleteReportSnapshot(id, historyId, message);
-                    location.reload();
+                    deleteReportSnapshot(reportId, historyId, message);
                 },
                 "Cancel": function () {
                     $(this).dialog("close");
@@ -31,16 +49,17 @@
         });
     }
 
-    function deleteReportSnapshot(id, historyId, message) {
+    function deleteReportSnapshot(reportId, historyId, message) {
         $.ajax({
             type: 'POST',
             url: '/Reports/DeleteReportSnapshotAjax',
-            data: { "id": id, "historyId": historyId },
+            data: { "reportId": '@Model.ReportId', "historyId": historyId },
             beforeSend: function (e) {
 
             },
-            success: function (response) {                         
+            success: function (response) {
                 toastr.success(message);
+                $('#snapshots').html(response);
             },
             failure: function (response) {
                 alert(response.responseText);
@@ -53,18 +72,11 @@
 </script>
 
 <div class="container">
-    <a href="@Url.Action("CreateReportSnapshot", "Reports", new { id = Model.ReportId })">Create Snapshot</a><br />
-    <section>
-        @foreach (var snapshot in Model.HistorySnapshots)
-        {
-            <div class="bg-dark" style="box-shadow: 2.5px 5px 4px #888888;">
-                <span id="@snapshot.Id" class="nav_link" style="float:right" onclick="confirmDeleteReportSnapshot('@Model.ReportId', '@snapshot.Id', 'Snapshot deleted');">
-                    <a href="#/">
-                        x
-                    </a>
-                </span>
-                <a href="@Url.Action("ReportSnapshot", "Reports", new { id = snapshot.Id, reportId = @Model.ReportId, creationDate = snapshot.CreationDate })" class="nav_link"><i class="bx bx-line-chart"></i><span class="nav_name">@snapshot.CreationDate</span></a>
-            </div>
+    <a href="#" onclick="createReportSnapshot('@Model.ReportId', 'Snapshot created');">Create Snapshot</a><br />
+    <section id="snapshots">
+        @{
+            string html = ReportsController.GetSnapshotHtml(Model.ReportId, @Model.HistorySnapshots);
+            @Html.Raw(html);
         }
     </section>
 </div>

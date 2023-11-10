@@ -8,6 +8,7 @@ using ReportingServices.Api.Models;
 using Sonrai.ExtRS.Models;
 using System.Security.Policy;
 using System;
+using System.Collections.Generic;
 
 namespace Sonrai.ExtRS
 {
@@ -62,8 +63,17 @@ namespace Sonrai.ExtRS
 
         public async Task<List<HistorySnapshot>> GetReportSnapshotHistory(string id)
         {
-            var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots", id));
-            return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
+            try
+            {
+                var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots", id));
+                return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
+            }
+            catch (Exception ex)    
+            {
+                var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots", id));
+                return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
+            }
+            
         }
 
         public async Task<bool> CreateReportSnapshot(string id)
