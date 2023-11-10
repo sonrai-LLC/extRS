@@ -97,27 +97,19 @@ namespace ExtRS.Portal.Controllers
         {
             string viewHtml = "";
 
-            try
+            foreach (var snapshot in snapshots)
             {
-                foreach (var snapshot in snapshots)
-                {
-                    viewHtml +=
-                    @"<div class=""bg-dark"" style=""box-shadow: 2.5px 5px 4px #888888;"">
-                    <span id=" + snapshot.Id + @" class=""nav_link"" style=""float:right"" onclick=""confirmDeleteReportSnapshot('" + @reportId + "', '" + snapshot.Id + @"', '" + @snapshot.HistoryId + @"', 'Snapshot deleted');"">
+                viewHtml +=
+                @"<div class=""bg-dark"" style=""box-shadow: 2.5px 5px 4px #888888;"">
+                    <span id=" + snapshot.Id + @" class=""nav_link"" style=""float:right"" onclick=""confirmDeleteReportSnapshot('" + @reportId + "', '" + @snapshot.Id + @"', 'Snapshot deleted');"">
                         <a href = ""#/"" >
                             x
                         </a>
                     </span>
                     <a href=""@Url.Action(""ReportSnapshot"", ""Reports"", new { id=" + snapshot.HistoryId + ", reportId = " + snapshot.Id + ", creationDate = "
-                          + snapshot.CreationDate + @" })"" class=""nav_link""><i class=""bx bx-line-chart""></i><span class=""nav_name"">" + snapshot.CreationDate + @"</span></a>
+                      + snapshot.CreationDate + @" })"" class=""nav_link""><i class=""bx bx-line-chart""></i><span class=""nav_name"">" + snapshot.CreationDate + @"</span></a>
                     </div>";
-                }
             }
-            catch(Exception ex)
-            {
-
-            }
-
 
             return viewHtml;
         }

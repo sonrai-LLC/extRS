@@ -1,4 +1,4 @@
-  --Find all instances of '@string' within a string (varchar/nvarchar)
+ --Find all instances of '@string' within a string (varchar/nvarchar)
  CREATE FUNCTION dbo.FindPatternLocation
  (
  	@string NVARCHAR(MAX),
@@ -18,7 +18,7 @@
  ) AS y);
  GO;
 
- --Windowing for running totals, referencing related rows and row group totals
+ --WINDOWING for running totals, referencing related rows and row group totals
  SELECT
      SUM(xact_amt) OVER (ORDER BY xact_datetime) AS running_total
  FROM SOME_DB.dbo.SOME_TABLE
@@ -26,7 +26,7 @@
  --Get IDs from CSV of ids
  SELECT * FROM string_split('100, 101, 201, 301, 411, 414', ',')
 
---PUSH a series of values into one row
+--STUFF a series of values into one row
  SELECT playerID,
  STUFF((select '; ' + teamID
       from Managers
@@ -46,8 +46,7 @@
       SET @sqlToExecute = 'SELECT TOP 1 OrderId, PersonId FROM ' + @srvEast + '.ALGO.dbo.[Order] UNION ALL SELECT TOP 1 OrderID, PersonId FROM ' + @srvWest + '.ALGO.dbo.Order' 
  EXEC(@sqlToExecute)
 
---Revert a changed keyboard char map
---Windows key + Space bar
+ --SQL day-of-month calculations
 SELECT dateadd(mm, datediff(mm, 1, getDate()), 0) as FirstOfTheMonth
 SELECT dateadd(ms, -3, dateadd(mm, datediff(m, 0, getDate()) + 1, 0)) as LastOfTheMonth
 SELECT dateadd(qq, datediff(qq, 0, getDate()), 0) as FirstDayOfQtr
