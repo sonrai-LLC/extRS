@@ -9,7 +9,7 @@ using DataSet = ReportingServices.Api.Models.Subscription;
 
 namespace ExtRS.Portal.Controllers
 {
-    public class SubscriptionsController : Controller
+    public class SchedulesController : Controller
     {
         private readonly ILogger<SubscriptionsController> _logger;
         private readonly IConfiguration _configuration;
@@ -17,7 +17,7 @@ namespace ExtRS.Portal.Controllers
         private readonly HttpClient _httpClient;
         private SSRSService _ssrs;
 
-        public SubscriptionsController(ILogger<SubscriptionsController> logger, IConfiguration configuration)
+        public SchedulesController(ILogger<SubscriptionsController> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
@@ -51,83 +51,12 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<string> CreateSubscriptionAjax(string id)
         {
-//            Subscription subscription = new()
-//            {
-//                {
-//    "Owner": "extRSAuth",
-//    "IsDataDriven": false,
-//    "Description": "string...",
-//    "Report": "/Reports/Team",
-//    "IsActive": true,
-//    "EventType": "TimedSubscription",
-//    "ScheduleDescription": "string...",
-//    "LastRunTime": "2023-04-13T15:51:04Z",
-//    "LastStatus": "string...",
-//    "DeliveryExtension": "Report Server Email",
-//    "LocalizedDeliveryExtensionName": "Email",
-//    "ModifiedBy": "extRSAuth",
-//    "ModifiedDate": "2023-04-13T15:51:04Z",
-//    "Schedule": {
-//                "ScheduleID": null,
-//        "Definition": {
-//                    "StartDateTime": "2021-01-01T02:00:00-07:00",
-//            "EndDate": "0001-01-01T00:00:00Z",
-//            "EndDateSpecified": false,
-//            "Recurrence": {
-//                        "MinuteRecurrence": null,
-//                "DailyRecurrence": null,
-//                "WeeklyRecurrence": null,
-//                "MonthlyRecurrence": null,
-//                "MonthlyDOWRecurrence": null
-//            }
-//                }
-//            },
-//    "DataQuery": null,
-//    "ExtensionSettings": {
-//                "Extension": "DeliveryExtension",
-//        "ParameterValues": [
-//            {
-//                    "Name": "TO",
-//                "Value": "cfitzg1983@gmail.com",
-//                "IsValueFieldReference": false
-//            },
-//            {
-//                    "Name": "IncludeReport",
-//                "Value": "true",
-//                "IsValueFieldReference": false
-//            },
-//            {
-//                    "Name": "Subject",
-//                "Value": "true",
-//                "IsValueFieldReference": false
-//            },
-//            {
-//                    "Name": "RenderFormat",
-//                "Value": "PDF",
-//                "IsValueFieldReference": false
-//            }
-//        ]
-//    },
-//    "ParameterValues": []
-//}
 
-   // };
-            
-           // bool isCreated = await _ssrs.CreateSubscription(subscription);
-
-            //foreach (var subscription in subscriptions)
-            //{
-            //    string uri = string.Format(Url.ActionLink("Subscription", "Subscriptions", new { id = subscription.Id })!);
-            //    subscription.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
-            //}
-
-           // SubscriptionsView model = new SubscriptionsView() { CurrentTab = "Subscriptions", Subscriptions = subscriptions, ReportServerName = _configuration["ReportServerName"]! };
-           // string viewHtml = GetSubscriptiontHtml(reportId, snapshots);
 
             return "";
         }
 
-        public async Task<IActionResult> DeleteSubscriptionAjax(string id)
+        public async Task<IActionResult> DeleteSubscription(string id)
         {
             bool isDeleted = await _ssrs.DeleteSubscription(id);
             List<Subscription> subscriptions = await _ssrs.GetSubscriptions();
@@ -142,27 +71,28 @@ namespace ExtRS.Portal.Controllers
             return View("Subscriptions", model);
         }
 
-        public static string GetSubscriptionsHtml(List<Subscription> subscriptions)
+        public static string GetSubscriptionHtml(List<Subscription> subscriptions)
         {
                 string viewHtml = "";
 
                 foreach (var subscription in subscriptions)
                 {
                     viewHtml +=
-                    string.Format(@"<div id='subscriptionDialog{0}' class=""dialog"" style=""display: none""></div>
-                    <div class=""bg-dark"" style=""box-shadow: 2.5px 5px 4px #888888;"">
-                    <span id={0} class=""nav_link"" style=""float:right"" onclick=""asyncManageSubscriptionModal('{0}');"">
+                    @"<div id=(""dialog"" + subscription.Id) class=""dialog"" style=""display: none"">
+                    </ div >
+                    < div class=""bg-dark"" style=""box-shadow: 2.5px 5px 4px #888888;"">
+                    <span id = ""@subscription.Id"" class=""nav_link"" style=""float:right"" onclick=""asyncManageSubscriptionModal('@subscription.Id');"">
                     <a href = ""#"" >
                         ...
                     </a>
-                    </span><a href='{1}' class=""nav_link"")><i class=""bx bx-mail-send""></i><span class=""nav_name"">{2}</span></a>
-                    </div>", @subscription.Id, subscription.Uri, @subscription.Description);
+                    </span><a href = ""@subscription.Uri"" class=""nav_link"" @Model.OpenInLinksNewTab? ""target=_blank""><i class=""bx bx-cube""></i><span class=""nav_name"">@subscription.Description</span></a>
+                    </div>";
                 }
 
                 return viewHtml;
         }
 
-        public async Task<IActionResult> Subscription(string id, string? subscriptionName)
+        public async Task<IActionResult> Subscription(string? subscriptionName, string id)
         {
             Subscription subscription;
             if (subscriptionName is not null)

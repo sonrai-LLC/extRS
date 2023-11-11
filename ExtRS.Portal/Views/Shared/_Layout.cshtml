@@ -204,7 +204,7 @@
 
             .header {
                 /*                height: calc(var(--header-height) + 1rem);
-                                        padding: 0 2rem 0 calc(var(--nav-width) + 2rem)*/
+                                                        padding: 0 2rem 0 calc(var(--nav-width) + 2rem)*/
             }
 
             .header_img {
@@ -228,17 +228,17 @@
             .body-pd {
                 padding-left: calc(var(--nav-width) + 188px)
             }
-        }
-    </style>
-    <style>
-        .ui-dialog-titlebar-close {
-            display: none;
-        }
 
-        .ui-dialog-titlebar {
-            display: none;
+            .ui-dialog-titlebar-close {
+                display: none;
+            }
+
+            .ui-dialog-titlebar {
+                display: none;
+            }
         }
     </style>
+
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
             const showNavbar = (toggleId, navId, bodyId, headerId) => {
@@ -280,7 +280,6 @@
         });
     </script>
     <script>
-        let confirmResult = undefined;
         $(document).ready(function ($) {
             $("body").on("click", function () {
                 $(".ui-dialog.clickoncloseoutside:visible")
@@ -289,8 +288,26 @@
             });
         });
 
-        function asyncManageResourceModal(id) {
-            wireManageResourceModal(id);
+        function confirmDeleteSubscription(id, message) {
+            $('<div id="deleteConfirm" style="padding: 10px">Delete subscription?</div>').dialog({
+                autoOpen: true,
+                modal: false,
+                title: 'Confirm',
+                center: false,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                        deleteSubscription(id, message);
+                    },
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+
+        function asyncManageCatalogItemModal(id) {
+            wireManageItemModal(id);
             let dialogId = "#dialog" + id;
             $(".ui-dialog-content").dialog("close");
             $.ajax({
@@ -311,16 +328,20 @@
         }
 
         function asyncManageSubscriptionModal(id) {
-            wireManageResourceModal(id);
-            let dialogId = "#dialog" + id;
-            $(".ui-dialog-content").dialog("close");
+            wireSubscriptionModal(id);
+            $("body").on("click", function () {
+                $(".ui-dialog.clickoncloseoutside:visible")
+                    .find(".ui-dialog-content")
+                    .dialog("close");
+            });
+            let subscriptionDialog = "#subscriptionDialog" + id;
             $.ajax({
                 type: 'GET',
                 url: '/Subscriptions/GetManageSubscriptionModal',
                 data: { "id": id },
                 success: function (response) {
-                    $(dialogId).html(response);
-                    $(dialogId).dialog('open');
+                    $(subscriptionDialog).html(response);
+                    $(subscriptionDialog).dialog('open');
                 },
                 failure: function (response) {
                     alert(response.responseText);
@@ -331,7 +352,18 @@
             });
         }
 
-        function wireManageResourceModal(id) {
+        function wireSubscriptionModal(id) {
+            let dialogId = "#subscriptionDialog" + id;
+            $(dialogId).dialog({
+                autoOpen: false,
+                modal: false,
+                hide: { effect: 'drop', duration: 200 },
+                dialogClass: "clickoncloseoutside",
+                position: { my: "right top", at: "left", of: "#" + id }
+            });
+        }
+
+        function wireManageItemModal(id) {
             let dialogId = "#dialog" + id;
             $(dialogId).dialog({
                 autoOpen: false,
@@ -347,23 +379,6 @@
                 type: 'POST',
                 url: '/Reports/CreateReportSnapshotAjax',
                 data: { reportId: id },
-                success: function (response) {
-                    toastr.success(message);
-                },
-                failure: function (response) {
-                    alert(response.responseText);
-                },
-                error: function (arg) {
-                    console.log(arg);
-                }
-            });
-        }
-
-        function subscriptionToastr(id, message) {
-            $.ajax({
-                type: 'POST',
-                url: '/Subscriptions/CreateSubscription',
-                data: { id: id },
                 success: function (response) {
                     toastr.success(message);
                 },
@@ -395,9 +410,9 @@
                 <a href="@Url.Action("DataSources", "DataSources")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "DataSources" ? "active" : "")"><i class='bx bx-cube nav_icon'></i><span class="nav_name">Data Sources</span></a>
                 <a href="@Url.Action("Datasets", "Datasets")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Datasets" ? "active" : "")"><i class='bx bx-table nav_icon'></i><span class="nav_name">Datasets</span></a>
                 <a href="@Url.Action("Reports", "Reports")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Reports" ? "active" : "")"><i class='bx bx-line-chart nav_icon'></i> <span class="nav_name">Reports</span></a>
-                <a href="@Url.Action("Subscriptions", "Subscriptions")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Subscriptions" ? "active" : "")"> <i class='bx bx-time nav_icon'></i> <span class="nav_name">Schedules</span></a>
+                <a href="@Url.Action("Schedules", "Schedules")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Schedules" ? "active" : "")"> <i class='bx bx-time nav_icon'></i> <span class="nav_name">Schedules</span></a>
                 <a href="@Url.Action("Subscriptions", "Subscriptions")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Subscriptions" ? "active" : "")"> <i class='bx bx-mail-send nav_icon'></i> <span class="nav_name">Subscriptions</span></a>
-                @*                 <a href="@Url.Action("StatsLink", "Stats")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Stats" ? "active" : "")"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">Stats</span></a>  *@
+                @* <a href="@Url.Action("StatsLink", "Stats")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Stats" ? "active" : "")"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">Stats</span></a>  *@
                 @* <a href="@Url.Action("Admin", "Admin")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Admin" ? "active" : "")"><i class='bx bx-shield nav_icon'></i><span class="nav_name">Admin</span></a> *@
                 <br /> <br /> <br /> <br />
                 <a href="@Url.Action("Settings", "Settings")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Settings" ? "active" : "")"><i class='bx bx-wrench nav_icon'></i><span class="nav_name">guest</span></a>

@@ -1,19 +1,63 @@
 ﻿@model SubscriptionsView
 
-&nbsp;
+@using ReportingServices.Api.Models
+@using ExtRS.Portal.Controllers;
+
+<style>
+    a.button {
+        background: url(../Images/image.gif) no-repeat top left;
+        display: block;
+        width: 150px;
+        height: 150px;
+        text-indent: -9999px; /* hides the link text */
+    }
+</style>
+<script>
+    function createSubscription(reportId, message) {
+        $.ajax({
+            type: 'POST',
+            url: '/Subscriptions/CreateSubscriptionAjax',
+            data: { reportId: rptId },
+            success: function (response) {
+                toastr.success(message);
+                $('#subscriptions').html(response);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (arg) {
+                console.log(arg);
+            }
+        });
+    }
+
+    function deleteSubscription(id, message) {
+        $.ajax({
+            type: 'POST',
+            url: '/Subscriptions/DeleteSubscriptionAjax',
+            data: { "id": id },
+            beforeSend: function (e) {
+
+            },
+            success: function (response) {
+                toastr.success(message);
+                $('#subscriptions').html(response);
+            },
+            failure: function (response) {
+                alert(response.responseText);
+            },
+            error: function (arg) {
+                console.log(arg);
+            }
+        });
+    }
+</script>
 <div class="container">
-    <section>
-        @foreach (var subscription in Model.Subscriptions)
-        {
-            <div id=@("dialog" + subscription.Id) class="dialog" style="display: none">
-            </div>
-            <div class="bg-dark" style="box-shadow: 2.5px 5px 4px #888888;">
-                <span id="@subscription.Id" class="nav_link" style="float:right" onclick="asyncManageSubscriptionModal('@subscription.Id');">
-                    <a href="#">
-                        ...
-                    </a>
-                </span><a href="@subscription.Uri" class="nav_link" @Model.OpenInLinksNewTab ? "target=_blank"><i class="bx bx-cube"></i><span class="nav_name">@subscription.Description</span></a>
-            </div>
+    @*     <a href="#" onclick="createSubscription(reportId, 'Subscription created');">Create Subscription</a><br /> *@
+    <section id="subscriptions">
+        @{
+            string html = SubscriptionsController.GetSubscriptionsHtml(@Model.Subscriptions);
+            @Html.Raw(html)
         }
     </section>
 </div>
