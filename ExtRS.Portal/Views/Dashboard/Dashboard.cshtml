@@ -3,6 +3,9 @@
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/treemap.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
 <style>
     #container {
         min-width: 310px;
@@ -10,15 +13,101 @@
         height: 600px;
         margin: 0 auto;
     }
+
+.highcharts-figure,
+.highcharts-data-table table {
+    min-width: 360px;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+.highcharts-data-table table {
+    font-family: Verdana, sans-serif;
+    border-collapse: collapse;
+    border: 1px solid #ebebeb;
+    margin: 10px auto;
+    text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+.highcharts-data-table caption {
+    padding: 1em 0;
+    font-size: 1.2em;
+    color: #555;
+}
+
+.highcharts-data-table th {
+    font-weight: 600;
+    padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+    padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+    background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+    background: #f1f7ff;
+}
+
+    .highcharts-figure,
+    .highcharts-data-table table {
+        min-width: 360px;
+        max-width: 800px;
+        margin: 1em auto;
+    }
+
+    .highcharts-data-table table {
+        font-family: Verdana, sans-serif;
+        border-collapse: collapse;
+        border: 1px solid #ebebeb;
+        margin: 10px auto;
+        text-align: center;
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .highcharts-data-table caption {
+        padding: 1em 0;
+        font-size: 1.2em;
+        color: #555;
+    }
+
+    .highcharts-data-table th {
+        font-weight: 600;
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table td,
+    .highcharts-data-table th,
+    .highcharts-data-table caption {
+        padding: 0.5em;
+    }
+
+    .highcharts-data-table thead tr,
+    .highcharts-data-table tr:nth-child(even) {
+        background: #f8f8f8;
+    }
+
+    .highcharts-data-table tr:hover {
+        background: #f1f7ff;
+    }
+
 </style>
 <head>
     <script>
         var d = new Date();
         $(document).ready(function () {
-            Highcharts.chart('container', {
+            Highcharts.chart('cpu', {
                 chart: {
                     type: 'bar',
-                    height: 600,
                     backgroundColor: '#000000',
                     style: {
                         fontFamily: 'monospace',
@@ -118,13 +207,172 @@
                 }
             });
 
-             setInterval(function () {
-                var d = new Date();         
+            setInterval(function () {
+                var d = new Date();
                 $('.highcharts-subtitle')[0].innerHTML = d.toLocaleDateString() + ' at ' + d.toLocaleTimeString();
             }, 1000);
+
+            $.get('DJI.csv', function (csv) {
+                Highcharts.chart('dow', {
+                    chart: {
+                        type: 'area',
+                        backgroundColor: '#000000',
+                        style: {
+                            fontFamily: 'monospace'
+                        },
+                        style: {
+                            color: "lightblue"
+                        }
+                    },
+                    data: {
+                        // enablePolling: true,
+                        csv: csv
+                    },
+                    title: {
+                        text: 'DJIA YTD',
+                        style: {
+                            color: "lightblue"
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Close',
+                            style: {
+                                color: "lightblue"
+                            }
+                        }
+                    }
+                });
+            });
+
+             $.get('exceptions.csv', function (csv) {
+                Highcharts.chart('tree', {
+                    chart: {
+                        type: 'treemap',
+                        backgroundColor: '#000000',
+                        style: {
+                            fontFamily: 'monospace'
+                        },
+                        style: {
+                            color: "lightred"
+                        }
+                    },
+
+                    colorAxis: {
+                        minColor: '#FFFFFF',
+                        maxColor: Highcharts.getOptions().colors[5]
+                    },
+
+                    series: [{
+                        type: 'treemap',
+                        layoutAlgorithm: 'squarified',
+                        keys: ['name', 'value', 'colorValue']
+                    }],
+
+                    data: {
+                        csv: csv
+                    },
+                    title: {
+                        text: 'Service Exceptions',
+                        style: {
+                            color: "lightblue"
+                        }
+                    },
+                    yAxis: {
+                        title: {
+                            text: 'Close',
+                            style: {
+                                color: "lightred"
+                            }
+                        }
+                    }
+                });
+            });
+
+            Highcharts.chart('sales', {
+                chart: {
+                    backgroundColor: '#000000',
+                },
+               
+                title: {
+                    text: 'Daily Sales',
+                    style: {
+                        color: "lightblue"
+                    }
+                },
+
+                subtitle: {
+                    text: '',
+                },
+
+                yAxis: {
+                    title: {
+                        text: '$'
+                    },
+                    style: {
+                        color: "lightblue"
+                    }
+                },
+
+                xAxis: {
+                    accessibility: {
+                        rangeDescription: 'Range: 2020 to 2023'
+                    }
+                },
+
+                legend: {
+                    enabled: false
+                },
+
+                plotOptions: {
+                    series: {
+                        label: {
+                            connectorAllowed: false
+                        },
+                        pointStart: 2010
+                    }
+                },
+
+                series: [{
+                    color: "lightblue",
+                    data: [43934, 48656, 75165, 81827, 112143, 142383,
+                        171533, 165174, 655157, 741454, 154610, 43934,
+                        43934, 43934, 53934, 53934, 133934, 23934, 43934,
+                        43934, 43934, 23934,243934, 453934, 33934, 43934,
+                        43934, 43934, 13934, 23934, 643934, 43934, 43934,
+                         43934, 43934, 43934, 11200, 543934, 43934, 53934,
+                          43934, 43934, 113934, 33934, 243934, 43934, 63934,
+                           43934, 43934, 63964, 4334, 243934, 43934, 43934,
+                            45934, 43934, 43934, 3934, 143934, 432934, 13934,
+                             43934, 43934, 43934, 4334, 413934, 43934, 43934,
+                              33934, 43934, 73934, 431934, 43934, 43934, 43934,
+                               143934, 43934, 43934, 43934, 43934, 43934, 43934,
+                        543934, 343934, 43934, 643934, 43934, 43934, 4e3934
+                    ]
+                }],
+
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 500
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
+
+            });
 
         });
     </script>
 </head>
 
-<div id="container"></div>
+<table>
+    <tr><td><div id="cpu" style="height:300px;width:650px;"></div></td><td><div id="dow" style="height:300px;width:750px"></div></td></tr>
+    <tr><td><div id="tree" style="height:300px;width:650px;"></div></td><td><div id="sales" style="height:300px;width:750px"></div></td></tr>
+</table>
