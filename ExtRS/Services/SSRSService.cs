@@ -76,6 +76,24 @@ namespace Sonrai.ExtRS
             
         }
 
+        public async Task<bool> CreateSubscription(Subscription subscription)
+        {
+            var response = await CallApi(HttpVerbs.POST, string.Format("Subscriptions", subscription));
+            return true;
+        }
+
+        public async Task<Subscription> GetSubscription(string id)
+        {
+            var response = await CallApi(HttpVerbs.GET, string.Format("Subscriptions({0})", id));
+            return JsonConvert.DeserializeObject<Subscription>(await response.Content.ReadAsStringAsync())!;
+        }
+
+        public async Task<bool> DeleteSubscription(string id)
+        {
+            var response = await CallApi(HttpVerbs.DELETE, string.Format("Subscriptions({0})", id));
+            return true;
+        }
+
         public async Task<bool> CreateReportSnapshot(string id)
         {
             var response = await CallApi(HttpVerbs.POST, string.Format("Reports({0})/HistorySnapshots", id));
@@ -158,18 +176,6 @@ namespace Sonrai.ExtRS
         {
             var response = await CallApi(HttpVerbs.GET, "Subscriptions");
             return JsonConvert.DeserializeObject<ODataSubscriptions>(await response.Content.ReadAsStringAsync())!.Value;
-        }
-
-        public async Task<bool> DeleteSubscription(string idOrPath)
-        {
-            var response = await CallApi(HttpVerbs.DELETE, string.Format("Subscriptions({0})", idOrPath));
-            return true;
-        }
-
-        public async Task<Subscription> GetSubscription(string idOrPath)
-        {
-            var response = await CallApi(HttpVerbs.GET, string.Format("Subscriptions({0})", idOrPath));
-            return JsonConvert.DeserializeObject<Subscription>(await response.Content.ReadAsStringAsync())!;
         }
 
         public async Task<DataSetParameter> GetDataSetParameterDefinition(string idOrPath)

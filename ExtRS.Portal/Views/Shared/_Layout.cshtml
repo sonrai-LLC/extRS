@@ -12,7 +12,7 @@
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" charset="utf-8" src="https://cdn.datatables.net/keytable/2.9.0/js/dataTables.keyTable.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>  
+    <script type="text/javascript" charset="utf-8" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/base/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="~/css/editor.jqueryui.min.css">
     <script type="text/javascript" charset="utf-8" src="~/js/dataTables.editor.min.js"></script>
@@ -20,7 +20,7 @@
     <meta charset="utf-8">
     <link rel="shortcut icon" type="image/ico" href="~/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, user-scalable=no">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" /> 
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.0.1/css/toastr.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/2.3.6/css/buttons.dataTables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.6.2/css/select.dataTables.min.css">
@@ -75,7 +75,7 @@
             font-size: var(--normal-font-size);
             background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
             -color: #background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
-            color:#ffffff;
+            color: #ffffff;
         }
 
         a {
@@ -204,7 +204,7 @@
 
             .header {
                 /*                height: calc(var(--header-height) + 1rem);
-                                padding: 0 2rem 0 calc(var(--nav-width) + 2rem)*/
+                                        padding: 0 2rem 0 calc(var(--nav-width) + 2rem)*/
             }
 
             .header_img {
@@ -231,13 +231,13 @@
         }
     </style>
     <style>
-    .ui-dialog-titlebar-close {
-        display: none;
-    }
+        .ui-dialog-titlebar-close {
+            display: none;
+        }
 
-    .ui-dialog-titlebar {
-        display: none;
-    } 
+        .ui-dialog-titlebar {
+            display: none;
+        }
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function (event) {
@@ -281,92 +281,109 @@
     </script>
     <script>
         let confirmResult = undefined;
-    $(document).ready(function ($) {
-        $("body").on("click", function () {
-            $(".ui-dialog.clickoncloseoutside:visible")
-                .find(".ui-dialog-content")
-                .dialog("close");
-        }); 
-    });
-
-    function asyncManageResourceModal(id) {
-        wireManageResourceModal(id);
-        let dialogId = "#dialog" + id;
-        $(".ui-dialog-content").dialog("close");
-        $.ajax({
-            type: 'GET',
-            url: '/CatalogItems/GetManageCatalogItemModal',
-            data: { "id": id },
-            success: function (response) {
-                $(dialogId).html(response);
-                $(dialogId).dialog('open');
-            },
-            failure: function (response) {
-                alert(response.responseText);
-            },
-            error: function (arg) {
-                console.log(arg);
-            }
+        $(document).ready(function ($) {
+            $("body").on("click", function () {
+                $(".ui-dialog.clickoncloseoutside:visible")
+                    .find(".ui-dialog-content")
+                    .dialog("close");
+            });
         });
-    }
 
-   function asyncManageSubscriptionModal(id) {
-        wireManageResourceModal(id);
-        let dialogId = "#dialog" + id;
-        $(".ui-dialog-content").dialog("close");
-        $.ajax({
-            type: 'GET',
-            url: '/Subscriptions/GetManageSubscriptionModal',
-            data: { "id": id },
-            success: function (response) {
-                $(dialogId).html(response);
-                $(dialogId).dialog('open');
-            },
-            failure: function (response) {
-                alert(response.responseText);
-            },
-            error: function (arg) {
-                console.log(arg);
-            }
-        });
-    }
+        function asyncManageResourceModal(id) {
+            wireManageResourceModal(id);
+            let dialogId = "#dialog" + id;
+            $(".ui-dialog-content").dialog("close");
+            $.ajax({
+                type: 'GET',
+                url: '/CatalogItems/GetManageCatalogItemModal',
+                data: { "id": id },
+                success: function (response) {
+                    $(dialogId).html(response);
+                    $(dialogId).dialog('open');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (arg) {
+                    console.log(arg);
+                }
+            });
+        }
 
-    function wireManageResourceModal(id) {
-        let dialogId = "#dialog" + id;
-        $(dialogId).dialog({
-            autoOpen: false,
-            modal: false,
-            hide: { effect: 'drop', duration: 200 },
-            dialogClass: "clickoncloseoutside",
-            position: { my: "right top", at: "left", of: "#" + id }
-        });
-    }
+        function asyncManageSubscriptionModal(id) {
+            wireManageResourceModal(id);
+            let dialogId = "#dialog" + id;
+            $(".ui-dialog-content").dialog("close");
+            $.ajax({
+                type: 'GET',
+                url: '/Subscriptions/GetManageSubscriptionModal',
+                data: { "id": id },
+                success: function (response) {
+                    $(dialogId).html(response);
+                    $(dialogId).dialog('open');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (arg) {
+                    console.log(arg);
+                }
+            });
+        }
 
-    function snapshotToastr(id, message) {
-        $.ajax({
-            type: 'POST',
-            url: '/Reports/CreateReportSnapshotAjax',
-            data: { reportId: id },
-            success: function (response) {
-                toastr.success(message);
-            },
-            failure: function (response) {
-                alert(response.responseText);
-            },
-            error: function (arg) {
-                console.log(arg);
-            }
-        });
-    }
+        function wireManageResourceModal(id) {
+            let dialogId = "#dialog" + id;
+            $(dialogId).dialog({
+                autoOpen: false,
+                modal: false,
+                hide: { effect: 'drop', duration: 200 },
+                dialogClass: "clickoncloseoutside",
+                position: { my: "right top", at: "left", of: "#" + id }
+            });
+        }
 
-</script>
+        function snapshotToastr(id, message) {
+            $.ajax({
+                type: 'POST',
+                url: '/Reports/CreateReportSnapshotAjax',
+                data: { reportId: id },
+                success: function (response) {
+                    toastr.success(message);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (arg) {
+                    console.log(arg);
+                }
+            });
+        }
+
+        function subscriptionToastr(id, message) {
+            $.ajax({
+                type: 'POST',
+                url: '/Subscriptions/CreateSubscription',
+                data: { id: id },
+                success: function (response) {
+                    toastr.success(message);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (arg) {
+                    console.log(arg);
+                }
+            });
+        }
+
+    </script>
 </header>
 <div class="breadcrumb">
-@Html.ActionLink(ViewContext.RouteData.Values["controller"]!.ToString()!.Replace("DataSources", "Data Sources"), ViewContext.RouteData.Values["controller"]!.ToString(), ViewContext.RouteData.Values["controller"]!.ToString())
-@if (ViewContext.RouteData.Values["action"]!.ToString() != ViewContext.RouteData.Values["controller"]!.ToString())
-{
-    @:&nbsp;>&nbsp;@Html.ActionLink(ViewContext.RouteData.Values["action"]!.ToString(), ViewContext.RouteData.Values["action"]!.ToString(), ViewContext.RouteData.Values["controller"]!.ToString())
-}
+    @Html.ActionLink(ViewContext.RouteData.Values["controller"]!.ToString()!.Replace("DataSources", "Data Sources"), ViewContext.RouteData.Values["controller"]!.ToString(), ViewContext.RouteData.Values["controller"]!.ToString())
+    @if (ViewContext.RouteData.Values["action"]!.ToString() != ViewContext.RouteData.Values["controller"]!.ToString())
+    {
+        @:&nbsp;>&nbsp;@Html.ActionLink(ViewContext.RouteData.Values["action"]!.ToString(), ViewContext.RouteData.Values["action"]!.ToString(), ViewContext.RouteData.Values["controller"]!.ToString())
+    }
 </div>
 <div class="l-navbar navbar-collapse" id="nav-bar">
     <nav class="nav">
@@ -380,7 +397,7 @@
                 <a href="@Url.Action("Reports", "Reports")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Reports" ? "active" : "")"><i class='bx bx-line-chart nav_icon'></i> <span class="nav_name">Reports</span></a>
                 <a href="@Url.Action("Subscriptions", "Subscriptions")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Subscriptions" ? "active" : "")"> <i class='bx bx-time nav_icon'></i> <span class="nav_name">Schedules</span></a>
                 <a href="@Url.Action("Subscriptions", "Subscriptions")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Subscriptions" ? "active" : "")"> <i class='bx bx-mail-send nav_icon'></i> <span class="nav_name">Subscriptions</span></a>
-@*                 <a href="@Url.Action("StatsLink", "Stats")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Stats" ? "active" : "")"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">Stats</span></a>  *@     
+                @*                 <a href="@Url.Action("StatsLink", "Stats")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Stats" ? "active" : "")"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">Stats</span></a>  *@
                 @* <a href="@Url.Action("Admin", "Admin")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Admin" ? "active" : "")"><i class='bx bx-shield nav_icon'></i><span class="nav_name">Admin</span></a> *@
                 <br /> <br /> <br /> <br />
                 <a href="@Url.Action("Settings", "Settings")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Settings" ? "active" : "")"><i class='bx bx-wrench nav_icon'></i><span class="nav_name">guest</span></a>

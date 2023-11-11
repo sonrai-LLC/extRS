@@ -79,7 +79,7 @@ namespace ExtRS.Portal.Controllers
         {
             await _ssrs.CreateReportSnapshot(reportId);
             List<HistorySnapshot> snapshots = await _ssrs.GetReportSnapshotHistory(reportId);
-            string viewHtml = GetSnapshotHtml(reportId, snapshots);
+            string viewHtml = GetSnapshotsHtml(reportId, snapshots);
 
             return viewHtml;
         }
@@ -88,12 +88,12 @@ namespace ExtRS.Portal.Controllers
         {
             bool isDeleted = await _ssrs.DeleteReportSnapshot(reportId, historyId);
             List<HistorySnapshot> snapshots = await _ssrs.GetReportSnapshotHistory(reportId);
-            string viewHtml = GetSnapshotHtml(reportId, snapshots);
+            string viewHtml = GetSnapshotsHtml(reportId, snapshots);
 
             return viewHtml;
         }
 
-        public static string GetSnapshotHtml(string reportId, List<HistorySnapshot> snapshots)
+        public static string GetSnapshotsHtml(string reportId, List<HistorySnapshot> snapshots)
         {
             string viewHtml = "";
 

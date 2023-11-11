@@ -13,6 +13,7 @@
     {
         <a onclick="snapshotToastr('@Model.Id', 'Snapshot created')">Create Snapshot</a><br />
         <a href=@Url.Action("SnapshotHistory", "Reports", new { id = @Model.Id })>Snapshot History</a><br />
+        <a onclick="subscriptionToastr('@Model.Id', 'Subscription created')">Subscribe</a><br />
     }
     @if (@Configuration["ReportServerName"] == "localhost")
     {
