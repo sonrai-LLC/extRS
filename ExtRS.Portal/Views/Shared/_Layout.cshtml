@@ -288,24 +288,6 @@
             });
         });
 
-        function confirmDeleteSubscription(id, message) {
-            $('<div id="deleteConfirm" style="padding: 10px">Delete subscription?</div>').dialog({
-                autoOpen: true,
-                modal: false,
-                title: 'Confirm',
-                center: false,
-                buttons: {
-                    "OK": function () {
-                        $(this).dialog("close");
-                        deleteSubscription(id, message);
-                    },
-                    "Cancel": function () {
-                        $(this).dialog("close");
-                    }
-                }
-            });
-        }
-
         function asyncManageCatalogItemModal(id) {
             wireManageItemModal(id);
             let dialogId = "#dialog" + id;
@@ -363,6 +345,81 @@
             });
         }
 
+        function confirmDeleteSubscription(id, message) {
+            $('<div id="deleteConfirm" style="padding: 10px">Delete subscription?</div>').dialog({
+                autoOpen: true,
+                modal: false,
+                title: 'Confirm',
+                center: false,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                        deleteSubscription(id, message);
+                    },
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+
+        function confirmCreateSubscription(id, message) {
+            $('<div id="deleteConfirm" style="padding: 10px">Delete subscription?</div>').dialog({
+                autoOpen: true,
+                modal: false,
+                title: 'Confirm',
+                center: false,
+                buttons: {
+                    "OK": function () {
+                        $(this).dialog("close");
+                        deleteSubscription(id, message);
+                    },
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+        }
+
+        function createSubscription(reportId, message) {
+            $.ajax({
+                type: 'POST',
+                url: '/Subscriptions/CreateSubscriptionAjax',
+                data: { reportId: rptId },
+                success: function (response) {
+                    toastr.success(message);
+                    $('#subscriptions').html(response);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (arg) {
+                    console.log(arg);
+                }
+            });
+        }
+
+        function deleteSubscription(id, message) {
+            $.ajax({
+                type: 'POST',
+                url: '/Subscriptions/DeleteSubscriptionAjax',
+                data: { "id": id },
+                beforeSend: function (e) {
+
+                },
+                success: function (response) {
+                    toastr.success(message);
+                    $('#subscriptions').html(response);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (arg) {
+                    console.log(arg);
+                }
+            });
+        }
+
         function wireManageItemModal(id) {
             let dialogId = "#dialog" + id;
             $(dialogId).dialog({
@@ -391,6 +448,24 @@
             });
         }
 
+        function subscriptionToastr(id, message) {
+            subject = "zis iz zee zumjet"; // TODO: make these fields modal inputs
+            description = "this is a useful report- read it?";
+            $.ajax({
+                type: 'POST',
+                url: '/Subscriptions/CreateSubscriptionAjax',
+                data: { id: id, email: "colin@sonrai.io", subject: subject, description: description },
+                success: function (response) {
+                    toastr.success(message);
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (arg) {
+                    console.log(arg);
+                }
+            });
+        }
     </script>
 </header>
 <div class="breadcrumb">

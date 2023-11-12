@@ -31,7 +31,6 @@ namespace Sonrai.ExtRS
 
         public async Task<HttpResponseMessage> CallApi(HttpVerbs verb, string operation, string content = "", string parameters = "")
         {
-            EncryptionService encrypt = new EncryptionService();
             HttpResponseMessage response = new HttpResponseMessage();
             HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
             using (var handler = new HttpClientHandler() { CookieContainer = _cookieContainer })
@@ -78,7 +77,8 @@ namespace Sonrai.ExtRS
 
         public async Task<bool> CreateSubscription(Subscription subscription)
         {
-            var response = await CallApi(HttpVerbs.POST, string.Format("Subscriptions", subscription));
+            var subscriptionJson = JsonConvert.SerializeObject(subscription);
+            var response = await CallApi(HttpVerbs.POST, "Subscriptions", subscriptionJson);
             return true;
         }
 

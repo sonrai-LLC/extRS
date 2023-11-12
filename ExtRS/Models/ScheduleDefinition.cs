@@ -5,13 +5,23 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 
-namespace ReportingServices.Api.Models {
-
-  /// <summary>
-  /// An object that defines a schedule including a start date-time and an optional end date-time.
-  /// </summary>
-  [DataContract]
-  public class ScheduleDefinition {
+namespace ReportingServices.Api.Models
+{
+    [DataContract]
+    public class Schedule
+    {
+        //[DataMember(Name = "ScheduleId", EmitDefaultValue = false)]
+        //[JsonProperty(PropertyName = "ScheduleId")]
+        public string? ScheduleId { get; set; }
+        [DataMember(Name = "Definition", EmitDefaultValue = false)]
+        [JsonProperty(PropertyName = "Definition")]
+        public ScheduleDefinition Definition { get; set; }
+    }
+   /// <summary>
+   /// An object that defines a schedule including a start date-time and an optional end date-time.
+   /// </summary>
+   [DataContract]
+   public class ScheduleDefinition {
     /// <summary>
     /// A string that specifies the date-time of the start of the schedule.
     /// </summary>

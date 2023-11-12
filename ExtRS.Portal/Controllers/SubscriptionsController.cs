@@ -49,82 +49,70 @@ namespace ExtRS.Portal.Controllers
             return PartialView("_ManageSubscription", subscription);
         }
 
-        public async Task<string> CreateSubscriptionAjax(string id)
+        public async Task<string> CreateSubscriptionAjax(string id, string email = "colin@sonrai.io", string subject = "", string description = "", string renderFormat = "PDF")
         {
-//            Subscription subscription = new()
-//            {
-//                {
-//    "Owner": "extRSAuth",
-//    "IsDataDriven": false,
-//    "Description": "string...",
-//    "Report": "/Reports/Team",
-//    "IsActive": true,
-//    "EventType": "TimedSubscription",
-//    "ScheduleDescription": "string...",
-//    "LastRunTime": "2023-04-13T15:51:04Z",
-//    "LastStatus": "string...",
-//    "DeliveryExtension": "Report Server Email",
-//    "LocalizedDeliveryExtensionName": "Email",
-//    "ModifiedBy": "extRSAuth",
-//    "ModifiedDate": "2023-04-13T15:51:04Z",
-//    "Schedule": {
-//                "ScheduleID": null,
-//        "Definition": {
-//                    "StartDateTime": "2021-01-01T02:00:00-07:00",
-//            "EndDate": "0001-01-01T00:00:00Z",
-//            "EndDateSpecified": false,
-//            "Recurrence": {
-//                        "MinuteRecurrence": null,
-//                "DailyRecurrence": null,
-//                "WeeklyRecurrence": null,
-//                "MonthlyRecurrence": null,
-//                "MonthlyDOWRecurrence": null
-//            }
-//                }
-//            },
-//    "DataQuery": null,
-//    "ExtensionSettings": {
-//                "Extension": "DeliveryExtension",
-//        "ParameterValues": [
-//            {
-//                    "Name": "TO",
-//                "Value": "cfitzg1983@gmail.com",
-//                "IsValueFieldReference": false
-//            },
-//            {
-//                    "Name": "IncludeReport",
-//                "Value": "true",
-//                "IsValueFieldReference": false
-//            },
-//            {
-//                    "Name": "Subject",
-//                "Value": "true",
-//                "IsValueFieldReference": false
-//            },
-//            {
-//                    "Name": "RenderFormat",
-//                "Value": "PDF",
-//                "IsValueFieldReference": false
-//            }
-//        ]
-//    },
-//    "ParameterValues": []
-//}
+            Subscription newSubscription = new Subscription()
+            {
+                Id = new Guid(),
+                Owner = "extRSAuth",
+                IsDataDriven = false,
+                Description = description,
+                Report = "/Reports/Team",
+                IsActive = true,
+                EventType = "TimedSubscription",
+                ScheduleDescription = description,
+                LastRunTime = DateTime.Now,
+                DeliveryExtension = "Report Server Email",
+                LocalizedDeliveryExtensionName = "Email",
+                ModifiedBy = "extRSAuth",
+                ModifiedDate = DateTime.Now,
+                Uri = "",
+                LastStatus = "",
+                Schedule = new Schedule()
+                {
+                    Definition = new ScheduleDefinition()
+                    {
+                        StartDateTime = DateTime.Now,
+                        EndDate = DateTime.Now.AddDays(10),
+                        EndDateSpecified = true,
+                        Recurrence = new ScheduleRecurrence()
+                        {
+                            MinuteRecurrence = new MinuteRecurrence() { MinutesInterval = 1000 } //,
+                            //DailyRecurrence = new DailyRecurrence() { DaysInterval = 100 },
+                            //WeeklyRecurrence = new WeeklyRecurrence() { WeeksInterval = 10, DaysOfWeek = new DaysOfWeekSelector() { Friday = true, Saturday = true }, WeeksIntervalSpecified = true },
+                            //MonthlyRecurrence = new MonthlyRecurrence() { MonthsOfYear = new MonthsOfYearSelector() { July = true, April = true }, Days = "1" },
+                            //MonthlyDOWRecurrence = new MonthlyDOWRecurrence()
+                            //{
+                            //    MonthsOfYear = new MonthsOfYearSelector() { July = true, April = true },
+                            //    DaysOfWeek = new DaysOfWeekSelector() { Friday = true, Saturday = true }
+                            //}
+                        }
+                    }
+                },
+                ExtensionSettings = new ExtensionSettings()
+                {
+                    Extension = "DeliveryExtension",
+                    ParameterValues = new List<ParameterValue>()
+                    {
+                        new ParameterValue() { Name = "TO", Value = email, IsValueFieldReference = false },
+                        new ParameterValue() { Name = "IncludeReport", Value = "true", IsValueFieldReference = false },
+                        new ParameterValue() { Name = "Subject", Value = subject, IsValueFieldReference = false },
+                        new ParameterValue() { Name = "RenderFormat", Value = renderFormat, IsValueFieldReference = false }
+                    }
+                },
+                ParameterValues = new List<ParameterValue>()
+            };
 
-   // };
-            
-           // bool isCreated = await _ssrs.CreateSubscription(subscription);
+            bool isCreated = await _ssrs.CreateSubscription(newSubscription);
+            List<Subscription> subscriptions = await _ssrs.GetSubscriptions();
 
-            //foreach (var subscription in subscriptions)
-            //{
-            //    string uri = string.Format(Url.ActionLink("Subscription", "Subscriptions", new { id = subscription.Id })!);
-            //    subscription.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
-            //}
+            foreach (var subscription in subscriptions)
+            {
+                string uri = string.Format(Url.ActionLink("Subscription", "Subscriptions", new { id = subscription.Id })!);
+                subscription.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+            }
 
-           // SubscriptionsView model = new SubscriptionsView() { CurrentTab = "Subscriptions", Subscriptions = subscriptions, ReportServerName = _configuration["ReportServerName"]! };
-           // string viewHtml = GetSubscriptiontHtml(reportId, snapshots);
-
-            return "";
+            return GetSubscriptionsHtml(subscriptions);
         }
 
         public async Task<IActionResult> DeleteSubscriptionAjax(string id)

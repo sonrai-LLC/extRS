@@ -13,6 +13,11 @@ namespace ReportingServices.Api.Models
     [DataContract]
     public class Subscription
     {
+        // the delivery schedule
+        [DataMember(Name = "Schedule", EmitDefaultValue = false)]
+        [JsonProperty(PropertyName = "Schedule")]
+        public Schedule Schedule { get; set; }
+
         // the uri of the RS catalog item
         public string Uri { get; set; }
 
