@@ -62,17 +62,8 @@ namespace Sonrai.ExtRS
 
         public async Task<List<HistorySnapshot>> GetReportSnapshotHistory(string id)
         {
-            try
-            {
-                var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots", id));
-                return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
-            }
-            catch (Exception ex)    
-            {
-                var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots", id));
-                return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
-            }
-            
+            var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots", id));
+            return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
         }
 
         public async Task<bool> CreateSubscription(Subscription subscription)
