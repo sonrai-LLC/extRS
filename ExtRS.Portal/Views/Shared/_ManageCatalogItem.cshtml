@@ -15,10 +15,7 @@
         <a href=@Url.Action("SnapshotHistory", "Reports", new { id = @Model.Id })>Snapshot History</a><br />
         <a onclick="subscriptionToastr('@Model.Id', 'Subscription created')">Subscribe</a><br />
     }
-    @if (@Configuration["ReportServerName"] == "localhost")
-    {
-        <a href=@Url.Action("Delete", "CatalogItems", new { id = @Model.Id })>Delete</a><br />
-    }
+    <a href=@Url.Action("Delete", "CatalogItems", new { id = @Model.Id })>Delete</a><br />
     <a href=@Url.Action("Manage", "CatalogItems", new { id = @Model.Id }) style="pointer-events: none; color: gray" target="_blank">Manage</a><br /><br />
     <div style="font-size:7pt">
         Created by @Model.CreatedBy on @Convert.ToDateTime(@Model.CreatedDate).ToShortDateString() at @Convert.ToDateTime(@Model.CreatedDate).ToLongTimeString()<br />
