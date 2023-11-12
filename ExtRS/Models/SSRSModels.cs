@@ -14,7 +14,7 @@ namespace Sonrai.ExtRS.Models
 
         protected bool IsOnline = false;
 
-        public SSRSConnection(string reportServerName, string adminUser, AuthenticationType authType = AuthenticationType.ExtRSAuth)
+        public SSRSConnection(string reportServerName, string adminUser, AuthenticationType authType = AuthenticationType.extRSAuth)
         {
             ReportServerName = reportServerName;
             Administrator = adminUser ?? Administrator;
@@ -27,7 +27,7 @@ namespace Sonrai.ExtRS.Models
     {
         Windows,
         Forms,
-        ExtRSAuth
+        extRSAuth
     }
 
     public enum HttpVerbs

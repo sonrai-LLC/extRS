@@ -15,13 +15,13 @@ namespace Sonrai.ExtRS.UnitTests
     {
         private SSRSService ssrs;
         private HttpClient httpClient;
-        readonly string defaultCreds = "\"UserName\": " + "\"ExtRSAuth\",  " + "\"Password\": \"" + Resources.passphrase + "\", \"Domain\": \"" + Resources.ReportServerName + "\"";
+        readonly string defaultCreds = "\"UserName\": " + "\"extRSAuth\",  " + "\"Password\": \"" + Resources.passphrase + "\", \"Domain\": \"" + Resources.ReportServerName + "\"";
 
         [TestInitialize]
         public async Task InitializeTests()
         {
             httpClient = new HttpClient();
-            SSRSConnection connection = new SSRSConnection(Resources.ReportServerName, "ExtRSAuth", AuthenticationType.ExtRSAuth);
+            SSRSConnection connection = new SSRSConnection(Resources.ReportServerName, "extRSAuth", AuthenticationType.extRSAuth);
             connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, connection.Administrator, Resources.passphrase, connection.ReportServerName);
             ssrs = new SSRSService(connection, null);
         }
@@ -29,7 +29,7 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetGetSqlAuthCookieSucceeds()
         {
-            var cookieString = await SSRSService.GetSqlAuthCookie(httpClient, "ExtRSAuth", Resources.passphrase, Resources.ReportServerName);
+            var cookieString = await SSRSService.GetSqlAuthCookie(httpClient, "extRSAuth", Resources.passphrase, Resources.ReportServerName);
             Assert.IsTrue(cookieString.Length > 0);
         }
 
@@ -127,9 +127,9 @@ namespace Sonrai.ExtRS.UnitTests
                               "\"Type\": \"Report\"," +
                               "\"Hidden\": \"false\"," +
                               "\"Size\": 0," +
-                              "\"ModifiedBy\": \"ExtRSAuth\", " +
+                              "\"ModifiedBy\": \"extRSAuth\", " +
                               "\"ModifiedDate\": \"2023-06-25\"," +
-                              "\"CreatedBy\": \"ExtRSAuth\"," +
+                              "\"CreatedBy\": \"extRSAuth\"," +
                               "\"CreatedDate\": \"2023-06-25\"," +
                               "\"ParentFolderId\": \"af7c2bfd-9da4-4d6f-95c1-75b37498f273\"," +
                               "\"ContentType\": \"string\"," +
@@ -153,14 +153,14 @@ namespace Sonrai.ExtRS.UnitTests
         public async Task CreateGetDeleteCatalogItemSucceeds()
         {
             string content = "\"Id\": \"3A42F3DD-3B48-461C-9625-2CF531C301D2\"," +
-                              "\"ModifiedBy\": \"ExtRSAuth\", " +
+                              "\"ModifiedBy\": \"extRSAuth\", " +
                               "\"Name\": \"EWTF_some_new_resource7\"," +
                                "\"Description\": \"This is a desc\"," +
                                "\"Path\": \"/Reports\"," +
                                "\"Type\": \"Resource\"," +
                                "\"Hidden\": \"false\"," +
                                "\"ModifiedDate\": \"2023-06-25\"," +
-                               "\"CreatedBy\": \"ExtRSAuth\"," +
+                               "\"CreatedBy\": \"extRSAuth\"," +
                                "\"CreatedDate\": \"2023-06-25\"," +
                                "\"ParentFolderId\": \"af7c2bfd-9da4-4d6f-95c1-75b37498f273\"," +
                                "\"ContentType\": \"text\"," +
