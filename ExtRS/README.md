@@ -18,7 +18,7 @@ This package includes the following components:
         {
             _httpClient = new _httpClient();
             SSRSConnection connection = new SSRSConnection(_configuration["ReportServerName"]!, "extRSAuth", 
-            AuthenticationType.extRSAuth);
+            AuthenticationType.ExtRSAuth);
             connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, 
             connection.Administrator, "", connection.ServerName);
             ssrs = new SSRSService(connection);
@@ -49,4 +49,4 @@ This package includes the following components:
 ```
 
 # Related SSRS Tools
-- [extRSAuth](https://github.com/sonrai-LLC/extRSAuth) for enabling further extension of the SSRS Microsoft Custom Security Sample.
+- [ExtRSAuth](https://github.com/sonrai-LLC/ExtRSAuth) for enabling further extension of the SSRS Microsoft Custom Security Sample.

@@ -24,8 +24,8 @@ namespace ExtRS.Portal.Controllers
             _logger = logger;
             _configuration = configuration;
             _httpClient = new HttpClient();
-            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _configuration["User"]!, AuthenticationType.extRSAuth);
-            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
+            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _configuration["User"]!, AuthenticationType.ExtRSAuth);
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _configuration["User"]!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
             _ssrs = new SSRSService(_connection, _configuration);
         }
 
@@ -78,7 +78,7 @@ namespace ExtRS.Portal.Controllers
         public async Task<string> CreateReportSnapshotAjax(string reportId)
         {
             await _ssrs.CreateReportSnapshot(reportId);
-            List<HistorySnapshot> snapshots = await _ssrs.GetReportSnapshotHistory(reportId);
+            List<HistorySnapshot> snapshots = await _ssrs.GetReportSnapshots(reportId);
             string viewHtml = GetSnapshotsHtml(reportId, snapshots);
 
             return viewHtml;
@@ -87,7 +87,7 @@ namespace ExtRS.Portal.Controllers
         public async Task<string> DeleteReportSnapshotAjax(string reportId, string historyId)
         {
             bool isDeleted = await _ssrs.DeleteReportSnapshot(reportId, historyId);
-            List<HistorySnapshot> snapshots = await _ssrs.GetReportSnapshotHistory(reportId);
+            List<HistorySnapshot> snapshots = await _ssrs.GetReportSnapshots(reportId);
             string viewHtml = GetSnapshotsHtml(reportId, snapshots);
 
             return viewHtml;
@@ -116,7 +116,7 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<IActionResult> SnapshotHistory(string id)
         {
-            var snapshots = await _ssrs.GetReportSnapshotHistory(id);
+            var snapshots = await _ssrs.GetReportSnapshots(id);
 
             return View("_SnapshotHistory", new SnapshotHistoryView { HistorySnapshots = snapshots, CurrentTab = "Reports", ReportId = id });
         }

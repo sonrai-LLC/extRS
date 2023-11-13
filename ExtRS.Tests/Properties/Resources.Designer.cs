@@ -63,9 +63,9 @@ namespace ExtRS.Tests.Properties {
         /// <summary>
         ///   Looks up a localized string similar to This_IS_a_simpl_Passphrase.
         /// </summary>
-        internal static string passphrase {
+        internal static string Passphrase {
             get {
-                return ResourceManager.GetString("passphrase", resourceCulture);
+                return ResourceManager.GetString("Passphrase", resourceCulture);
             }
         }
         
@@ -75,6 +75,15 @@ namespace ExtRS.Tests.Properties {
         internal static string ReportServerName {
             get {
                 return ResourceManager.GetString("ReportServerName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to extRSAuth.
+        /// </summary>
+        internal static string User {
+            get {
+                return ResourceManager.GetString("User", resourceCulture);
             }
         }
     }

@@ -22,8 +22,8 @@ namespace ExtRS.Portal.Controllers
             _logger = logger;
             _configuration = configuration;
             _httpClient = new HttpClient();
-            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _configuration["User"]!, AuthenticationType.extRSAuth);
-            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _connection.Administrator, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
+            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _configuration["User"]!, AuthenticationType.ExtRSAuth);
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _configuration["User"]!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
             _ssrs = new SSRSService(_connection, _configuration);
         }
 
@@ -103,7 +103,7 @@ namespace ExtRS.Portal.Controllers
                 ParameterValues = new List<ParameterValue>()
             };
 
-            bool isCreated = await _ssrs.CreateSubscription(newSubscription);
+            await _ssrs.CreateSubscription(newSubscription);
             List<Subscription> subscriptions = await _ssrs.GetSubscriptions();
 
             foreach (var subscription in subscriptions)

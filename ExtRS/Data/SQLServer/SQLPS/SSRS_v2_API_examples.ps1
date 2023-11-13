@@ -6,7 +6,7 @@
   Summary:  Demonstrates examples to upload/download/delete an item in RS. 
 ===========================================================================#>
 
-$user = 'extRSAuth'
+$user = 'ExtRSAuth'
 $pass = 'passphrase'
 $pair = "$($user):$($pass)"
 $encodedCreds = [System.Convert]::ToBase64String([System.Text.Encoding]::ASCII.GetBytes($pair))

@@ -9,6 +9,7 @@ using Sonrai.ExtRS.Models;
 using System.Security.Policy;
 using System;
 using System.Collections.Generic;
+using ExtRS.Properties;
 
 namespace Sonrai.ExtRS
 {
@@ -19,15 +20,15 @@ namespace Sonrai.ExtRS
         private HttpClient _client;
         CookieContainer _cookieContainer = new CookieContainer();
         string _serverUrl;
-       
+
         public SSRSService(SSRSConnection connection, IConfiguration? configuration)
-        {          
+        {
             _conn = connection;
             _client = new HttpClient();
             _cookieContainer.Add(new Cookie("sqlAuthCookie", _conn.SqlAuthCookie, "/", configuration == null ? "localhost" : configuration["ReportServerName"]!));
             _serverUrl = string.Format("https://{0}/reports/api/v2.0/", _conn.ReportServerName);
             _configuration = configuration;
-        }
+        } 
 
         public async Task<HttpResponseMessage> CallApi(HttpVerbs verb, string operation, string content = "", string parameters = "")
         {
@@ -53,33 +54,45 @@ namespace Sonrai.ExtRS
                 return null;
             }
         }
-
-        public async Task<List<Report>> GetReports()
+ 
+        public async Task<HttpResponseMessage> CreateSession(string user, string password, string server)
         {
-            var response = await CallApi(HttpVerbs.GET, "Reports");
-            return JsonConvert.DeserializeObject<ODataReports>(await response.Content.ReadAsStringAsync())!.Value;
+            string credentials = GetCredentialJson(user, password, server);
+            HttpResponseMessage response = await CallApi(HttpVerbs.POST, "Session", credentials);
+            return response;
         }
 
-        public async Task<List<HistorySnapshot>> GetReportSnapshotHistory(string id)
+        public async Task<HttpResponseMessage> DeleteSession()
         {
-            try
-            {
-                var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots", id));
-                return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
-            }
-            catch (Exception ex)    
-            {
-                var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots", id));
-                return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
-            }
-            
+            HttpResponseMessage response = await CallApi(HttpVerbs.DELETE, "Session");
+            return response;
+        }
+         
+        public async Task<CatalogItem> CreateCatalogItem(string json)
+        {
+            var response = await CallApi(HttpVerbs.POST, "CatalogItems", json);
+            return JsonConvert.DeserializeObject<CatalogItem>(await response.Content.ReadAsStringAsync())!;
         }
 
-        public async Task<bool> CreateSubscription(Subscription subscription)
+        public async Task<CatalogItem> GetCatalogItem(string id)
+        {
+            var response = await CallApi(HttpVerbs.GET, string.Format("CatalogItems({0})", id));
+            return JsonConvert.DeserializeObject<CatalogItem>(await response.Content.ReadAsStringAsync())!;
+        }
+
+        public async Task<List<CatalogItem>> GetCatalogItems()
+        {
+            var response = await CallApi(HttpVerbs.GET, "CatalogItems");
+            return JsonConvert.DeserializeObject<ODataCatalogItems>(await response.Content.ReadAsStringAsync())!.Value;
+        }
+
+        public async Task<Subscription> CreateSubscription(Subscription subscription)
         {
             var subscriptionJson = JsonConvert.SerializeObject(subscription);
             var response = await CallApi(HttpVerbs.POST, "Subscriptions", subscriptionJson);
-            return true;
+            var newSubscription = JsonConvert.DeserializeObject<Subscription>(await response.Content.ReadAsStringAsync());
+
+            return newSubscription!;
         }
 
         public async Task<Subscription> GetSubscription(string id)
@@ -90,14 +103,15 @@ namespace Sonrai.ExtRS
 
         public async Task<bool> DeleteSubscription(string id)
         {
-            var response = await CallApi(HttpVerbs.DELETE, string.Format("Subscriptions({0})", id));
+            var response = await CallApi(HttpVerbs.DELETE, string.Format("Subscriptions({0})", id));      
             return true;
         }
 
-        public async Task<bool> CreateReportSnapshot(string id)
+        public async Task<HistorySnapshot> CreateReportSnapshot(string reportId)
         {
-            var response = await CallApi(HttpVerbs.POST, string.Format("Reports({0})/HistorySnapshots", id));
-            return true;
+            HistorySnapshot response = await CreateReportSnapshot(reportId);
+            var snapshot = await GetReportSnapshot(reportId, response.HistoryId);
+            return snapshot;
         }
 
         public async Task<bool> DeleteReportSnapshot(string id, string historyId)
@@ -106,22 +120,27 @@ namespace Sonrai.ExtRS
             return true;
         }
 
+        public async Task<List<HistorySnapshot>> GetReportSnapshots(string id)
+        {
+            var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots", id));
+            return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
+        }
+        public async Task<HistorySnapshot> GetReportSnapshot(string reportId, string historyId)
+        {
+            var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots({1})", reportId, historyId));
+            return JsonConvert.DeserializeObject<HistorySnapshot>(await response.Content.ReadAsStringAsync())!;
+        }
+
         public async Task<Report> GetReport(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})", idOrPath));
             return JsonConvert.DeserializeObject<Report>(await response.Content.ReadAsStringAsync())!;
         }
 
-        public async Task<List<CatalogItem>> GetCatalogItems()
+        public async Task<List<Report>> GetReports()
         {
-            var response = await CallApi(HttpVerbs.GET, "CatalogItems");
-            return JsonConvert.DeserializeObject<ODataCatalogItems>(await response.Content.ReadAsStringAsync())!.Value;
-        }
-
-        public async Task<CatalogItem> GetCatalogItem(string idOrPath)
-        {
-            var response = await CallApi(HttpVerbs.GET, string.Format("CatalogItems({0})", idOrPath));
-            return JsonConvert.DeserializeObject<CatalogItem>(await response.Content.ReadAsStringAsync())!;
+            var response = await CallApi(HttpVerbs.GET, "Reports");
+            return JsonConvert.DeserializeObject<ODataReports>(await response.Content.ReadAsStringAsync())!.Value;
         }
 
         public async Task<string> GetCatalogItemContent(string idOrPath)
@@ -202,13 +221,13 @@ namespace Sonrai.ExtRS
 
         public static string GetCredentialJson(string user, string password, string domain)
         {
-            return string.Format("\"UserName\":\"{0}\",\"Password\": \"{1}\",\"Domain\":\"{2}\"", user, password, domain);
+            return "{" + string.Format("\"UserName\":\"{0}\",\"Password\": \"{1}\",\"Domain\":\"{2}\"", user, password, domain) + "}";
         }
 
         public static async Task<string> GetSqlAuthCookie(HttpClient client, string user = "extRSAuth", string password = "", string domain = "localhost")
         {
             string cookie = "";
-            StringContent httpContent = new StringContent("{" + GetCredentialJson(user, password, domain) + "}", Encoding.UTF8, "application/json");
+            StringContent httpContent = new StringContent(GetCredentialJson(user, password, domain), Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
             HttpHeaders headers = response.Headers;
@@ -262,5 +281,5 @@ namespace Sonrai.ExtRS
             // once ExtRS is fully implemented
             return "";
         }
-    }   
+    }
 }
