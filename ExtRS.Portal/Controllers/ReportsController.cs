@@ -78,7 +78,7 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<string> CreateReportSnapshotAjax(string reportId)
         {
-            await _ssrs.CreateReportSnapshot(reportId);
+            var result = await _ssrs.CreateReportSnapshot(reportId);
             List<HistorySnapshot> snapshots = await _ssrs.GetReportSnapshots(reportId);
             string viewHtml = GetSnapshotsHtml(reportId, snapshots);
 
@@ -114,9 +114,9 @@ namespace ExtRS.Portal.Controllers
             return viewHtml;
         }
 
-        public async Task<IActionResult> SnapshotHistory(string id)
+        public async Task<IActionResult> SnapshotHistory(string reportId)
         {
-            var snapshots = await _ssrs.GetReportSnapshots(id);
+            var snapshots = await _ssrs.GetReportSnapshots(reportId);
 
             return View("_SnapshotHistory", new SnapshotHistoryView { HistorySnapshots = snapshots, CurrentTab = "Reports", ReportId = reportId });
         }

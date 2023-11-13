@@ -88,10 +88,18 @@ namespace Sonrai.ExtRS
 
         public async Task<Subscription> CreateSubscription(Subscription subscription)
         {
-            var subscriptionJson = JsonConvert.SerializeObject(subscription);
-            var response = await CallApi(HttpVerbs.POST, "Subscriptions", subscriptionJson);
-            var newSubscription = JsonConvert.DeserializeObject<Subscription>(await response.Content.ReadAsStringAsync());
-
+            Subscription newSubscription = new Subscription();
+            try
+            {
+                var subscriptionJson = JsonConvert.SerializeObject(subscription);
+                var response = await CallApi(HttpVerbs.POST, "Subscriptions", subscriptionJson);
+                var newSubscription2 = JsonConvert.DeserializeObject<Subscription>(await response.Content.ReadAsStringAsync());
+                return newSubscription2!;
+            }
+            catch (Exception ex)
+            { 
+            
+            }
             return newSubscription!;
         }
 
@@ -107,30 +115,6 @@ namespace Sonrai.ExtRS
             return true;
         }
 
-        public async Task<HistorySnapshot> CreateReportSnapshot(string reportId)
-        {
-            HistorySnapshot response = await CreateReportSnapshot(reportId);
-            var snapshot = await GetReportSnapshot(reportId, response.HistoryId);
-            return snapshot;
-        }
-
-        public async Task<bool> DeleteReportSnapshot(string id, string historyId)
-        {
-            var response = await CallApi(HttpVerbs.DELETE, string.Format("Reports({0})/HistorySnapshots({1})", id, historyId));
-            return true;
-        }
-
-        public async Task<List<HistorySnapshot>> GetReportSnapshots(string id)
-        {
-            var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots", id));
-            return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
-        }
-        public async Task<HistorySnapshot> GetReportSnapshot(string reportId, string historyId)
-        {
-            var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots({1})", reportId, historyId));
-            return JsonConvert.DeserializeObject<HistorySnapshot>(await response.Content.ReadAsStringAsync())!;
-        }
-
         public async Task<Report> GetReport(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})", idOrPath));
@@ -141,6 +125,30 @@ namespace Sonrai.ExtRS
         {
             var response = await CallApi(HttpVerbs.GET, "Reports");
             return JsonConvert.DeserializeObject<ODataReports>(await response.Content.ReadAsStringAsync())!.Value;
+        }
+
+        public async Task<HistorySnapshot> CreateReportSnapshot(string reportId)
+        {
+            var response = await CallApi(HttpVerbs.POST, string.Format("Reports({0})/HistorySnapshots)", reportId));
+            return JsonConvert.DeserializeObject<HistorySnapshot>(await response.Content.ReadAsStringAsync())!;
+        }
+
+        public async Task<List<HistorySnapshot>> GetReportSnapshots(string id)
+        {
+            var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots", id));
+            return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
+        }
+
+        public async Task<HistorySnapshot> GetReportSnapshot(string reportId, string historyId)
+        {
+            var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots({1})", reportId, historyId));
+            return JsonConvert.DeserializeObject<HistorySnapshot>(await response.Content.ReadAsStringAsync())!;
+        }
+
+        public async Task<bool> DeleteReportSnapshot(string id, string historyId)
+        {
+            var response = await CallApi(HttpVerbs.DELETE, string.Format("Reports({0})/HistorySnapshots({1})", id, historyId));
+            return true;
         }
 
         public async Task<string> GetCatalogItemContent(string idOrPath)
