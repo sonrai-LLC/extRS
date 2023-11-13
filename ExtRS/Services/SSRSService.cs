@@ -129,7 +129,7 @@ namespace Sonrai.ExtRS
 
         public async Task<HistorySnapshot> CreateReportSnapshot(string reportId)
         {
-            var response = await CallApi(HttpVerbs.POST, string.Format("Reports({0})/HistorySnapshots)", reportId));
+            var response = await CallApi(HttpVerbs.POST, string.Format("Reports({0})/HistorySnapshots", reportId));
             return JsonConvert.DeserializeObject<HistorySnapshot>(await response.Content.ReadAsStringAsync())!;
         }
 
