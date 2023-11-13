@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Cors;
 using System;
 using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using static Microsoft.EntityFrameworkCore.Metadata.Internal.EntityType;
+using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.Mvc.Routing;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -35,7 +37,6 @@ namespace ExtRS.Portal.Controllers
 
             foreach (var report in reports)
             {
-
                 string uri = string.Format(Url.ActionLink("Report", "Reports", new { reportName = report.Name })!);
                 report.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
             }
@@ -64,7 +65,7 @@ namespace ExtRS.Portal.Controllers
             return View("_Report", view);
         }
 
-        public async Task<IActionResult> ReportSnapshot(string id, string reportId, string creationDate)
+        public async Task<IActionResult> ReportSnapshot(string reportId, string creationDate)
         {
             creationDate = Convert.ToDateTime(creationDate).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss");
             Report report = await _ssrs.GetReport(reportId);
@@ -72,7 +73,7 @@ namespace ExtRS.Portal.Controllers
             uri += "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
 
             ReportView view = new ReportView() { SelectedReport = new Report { Uri = uri } };
-            return PartialView("_Report", view);
+            return View("_Report", view);
         }
 
         public async Task<string> CreateReportSnapshotAjax(string reportId)
@@ -102,13 +103,12 @@ namespace ExtRS.Portal.Controllers
                 viewHtml +=
                 @"<div class=""bg-dark"" style=""box-shadow: 2.5px 5px 4px #888888;"">
                     <span id=" + snapshot.Id + @" class=""nav_link"" style=""float:right"" onclick=""confirmDeleteReportSnapshot('" + @reportId + "', '" + @snapshot.Id + @"', 'Snapshot deleted');"">
-                        <a href = ""#/"" >
+                        <a href = ""#"" >
                             x
                         </a>
-                    </span>
-                    <a href=""@Url.Action(""ReportSnapshot"", ""Reports"", new { id=" + snapshot.HistoryId + ", reportId = " + snapshot.Id + ", creationDate = "
-                      + snapshot.CreationDate + @" })"" class=""nav_link""><i class=""bx bx-line-chart""></i><span class=""nav_name"">" + snapshot.CreationDate + @"</span></a>
-                    </div>";
+                    </span>" +
+                    string.Format(@"<a href='/reports/reportsnapshot?reportId={0}&creationDate={1}' class=""nav_link""><i class=""bx bx-line-chart""></i><span class=""nav_name"">" + snapshot.CreationDate + @"</span></a>
+                    </div>", reportId, snapshot.CreationDate);
             }
 
             return viewHtml;
@@ -118,7 +118,7 @@ namespace ExtRS.Portal.Controllers
         {
             var snapshots = await _ssrs.GetReportSnapshots(id);
 
-            return View("_SnapshotHistory", new SnapshotHistoryView { HistorySnapshots = snapshots, CurrentTab = "Reports", ReportId = id });
+            return View("_SnapshotHistory", new SnapshotHistoryView { HistorySnapshots = snapshots, CurrentTab = "Reports", ReportId = reportId });
         }
     }
 }
