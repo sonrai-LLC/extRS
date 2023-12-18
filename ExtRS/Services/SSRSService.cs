@@ -289,5 +289,25 @@ namespace Sonrai.ExtRS
             // once ExtRS is fully implemented
             return "";
         }
+
+        public string GetCascadeParameters(string source, string sourceCol, string cascade, string casecadeCol)
+        {
+            return "";
+        }
+
+        public byte[] GetRecentSSRSLogs()
+        {
+            return new byte[0]; // TODO
+        }
+
+        public string GetReportServerInfo()
+        {
+            return "";
+        }
+
+        public string GetServerInfo()
+        {
+            return "";
+        }
     }
 }

@@ -24,7 +24,7 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public void ValidateAddressFails()
         {
-            var result = gis.ValidateAddress("ccccc, cccc");
+            var result = gis.ValidateAddress("?-$#, ,,_}%");
             Assert.IsFalse(result);
         }
 
