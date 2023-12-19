@@ -282,5 +282,12 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(systemInfo.ProductVersion.Length > 0);
             Assert.IsTrue(systemInfo.TimeZone.Length > 0);
         }
+
+        [TestMethod]
+        public async Task GetExecutionStatsSucceeds()
+        {
+            var stats = await ssrs.GetReportExecutionStats("Server=localhost;Database=ReportServer;User Id=extRSAuth;Integrated Security=true");
+            Assert.IsTrue(stats.Count() > 0);
+        }
     }
 }
