@@ -69,7 +69,6 @@
     <DataSet Include="NCAAMConferences.rsd" />
     <DataSet Include="Ozar.rsd" />
     <DataSet Include="Player.rsd" />
-    <DataSet Include="Poll.rsd" />
     <DataSet Include="PollStates.rsd" />
     <DataSet Include="PrimaryImage.rsd" />
     <DataSet Include="Recruit.rsd" />
@@ -79,10 +78,12 @@
     <DataSet Include="Sommarskog.rsd" />
     <DataSet Include="Student.rsd" />
     <DataSet Include="Team.rsd" />
+    <DataSet Include="USPollData.rsd" />
     <DataSet Include="Voter.rsd" />
     <DataSet Include="vTeamIDs.rsd" />
   </ItemGroup>
   <ItemGroup>
+    <DataSource Include="localhost-refdata.rds" />
     <DataSource Include="localhost.rds" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +134,7 @@
     <Report Include="ServiceCall.rdl" />
     <Report Include="SpendAnalysis.rdl" />
     <Report Include="Team.rdl" />
+    <Report Include="USPolls.rdl" />
     <Report Include="VoterRegistration.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />

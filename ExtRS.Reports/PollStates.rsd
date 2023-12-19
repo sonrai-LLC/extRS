@@ -2,12 +2,12 @@
 <SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <DataSet Name="DataSet1">
     <Query>
-      <DataSourceReference>localhost</DataSourceReference>
+      <DataSourceReference>localhost-refdata</DataSourceReference>
       <CommandText>  SELECT 
      [state]
   FROM POLLS
   GROUP BY [state]
-  ORDER BY [state]</CommandText>
+ORDER BY [state]</CommandText>
     </Query>
     <Fields>
       <Field Name="state">

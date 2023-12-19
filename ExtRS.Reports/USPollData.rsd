@@ -2,38 +2,27 @@
 <SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <DataSet Name="DataSet1">
     <Query>
-      <DataSourceReference>localhost</DataSourceReference>
+      <DataSourceReference>localhost-refdata</DataSourceReference>
       <DataSetParameters>
         <DataSetParameter Name="@p1">
           <DefaultValue>Wisconsin</DefaultValue>
           <ReadOnly>false</ReadOnly>
-          <Nullable>true</Nullable>
+          <Nullable>false</Nullable>
           <OmitFromQuery>false</OmitFromQuery>
-          <rd:DbType>String</rd:DbType>
+          <rd:DbType>Object</rd:DbType>
         </DataSetParameter>
         <DataSetParameter Name="@p2">
-          <DefaultValue>Governor</DefaultValue>
+          <DefaultValue>U.S. President</DefaultValue>
           <ReadOnly>false</ReadOnly>
-          <Nullable>true</Nullable>
+          <Nullable>false</Nullable>
           <OmitFromQuery>false</OmitFromQuery>
-          <rd:DbType>String</rd:DbType>
+          <rd:DbType>Object</rd:DbType>
         </DataSetParameter>
       </DataSetParameters>
-      <CommandText>  SELECT pollster,
-		 sponsors,
-                                       display_name,
-		 methodology,
-		 [state],
-		 [start_date],
-		 convert(date, [end_date]) end_date,
-		 office_type,
-		 party,
-		 candidate_name, 
-                                      convert(decimal(3,1), pct) pct
-  FROM POLLS
-  WHERE [State]=@p1 AND Office_Type=@p2
-  AND  [end_date] &gt; '9/15/22'
-  ORDER BY end_date DESC</CommandText>
+      <CommandText>SELECT        pollster, sponsors, display_name, methodology, state, start_date, CONVERT(date, end_date) AS end_date, office_type, party, candidate_name, CONVERT(decimal(3, 1), pct) AS pct
+FROM            POLLS
+WHERE    (state = @p1) AND (office_type = @p2) AND (CONVERT(date, end_date) &gt; '12/1/23')
+ORDER BY end_date DESC</CommandText>
     </Query>
     <Fields>
       <Field Name="pollster">
