@@ -272,5 +272,15 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(catalogItemResponse.ToString().Contains("<div "));
             Assert.IsTrue(catalogItemResponse.ToString().Contains("</div>"));
         }
+
+        [TestMethod]
+        public async Task GetSystemInfoSucceeds()
+        {
+            SystemInfo systemInfo = await ssrs.GetSystemInfo();
+            Assert.IsTrue(systemInfo.ProductName.Length > 0);
+            Assert.IsTrue(systemInfo.ProductType.Length > 0);
+            Assert.IsTrue(systemInfo.ProductVersion.Length > 0);
+            Assert.IsTrue(systemInfo.TimeZone.Length > 0);
+        }
     }
 }

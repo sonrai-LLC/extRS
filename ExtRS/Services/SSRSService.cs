@@ -1,21 +1,20 @@
-﻿using Microsoft.Extensions.Configuration;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Text.RegularExpressions;
+﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ReportingServices.Api.Models;
 using Sonrai.ExtRS.Models;
-using System.Security.Policy;
-using System;
-using System.Collections.Generic;
-using ExtRS.Properties;
+using System.Data.SqlClient;
+using System.Net;
+using System.Net.Http.Headers;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Sonrai.ExtRS
 {
     public class SSRSService
     {
-        public IConfiguration _configuration;
+        public IConfiguration? _configuration;
         public SSRSConnection _conn;
         private HttpClient _client;
         CookieContainer _cookieContainer = new CookieContainer();
@@ -30,7 +29,7 @@ namespace Sonrai.ExtRS
             _configuration = configuration;
         } 
 
-        public async Task<HttpResponseMessage> CallApi(HttpVerbs verb, string operation, string content = "", string parameters = "")
+        public async Task<HttpResponseMessage?> CallApi(HttpVerbs verb, string operation, string content = "", string parameters = "")
         {
             HttpResponseMessage response = new HttpResponseMessage();
             HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
@@ -305,9 +304,30 @@ namespace Sonrai.ExtRS
             return "";
         }
 
-        public string GetServerInfo()
+        public async Task<SystemInfo> GetSystemInfo()
         {
-            return "";
+            var response = await CallApi(HttpVerbs.GET, string.Format("System"));
+            return JsonConvert.DeserializeObject<SystemInfo>(await response.Content.ReadAsStringAsync())!;
+        }
+
+        public async Task<IEnumerable<ReportExecutionStats>> GetReportExecutionStats(string connectionString)
+        {
+            using (var db = new SqlConnection(connectionString))
+            {
+                db.Open();
+                string query = @"USE ReportServer;
+                                SELECT el.UserName, 
+                                C.NAME as Report, 
+                                COUNT(1) AS[GeneratedNumber]
+                                FROM REPORTSERVER.DBO.EXECUTIONLOG(NOLOCK) el
+                                INNER JOIN REPORTSERVER.DBO.CATALOG(NOLOCK) c ON el.REPORTID = c.ITEMID
+                                GROUP BY el.USERNAME, c.NAME
+                                ORDER BY el.USERNAME, c.NAME";
+
+                var stats = await db.QueryAsync<ReportExecutionStats>(query);
+
+                return stats;
+            }
         }
     }
 }

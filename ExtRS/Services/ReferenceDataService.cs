@@ -1,8 +1,6 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 using System.Text;
-using System.Web;
-using static System.Net.WebRequestMethods;
 
 namespace Sonrai.ExtRS
 {
