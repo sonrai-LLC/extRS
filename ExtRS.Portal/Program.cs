@@ -6,6 +6,7 @@ using ExtRS.Portal.Data;
 using ExtRS.Portal.Models;
 using Sonrai.ExtRS;
 using Azure.Identity;
+using Microsoft.AspNetCore.Builder;
 
 //DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
 var builder = WebApplication.CreateBuilder(args);
@@ -17,19 +18,19 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers().AddNewtonsoftJson(); // Required in .NET Core 3 and later. Optional before
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
-//builder.Services.AddRateLimiter(options =>
-//{
-//	options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
-//	{
-//		return RateLimitPartition.GetFixedWindowLimiter(partitionKey: httpContext.Request.Headers.Host.ToString(), partition =>
-//			new FixedWindowRateLimiterOptions
-//			{
-//				PermitLimit = 20,
-//				AutoReplenishment = true,
-//				Window = TimeSpan.FromSeconds(10)
-//			});
-//	});
-//});
+builder.Services.AddRateLimiter(options =>
+{
+	options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+	{
+		return RateLimitPartition.GetFixedWindowLimiter(partitionKey: httpContext.Request.Headers.Host.ToString(), partition =>
+			new FixedWindowRateLimiterOptions
+			{
+				PermitLimit = 20,
+				AutoReplenishment = true,
+				Window = TimeSpan.FromSeconds(10)
+			});
+	});
+});
 //builder.Services.AddDistributedMemoryCache();
 //builder.Services.AddSession(options =>
 //{
@@ -43,24 +44,7 @@ builder.Services.AddScoped<EncryptionService>();
 //builder.Services.AddScoped<UserModel>();
 //builder.Services.AddScoped<SignInManager<UserModel>>();
 
-//builder.Services
-//.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-//.AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
-//options =>
-//{
-//    options.LoginPath = new PathString("/Settings/Login");
-//    options.AccessDeniedPath = new PathString("/error");
-//})
-//.AddGoogle(googleOptions =>
-//{
-//    googleOptions.ClientId = "317716568671-ojlguitoep61213n4msmrm456nmh9vm8.apps.googleusercontent.com";
-//    googleOptions.ClientSecret = "V6WUd5M7E3DP3qhcD9deR7Ma";
-//})
-//.AddLinkedIn(o =>
-//{
-//    o.ClientId = "78cirhgq4h5ntb";
-//    o.ClientSecret = "vhMZf9vPEsNJeQFH";
-//});
+// SocialAuth .Use() here
 
 builder.Services.AddRazorPages();
 //builder.Services.AddIdentityCore<UserModel>(options => options.SignIn.RequireConfirmedAccount = true)
@@ -97,6 +81,12 @@ app.UseEndpoints(endpoints =>
 	endpoints.MapRazorPages();
 });
 
+
 app.MapRazorPages();
+
+app.UseCors(builder => builder
+.WithOrigins("https://localhost", "https://ssrssrv.net")
+.AllowAnyMethod()
+.AllowAnyHeader());
 
 app.Run();

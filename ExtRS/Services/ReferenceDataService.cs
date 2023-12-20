@@ -53,6 +53,18 @@ namespace Sonrai.ExtRS
             return await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/fx/{0}/top?token={1}", currencies, token));
         }
 
+        public static async Task<string> GetGoogleNews(string search)
+        {
+            HttpClient client = new HttpClient();
+            return await client.GetStringAsync(string.Format("https://news.google.com/rss/search?q={0}", search));
+        }
+
+        public static async Task<string> GetNewsApiNews(string search, string fromDate, string apiKey)
+        {
+            HttpClient client = new HttpClient();
+            return await client.GetStringAsync(string.Format("https://newsapi.org/v2/everything?q={0}&from={1}&apiKey={2}", search, fromDate, apiKey));
+        }
+
         public string GetTwelveData()
         {
             var client = new RestClient("https://twelve-data1.p.rapidapi.com/price?symbol=AMZN&format=json&outputsize=30");
@@ -60,7 +72,6 @@ namespace Sonrai.ExtRS
             request.AddHeader("X-RapidAPI-Key", "76ec5ebe2cmsh2f7ff7de7c01fe8p1add7ejsn7d187081087a");
             request.AddHeader("X-RapidAPI-Host", "twelve-data1.p.rapidapi.com");
             RestResponse response = client.Execute(request);
-            //return ""; //https://api.twelvedata.com/logo/ge.com
 
             return response.StatusCode.ToString();
         }

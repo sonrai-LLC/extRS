@@ -79,9 +79,10 @@ namespace Sonrai.ExtRS.UnitTests
         }
 
         [TestMethod]
-        public void GetAuthTokensSucceeds()
+        public async Task GetGoogleNewsSucceeds()
         {
-
+            var result = await ReferenceDataService.GetGoogleNews("IBM");
+            Assert.IsTrue(result.Length > 0);
         }
 
         [TestMethod]
