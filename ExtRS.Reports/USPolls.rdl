@@ -10,9 +10,9 @@
     </DataSource>
   </DataSources>
   <DataSets>
-    <DataSet Name="dsPollData">
+    <DataSet Name="USPolls">
       <SharedDataSet>
-        <SharedDataSetReference>USPollData</SharedDataSetReference>
+        <SharedDataSetReference>USPolls</SharedDataSetReference>
         <QueryParameters>
           <QueryParameter Name="@p1">
             <Value>=Parameters!p1.Value</Value>
@@ -71,9 +71,9 @@
         </Field>
       </Fields>
     </DataSet>
-    <DataSet Name="dsPollStates">
+    <DataSet Name="USStates">
       <SharedDataSet>
-        <SharedDataSetReference>PollStates</SharedDataSetReference>
+        <SharedDataSetReference>USStates</SharedDataSetReference>
       </SharedDataSet>
       <Fields>
         <Field Name="state">
@@ -94,19 +94,19 @@
                   <Width>0.88019in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.83334in</Width>
+                  <Width>1.18751in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.17188in</Width>
+                  <Width>1.49481in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.11458in</Width>
+                  <Width>1.44791in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1in</Width>
+                  <Width>1.29167in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.21875in</Width>
+                  <Width>1.69792in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -599,10 +599,10 @@
                 </TablixMember>
               </TablixMembers>
             </TablixRowHierarchy>
-            <DataSetName>dsPollData</DataSetName>
+            <DataSetName>USPolls</DataSetName>
             <Top>3.93458in</Top>
             <Height>0.52in</Height>
-            <Width>6.21874in</Width>
+            <Width>8.00001in</Width>
             <Style />
           </Tablix>
           <Chart Name="StatePollDataChart">
@@ -987,10 +987,10 @@
                 <VerticalAlign>Top</VerticalAlign>
               </Style>
             </ChartNoDataMessage>
-            <DataSetName>dsPollData</DataSetName>
+            <DataSetName>USPolls</DataSetName>
             <Top>0.06944in</Top>
-            <Height>3.5943in</Height>
-            <Width>6.21875in</Width>
+            <Height>3.69847in</Height>
+            <Width>8in</Width>
             <ZIndex>1</ZIndex>
             <Style>
               <Border>
@@ -1005,10 +1005,10 @@
         <Height>4.73139in</Height>
         <Style />
       </Body>
-      <Width>6.21875in</Width>
+      <Width>8.00001in</Width>
       <Page>
         <PageHeader>
-          <Height>0.39875in</Height>
+          <Height>0.41263in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1039,6 +1039,7 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>textbox1</rd:DefaultName>
+              <Top>0.01388in</Top>
               <Height>0.39875in</Height>
               <Width>6.21875in</Width>
               <Style>
@@ -1056,7 +1057,7 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>0.47917in</Height>
+          <Height>0.38542in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -1075,8 +1076,8 @@
                 </Paragraph>
               </Paragraphs>
               <rd:DefaultName>Textbox8</rd:DefaultName>
-              <Top>0.04167in</Top>
-              <Left>5.21875in</Left>
+              <Top>0.06944in</Top>
+              <Left>7in</Left>
               <Height>0.25in</Height>
               <Width>1in</Width>
               <Style>
@@ -1116,7 +1117,7 @@
       <Prompt>p1</Prompt>
       <ValidValues>
         <DataSetReference>
-          <DataSetName>dsPollStates</DataSetName>
+          <DataSetName>USStates</DataSetName>
           <ValueField>state</ValueField>
           <LabelField>state</LabelField>
         </DataSetReference>
@@ -1154,6 +1155,11 @@
     <ReportParameter Name="Qs">
       <DataType>String</DataType>
       <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value>=Nothing</Value>
+        </Values>
+      </DefaultValue>
       <Prompt>Qs</Prompt>
       <Hidden>true</Hidden>
     </ReportParameter>

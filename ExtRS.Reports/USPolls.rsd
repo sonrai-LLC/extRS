@@ -5,14 +5,12 @@
       <DataSourceReference>localhost-refdata</DataSourceReference>
       <DataSetParameters>
         <DataSetParameter Name="@p1">
-          <DefaultValue>Wisconsin</DefaultValue>
           <ReadOnly>false</ReadOnly>
           <Nullable>false</Nullable>
           <OmitFromQuery>false</OmitFromQuery>
           <rd:DbType>Object</rd:DbType>
         </DataSetParameter>
         <DataSetParameter Name="@p2">
-          <DefaultValue>U.S. President</DefaultValue>
           <ReadOnly>false</ReadOnly>
           <Nullable>false</Nullable>
           <OmitFromQuery>false</OmitFromQuery>
@@ -22,6 +20,7 @@
       <CommandText>SELECT        pollster, sponsors, display_name, methodology, state, start_date, CONVERT(date, end_date) AS end_date, office_type, party, candidate_name, CONVERT(decimal(3, 1), pct) AS pct
 FROM            POLLS
 WHERE    (state = @p1) AND (office_type = @p2) AND (CONVERT(date, end_date) &gt; '12/1/23')
+AND ((@p2 &lt;&gt; 'U.S. President') OR (@p2 = 'U.S. President' AND candidate_name IN('Joe Biden', 'Donald Trump')))
 ORDER BY end_date DESC</CommandText>
     </Query>
     <Fields>

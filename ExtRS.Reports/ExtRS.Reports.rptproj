@@ -69,7 +69,6 @@
     <DataSet Include="NCAAMConferences.rsd" />
     <DataSet Include="Ozar.rsd" />
     <DataSet Include="Player.rsd" />
-    <DataSet Include="PollStates.rsd" />
     <DataSet Include="PrimaryImage.rsd" />
     <DataSet Include="Recruit.rsd" />
     <DataSet Include="Recruiting.rsd" />
@@ -78,7 +77,8 @@
     <DataSet Include="Sommarskog.rsd" />
     <DataSet Include="Student.rsd" />
     <DataSet Include="Team.rsd" />
-    <DataSet Include="USPollData.rsd" />
+    <DataSet Include="USPolls.rsd" />
+    <DataSet Include="USStates.rsd" />
     <DataSet Include="Voter.rsd" />
     <DataSet Include="vTeamIDs.rsd" />
   </ItemGroup>
