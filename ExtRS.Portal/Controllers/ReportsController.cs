@@ -105,7 +105,7 @@ namespace ExtRS.Portal.Controllers
                 viewHtml +=
                 @"<div class=""bg-dark"" style=""box-shadow: 2.5px 5px 4px #888888;"">
                     <span id=" + snapshot.Id + @" class=""nav_link"" style=""float:right"" onclick=""confirmDeleteReportSnapshot('" + @reportId + "', '" + @snapshot.Id + @"', 'Snapshot deleted');"">
-                        <a href = ""#"" >
+                        <a href = ""javascript:;"">
                             x
                         </a>
                     </span>" +
