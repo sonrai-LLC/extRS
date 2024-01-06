@@ -114,7 +114,7 @@
     <Report Include="LeagueSM.rdl" />
     <Report Include="LocationInfo.rdl" />
     <Report Include="Locations.rdl" />
-    <Report Include="MarketSnapshots.rdl" />
+    <Report Include="MarketsSnapshot.rdl" />
     <Report Include="Memorandum.rdl" />
     <Report Include="MSSQLVersions.rdl" />
     <Report Include="OfficialComms.rdl" />
