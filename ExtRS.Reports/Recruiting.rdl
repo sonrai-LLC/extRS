@@ -769,7 +769,7 @@ ORDER BY r.[State]</CommandText>
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!Height.Value</Value>
+                                  <Value>=Sonrai.ExtRSNET48.FormattingService.ConvertInchesToFeetAndInches(Fields!Height.Value, false)</Value>
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -2694,6 +2694,12 @@ Fields!StarAvg.Value = "5.0", "*****")</Value>
         </DataSetReference>
       </ValidValues>
     </ReportParameter>
+    <ReportParameter Name="Qs">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <Prompt>Qs</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -2704,6 +2710,11 @@ Fields!StarAvg.Value = "5.0", "*****")</Value>
           <ColumnIndex>0</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>p1</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>Qs</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
@@ -2743,6 +2754,9 @@ wMewX5WClJaT7ykI8Ww6z4ZXQE78seLMjWU+URtixOC3a66n+4aA3dwbXBFQOygMpQCgFAKAUAoBQCgF
     </EmbeddedImage>
   </EmbeddedImages>
   <Language>en-US</Language>
+  <CodeModules>
+    <CodeModule>Sonrai.ExtRSNET48, Version=1.0.1.0, Culture=neutral, PublicKeyToken=null</CodeModule>
+  </CodeModules>
   <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
   <rd:ReportUnitType>Inch</rd:ReportUnitType>
   <rd:ReportID>2f23c619-acab-4968-b67d-44d0d5fa92a8</rd:ReportID>
