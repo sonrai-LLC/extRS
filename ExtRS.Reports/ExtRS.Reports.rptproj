@@ -59,6 +59,7 @@
     <DataSet Include="D1MBBCoaches.rsd" />
     <DataSet Include="Dave.rsd" />
     <DataSet Include="Device.rsd" />
+    <DataSet Include="DIMBBAttendance.rsd" />
     <DataSet Include="Election.rsd" />
     <DataSet Include="Fundraising.rsd" />
     <DataSet Include="Hallengran.rsd" />
@@ -96,6 +97,7 @@
     <Report Include="Coach.rdl" />
     <Report Include="ControlLimits.rdl" />
     <Report Include="Dave.rdl" />
+    <Report Include="DIMBBAttendance.rdl" />
     <Report Include="DMF.rdl" />
     <Report Include="DMV.rdl" />
     <Report Include="ExtRSNET48.rdl" />
@@ -121,7 +123,7 @@
     <Report Include="Player.rdl" />
     <Report Include="Polls.rdl" />
     <Report Include="Recruit.rdl" />
-    <Report Include="RecruitingReport.rdl" />
+    <Report Include="Recruiting.rdl" />
     <Report Include="ReportCard.rdl" />
     <Report Include="ResourceInfo.rdl" />
     <Report Include="ResourcesByState.rdl" />

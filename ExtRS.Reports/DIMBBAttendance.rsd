@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet2">
+    <Query>
+      <DataSourceReference>localhost</DataSourceReference>
+      <CommandText>SELECT [Season]
+      ,[Venue]
+      ,[HomeTeam]
+      ,[Opponent]
+      ,[Date]
+      ,[Attendence]
+  FROM [ReferenceData].[dbo].[DI_MBB_ATTENDANCE]</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="Season">
+        <DataField>Season</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="Venue">
+        <DataField>Venue</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="HomeTeam">
+        <DataField>HomeTeam</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Opponent">
+        <DataField>Opponent</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="Date">
+        <DataField>Date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="Attendence">
+        <DataField>Attendence</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>
