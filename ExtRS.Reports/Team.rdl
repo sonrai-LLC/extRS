@@ -923,8 +923,11 @@
                                   <Value>=Fields!WinPct.Value</Value>
                                   <Style>
                                     <FontFamily />
-                                    <FontWeight>=iif(Fields!WinPct.Value &gt; .700, "Bold", "Default")</FontWeight>
-                                    <Color>=iif(Fields!WinPct.Value &gt; .700, "green", "#333333")</Color>
+                                    <FontWeight>=Switch(Fields!WinPct.Value &gt;= .700, "Bold",
+Fields!WinPct.Value &lt;= .300, "Bold")</FontWeight>
+                                    <Format>0.000;(0.000);''</Format>
+                                    <Color>=Switch(Fields!WinPct.Value &gt;= .600, "green",
+Fields!WinPct.Value &lt;= .400, "red")</Color>
                                   </Style>
                                 </TextRun>
                               </TextRuns>
@@ -945,6 +948,7 @@
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
+                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>

@@ -72,6 +72,13 @@ namespace Sonrai.ExtRS.UnitTests
         }
 
         [TestMethod]
+        public async Task GetTickerPriceHistorySucceeds()
+        {
+            var result = await ReferenceDataService.GetTickerPriceHistory("JCI", DateTime.Now.AddDays(-7).ToString(), DateTime.Now.ToString(), tiingoAuthToken);
+            Assert.IsTrue(result.Length > 0);
+        }
+
+        [TestMethod]
         public async Task GetForexPriceSucceeds()
         {
             var result = await ReferenceDataService.GetForexPrice("EURUSD", tiingoAuthToken);

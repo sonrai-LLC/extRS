@@ -108,7 +108,7 @@
                   <Width>0.57292in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.76041in</Width>
+                  <Width>0.56249in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -497,7 +497,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Current</Value>
+                                  <Value>Day</Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
@@ -903,7 +903,6 @@
                             <BackgroundGradientType>None</BackgroundGradientType>
                           </Style>
                         </Chart>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -915,7 +914,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>end date</Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
@@ -952,7 +951,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>pct</Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
@@ -1288,7 +1287,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!candidate_name.Value</Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -1323,7 +1322,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!end_date.Value</Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -1359,7 +1358,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Fields!pct.Value</Value>
+                                  <Value />
                                   <Style>
                                     <FontFamily />
                                     <Color>#333333</Color>
@@ -1680,7 +1679,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!pct.Value)</Value>
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -2846,7 +2845,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>=Sum(Fields!pct.Value)</Value>
+                                  <Value />
                                   <Style />
                                 </TextRun>
                               </TextRuns>
@@ -5970,7 +5969,7 @@
             <DataSetName>Markets</DataSetName>
             <Top>0.35792in</Top>
             <Height>3.39875in</Height>
-            <Width>8.11539in</Width>
+            <Width>7.91747in</Width>
             <Style />
           </Tablix>
         </ReportItems>
@@ -5980,7 +5979,7 @@
       <Width>13.24039in</Width>
       <Page>
         <PageHeader>
-          <Height>1.01264in</Height>
+          <Height>0.51333in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
           <ReportItems>
@@ -5991,48 +5990,12 @@
                 <Paragraph>
                   <TextRuns>
                     <TextRun>
-                      <Value>Markets Snapshot </Value>
+                      <Value>Markets Snapshot</Value>
                       <Style>
                         <FontStyle>Normal</FontStyle>
                         <FontFamily>Segoe UI Light</FontFamily>
                         <FontSize>24pt</FontSize>
                         <FontWeight>Bold</FontWeight>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value>- </Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontFamily>Segoe UI Light</FontFamily>
-                        <FontSize>24pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value>=DateTime.Now.ToShortDateString()</Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontFamily>Segoe UI Light</FontFamily>
-                        <FontSize>24pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value> at </Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontFamily>Segoe UI Light</FontFamily>
-                        <FontSize>24pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
-                      </Style>
-                    </TextRun>
-                    <TextRun>
-                      <Value>=DateTime.Now.ToLongTimeString()</Value>
-                      <Style>
-                        <FontStyle>Normal</FontStyle>
-                        <FontFamily>Segoe UI Light</FontFamily>
-                        <FontSize>24pt</FontSize>
-                        <FontWeight>Normal</FontWeight>
                       </Style>
                     </TextRun>
                   </TextRuns>
@@ -6059,9 +6022,63 @@
           </Style>
         </PageHeader>
         <PageFooter>
-          <Height>0.5in</Height>
+          <Height>0.65652in</Height>
           <PrintOnFirstPage>true</PrintOnFirstPage>
           <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Textbox Name="Textbox144">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>=DateTime.Now.ToShortDateString()</Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>Arial</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Normal</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value> at </Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>Arial</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Normal</FontWeight>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=DateTime.Now.ToLongTimeString()</Value>
+                      <Style>
+                        <FontStyle>Normal</FontStyle>
+                        <FontFamily>Arial</FontFamily>
+                        <FontSize>9pt</FontSize>
+                        <FontWeight>Normal</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox144</rd:DefaultName>
+              <Top>0.40652in</Top>
+              <Left>10.49875in</Left>
+              <Height>0.25in</Height>
+              <Width>1.48958in</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
           <Style>
             <Border>
               <Style>None</Style>
