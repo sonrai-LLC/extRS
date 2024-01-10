@@ -3,7 +3,38 @@
 <div class="container">
     <section>
         <div style="box-shadow: 5px 10px 8px #888888;">
-            <fieldset name="dataSources" disabled>
+
+            <fieldset name="schedule">
+                <p><label>Start: @Model.Subscription.Description</label></p>
+                <p><label>End:  @Model.Subscription.EventType</label></p>
+                <p><label>Report: @Model.Subscription.Report</label></p>
+                <p><label>DeliveryExtension: @Model.Subscription.DeliveryExtension</label></p>
+            </fieldset>
+
+            <fieldset name="recurrence">
+                <p><label>Recurs: @Model.Subscription.Description</label></p>
+
+
+                <p><label>Day interval: @Model.Subscription.Description</label></p>
+
+
+
+            </fieldset>
+
+            <fieldset name="details">
+                <legend>
+                    <label style="font-weight: bold">@Model.Subscription.Description - @Model.Subscription.LastStatus</label>
+                </legend>
+                <p><label>Description: </label>@Model.Subscription.Description</p>
+                <p>
+                    <label>
+                        Report: @Html.DropDownListFor(x => x.Subscription.Report, new SelectList(Model.Reports, "Path", "Name"), "selected")
+                    </label>
+                </p>
+            </fieldset>
+
+  
+@*             <fieldset name="dataSources" disabled>
                 <legend>
                     <label style="font-weight: bold">@Model.Subscription.Description - @Model.Subscription.LastStatus</label>
                 </legend>
@@ -11,7 +42,8 @@
                 <p><label>Event:  @Model.Subscription.EventType</label></p>
                 <p><label>Report: @Model.Subscription.Report</label></p>
                 <p><label>DeliveryExtension: @Model.Subscription.DeliveryExtension</label></p>
-            </fieldset>
+            </fieldset> *@
+
             <div style="font-size:8pt">
                 <br />
                 Created by @Model.Subscription.Owner on @Convert.ToDateTime(@Model.Subscription.ModifiedDate).ToShortDateString() at @Convert.ToDateTime(@Model.Subscription.ModifiedDate).ToLongTimeString()

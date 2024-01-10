@@ -33,7 +33,7 @@
     <FullPath>Release</FullPath>
     <OutputPath>bin\Release</OutputPath>
     <ErrorLevel>2</ErrorLevel>
-    <OverwriteDatasets>False</OverwriteDatasets>
+    <OverwriteDatasets>True</OverwriteDatasets>
     <OverwriteDataSources>False</OverwriteDataSources>
     <TargetServerVersion>SSRS2016</TargetServerVersion>
     <Platform>Win32</Platform>

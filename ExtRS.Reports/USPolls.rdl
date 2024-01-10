@@ -646,11 +646,12 @@
                   <ChartDataPoints>
                     <ChartDataPoint>
                       <ChartDataPointValues>
-                        <Y>=First(Fields!pct.Value)</Y>
+                        <Y>=Avg(Fields!pct.Value)</Y>
                       </ChartDataPointValues>
                       <ChartDataLabel>
                         <Style>
                           <FontSize>6pt</FontSize>
+                          <Format>0.0;(0.0)</Format>
                         </Style>
                         <UseValueAsLabel>true</UseValueAsLabel>
                         <Visible>true</Visible>

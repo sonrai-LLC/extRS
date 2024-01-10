@@ -20,6 +20,7 @@ namespace ExtRS.Portal.Models
         public Guid UserID { get; set; }
         public string ReportServerName;
         public Subscription Subscription { get; set; }
+        public List<Report> Reports { get; set; }
         public string DefaultEmailAddress { get; set; }
         private string _currentTab;
         public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }

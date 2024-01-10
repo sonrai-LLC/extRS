@@ -162,10 +162,12 @@ namespace ExtRS.Portal.Controllers
                 subscription = await _ssrs.GetSubscription(id);
             }
 
+            List<Report> reports = await _ssrs.GetReports();
+
             //string uri = string.Format("https://{0}/Reportserver/Subscriptions?%Subscriptions/{1}", _ssrs._conn.ReportServerName, subscription.Name);
             //subscription.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
 
-            SubscriptionView view = new SubscriptionView { CurrentTab = "Subscriptions", Subscription = subscription, ReportServerName = _configuration["ReportServerName"]! };
+            SubscriptionView view = new SubscriptionView { CurrentTab = "Subscriptions", Subscription = subscription, ReportServerName = _configuration["ReportServerName"]!, Reports = reports };
             return View("_Subscription", view);
         }
 
