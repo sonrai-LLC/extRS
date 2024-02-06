@@ -13,18 +13,18 @@
     <DataSet Name="Recruiting">
       <Query>
         <DataSourceName>localhost</DataSourceName>
-        <QueryParameters>
-          <QueryParameter Name="@p1">
-            <Value>=Parameters!p1.Value</Value>
-          </QueryParameter>
-        </QueryParameters>
         <CommandText>SELECT l.[Name], r.* FROM [LOCATION] l
 INNER JOIN [RESOURCE] r ON
 l.vTeamId = r.vTeamId
 WHERE r.Isrecruit = 1
-AND l.vTeamID = @p1
-AND r.RecruitingClass &gt;= DATEPART(year, getDate())
-ORDER BY r.[State]</CommandText>
+AND l.vTeamID = 'milwaukee'
+AND (r.Active = 'TRUE' AND RecruitingClass &lt;&gt; 0
+        AND r.Status IN('SIGNED',
+                        'MEDIUM_INTEREST',
+                        'WALK_ON',
+                        'COMMITTED',
+                        'ENROLLED'))
+ORDER BY r.Position</CommandText>
         <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
       </Query>
       <Fields>
@@ -1091,7 +1091,7 @@ Fields!StarAvg.Value = "5.0", "*****")</Value>
             <Top>2.13598in</Top>
             <Left>0.10417in</Left>
             <Height>0.43in</Height>
-            <Width>8.17128in</Width>
+            <Width>8.17129in</Width>
             <Style />
           </Tablix>
           <Chart Name="Chart1">
@@ -2546,7 +2546,7 @@ Fields!StarAvg.Value = "5.0", "*****")</Value>
         <Height>2.97917in</Height>
         <Style />
       </Body>
-      <Width>8.27545in</Width>
+      <Width>8.27546in</Width>
       <Page>
         <PageHeader>
           <Height>0.71819in</Height>
