@@ -1,4 +1,9 @@
-﻿namespace ExtRS.CLI
+﻿using Sonrai.ExtRS;
+using System.Drawing;
+using System.Text;
+using static System.Net.Mime.MediaTypeNames;
+
+namespace ExtRS.CLI
 {
     internal class Program
     {
@@ -30,6 +35,26 @@
                 Console.Write(boxing);
             }
 
+
+            Test();
+
+            Console.ReadLine();
+        }
+
+        public static void Test()
+        {
+            //btnConvertToAscii.Enabled = false;
+            //Load the Image from the specified path
+            Bitmap image = new Bitmap(@"C:\Users\radd\Desktop\Family\_Friends_\KJoLwDQD_400x400.jpg", true);
+            //Resize the image...
+            //I've used a trackBar to emulate Zoom In / Zoom Out feature
+            //This value sets the WIDTH, number of characters, of the text image
+            image = FormattingService.GetResizedImage(image, 200);
+            //Convert the resized image into ASCII
+            string content = FormattingService.ConvertToAscii(image);
+            //Enclose the final string between <pre> tags to preserve its formatting
+            //and load it in the browser control
+            Console.WriteLine(content);
             Console.ReadLine();
         }
     }

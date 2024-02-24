@@ -1,8 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
+using System.Drawing;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Sonrai.ExtRS.UnitTests
 {
@@ -528,9 +527,14 @@ namespace Sonrai.ExtRS.UnitTests
             var result = FormattingService.SerializeObject(list);
             Assert.IsTrue(result.Contains("["));
         }
-        //StringHasDupes
-        //FormatUpRankedValue
-        //FormatDownRankedValue//USDate
-        //UKDate
+
+        [TestMethod]
+        public void ConvertToAsciiSucceeds()
+        {
+            Bitmap image = new Bitmap(@"..\..\..\Resources\my_friend_benn.jpg", true);
+            image = FormattingService.GetResizedImage(image, 200);
+            string content = FormattingService.ConvertToAscii(image);
+            Assert.IsTrue(content.Length > 0);
+        }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
+using System.Drawing;
 using System.Globalization;
 using System.Text;
 using System.Xml;
@@ -98,18 +99,18 @@ namespace Sonrai.ExtRS
         #region ref
         // ref: https://stackoverflow.com/questions/10824165/converting-a-csv-file-to-json-using-c-sharp
         #endregion      
-        public static string CsvToJson(string input, string delimiter)
+        public static string? CsvToJson(string input, string delimiter)
         {
             using (TextFieldParser parser = new TextFieldParser(new MemoryStream(Encoding.UTF8.GetBytes(input))))
             {
                 parser.Delimiters = new string[] { delimiter };
-                string[] headers = parser.ReadFields();
+                string[] headers = parser.ReadFields()!;
                 if (headers == null) return null;
                 string[] row;
                 string comma = "";
                 var sb = new StringBuilder((int)(input.Length * 1.1));
                 sb.Append('[');
-                while ((row = parser.ReadFields()) != null)
+                while ((row = parser.ReadFields()!) != null)
                 {
                     var dict = new Dictionary<string, object>();
                     for (int i = 0; row != null && i < row.Length; i++)
@@ -329,6 +330,59 @@ namespace Sonrai.ExtRS
 
             sb.Append(src, start, src.Length - start);
             return sb.ToString();
+        }
+
+        // credit (Thinathayalan Ganesan): https://www.c-sharpcorner.com/article/generating-ascii-art-from-an-image-using-C-Sharp/
+        public static string ConvertToAscii(Bitmap image)
+        {
+            string[] _AsciiChars = { "#", "#", "@", "%", "=", "+", "*", ":", "-", ".", "&nbsp;" };
+            Boolean toggle = false;
+            StringBuilder sb = new StringBuilder();
+            for (int h = 0; h < image.Height; h++)
+            {
+                for (int w = 0; w < image.Width; w++)
+                {
+                    Color pixelColor = image.GetPixel(w, h);
+                    //Average out the RGB components to find the Gray Color
+                    int red = (pixelColor.R + pixelColor.G + pixelColor.B) / 3;
+                    int green = (pixelColor.R + pixelColor.G + pixelColor.B) / 3;
+                    int blue = (pixelColor.R + pixelColor.G + pixelColor.B) / 3;
+                    Color grayColor = Color.FromArgb(red, green, blue);
+                    //Use the toggle flag to minimize height-wise stretch
+                    if (!toggle)
+                    {
+                        int index = (grayColor.R * 10) / 255;
+                        sb.Append(_AsciiChars[index]);
+                    }
+                }
+                if (!toggle)
+                {
+                    sb.Append("\r\n");
+                    toggle = true;
+                }
+                else
+                {
+                    toggle = false;
+                }
+            }
+
+            return sb.ToString();
+        }
+
+        // credit (Thinathayalan Ganesan): https://www.c-sharpcorner.com/article/generating-ascii-art-from-an-image-using-C-Sharp/
+        public static Bitmap GetResizedImage(Bitmap inputBitmap, int asciiWidth)
+        {
+            int asciiHeight = 0;
+            //Calculate the new Height of the image from its width
+            asciiHeight = (int)Math.Ceiling((double)inputBitmap.Height * asciiWidth / inputBitmap.Width);
+            //Create a new Bitmap and define its resolution
+            Bitmap result = new Bitmap(asciiWidth, asciiHeight);
+            Graphics g = Graphics.FromImage((System.Drawing.Image)result);
+            //The interpolation mode produces high quality images
+            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            g.DrawImage(inputBitmap, 0, 0, asciiWidth, asciiHeight);
+            g.Dispose();
+            return result;
         }
     }
 }
