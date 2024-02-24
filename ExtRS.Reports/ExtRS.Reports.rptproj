@@ -122,6 +122,7 @@
     <Report Include="Ozar.rdl" />
     <Report Include="Player.rdl" />
     <Report Include="Polls.rdl" />
+    <Report Include="PresidentialElectionsSM.rdl" />
     <Report Include="Recruit.rdl" />
     <Report Include="Recruiting.rdl" />
     <Report Include="ReportCard.rdl" />
