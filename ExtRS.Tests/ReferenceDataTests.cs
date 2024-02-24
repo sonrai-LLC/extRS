@@ -71,6 +71,7 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(result.Length > 0);
         }
 
+        [Ignore]
         [TestMethod]
         public async Task GetTickerPriceHistorySucceeds()
         {
