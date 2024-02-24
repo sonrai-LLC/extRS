@@ -482,3 +482,4 @@ __pycache__/
 /ExtRS.Portal/Properties/PublishProfiles/extrs-portal - Zip Deploy.pubxml
 /ExtRS.Portal/Properties/PublishProfiles/extrs-prod - Zip Deploy.pubxml
 /ExtRS.Portal/Properties/PublishProfiles/extrs-win-dev - Web Deploy.pubxml
+/ExtRS/ExtRS.nuspec
