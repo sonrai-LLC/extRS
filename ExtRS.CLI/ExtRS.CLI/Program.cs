@@ -35,13 +35,12 @@ namespace ExtRS.CLI
                 Console.Write(boxing);
             }
 
-
-            Test();
+            ShowAsciiArt();
 
             Console.ReadLine();
         }
 
-        public static void Test()
+        public static void ShowAsciiArt()
         {
             //btnConvertToAscii.Enabled = false;
             //Load the Image from the specified path
@@ -49,7 +48,7 @@ namespace ExtRS.CLI
             //Resize the image...
             //I've used a trackBar to emulate Zoom In / Zoom Out feature
             //This value sets the WIDTH, number of characters, of the text image
-            image = FormattingService.GetResizedImage(image, 200);
+            image = FormattingService.GetResizedImage(image, 175);
             //Convert the resized image into ASCII
             string content = FormattingService.ConvertToAscii(image);
             //Enclose the final string between <pre> tags to preserve its formatting

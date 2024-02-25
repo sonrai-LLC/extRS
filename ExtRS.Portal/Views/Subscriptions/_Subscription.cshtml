@@ -5,20 +5,56 @@
         @if (1 == 1)
         {
             <div style="box-shadow: 5px 10px 8px #888888;">
+                <h5>SCHEDULE</h5>
                 <fieldset name="schedule">
-                    <label>Description: </label> @Html.TextBoxFor(x => x.Subscription.Description)
                     <p>
-                        <label>
-                            Schedule: @Html.DropDownListFor(x => x.Subscription.Schedule.Definition.Recurrence, new SelectList(Model.Reports, "Path", "Name"), "selected")
-                        </label>
+                        <label style="font-size:10pt">Description:</label><br />
+                        @Html.TextBoxFor(x => x.Subscription.Description)
+                    </p>
+                    <p>
+                        <label style="font-size:10pt">Report:</label><br />
+                        @Html.DropDownListFor(x => x.SelectedReport, new SelectList(Model.Reports, "Path", "Name"), "--Select--")
+                    </p>
+                    <p>
+                        <label style="font-size:10pt">Days:</label><br />
+                        @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.DailyRecurrence.DaysInterval)
+                    </p>
+                    <p>
+                        <label style="font-size:10pt">Minutes:</label><br />
+                        @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence.MinutesInterval)
+                    <p>
+                    <p>
+                        <label style="font-size:10pt">Weeks:</label><br />
+                         @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.WeeksInterval)
                     </p>
                 </fieldset>
 
+                <h5>DELIVERY</h5>
                 <fieldset name="delivery">
+                    <p>
+                        <label style="font-size:10pt">Email:</label><br />
+                        @Html.TextBoxFor(x => x.ToEmailAddress)
+                    </p>
+                    <p>
+                        <label style="font-size:10pt">Format:</label><br />
+                        @Html.DropDownListFor(x => x.RenderFormat, new SelectList(Model.Reports, "Path", "Name"), "--Select--")
+                    </p>
+                    <p>
+                        <label style="font-size:10pt">Subject:</label><br />
+                        @Html.TextBoxFor(x => x.Subject)
+                    </p>
+                    <p>
+                        <label style="font-size:10pt">Priority:</label><br />
+                        @Html.DropDownListFor(x => x.RenderFormat, new SelectList(Model.Reports, "Path", "Name"), "--Select--")
+                    </p>
                 </fieldset>
 
-                <fieldset name="parameters" disabled>
+
+                <div id="parameters">
+                <fieldset name="parameterFields" disabled>
+
                 </fieldset>
+                </div>
 
                 <div style="font-size:8pt">
                     <br />
