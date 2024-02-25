@@ -13,12 +13,12 @@ namespace ExtRS.CLI
             Console.WriteLine();
             string username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
             string boxing = 
-                            @":::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                            "\r\n" + "\r\n" + @"
                                 ( •_•)                          (•_• )
                                   (ง)ง                            ୧( ୧ )
                                /︶\                             /︶\
-                            :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-                            :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::";
+                            :::::::::::::::::::::::::::::::::::::::::::::::::::::::
+                            :::::::::::::::::::::::::::::::::::::::::::::::::::::::" + "\r\n" + "\r\n" + "\r\n";
 
             int now = DateTime.Now.Hour;
             if(now > 5 && now < 12)
@@ -45,7 +45,7 @@ namespace ExtRS.CLI
         {
             //btnConvertToAscii.Enabled = false;
             //Load the Image from the specified path
-            Bitmap image = new Bitmap(@"C:\Users\radd\Desktop\Family\_Friends_\KJoLwDQD_400x400.jpg", true);
+            Bitmap image = new Bitmap(@"..\..\..\my_friend_benn.jpg", true);
             //Resize the image...
             //I've used a trackBar to emulate Zoom In / Zoom Out feature
             //This value sets the WIDTH, number of characters, of the text image

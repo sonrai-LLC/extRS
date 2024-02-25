@@ -22,14 +22,14 @@ namespace ExtRS.Portal.Models
         public string ReportServerName;
         public Subscription Subscription { get; set; }
         public List<Report> Reports { get; set; }
-        public List<ParameterValue> ReportParameters { get; set; }
+        public Report SelectedReport { get; set; }
+        public List<ReportParameterDefinition> ReportParameters { get; set; }
+        public List<ParameterValue> SelectedReportParameters { get; set; }
         public List<RecurrenceType> RecurrenceTypes = new List<RecurrenceType> { RecurrenceType.Hourly, RecurrenceType.Daily, RecurrenceType.Weekly, RecurrenceType.Monthly, RecurrenceType.MonthlyDOW, RecurrenceType.Onetime };
-        public string DefaultEmailAddress { get; set; }
-        public MinuteRecurrence? MinuteRecurrence { get; set; }
-        public DailyRecurrence? DailyRecurrence { get; set; }
-        public WeeklyRecurrence? WeeklyRecurrence { get; set; }
-        public MonthlyRecurrence? MonthlyRecurrence { get; set; }
-        public MonthlyDOWRecurrence? MonthlyDOWRecurrence { get; set; }
+        public string ToEmailAddress { get; set; }
+        public string RenderFormat { get; set; }
+        public string Subject { get; set; }
+        public string Priority { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         private string? _currentTab;
