@@ -1,11 +1,40 @@
-﻿@model SubscriptionView
+﻿@using Sonrai.ExtRS.Models.Enums
+@model SubscriptionView
 
-<div class="container">
-    <section>
-        @if (1 == 1)
-        {
+<script>
+    function changeRecurrenceDiv(ele, scheduleType) {
+        for (let i = 1; i < 6; i++) {
+            if (i == indexMatchingText(ele, scheduleType)) {
+                $('#recurrenceContainer' + i).show()
+                $('#recurrenceContainer' + i).css('max-height: 100;')
+            }
+            else {
+                $('#recurrenceContainer' + i).hide()
+                $('#recurrenceContainer' + i).css('max-height: 0;')
+            }
+        }
+    }
+
+    function indexMatchingText(ele, text) {
+        for (var i = 0; i < ele.length; i++) {
+            if (ele[i].childNodes[0].nodeValue === text) {
+                return i;
+            }
+        }
+        return undefined;
+    }
+</script>
+<style>
+    .scheduleTitleLabel {
+        color: lightblue;
+    }
+</style>
+@using (Html.BeginForm("PostSubscription", "Subscriptions", FormMethod.Post))
+{
+    <div class="container">
+        <section>
+            <h5>SUBSCRIPTION DETAILS</h5>
             <div style="box-shadow: 5px 10px 8px #888888;">
-                <h5>SCHEDULE</h5>
                 <fieldset name="schedule">
                     <p>
                         <label style="font-size:10pt">Description:</label><br />
@@ -15,47 +44,185 @@
                         <label style="font-size:10pt">Report:</label><br />
                         @Html.DropDownListFor(x => x.SelectedReport, new SelectList(Model.Reports, "Path", "Name"), "--Select--")
                     </p>
-                    <p>
-                        <label style="font-size:10pt">Days:</label><br />
-                        @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.DailyRecurrence.DaysInterval)
-                    </p>
-                    <p>
-                        <label style="font-size:10pt">Minutes:</label><br />
-                        @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence.MinutesInterval)
-                    <p>
-                    <p>
-                        <label style="font-size:10pt">Weeks:</label><br />
-                         @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.WeeksInterval)
-                    </p>
                 </fieldset>
-
-                <h5>DELIVERY</h5>
+                <br />
+                <br />
+                <h5>SCHEDULE</h5>
+                <fieldset name="schedule">
+                    @Html.DropDownListFor(x => x.SelectedRecurrence, new SelectList(Model.RecurrenceTypes), "--Select--", new { onchange = "changeRecurrenceDiv(this, this.value)" })
+                    <br />
+                    <br />
+                    <div style="height:11%">
+                        <div id="recurrenceContainer1" style="display:none; max-height: 0;">
+                            <b class="scheduleTitleLabel;">Hourly schedule</b>
+                            <fieldset>
+                                Run the scedule every:
+                                @Html.TextBoxFor(x => x.RecurrenceHours) hours &nbsp; @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence) minutes
+                                <br />
+                                Start time: @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.StartDateTime)
+                            </fieldset>
+                        </div>
+                        <div id="recurrenceContainer2" style="display:none; max-height: 0;">
+                            <b class="scheduleTitleLabel;">Daily schedule</b>
+                            <fieldset>
+                                <div>
+                                    <input type="radio" id="indWeekdays" name="dailyRecurr" value="indWeekdays" checked />
+                                    <label for="indWeekdays">On the following days:</label>
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Sunday) Sun
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Monday) Mon
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Tuesday) Tue
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Wednesday) Wed
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Thursday) Thu
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Friday) Fri
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Saturday) Sat
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Sunday) Sun
+                                </div>
+                                <div>
+                                    <input type="radio" id="everyWeekDay" name="dailyRecurr" value="everyWeekDay" />
+                                    <label for="everyWeekDay">Every weekday</label>
+                                    @Html.HiddenFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Monday)
+                                    @Html.HiddenFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Tuesday)
+                                    @Html.HiddenFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Wednesday)
+                                    @Html.HiddenFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Thursday)
+                                    @Html.HiddenFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Friday)
+                                </div>
+                                <div>
+                                    <input type="radio" id="repeatAfterDays" name="dailyRecurr" value="repeatAfterDays" />
+                                    <label for="repeatAfterDays">Repeat after this number of days:</label> @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.DailyRecurrence.DaysInterval)
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div id="recurrenceContainer3" style="display: none; max-height: 0;">
+                            <b class="scheduleTitleLabel;">Weekly schedule</b>
+                            <fieldset>
+                                <div id="weeklyRecurrenceContainer">
+                                    Repeat after this number of weeks: @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.WeeksInterval)
+                                    <br />
+                                    On day(s):<br />
+                                    <label for="indWeekdays">On the following days:</label>
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Sunday) Sun
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Monday) Mon
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Tuesday) Tue
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Wednesday) Wed
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Thursday) Thu
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Friday) Fri
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Saturday) Sat
+                                    @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Sunday) Sun
+                                    <br />
+                                    Start time: @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.StartDateTime)
+                                </div>
+                            </fieldset>
+                        </div>
+                        <div id="recurrenceContainer4" style="display: none;max-height: 0;">
+                            <fieldset>
+                                <b class="scheduleTitleLabel;">Monthly schedule</b>
+                                <br />
+                                Months:
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.January) Jan
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.February) Feb
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.March) Mar
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.April) Apr
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.May) May
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.June) Jun
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.July) Jul
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.August) Aug
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.September) Sep
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.October) Oct
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.November) Nov
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.December) Dec
+                                <br />
+                                On day(s) of the week:
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Sunday) Sun
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Monday) Mon
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Tuesday) Tue
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Wednesday) Wed
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Thursday) Thu
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Friday) Fri
+                                @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Saturday) Sat
+                                <br />
+                                On calendar day(s): @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence.Days)
+                            </fieldset>
+                        </div>
+                        <div id="recurrenceContainer5" style="display: none; max-height: 0;">
+                            <b class="scheduleTitleLabel;">One-time schedule</b><br />
+                            Schedule runs only once.<br />
+                            Start time: @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.StartDateTime)
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <p>
+                        Choose whether to run the report on an hourly, daily, weekly, monthly, or one time basis.<br />
+                        All times are expressed in @TimeZoneInfo.Local.
+                    </p>
+                    <p>
+                        <label style="font-size:10pt">Begin running this schedule on:</label><br />
+                        @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.StartDateTime)
+                    </p>
+                    <p>
+                        @Html.CheckBoxFor(x => x.Subscription.Schedule.Definition.EndDateSpecified) <label style="font-size:10pt">Stop this schedule on:</label><br />
+                        @Html.TextBoxFor(x => x.Subscription.Schedule.Definition.EndDate)
+                    <p>
+                </fieldset>
+                <br />
+                <br />
+                <h5>DELIVERY (email)</h5>
                 <fieldset name="delivery">
                     <p>
-                        <label style="font-size:10pt">Email:</label><br />
-                        @Html.TextBoxFor(x => x.ToEmailAddress)
+                        <label style="font-size:10pt">To:</label><br />
+                        @Html.TextBoxFor(x => x.ToAddress)
                     </p>
                     <p>
-                        <label style="font-size:10pt">Format:</label><br />
-                        @Html.DropDownListFor(x => x.RenderFormat, new SelectList(Model.Reports, "Path", "Name"), "--Select--")
+                        <label style="font-size:10pt">Cc:</label><br />
+                        @Html.TextBoxFor(x => x.CcAddress)
                     </p>
+                    <p>
+                        <label style="font-size:10pt">Bcc:</label><br />
+                        @Html.TextBoxFor(x => x.BccAddress)
+                    </p>
+                    <p>
+                        <label style="font-size:10pt">Reply to:</label><br />
+                        @Html.TextBoxFor(x => x.ReplyToAddress)
+                    </p>
+                    <p style="font-size:8pt;">(Use (;) to separate multiple e-mail addresses.)</p>
                     <p>
                         <label style="font-size:10pt">Subject:</label><br />
-                        @Html.TextBoxFor(x => x.Subject)
+                        @Html.TextBoxFor(x => x.EmailSubject)
+                    </p>
+                    <p>
+                        <label style="font-size:10pt">Render Format:</label><br />
+                        @Html.DropDownListFor(x => x.RenderFormat, @Html.GetEnumSelectList<RenderFormats>())
+                    </p>
+                    <p>
+                        <label style="font-size:10pt">Include Report:</label><br />
+                        @Html.CheckBoxFor(x => x.IncludeReport)
+                    </p>
+                    <p>
+                        <label style="font-size:10pt">Include Link:</label><br />
+                        @Html.CheckBoxFor(x => x.IncludeLink)
                     </p>
                     <p>
                         <label style="font-size:10pt">Priority:</label><br />
-                        @Html.DropDownListFor(x => x.RenderFormat, new SelectList(Model.Reports, "Path", "Name"), "--Select--")
+                        @Html.DropDownListFor(x => x.EmailPriority, @Html.GetEnumSelectList<EmailPriority>())
+                    </p>
+                    <p>
+                        <label style="font-size:10pt">Email Body:</label><br />
+                        @Html.TextAreaFor(x => x.EmailBody)
                     </p>
                 </fieldset>
-
-
+                <br />
+                <br />
+                <h5>PARAMETERS</h5>
                 <div id="parameters">
-                <fieldset name="parameterFields" disabled>
-
-                </fieldset>
+                    <fieldset name="parameterFields" disabled>
+                        //
+                    </fieldset>
                 </div>
-
+                <br />
+                <br />
+                <input type="submit" value="Apply" />
+                <br />
+                <br />
                 <div style="font-size:8pt">
                     <br />
                     Created by @Model.Subscription.Owner on @Convert.ToDateTime(@Model.Subscription.ModifiedDate).ToShortDateString() at @Convert.ToDateTime(@Model.Subscription.ModifiedDate).ToLongTimeString()
@@ -64,20 +231,6 @@
                     <br />
                 </div>
             </div>
-        }
-        else
-        {
-            <div>
-                <fieldset name="main">
-                    <p><label>Start: @Model.Subscription.Description</label></p>
-                    <p><label>End:  @Model.Subscription.EventType</label></p>
-                    <p><label>Report: @Model.Subscription.Report</label></p>
-                    <p><label>DeliveryExtension: @Model.Subscription.DeliveryExtension</label></p>
-
-                    <label style="font-weight: bold">@Model.Subscription.Description - @Model.Subscription.LastStatus</label>
-
-                </fieldset>
-            </div>
-        }
-    </section>
-</div>
+        </section>
+    </div>
+}

@@ -11,7 +11,6 @@ namespace ExtRS.Portal.Models
         public List<Report> Reports;
         public Report SelectedReport;
         public bool SnapShotCreated = false;
-        public string ReportServerName;
         private string _currentTab;
 
 		public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
@@ -20,7 +19,6 @@ namespace ExtRS.Portal.Models
     public class ReportView : LayoutView
     {
         public Report SelectedReport;
-        public string ReportServerName;
         private string _currentTab;
         public bool SnapShotCreated = false;
 
@@ -32,7 +30,6 @@ namespace ExtRS.Portal.Models
         public string ReportId;
         public List<HistorySnapshot> HistorySnapshots;
         public bool SnapShotCreated = false;
-        public string ReportServerName;
         private string _currentTab;
 
         public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }

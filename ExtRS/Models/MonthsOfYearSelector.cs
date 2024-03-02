@@ -17,84 +17,84 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="January", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "January")]
-    public bool? January { get; set; }
+    public bool January { get; set; }
 
     /// <summary>
     /// Gets or Sets February
     /// </summary>
     [DataMember(Name="February", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "February")]
-    public bool? February { get; set; }
+    public bool February { get; set; }
 
     /// <summary>
     /// Gets or Sets March
     /// </summary>
     [DataMember(Name="March", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "March")]
-    public bool? March { get; set; }
+    public bool March { get; set; }
 
     /// <summary>
     /// Gets or Sets April
     /// </summary>
     [DataMember(Name="April", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "April")]
-    public bool? April { get; set; }
+    public bool April { get; set; }
 
     /// <summary>
     /// Gets or Sets May
     /// </summary>
     [DataMember(Name="May", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "May")]
-    public bool? May { get; set; }
+    public bool May { get; set; }
 
     /// <summary>
     /// Gets or Sets June
     /// </summary>
     [DataMember(Name="June", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "June")]
-    public bool? June { get; set; }
+    public bool June { get; set; }
 
     /// <summary>
     /// Gets or Sets July
     /// </summary>
     [DataMember(Name="July", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "July")]
-    public bool? July { get; set; }
+    public bool July { get; set; }
 
     /// <summary>
     /// Gets or Sets August
     /// </summary>
     [DataMember(Name="August", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "August")]
-    public bool? August { get; set; }
+    public bool August { get; set; }
 
     /// <summary>
     /// Gets or Sets September
     /// </summary>
     [DataMember(Name="September", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "September")]
-    public bool? September { get; set; }
+    public bool September { get; set; }
 
     /// <summary>
     /// Gets or Sets October
     /// </summary>
     [DataMember(Name="October", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "October")]
-    public bool? October { get; set; }
+    public bool October { get; set; }
 
     /// <summary>
     /// Gets or Sets November
     /// </summary>
     [DataMember(Name="November", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "November")]
-    public bool? November { get; set; }
+    public bool November { get; set; }
 
     /// <summary>
     /// Gets or Sets December
     /// </summary>
     [DataMember(Name="December", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "December")]
-    public bool? December { get; set; }
+    public bool December { get; set; }
 
 
     /// <summary>

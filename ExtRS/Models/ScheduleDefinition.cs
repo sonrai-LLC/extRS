@@ -44,7 +44,7 @@ namespace ReportingServices.Api.Models
     /// <value>A boolean value that indicates whether the schedule end is specified.</value>
     [DataMember(Name="EndDateSpecified", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "EndDateSpecified")]
-    public bool? EndDateSpecified { get; set; }
+    public bool EndDateSpecified { get; set; }
 
     /// <summary>
     /// Gets or Sets Recurrence

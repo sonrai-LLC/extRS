@@ -17,49 +17,49 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="Sunday", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Sunday")]
-    public bool? Sunday { get; set; }
+    public bool Sunday { get; set; }
 
     /// <summary>
     /// Gets or Sets Monday
     /// </summary>
     [DataMember(Name="Monday", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Monday")]
-    public bool? Monday { get; set; }
+    public bool Monday { get; set; }
 
     /// <summary>
     /// Gets or Sets Tuesday
     /// </summary>
     [DataMember(Name="Tuesday", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Tuesday")]
-    public bool? Tuesday { get; set; }
+    public bool Tuesday { get; set; }
 
     /// <summary>
     /// Gets or Sets Wednesday
     /// </summary>
     [DataMember(Name="Wednesday", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Wednesday")]
-    public bool? Wednesday { get; set; }
+    public bool Wednesday { get; set; }
 
     /// <summary>
     /// Gets or Sets Thursday
     /// </summary>
     [DataMember(Name="Thursday", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Thursday")]
-    public bool? Thursday { get; set; }
+    public bool Thursday { get; set; }
 
     /// <summary>
     /// Gets or Sets Friday
     /// </summary>
     [DataMember(Name="Friday", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Friday")]
-    public bool? Friday { get; set; }
+    public bool Friday { get; set; }
 
     /// <summary>
     /// Gets or Sets Saturday
     /// </summary>
     [DataMember(Name="Saturday", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Saturday")]
-    public bool? Saturday { get; set; }
+    public bool Saturday { get; set; }
 
 
     /// <summary>

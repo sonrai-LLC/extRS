@@ -32,7 +32,7 @@ namespace ExtRS.Portal.Controllers
             List<Subscription> subscriptions = await _ssrs.GetSubscriptions();
             foreach (var subscription in subscriptions)
             {
-                string uri = string.Format(Url.ActionLink("Subscription", "Subscriptions", new { id = subscription.Id })!);
+                string uri = string.Format(Url.ActionLink("GetSubscription", "Subscriptions", new { id = subscription.Id })!);
                 subscription.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
             }
 
@@ -108,7 +108,7 @@ namespace ExtRS.Portal.Controllers
 
             foreach (var subscription in subscriptions)
             {
-                string uri = string.Format(Url.ActionLink("Subscription", "Subscriptions", new { id = subscription.Id })!);
+                string uri = string.Format(Url.ActionLink("GetSubscription", "Subscriptions", new { id = subscription.Id })!);
                 subscription.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
             }
 
@@ -122,7 +122,7 @@ namespace ExtRS.Portal.Controllers
 
             foreach (var subscription in subscriptions)
             {
-                string uri = string.Format(Url.ActionLink("Subscription", "Subscriptions", new { id = subscription.Id })!);
+                string uri = string.Format(Url.ActionLink("GetSubscription", "Subscriptions", new { id = subscription.Id })!);
                 subscription.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
             }
 
@@ -150,7 +150,20 @@ namespace ExtRS.Portal.Controllers
                 return viewHtml;
         }
 
-        public async Task<IActionResult> Subscription(string id, string? subscriptionName)
+
+        //[HttpGet]
+        [HttpPost]
+        public async Task<IActionResult> PostSubscription(SubscriptionView viewModel)
+        {
+            if(viewModel != null)
+            {
+
+            }
+            return View("_Subscription", viewModel);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetSubscription(string id, string? subscriptionName)
         {
             Subscription subscription;
             if (subscriptionName is not null)

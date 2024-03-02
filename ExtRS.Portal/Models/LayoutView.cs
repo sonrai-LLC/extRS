@@ -6,5 +6,7 @@ namespace ExtRS.Portal.Models
     {
         public virtual string? CurrentTab { get; set; }
         public virtual bool OpenInLinksNewTab { get { return false; } set { } }
+        public string SelectedView = string.Empty;
+        public string ReportServerName;
     }
 }

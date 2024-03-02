@@ -7,8 +7,6 @@ namespace ExtRS.Portal.Models
     {
         private string _currentTab;
         public string SelectedDataSource;
-        public string SelectedView = string.Empty;
-        public string ReportServerName;
         public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
         public List<DataSource> DataSources;
     }
@@ -17,8 +15,6 @@ namespace ExtRS.Portal.Models
     {
         private string _currentTab;
         public DataSource SelectedDataSource;
-        public string ReportServerName;
-
         public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
     }
 }
