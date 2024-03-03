@@ -1,6 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using AngleSharp.Dom;
+using AngleSharp.Html.Parser;
+using Newtonsoft.Json;
 using RestSharp;
 using System.Text;
+using System.Text.Json;
 
 namespace Sonrai.ExtRS
 {
@@ -29,34 +32,39 @@ namespace Sonrai.ExtRS
         #endregion
 
         #region Financial
-        public static async Task<string> GetTickerInfo(string ticker, string token)
+        public static async Task<string> GetTickerInfo(string ticker, string tiingoToken)
         {
             HttpClient client = new HttpClient();
-            return await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}?token={1}", ticker, token));
+            return await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}?token={1}", ticker, tiingoToken));
         }
 
-        public static async Task<string> GetTickerPrices(string ticker, string token)
+        public static async Task<string> GetTickerPrices(string ticker, string tiingoToken)
         {
             HttpClient client = new HttpClient();
-            return await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}/prices?token={1}", ticker, token));
+            return await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}/prices?token={1}", ticker, tiingoToken));
         }
 
-        public static async Task<string> GetTickerPriceHistory(string ticker, string start, string end, string token)
+        public static async Task<string> GetTickerPriceHistory(string ticker, string start, string end, string tiingoToken)
         {
             HttpClient client = new HttpClient();
-            return await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}/prices?startDate={1}&endDate={2}?token={3}", ticker, start, end, token));
+            return await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}/prices?startDate={1}&endDate={2}?token={3}", ticker, start, end, tiingoToken));
         }
 
-        public static async Task<string> GetForexPrice(string currencies, string token)
+        public static async Task<string> GetForexPrice(string currencies, string tiingoToken)
         {
             HttpClient client = new HttpClient();
-            return await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/fx/{0}/top?token={1}", currencies, token));
+            return await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/fx/{0}/top?token={1}", currencies, tiingoToken));
         }
 
-        public static async Task<string> GetGoogleNews(string search)
+        public static async Task<List<string>> GetGoogleNews(string search)
         {
             HttpClient client = new HttpClient();
-            return await client.GetStringAsync(string.Format("https://news.google.com/rss/search?q={0}", search));
+            var content = await client.GetStringAsync(string.Format("https://news.google.com/rss/search?q={0}", search));
+            var parser = new HtmlParser();
+            var document = parser.ParseDocument(content);
+            var newsItems = document.All.Where(m => m.LocalName == "title").ToList();
+
+            return newsItems.Select(x => x.InnerHtml).ToList();
         }
 
         public static async Task<string> GetNewsApiNews(string search, string fromDate, string apiKey)

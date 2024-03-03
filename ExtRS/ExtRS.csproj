@@ -54,6 +54,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="1.1.1" />
     <PackageReference Include="Dapper" Version="2.1.28" />
     <PackageReference Include="GoogleMaps.LocationServices" Version="1.2.0.5" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />

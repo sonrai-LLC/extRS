@@ -90,7 +90,7 @@ namespace Sonrai.ExtRS.UnitTests
         public async Task GetGoogleNewsSucceeds()
         {
             var result = await ReferenceDataService.GetGoogleNews("IBM");
-            Assert.IsTrue(result.Length > 0);
+            Assert.IsTrue(result.Count > 0);
         }
 
         [TestMethod]
