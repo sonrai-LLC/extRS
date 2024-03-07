@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using RestSharp;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace Sonrai.ExtRS
 {
@@ -351,7 +352,18 @@ namespace Sonrai.ExtRS
             return response;
         }
 
-		public static RestResponse GetVerifyAddressUSPS(string userId, string address1, string address2, string city, string state, string zip, bool isProd = false)
+        public static string GetGoogleTranslation(string translateText, string fromLang, string toLang, string googleApiKey)
+        {
+            var client = new RestClient(string.Format("https://translation.googleapis.com/language/translate/v2?q={0}&source={1}&target={2}&key={3}", translateText, fromLang, toLang, googleApiKey));
+            var request = new RestRequest("", Method.Get);
+            RestResponse response = client.Execute(request);
+
+            dynamic translation = JsonConvert.DeserializeObject<dynamic>(response.Content);
+
+            return translation!["data"]["translations"][0].translatedText.ToString();
+        }
+
+        public static RestResponse GetVerifyAddressUSPS(string userId, string address1, string address2, string city, string state, string zip, bool isProd = false)
 		{
 			var client = new RestClient(isProd ? uspsProd : uspsTest + "shippingapi.dll?API=Verify&XML=" +
 				string.Format(VerifyAddressUSPS, userId, address1, address2, city, state, zip));
@@ -413,4 +425,10 @@ namespace Sonrai.ExtRS
 
         #endregion
     }
+
+    public class GoogleTranslateResponse()
+    {
+        List<object> translations = new List<object>();
+    }
+
 }

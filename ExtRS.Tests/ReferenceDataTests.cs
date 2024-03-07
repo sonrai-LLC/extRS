@@ -93,6 +93,14 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(result.Count > 0);
         }
 
+        [Ignore]
+        [TestMethod]
+        public void GetGoogleTranslationSucceeds()
+        {
+            var result = ReferenceDataService.GetGoogleTranslation("extras", "en", "fr", "[YourGoogleAPIKey]");
+            Assert.IsTrue(result == "Suppléments");
+        }
+
         [TestMethod]
         public void GetShippingRatesSucceeds()
         {

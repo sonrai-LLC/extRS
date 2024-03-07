@@ -32,7 +32,7 @@ namespace Sonrai.ExtRS
 
         public bool ValidateAddress(string address)
         {
-           return GetLocation(address) != null;
+            return GetLocation(address) != null;
         }
 
         public List<Location> GetLocations(List<string> addresses)
@@ -65,37 +65,37 @@ namespace Sonrai.ExtRS
 
         public static string GetStateNameFromStateAbbreviation(string abbrev)
         {
-            return Location.StatesAndProvinces.First(x => x.Abbreviation == abbrev).Name;
+            return LocationRefData.StatesAndProvinces.First(x => x.Abbreviation == abbrev).Name;
         }
 
         public static string GetStateAbbreviationFromStateName(string stateName)
         {
-            return Location.StatesAndProvinces.First(x => x.Name == stateName).Abbreviation;
+            return LocationRefData.StatesAndProvinces.First(x => x.Name == stateName).Abbreviation;
         }
 
         public static List<string> StateAbbreviations()
         {
-            return Location.StatesAndProvinces.Select(s => s.Abbreviation).ToList();
+            return LocationRefData.StatesAndProvinces.Select(s => s.Abbreviation).ToList();
         }
 
         public static List<string> StateNames()
         {
-            return Location.StatesAndProvinces.Select(s => s.Name).ToList();
+            return LocationRefData.StatesAndProvinces.Select(s => s.Name).ToList();
         }
 
         public static string GetStateOrProvinceName(string abbreviation)
         {
-            return Location.StatesAndProvinces.Where(s => s.Abbreviation.Equals(abbreviation, StringComparison.CurrentCultureIgnoreCase)).Select(s => s.Name).FirstOrDefault();
+            return LocationRefData.StatesAndProvinces.Where(s => s.Abbreviation.Equals(abbreviation, StringComparison.CurrentCultureIgnoreCase)).Select(s => s.Name).FirstOrDefault();
         }
 
         public static string GetAbbreviation(string name)
         {
-            return Location.StatesAndProvinces.Where(s => s.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)).Select(s => s.Abbreviation).FirstOrDefault();
+            return LocationRefData.StatesAndProvinces.Where(s => s.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)).Select(s => s.Abbreviation).FirstOrDefault();
         }
 
         public static List<State> ToList()
         {
-            return Location.StatesAndProvinces;
+            return LocationRefData.StatesAndProvinces;
         }
     }
 }

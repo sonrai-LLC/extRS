@@ -2,9 +2,32 @@
 {
     public class Location
     {
+        public string Name;
+        public string Address;
+        public string Description;
+        public List<byte[]> Images;
         public string Lat;
         public string Long;
+    }
 
+    public class State
+    {
+        public State(string ab, string name)
+        {
+            Name = name;
+            Abbreviation = ab;
+        }
+
+        public string Name { get; set; }
+        public string Abbreviation { get; set; }
+        public override string ToString()
+        {
+            return string.Format("{0} - {1}", Abbreviation, Name);
+        }
+    }
+
+    public class LocationRefData
+    {
         //:::ref: https://stackoverflow.com/users/643723/sobelito
         public static readonly List<State> StatesAndProvinces = new List<State>() {
           new State("AL", "Alabama"),
@@ -73,21 +96,5 @@
           new State("SK", "Saskatchewan"),
           new State("YT", "Yukon"),
           };
-    }
-
-    public class State
-    {
-        public State(string ab, string name)
-        {
-            Name = name;
-            Abbreviation = ab;
-        }
-
-        public string Name { get; set; }
-        public string Abbreviation { get; set; }
-        public override string ToString()
-        {
-            return string.Format("{0} - {1}", Abbreviation, Name);
-        }
     }
 }
