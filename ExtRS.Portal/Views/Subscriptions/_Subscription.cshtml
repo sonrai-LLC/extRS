@@ -32,13 +32,14 @@
 @using (Html.BeginForm("PostSubscription", "Subscriptions", FormMethod.Post))
 {
     <div class="container">
+        <script>hyperform(window);</script>
         <section>
             <h5>SUBSCRIPTION DETAILS</h5>
             <div style="box-shadow: 5px 10px 8px #888888;">
                 <fieldset name="schedule">
                     <p>
                         <label style="font-size:10pt">Description:</label><br />
-                        @Html.TextBoxFor(x => x.Subscription.Description)
+                        @Html.TextBoxFor(x => x.Subscription.Description, new { @required = "required" })
                     </p>
                     <p>
                         <label style="font-size:10pt">Report:</label><br />
