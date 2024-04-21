@@ -1,9 +1,9 @@
 ﻿using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
 using AngleSharp.Io;
-using ExtRS.ReferenceData.Tiingo;
 using Newtonsoft.Json;
 using RestSharp;
+using Sonrai.ExtRS.Models.Tiingo;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -41,6 +41,15 @@ namespace Sonrai.ExtRS
             return await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}?token={1}", ticker, tiingoToken));
         }
 
+        public static async Task<TickerInfo> GetTickerInfoObject(string ticker, string tiingoToken)
+        {
+            HttpClient client = new HttpClient();
+            var content = await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}?token={1}", ticker, tiingoToken));
+            var response = JsonConvert.DeserializeObject<TickerInfo>(content);
+
+            return response;
+        }
+
         public static async Task<string> GetTickerPrice(string ticker, string tiingoToken)
         {
             HttpClient client = new HttpClient();
@@ -54,20 +63,20 @@ namespace Sonrai.ExtRS
             return response;
         }
 
-        public static async Task<TiingoTicker> GetTickerPriceAsObject(string ticker, string tiingoToken)
+        public static async Task<Ticker> GetTickerPriceObject(string ticker, string tiingoToken)
         {
             HttpClient client = new HttpClient();
             var content = await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}/prices?token={1}", ticker, tiingoToken));
-            var response = JsonConvert.DeserializeObject<List<TiingoTicker>>(content);
+            var response = JsonConvert.DeserializeObject<List<Ticker>>(content);
 
             return response.First();
         }
 
-        public static async Task<List<TiingoTicker>> GetTickerPriceHistoryAsObject(string ticker, string start, string end, string tiingoToken)
+        public static async Task<List<Ticker>> GetTickerPriceHistoryObject(string ticker, string start, string end, string tiingoToken)
         {
             HttpClient client = new HttpClient();
             var content = await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}/prices?startDate={1}&endDate={2}&token={3}", ticker, start, end, tiingoToken));
-            var tiingoTickers = JsonConvert.DeserializeObject<List<TiingoTicker>>(content);
+            var tiingoTickers = JsonConvert.DeserializeObject<List<Ticker>>(content);
 
             return tiingoTickers;
         }

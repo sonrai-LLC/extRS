@@ -4,7 +4,7 @@ using RestSharp;
 using System.Threading.Tasks;
 using Sonrai.ExtRS;
 using static Sonrai.ExtRS.ReferenceDataService;
-using ExtRS.ReferenceData.Tiingo;
+using Sonrai.ExtRS.Models.Tiingo;
 
 namespace Sonrai.ExtRS.UnitTests
 {
@@ -66,6 +66,13 @@ namespace Sonrai.ExtRS.UnitTests
         }
 
         [TestMethod]
+        public async Task GetTickerInfoObjectSucceeds()
+        {
+            var result = await ReferenceDataService.GetTickerInfoObject("JCI", tiingoAuthToken);
+            Assert.IsTrue(result.StartDate != null);
+        }
+
+        [TestMethod]
         public async Task GetTickerPriceSucceeds()
         {
             var result = await ReferenceDataService.GetTickerPrice("JCI", tiingoAuthToken);
@@ -80,16 +87,18 @@ namespace Sonrai.ExtRS.UnitTests
         }
 
         [TestMethod]
-        public async Task GetTickerPriceAsObjectSucceeds()
+        public async Task GetTickerPriceObjectSucceeds()
         {
-            TiingoTicker result = await ReferenceDataService.GetTickerPriceAsObject("JCI", tiingoAuthToken);
-            Assert.IsTrue(result.open != null);
+            Ticker result = await ReferenceDataService.GetTickerPriceObject("JCI", tiingoAuthToken);
+            Assert.IsTrue(result.Open != null);
+            Assert.IsTrue(result.High != null);
+            Assert.IsTrue(result.Close != null);
         }
 
         [TestMethod]
-        public async Task GetTickerPriceHistoryAsObjectSucceeds()
+        public async Task GetTickerPriceHistoryObjectSucceeds()
         {
-            List<TiingoTicker> result = await ReferenceDataService.GetTickerPriceHistoryAsObject("JCI", DateTime.Now.AddDays(-7).ToString(), DateTime.Now.ToString(), tiingoAuthToken);
+            List<Ticker> result = await ReferenceDataService.GetTickerPriceHistoryObject("JCI", DateTime.Now.AddDays(-7).ToString(), DateTime.Now.ToString(), tiingoAuthToken);
             Assert.IsTrue(result.Count > 0);
         }
 
