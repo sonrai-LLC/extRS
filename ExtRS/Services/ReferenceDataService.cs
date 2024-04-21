@@ -465,19 +465,20 @@ namespace Sonrai.ExtRS
         #endregion
 
         #region Dates
-        public static DateTime GetPreviousWeekdayDateTime(DateTime date, int lookbackDays)
+        public static DateTime GetPreviousWeekdayDateTime(DateTime todaysDate, int lookbackDays)
         {
-            if (date.AddDays(-lookbackDays).DayOfWeek == DayOfWeek.Sunday)
+            var lookBackDate = todaysDate.AddDays(-lookbackDays);
+            if (lookBackDate.AddDays(-lookbackDays).DayOfWeek == DayOfWeek.Sunday)
             {
-                return date.AddDays(-3);
+                return lookBackDate.AddDays(-3);
             }
-            else if (date.AddDays(-lookbackDays).DayOfWeek == DayOfWeek.Saturday)
+            else if (lookBackDate.AddDays(-lookbackDays).DayOfWeek == DayOfWeek.Saturday)
             {
-                return date.AddDays(-2);
+                return lookBackDate.AddDays(-2);
             }
             else
             {
-                return date.AddDays(-lookbackDays);
+                return lookBackDate.AddDays(-lookbackDays);
             }
         }
 

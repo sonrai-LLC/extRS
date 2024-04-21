@@ -5,26 +5,55 @@ using System.Threading.Tasks;
 using Sonrai.ExtRS;
 using static Sonrai.ExtRS.ReferenceDataService;
 using Sonrai.ExtRS.Models.Tiingo;
+using Microsoft.Extensions.Configuration.UserSecrets;
+using Microsoft.Extensions.Configuration;
+using System.Diagnostics;
+using System.Reflection;
+using System;
+using System.Configuration;
 
 namespace Sonrai.ExtRS.UnitTests
 {
     [TestClass]
     public class ReferenceDataTests
     {
-        public readonly string tiingoAuthToken = "9fa5a9bfbcc5cdb6ea5cd9da8acc6dd2de079d67";
+        public static string tiingoAPIToken = "";
         ReferenceDataService.Address origin = new ReferenceDataService.Address() { AddressLine = "2042 Oakland Ave.", City = "Milwaukee", State = "WI", PostalCode = "53204", Country = "US" };
         ReferenceDataService.Address destination = new ReferenceDataService.Address() { AddressLine = "742 Harrison Ave.", City = "Beloit", State = "WI", PostalCode = "53511", Country = "US" };
         public static string upsAuthKey = "";
         public static string fedExAuthKey = "";
+        public static string upsId = "";
+        public static string upsSecret = "";
+        public static string fedexId = "";
+        public static string fedexSecret = "";
+        public static string googleAPIKey = "";
+
+        private IConfiguration _configuration { get; }
+
+        public ReferenceDataTests()
+        {
+            // set your API ids and secrets in UserSecrets (right-click project: "Manage User Secrets")
+            var builder = new ConfigurationBuilder()
+                .AddUserSecrets<ReferenceDataTests>();
+            _configuration = builder.Build();
+        }
 
         [TestInitialize]
         public void TestInitialize()
         {
-            if(upsAuthKey == "")
+            var secretVals = _configuration.GetChildren().ToList();
+            upsId = secretVals.Where(x => x.Key == "upsId").First().Value!;
+            upsSecret = secretVals.Where(x => x.Key == "upsSecret").First().Value!;
+            fedexId = secretVals.Where(x => x.Key == "fedexId").First().Value!;
+            fedexSecret = secretVals.Where(x => x.Key == "fedexSecret").First().Value!;
+            tiingoAPIToken = secretVals.Where(x => x.Key == "tiingoAPIToken").First().Value!;
+            googleAPIKey = secretVals.Where(x => x.Key == "googleAPIKey").First().Value!;
+
+            if (upsAuthKey == "")
             {
-                upsAuthKey = ReferenceDataService.GetAuthToken(Shipper.UPS, "h4EOs5OQVkzzATVpEzILm4GGIOwgNPooYzGnsRuxg9yFQ3Lb", "TUAPkGeNKJCqMmf3ErUZmEzTjv13CnlBWe9Gl60IdMhVpfPwmVTa1DgxAuYCnwVA", "5DD50B188C74A581", "https://fissonrai.io");
+                upsAuthKey = ReferenceDataService.GetAuthToken(Shipper.UPS, upsId, upsSecret, "5DD50B188C74A581", "https://fissonrai.io");
                 Assert.IsTrue(upsAuthKey.Length > 0);
-                fedExAuthKey = ReferenceDataService.GetAuthToken(Shipper.FedEx, "l7254d78ae8b824b178c6096cd02867c58", "79e65ed3083541ecbfa829a9dfea1b58");
+                fedExAuthKey = ReferenceDataService.GetAuthToken(Shipper.FedEx, fedexId, fedexSecret);
                 Assert.IsTrue(fedExAuthKey.Length > 0);
             }
         }
@@ -61,35 +90,35 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetTickerInfoSucceeds()
         {
-            var result = await ReferenceDataService.GetTickerInfo("JCI", tiingoAuthToken);
+            var result = await ReferenceDataService.GetTickerInfo("JCI", tiingoAPIToken);
             Assert.IsTrue(result.Length > 0);
         }
 
         [TestMethod]
         public async Task GetTickerInfoObjectSucceeds()
         {
-            var result = await ReferenceDataService.GetTickerInfoObject("JCI", tiingoAuthToken);
+            var result = await ReferenceDataService.GetTickerInfoObject("JCI", tiingoAPIToken);
             Assert.IsTrue(result.StartDate != null);
         }
 
         [TestMethod]
         public async Task GetTickerPriceSucceeds()
         {
-            var result = await ReferenceDataService.GetTickerPrice("JCI", tiingoAuthToken);
+            var result = await ReferenceDataService.GetTickerPrice("JCI", tiingoAPIToken);
             Assert.IsTrue(result.Length > 0);
         }
 
         [TestMethod]
         public async Task GetTickerPriceHistorySucceeds()
         {
-            var result = await ReferenceDataService.GetTickerPriceHistory("JCI", DateTime.Now.AddDays(-7).ToString(), DateTime.Now.ToString(), tiingoAuthToken);
+            var result = await ReferenceDataService.GetTickerPriceHistory("JCI", DateTime.Now.AddDays(-7).ToString(), DateTime.Now.ToString(), tiingoAPIToken);
             Assert.IsTrue(result.Length > 0);
         }
 
         [TestMethod]
         public async Task GetTickerPriceObjectSucceeds()
         {
-            Ticker result = await ReferenceDataService.GetTickerPriceObject("JCI", tiingoAuthToken);
+            Ticker result = await ReferenceDataService.GetTickerPriceObject("JCI", tiingoAPIToken);
             Assert.IsTrue(result.Open != null);
             Assert.IsTrue(result.High != null);
             Assert.IsTrue(result.Close != null);
@@ -98,14 +127,14 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetTickerPriceHistoryObjectSucceeds()
         {
-            List<Ticker> result = await ReferenceDataService.GetTickerPriceHistoryObject("JCI", DateTime.Now.AddDays(-7).ToString(), DateTime.Now.ToString(), tiingoAuthToken);
+            List<Ticker> result = await ReferenceDataService.GetTickerPriceHistoryObject("JCI", DateTime.Now.AddDays(-7).ToString(), DateTime.Now.ToString(), tiingoAPIToken);
             Assert.IsTrue(result.Count > 0);
         }
 
         [TestMethod]
         public async Task GetForexPriceSucceeds()
         {
-            var result = await ReferenceDataService.GetForexPrice("EURUSD", tiingoAuthToken);
+            var result = await ReferenceDataService.GetForexPrice("EURUSD", tiingoAPIToken);
             Assert.IsTrue(result.Length > 0);
         }
 
@@ -116,11 +145,10 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(result.Count > 0);
         }
 
-        [Ignore]
         [TestMethod]
         public void GetGoogleTranslationSucceeds()
         {
-            var result = ReferenceDataService.GetGoogleTranslation("extras", "en", "fr", "[YourGoogleAPIKey]");
+            var result = ReferenceDataService.GetGoogleTranslation("extras", "en", "fr", googleAPIKey);
             Assert.IsTrue(result == "Suppléments");
         }
 
@@ -139,19 +167,19 @@ namespace Sonrai.ExtRS.UnitTests
         public void GetVerifyAddressSucceeds()
         {
             RestResponse result = ReferenceDataService.GetVerifyAddressUSPS("6856SONRAH845", "2079 Yorkshire Dr.", "", "Beloit", "WI", "53511", false);
-			Assert.IsFalse(result.Content!.Contains("Invalid"));
-			Assert.IsTrue(result.IsSuccessful);
+            Assert.IsFalse(result.Content!.Contains("Invalid"));
+            Assert.IsTrue(result.IsSuccessful);
         }
 
-		[TestMethod]
+        [TestMethod]
         public void GetTrackingInfoSucceeds()
         {
             var result = ReferenceDataService.GetTrackingInfo(Shipper.USPS, "3SONRA323Q721", "3SONRA323Q721");
             Assert.IsTrue(result.IsSuccessful);
-            string authToken = ReferenceDataService.GetAuthTokenUPS("h4EOs5OQVkzzATVpEzILm4GGIOwgNPooYzGnsRuxg9yFQ3Lb", "TUAPkGeNKJCqMmf3ErUZmEzTjv13CnlBWe9Gl60IdMhVpfPwmVTa1DgxAuYCnwVA", "", "https://fissonrai.io");
+            string authToken = ReferenceDataService.GetAuthTokenUPS(upsId, upsSecret, "", "https://fissonrai.io");
             result = ReferenceDataService.GetTrackingInfo(Shipper.UPS, "", "", authToken);
             Assert.IsTrue(result.IsSuccessful);
-            authToken = ReferenceDataService.GetAuthTokenFedEx("l7254d78ae8b824b178c6096cd02867c58", "79e65ed3083541ecbfa829a9dfea1b58");
+            authToken = ReferenceDataService.GetAuthTokenFedEx(fedexId, fedexSecret);
             result = ReferenceDataService.GetTrackingInfo(Shipper.FedEx, "9261299991099834284833", "", authToken);
             Assert.IsTrue(result.IsSuccessful);
         }
