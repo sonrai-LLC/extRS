@@ -54,25 +54,25 @@
             <TablixBody>
               <TablixColumns>
                 <TablixColumn>
-                  <Width>1.29686in</Width>
+                  <Width>1.30727in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.89584in</Width>
+                  <Width>0.90625in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.92189in</Width>
+                  <Width>0.9323in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.89583in</Width>
+                  <Width>0.90624in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.00001in</Width>
+                  <Width>1.01042in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>0.78125in</Width>
+                  <Width>0.79166in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.63542in</Width>
+                  <Width>2.64583in</Width>
                 </TablixColumn>
               </TablixColumns>
               <TablixRows>
@@ -91,7 +91,7 @@
                                   <Value>Ticker</Value>
                                   <Style>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>#666666</Color>
                                   </Style>
@@ -130,7 +130,7 @@
                                   <Value>1-day</Value>
                                   <Style>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>#666666</Color>
                                   </Style>
@@ -169,7 +169,7 @@
                                   <Value>1-week</Value>
                                   <Style>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>#666666</Color>
                                   </Style>
@@ -208,7 +208,7 @@
                                   <Value>1-month</Value>
                                   <Style>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>#666666</Color>
                                   </Style>
@@ -247,7 +247,7 @@
                                   <Value>1-year</Value>
                                   <Style>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>#666666</Color>
                                   </Style>
@@ -286,7 +286,7 @@
                                   <Value>5-year</Value>
                                   <Style>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>#666666</Color>
                                   </Style>
@@ -325,7 +325,7 @@
                                   <Value>All-time</Value>
                                   <Style>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>#666666</Color>
                                   </Style>
@@ -370,7 +370,7 @@
                                   <Style>
                                     <FontStyle>Italic</FontStyle>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Bold</FontWeight>
                                     <Color>DimGray</Color>
                                   </Style>
@@ -409,7 +409,7 @@
                                   <Value>=Fields!OneDay.Value</Value>
                                   <Style>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <Format>0.00%</Format>
                                     <Color>#333333</Color>
                                   </Style>
@@ -448,7 +448,7 @@
                                   <Value>=Fields!OneWeek.Value</Value>
                                   <Style>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <Format>0.00%</Format>
                                     <Color>#333333</Color>
                                   </Style>
@@ -488,7 +488,7 @@
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <Format>0.00%</Format>
                                     <Color>#333333</Color>
@@ -528,7 +528,7 @@
                                   <Value>=Fields!OneYear.Value</Value>
                                   <Style>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <Format>0.00%</Format>
                                     <Color>#333333</Color>
                                   </Style>
@@ -567,7 +567,7 @@
                                   <Value>=Fields!FiveYear.Value</Value>
                                   <Style>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <Format>0.00%</Format>
                                     <Color>#333333</Color>
                                   </Style>
@@ -607,7 +607,7 @@
                                   <Style>
                                     <FontStyle>Normal</FontStyle>
                                     <FontFamily />
-                                    <FontSize>9pt</FontSize>
+                                    <FontSize>8pt</FontSize>
                                     <FontWeight>Normal</FontWeight>
                                     <Format>0.00%</Format>
                                     <Color>#333333</Color>
@@ -672,9 +672,8 @@
             </TablixRowHierarchy>
             <DataSetName>MarketData</DataSetName>
             <Top>0.24958in</Top>
-            <Left>0.0729in</Left>
             <Height>0.52in</Height>
-            <Width>8.4271in</Width>
+            <Width>8.5in</Width>
             <Style />
           </Tablix>
         </ReportItems>

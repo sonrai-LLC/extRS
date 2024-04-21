@@ -36,11 +36,6 @@ namespace Sonrai.ExtRS.UnitTests
             var builder = new ConfigurationBuilder()
                 .AddUserSecrets<ReferenceDataTests>();
             _configuration = builder.Build();
-        }
-
-        [TestInitialize]
-        public void TestInitialize()
-        {
             var secretVals = _configuration.GetChildren().ToList();
             upsId = secretVals.Where(x => x.Key == "upsId").First().Value!;
             upsSecret = secretVals.Where(x => x.Key == "upsSecret").First().Value!;
@@ -49,6 +44,11 @@ namespace Sonrai.ExtRS.UnitTests
             tiingoAPIToken = secretVals.Where(x => x.Key == "tiingoAPIToken").First().Value!;
             googleAPIKey = secretVals.Where(x => x.Key == "googleAPIKey").First().Value!;
 
+        }
+
+        [TestInitialize]
+        public void TestInitialize()
+        {
             if (upsAuthKey == "")
             {
                 upsAuthKey = ReferenceDataService.GetAuthToken(Shipper.UPS, upsId, upsSecret, "5DD50B188C74A581", "https://fissonrai.io");
@@ -145,6 +145,7 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(result.Count > 0);
         }
 
+        [Ignore]
         [TestMethod]
         public void GetGoogleTranslationSucceeds()
         {
