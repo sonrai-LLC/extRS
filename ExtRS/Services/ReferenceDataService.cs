@@ -65,11 +65,20 @@ namespace Sonrai.ExtRS
 
         public static async Task<Ticker> GetTickerPriceObject(string ticker, string tiingoToken)
         {
-            HttpClient client = new HttpClient();
-            var content = await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}/prices?token={1}", ticker, tiingoToken));
-            var response = JsonConvert.DeserializeObject<List<Ticker>>(content);
+            try
+            {
+                HttpClient client = new HttpClient();
+                var content = await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}/prices?token={1}", ticker, tiingoToken));
+                var response = JsonConvert.DeserializeObject<List<Ticker>>(content);
 
-            return response.First();
+                return response.First();
+            }
+           catch(Exception ex)
+            {
+
+            }
+
+            return null;
         }
 
         public static async Task<List<Ticker>> GetTickerPriceHistoryObject(string ticker, string start, string end, string tiingoToken)
@@ -454,11 +463,29 @@ namespace Sonrai.ExtRS
         }
 
         #endregion
+
+        #region Dates
+        public static DateTime GetPreviousWeekdayDateTime(DateTime date, int lookbackDays)
+        {
+            if (date.AddDays(-lookbackDays).DayOfWeek == DayOfWeek.Sunday)
+            {
+                return date.AddDays(-3);
+            }
+            else if (date.AddDays(-lookbackDays).DayOfWeek == DayOfWeek.Saturday)
+            {
+                return date.AddDays(-2);
+            }
+            else
+            {
+                return date.AddDays(-lookbackDays);
+            }
+        }
+
+        #endregion
     }
 
     public class GoogleTranslateResponse()
     {
         List<object> translations = new List<object>();
     }
-
 }

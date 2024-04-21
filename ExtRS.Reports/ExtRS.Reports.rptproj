@@ -67,6 +67,7 @@
     <DataSet Include="Knowledge.rsd" />
     <DataSet Include="LeagueSM.rsd" />
     <DataSet Include="Locations.rsd" />
+    <DataSet Include="MarketChanges.rsd" />
     <DataSet Include="NCAAMConferences.rsd" />
     <DataSet Include="Ozar.rsd" />
     <DataSet Include="Player.rsd" />
@@ -115,6 +116,7 @@
     <Report Include="LeagueSM.rdl" />
     <Report Include="LocationInfo.rdl" />
     <Report Include="Locations.rdl" />
+    <Report Include="MarketChanges.rdl" />
     <Report Include="MarketsSnapshot.rdl" />
     <Report Include="Memorandum.rdl" />
     <Report Include="MSSQLVersions.rdl" />

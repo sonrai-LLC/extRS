@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>localhost-refdata</DataSourceReference>
+      <CommandText>SELECT [Ticker]
+      ,[OneDay]
+      ,[OneWeek]
+      ,[OneMonth]
+      ,[OneYear]
+      ,[FiveYear]
+      ,[AllTime]
+  FROM [ReferenceData].[dbo].[MAJOR_TICKERS]</CommandText>
+    </Query>
+    <Fields>
+      <Field Name="Ticker">
+        <DataField>Ticker</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="OneDay">
+        <DataField>OneDay</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="OneWeek">
+        <DataField>OneWeek</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="OneMonth">
+        <DataField>OneMonth</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="OneYear">
+        <DataField>OneYear</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="FiveYear">
+        <DataField>FiveYear</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+      <Field Name="AllTime">
+        <DataField>AllTime</DataField>
+        <rd:TypeName>System.Decimal</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>
