@@ -79,6 +79,7 @@
     <DataSet Include="Student.rsd" />
     <DataSet Include="Team.rsd" />
     <DataSet Include="USPolls.rsd" />
+    <DataSet Include="USPolls_LongView.rsd" />
     <DataSet Include="USStates.rsd" />
     <DataSet Include="Voter.rsd" />
     <DataSet Include="vTeamIDs.rsd" />
