@@ -150,15 +150,69 @@ namespace ExtRS.Portal.Controllers
                 return viewHtml;
         }
 
-
-        //[HttpGet]
         [HttpPost]
         public async Task<IActionResult> PostSubscription(SubscriptionView viewModel)
         {
-            if(viewModel != null)
+            viewModel.Subscription = new Subscription()
             {
+                Report = "Reports/" + viewModel.SelectedReport.Name,
+                DeliveryExtension = "Report Server Email",
+                EventType = "TimedSubscription",
+                Description = viewModel.SelectedReport.Description, 
+                IsDataDriven = false,
+                IsActive = true,
+                ExtensionSettings = new ExtensionSettings()
+                {
 
-            }
+                }
+
+            };
+
+//            "Report": "/Folder Name/Report Name", 
+//"DataQuery": null,
+//"DeliveryExtension": "Report Server Email",
+//"EventType": "TimedSubscription",
+//"Description": "test3",
+
+
+//"Schedule": { "Definition": { "EndDate": "0001-01-01T00:00:00Z", "EndDateSpecified": false, "Recurrence": { "DailyRecurrence": { "DaysInterval": 1 }, "MinuteRecurrence": null, "MonthlyDOWRecurrence": null, "MonthlyRecurrence": null, "WeeklyRecurrence": null }, "StartDateTime": "2020-09-04T02:00:00-05:00" }, "ScheduleID": null }, "ScheduleDescription": "At 2:00 AM every day, starting 9/4/2020" }
+
+
+//"ExtensionSettings": {
+//  "Extension": "Report Server Email",
+//  "ParameterValues": [
+//    {"IsValueFieldReference": false, "Name": "TO", "Value": "userName" },
+//    {"IsValueFieldReference": false, "Name": "IncludeReport", "Value": "True" },
+//    { "IsValueFieldReference": false, "Name": "RenderFormat", "Value": "PDF" }, 
+//    { "IsValueFieldReference": false, "Name": "Subject", "Value": "@ReportName was executed at @ExecutionTime" },
+//    { "IsValueFieldReference": false, "Name": "IncludeLink", "Value": "True" }, 
+//    { "IsValueFieldReference": false, "Name": "Priority", "Value": "NORMAL" }
+//  ]}, 
+
+//"LocalizedDeliveryExtensionName": "E-Mail",
+//"IsActive": true, 
+//"IsDataDriven": false, 
+//"LastRunTime": null, 
+//"LastStatus": "New Subscription",  
+//"ModifiedBy": "extRSAuth", 
+//"ModifiedDate": "2020-09-04T13:45:51.343-05:00", 
+//"Owner": "extRSAuth", 
+
+
+
+
+//"ParameterValues": [], 
+
+
+            await _ssrs.CreateSubscription(viewModel.Subscription!);
+            
+            return await Subscriptions();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Subscription(SubscriptionView viewModel)
+        {
+            viewModel.Reports = await _ssrs.GetReports();
 
             return View("_Subscription", viewModel);
         }

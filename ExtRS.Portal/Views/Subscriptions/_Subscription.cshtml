@@ -226,9 +226,9 @@
                 <br />
                 <div style="font-size:8pt">
                     <br />
-                    Created by @Model.Subscription.Owner on @Convert.ToDateTime(@Model.Subscription.ModifiedDate).ToShortDateString() at @Convert.ToDateTime(@Model.Subscription.ModifiedDate).ToLongTimeString()
+                    Created by @Model.Subscription?.Owner on @Convert.ToDateTime(@Model.Subscription?.ModifiedDate).ToShortDateString() at @Convert.ToDateTime(@Model.Subscription?.ModifiedDate).ToLongTimeString()
                     <br />
-                    Changed by @Model.Subscription.ModifiedBy on @Convert.ToDateTime(@Model.Subscription.ModifiedDate).ToShortDateString() at @Convert.ToDateTime(@Model.Subscription.ModifiedDate).ToLongTimeString()
+                    Changed by @Model.Subscription?.ModifiedBy on @Convert.ToDateTime(@Model.Subscription?.ModifiedDate).ToShortDateString() at @Convert.ToDateTime(@Model.Subscription?.ModifiedDate).ToLongTimeString()
                     <br />
                 </div>
             </div>
