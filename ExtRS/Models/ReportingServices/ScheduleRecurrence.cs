@@ -17,35 +17,35 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="MinuteRecurrence", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "MinuteRecurrence")]
-    public MinuteRecurrence MinuteRecurrence { get; set; }
+    public MinuteRecurrence? MinuteRecurrence { get; set; }
 
     /// <summary>
     /// Gets or Sets DailyRecurrence
     /// </summary>
     [DataMember(Name="DailyRecurrence", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "DailyRecurrence")]
-    public DailyRecurrence DailyRecurrence { get; set; }
+    public DailyRecurrence? DailyRecurrence { get; set; }
 
     /// <summary>
     /// Gets or Sets WeeklyRecurrence
     /// </summary>
     [DataMember(Name="WeeklyRecurrence", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "WeeklyRecurrence")]
-    public WeeklyRecurrence WeeklyRecurrence { get; set; }
+    public WeeklyRecurrence? WeeklyRecurrence { get; set; }
 
     /// <summary>
     /// Gets or Sets MonthlyRecurrence
     /// </summary>
     [DataMember(Name="MonthlyRecurrence", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "MonthlyRecurrence")]
-    public MonthlyRecurrence MonthlyRecurrence { get; set; }
+    public MonthlyRecurrence? MonthlyRecurrence { get; set; }
 
     /// <summary>
     /// Gets or Sets MonthlyDOWRecurrence
     /// </summary>
     [DataMember(Name="MonthlyDOWRecurrence", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "MonthlyDOWRecurrence")]
-    public MonthlyDOWRecurrence MonthlyDOWRecurrence { get; set; }
+    public MonthlyDOWRecurrence? MonthlyDOWRecurrence { get; set; }
 
 
     /// <summary>

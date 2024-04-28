@@ -16,27 +16,21 @@ namespace ExtRS.Portal.Models
 
     public class SubscriptionView : LayoutView
     {
-        public Guid? UserID { get; set; }
         public Subscription? Subscription { get; set; }
         public List<Report>? Reports { get; set; }
-        public Report? SelectedReport { get; set; }
-        public int RecurrenceHours { get; set; }
-        public string? SelectedRecurrence { get; set; }
         public List<ReportParameterDefinition>? ReportParameters { get; set; }
         public List<ParameterValue>? SelectedReportParameters { get; set; }
         public List<RecurrenceType> RecurrenceTypes = new List<RecurrenceType> { RecurrenceType.Hourly, RecurrenceType.Daily, RecurrenceType.Weekly, RecurrenceType.Monthly, RecurrenceType.Onetime }; // @Html.GetEnumSelectList (leaving out for now..)
-        public string? ToAddress { get; set; }
-        public string? CcAddress { get; set; }
-        public string? BccAddress { get; set; }
-        public string? ReplyToAddress { get; set; }
-        public string? RenderFormat { get; set; }
-        public string? EmailBody { get; set; }
+        public string? SelectedRecurrence { get; set; }
+        public int RecurrenceHours { get; set; }
+        public int ScheduleStartHours { get; set; }
+        public int ScheduleStartMinutes { get; set; }
+        public bool IsAM { get; set; }
+        public bool IsPM { get; set; }
+        public bool ScheduleRecurrenceIsEveryWeekday { get; set; }
+        public bool ScheduleRecurrenceIsEveryWeekend { get; set; }
         public bool IncludeReport { get; set; }
-        public bool IncludeLink { get; set; }
-        public string? EmailSubject { get; set; }
-        public string? EmailPriority { get; set; }
-        public DateTime? StartDate { get; set; }
-        public DateTime? EndDate { get; set; }
+        public bool IncludeLink { get; set; }    
         private string? _currentTab;
         public override string? CurrentTab { get { return _currentTab; } set { _currentTab = value!; } }
     }

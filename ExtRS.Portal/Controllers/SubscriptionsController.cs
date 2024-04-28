@@ -6,6 +6,8 @@ using Sonrai.ExtRS.Models;
 using System.Diagnostics;
 using System.Data;
 using DataSet = ReportingServices.Api.Models.Subscription;
+using Microsoft.Extensions.Azure;
+using Microsoft.Identity.Client;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -27,7 +29,7 @@ namespace ExtRS.Portal.Controllers
             _ssrs = new SSRSService(_connection, _configuration);
         }
 
-        public async Task<IActionResult> Subscriptions()
+        public async Task<List<Subscription>> GetSubscriptions()
         {
             List<Subscription> subscriptions = await _ssrs.GetSubscriptions();
             foreach (var subscription in subscriptions)
@@ -36,8 +38,14 @@ namespace ExtRS.Portal.Controllers
                 subscription.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
             }
 
+            return subscriptions;
+        }
+
+        public async Task<IActionResult> Subscriptions()
+        {
+            var subscriptions = await GetSubscriptions();
             SubscriptionsView model = new SubscriptionsView() { CurrentTab = "Subscriptions", Subscriptions = subscriptions, ReportServerName = _configuration["ReportServerName"]! };
-            return View(model);
+            return View("Subscriptions", model);
         }
 
         [HttpGet]
@@ -77,15 +85,7 @@ namespace ExtRS.Portal.Controllers
                         EndDateSpecified = true,
                         Recurrence = new ScheduleRecurrence()
                         {
-                            MinuteRecurrence = new MinuteRecurrence() { MinutesInterval = 1000 } //,
-                            //DailyRecurrence = new DailyRecurrence() { DaysInterval = 100 },
-                            //WeeklyRecurrence = new WeeklyRecurrence() { WeeksInterval = 10, DaysOfWeek = new DaysOfWeekSelector() { Friday = true, Saturday = true }, WeeksIntervalSpecified = true },
-                            //MonthlyRecurrence = new MonthlyRecurrence() { MonthsOfYear = new MonthsOfYearSelector() { July = true, April = true }, Days = "1" },
-                            //MonthlyDOWRecurrence = new MonthlyDOWRecurrence()
-                            //{
-                            //    MonthsOfYear = new MonthsOfYearSelector() { July = true, April = true },
-                            //    DaysOfWeek = new DaysOfWeekSelector() { Friday = true, Saturday = true }
-                            //}
+                            WeeklyRecurrence = new WeeklyRecurrence() { WeeksInterval = 1, DaysOfWeek = new DaysOfWeekSelector() { Friday = true }, WeeksIntervalSpecified = true },
                         }
                     }
                 },
@@ -132,12 +132,12 @@ namespace ExtRS.Portal.Controllers
 
         public static string GetSubscriptionsHtml(List<Subscription> subscriptions)
         {
-                string viewHtml = "";
+            string viewHtml = "";
 
-                foreach (var subscription in subscriptions)
-                {
-                    viewHtml +=
-                    string.Format(@"<div id='subscriptionDialog{0}' class=""dialog"" style=""display: none""></div>
+            foreach (var subscription in subscriptions)
+            {
+                viewHtml +=
+                string.Format(@"<div id='subscriptionDialog{0}' class=""dialog"" style=""display: none""></div>
                     <div class=""bg-dark"" style=""box-shadow: 2.5px 5px 4px #888888;"">
                     <span id={0} class=""nav_link"" style=""float:right"" onclick=""asyncManageSubscriptionModal('{0}');"">
                     <a href = ""#"" >
@@ -145,76 +145,103 @@ namespace ExtRS.Portal.Controllers
                     </a>
                     </span><a href='{1}' class=""nav_link"")><i class=""bx bx-mail-send""></i><span class=""nav_name"">{2}</span></a>
                     </div>", @subscription.Id, subscription.Uri, @subscription.Description);
-                }
+            }
 
-                return viewHtml;
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> PostSubscription(SubscriptionView viewModel)
-        {
-            viewModel.Subscription = new Subscription()
-            {
-                Report = "Reports/" + viewModel.SelectedReport.Name,
-                DeliveryExtension = "Report Server Email",
-                EventType = "TimedSubscription",
-                Description = viewModel.SelectedReport.Description, 
-                IsDataDriven = false,
-                IsActive = true,
-                ExtensionSettings = new ExtensionSettings()
-                {
-
-                }
-
-            };
-
-//            "Report": "/Folder Name/Report Name", 
-//"DataQuery": null,
-//"DeliveryExtension": "Report Server Email",
-//"EventType": "TimedSubscription",
-//"Description": "test3",
-
-
-//"Schedule": { "Definition": { "EndDate": "0001-01-01T00:00:00Z", "EndDateSpecified": false, "Recurrence": { "DailyRecurrence": { "DaysInterval": 1 }, "MinuteRecurrence": null, "MonthlyDOWRecurrence": null, "MonthlyRecurrence": null, "WeeklyRecurrence": null }, "StartDateTime": "2020-09-04T02:00:00-05:00" }, "ScheduleID": null }, "ScheduleDescription": "At 2:00 AM every day, starting 9/4/2020" }
-
-
-//"ExtensionSettings": {
-//  "Extension": "Report Server Email",
-//  "ParameterValues": [
-//    {"IsValueFieldReference": false, "Name": "TO", "Value": "userName" },
-//    {"IsValueFieldReference": false, "Name": "IncludeReport", "Value": "True" },
-//    { "IsValueFieldReference": false, "Name": "RenderFormat", "Value": "PDF" }, 
-//    { "IsValueFieldReference": false, "Name": "Subject", "Value": "@ReportName was executed at @ExecutionTime" },
-//    { "IsValueFieldReference": false, "Name": "IncludeLink", "Value": "True" }, 
-//    { "IsValueFieldReference": false, "Name": "Priority", "Value": "NORMAL" }
-//  ]}, 
-
-//"LocalizedDeliveryExtensionName": "E-Mail",
-//"IsActive": true, 
-//"IsDataDriven": false, 
-//"LastRunTime": null, 
-//"LastStatus": "New Subscription",  
-//"ModifiedBy": "extRSAuth", 
-//"ModifiedDate": "2020-09-04T13:45:51.343-05:00", 
-//"Owner": "extRSAuth", 
-
-
-
-
-//"ParameterValues": [], 
-
-
-            await _ssrs.CreateSubscription(viewModel.Subscription!);
-            
-            return await Subscriptions();
+            return viewHtml;
         }
 
         [HttpGet]
         public async Task<IActionResult> Subscription(SubscriptionView viewModel)
         {
             viewModel.Reports = await _ssrs.GetReports();
+            viewModel.Subscription = new Subscription()
+            {
+                DeliveryExtension = "Report Server Email",
+                EventType = "TimedSubscription",
+                IsActive = true,
+                IsDataDriven = false,
+                Owner = "extRSAuth",
+                ExtensionSettings = new ExtensionSettings()
+                {
+                    Extension = "Report Server Email",
+                    ParameterValues = new List<ParameterValue>()
+                    {
+                        new ParameterValue() { Name = "TO", IsValueFieldReference = true },
+                        new ParameterValue() { Name = "CC" },
+                        new ParameterValue() { Name = "BCC" },
+                        new ParameterValue() { Name = "ReplyTo" },
+                        new ParameterValue() { Name = "Subject" },
+                        new ParameterValue() { Name = "RenderFormat" },
+                        new ParameterValue() { Name = "IncludeReport" },
+                        new ParameterValue() { Name = "IncludeLink" },
+                        new ParameterValue() { Name = "Priority" }
+                    }
+                }
+            };
 
             return View("_Subscription", viewModel);
+        }
+
+        public async Task<IActionResult> PostSubscription(SubscriptionView viewModel)     
+        {
+            viewModel.Subscription!.ExtensionSettings.ParameterValues[6].Value = viewModel.IncludeReport ? "True" : "False";
+            viewModel.Subscription!.ExtensionSettings.ParameterValues[7].Value = viewModel.IncludeLink ? "True" : "False";
+
+            foreach(var p in viewModel.Subscription!.ExtensionSettings.ParameterValues)
+            {
+                p.IsValueFieldReference = false;
+            }
+
+            ProcessSchedule(ref viewModel);
+
+            await _ssrs.CreateSubscription(viewModel.Subscription!);
+            var subscriptions = await GetSubscriptions();
+            var subscriptionsViewModel = new SubscriptionsView() { Subscriptions = subscriptions, CurrentTab = "Subscriptions" };
+
+            return View("Subscriptions", subscriptionsViewModel);
+        }
+
+        public SubscriptionView ProcessSchedule(ref SubscriptionView viewModel)
+        {
+            if (viewModel.Subscription!.Schedule.Definition.Recurrence.DailyRecurrence!.DaysInterval == null)
+                viewModel.Subscription.Schedule.Definition!.Recurrence.DailyRecurrence = null;
+            if (viewModel.Subscription!.Schedule.Definition.Recurrence.MonthlyDOWRecurrence!.MonthsOfYear == null)
+                viewModel.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence = null;
+            if (viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval == null)
+                viewModel.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence = null;
+            if (viewModel.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence!.WeeksInterval == null)
+                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence = null;
+            if (viewModel.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence!.Days == null)
+                viewModel.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence = null;
+
+            viewModel.Subscription!.Schedule.Definition.StartDateTime = viewModel.Subscription!.Schedule.Definition.StartDateTime!.Value
+            .AddHours(viewModel.IsPM ? viewModel.ScheduleStartHours + 12 : viewModel.ScheduleStartHours)
+            .AddMinutes(viewModel.ScheduleStartMinutes)
+            .ToUniversalTime();
+
+            if (viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval != null
+                && viewModel.RecurrenceHours != 0)
+            {
+                viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval +=
+                    (viewModel.RecurrenceHours * 60);
+            }
+
+            if (viewModel.ScheduleRecurrenceIsEveryWeekday)
+            {
+                viewModel.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Monday = true;
+                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Tuesday = true;
+                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Wednesday = true;
+                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Thursday = true;
+                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Friday = true;
+            }
+
+            if (viewModel.ScheduleRecurrenceIsEveryWeekend)
+            {
+                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Saturday = true;
+                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Sunday = true;
+            }
+
+            return viewModel;
         }
 
         [HttpGet]
@@ -231,11 +258,8 @@ namespace ExtRS.Portal.Controllers
             }
 
             List<Report> reports = await _ssrs.GetReports();
-
-            //string uri = string.Format("https://{0}/Reportserver/Subscriptions?%Subscriptions/{1}", _ssrs._conn.ReportServerName, subscription.Name);
-            //subscription.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
-
             SubscriptionView view = new SubscriptionView { CurrentTab = "Subscriptions", Subscription = subscription, ReportServerName = _configuration["ReportServerName"]!, Reports = reports };
+            
             return View("_Subscription", view);
         }
 

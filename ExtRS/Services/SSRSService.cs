@@ -90,15 +90,25 @@ namespace Sonrai.ExtRS
             Subscription newSubscription = new Subscription();
             try
             {
-                var subscriptionJson = JsonConvert.SerializeObject(subscription);
+                JsonSerializer _jsonWriter = new JsonSerializer
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                };
+
+                var subscriptionJson = JsonConvert.SerializeObject(subscription, Formatting.Indented, new JsonSerializerSettings
+                {
+                    NullValueHandling = NullValueHandling.Ignore
+                });
                 var response = await CallApi(HttpVerbs.POST, "Subscriptions", subscriptionJson);
                 var newSubscription2 = JsonConvert.DeserializeObject<Subscription>(await response.Content.ReadAsStringAsync());
+
                 return newSubscription2!;
             }
             catch (Exception ex)
             { 
             
             }
+
             return newSubscription!;
         }
 

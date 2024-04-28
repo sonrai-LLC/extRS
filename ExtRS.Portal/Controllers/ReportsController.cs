@@ -62,7 +62,6 @@ namespace ExtRS.Portal.Controllers
             report.Uri = uri;
 
             ReportView view = new ReportView() { SelectedReport = report };
-            //HttpContext.Response.Headers.Add("Referrer-Policy", "no-referrer");
 
             return View("_Report", view);
         }
