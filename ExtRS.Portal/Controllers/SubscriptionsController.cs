@@ -174,7 +174,8 @@ namespace ExtRS.Portal.Controllers
                         new ParameterValue() { Name = "RenderFormat" },
                         new ParameterValue() { Name = "IncludeReport" },
                         new ParameterValue() { Name = "IncludeLink" },
-                        new ParameterValue() { Name = "Priority" }
+                        new ParameterValue() { Name = "Priority" },
+                        new ParameterValue() { Name = "Comment" }
                     }
                 }
             };
