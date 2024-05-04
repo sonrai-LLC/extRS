@@ -7,6 +7,8 @@
             box-shadow: 5px 10px 8px #888888
         }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hyperform/0.12.1/hyperform.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hyperform/0.12.1/hyperform.min.js"></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/ju/jq-3.6.0/moment-2.18.1/dt-1.13.4/b-2.3.6/date-1.4.0/sl-1.6.2/datatables.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/keytable/2.9.0/css/keyTable.dataTables.min.css">
     <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
@@ -451,8 +453,8 @@
         }
 
         function subscriptionToastr(id, message) {
-            subject = "zis iz zee zumjet"; // TODO: make these fields modal inputs
-            description = "this is a useful report- read it?";
+            subject = "New report"; // TODO: make these fields modal inputs
+            description = "This is a useful report.";
             $.ajax({
                 type: 'POST',
                 url: '/Subscriptions/CreateSubscriptionAjax',
@@ -472,10 +474,10 @@
 </header>
 <div class="breadcrumb">
     @Html.ActionLink(ViewContext.RouteData.Values["controller"]!.ToString()!.Replace("DataSources", "Data Sources"), ViewContext.RouteData.Values["controller"]!.ToString(), ViewContext.RouteData.Values["controller"]!.ToString())
-    @if (ViewContext.RouteData.Values["action"]!.ToString() != ViewContext.RouteData.Values["controller"]!.ToString())
+@*     @if (ViewContext.RouteData.Values["action"]!.ToString() != ViewContext.RouteData.Values["controller"]!.ToString() && !ViewContext.RouteData.Values["action"]!.ToString().Contains("Delete"))
     {
         @:&nbsp;>&nbsp;@Html.ActionLink(ViewContext.RouteData.Values["action"]!.ToString(), ViewContext.RouteData.Values["action"]!.ToString(), ViewContext.RouteData.Values["controller"]!.ToString())
-    }
+    } *@
 </div>
 <div class="l-navbar navbar-collapse" id="nav-bar">
     <nav class="nav">

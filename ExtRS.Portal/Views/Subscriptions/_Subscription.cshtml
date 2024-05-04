@@ -2,6 +2,13 @@
 @model SubscriptionView
 
 <script>
+    $(function () {
+        $("#startDateTime").datepicker();
+        $("#endDate").datepicker().val('');
+    });
+</script>
+
+<script>
     function changeRecurrenceDiv(ele, scheduleType) {
         for (let i = 1; i < 6; i++) {
             if (i == indexMatchingText(ele, scheduleType)) {
@@ -39,7 +46,7 @@
         @Html.HiddenFor(x => x.Subscription!.IsDataDriven)
         @Html.HiddenFor(x => x.Subscription!.Owner)
         <script>hyperform(window);</script>
-        <section>  
+        <section>
             <h5>SUBSCRIPTION DETAILS</h5>
             <div style="box-shadow: 5px 10px 8px #888888;">
                 <fieldset name="schedule">
@@ -49,7 +56,7 @@
                     </p>
                     <p>
                         <label style="font-size:10pt">Report:</label><br />
-                        @Html.DropDownListFor(x => x.Subscription!.Report, new SelectList(Model.Reports, "Path", "Name"), "--Select--")
+                        @Html.DropDownListFor(x => x.Subscription!.Report, new SelectList(Model.Reports, "Path", "Name"), "--Select--", new { @required = "required" })
                     </p>
                 </fieldset>
                 <br />
@@ -109,7 +116,7 @@
                                     @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Friday) Fri
                                     @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Saturday) Sat
                                     @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Sunday) Sun
-                                    <br /> 
+                                    <br />
                                 </div>
                             </fieldset>
                         </div>
@@ -147,7 +154,7 @@
                             <b class="scheduleTitleLabel;">One-time schedule</b><br />
                             Schedule runs only once.<br />
                         </div>
-                    </div>                  
+                    </div>
                     <br />
                     <p>
                         Choose whether to run the report on an hourly, daily, weekly, monthly, or one time basis.<br />
@@ -155,15 +162,15 @@
                     </p>
                     <p>
                         <label style="font-size:10pt">Begin running this schedule on:</label><br />
-                        @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.StartDateTime)
+                        @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.StartDateTime, "{0:MM/dd/yyyy}", new { @id = "startDateTime", @class = "input-small", @required = "required" })
                     </p>
                     <label style="font-size:10pt">at:</label>
                     <br />
-                        @Html.TextBoxFor(x => x.ScheduleStartHours) : @Html.TextBoxFor(x => x.ScheduleStartMinutes) @Html.CheckBoxFor(x => x.IsAM) AM / @Html.CheckBoxFor(x => x.IsPM)
+                    @Html.TextBoxFor(x => x.ScheduleStartHours, new { @required = "required", @style = "width:4%" }) : @Html.TextBoxFor(x => x.ScheduleStartMinutes, new { @required = "required", @style = "width:4%" }) @Html.CheckBoxFor(x => x.IsAM, new { @id = "isAM" }) AM / @Html.CheckBoxFor(x => x.IsPM, new { @id = "isPM" }) PM
                     <br />
                     <p>
-                        @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.EndDateSpecified) <label style="font-size:10pt">Stop this schedule on:</label><br />
-                        @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.EndDate)
+                        @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.EndDateSpecified, new { @id = "endDateSpecified" }) <label style="font-size:10pt">Stop this schedule on:</label><br />
+                        @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.EndDate, "{0:MM/dd/yyyy}", new { @id = "endDate", @class = "input-small" })
                     <p>
                 </fieldset>
                 <br />
@@ -173,7 +180,7 @@
                     <p>
                         <label style="font-size:10pt">To:</label><br />
                         @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[0].Name)
-                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings.ParameterValues[0].Value)
+                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings.ParameterValues[0].Value, new { @required = "required" })
                     </p>
                     <p>
                         <label style="font-size:10pt">Cc:</label><br />
@@ -194,14 +201,14 @@
                     <p>
                         <label style="font-size:10pt">Subject:</label><br />
                         @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[4].Name)
-                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings.ParameterValues[4].Value)
+                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings.ParameterValues[4].Value, new { @required = "required" })
                     </p>
                     <p>
                         <label style="font-size:10pt">Render Format:</label><br />
                         @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[5].Name)
-                        @Html.DropDownListFor(x => x.Subscription!.ExtensionSettings.ParameterValues[5].Value, 
-                            Enum.GetValues(typeof(RenderFormats)).Cast<RenderFormats>()
-                            .Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }))
+                        @Html.DropDownListFor(x => x.Subscription!.ExtensionSettings.ParameterValues[5].Value,
+                                 Enum.GetValues(typeof(RenderFormats)).Cast<RenderFormats>()
+                                 .Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }))
                     </p>
                     <p>
                         <label style="font-size:10pt">Include Report:</label><br />
@@ -216,22 +223,24 @@
                     <p>
                         <label style="font-size:10pt">Priority:</label><br />
                         @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[8].Name)
-                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings.ParameterValues[8].Value)
+                        @Html.DropDownListFor(x => x.Subscription!.ExtensionSettings.ParameterValues[8].Value,
+                                 Enum.GetValues(typeof(EmailPriority)).Cast<EmailPriority>()
+                                 .Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }), "--Select--", new { @required = "required" })
                     </p>
                     <p>
-                    <label style="font-size:10pt">Comment:</label><br />
+                        <label style="font-size:10pt">Comment:</label><br />
                         @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[9].Name)
-                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings.ParameterValues[9].Value)
+                        @Html.TextAreaFor(x => x.Subscription!.ExtensionSettings.ParameterValues[9].Value)
                     </p>
                 </fieldset>
                 <br />
                 <br />
-              @*   <h5>PARAMETERS</h5>
-                <div id="parameters">
-                    <fieldset name="parameterFields" disabled>
-                        //
-                    </fieldset>
-                </div> *@
+                @*   <h5>PARAMETERS</h5>
+            <div id="parameters">
+            <fieldset name="parameterFields" disabled>
+            //
+            </fieldset>
+            </div> *@
                 <br />
                 <br />
                 <input type="submit" value="Apply" />
@@ -247,4 +256,29 @@
             </div>
         </section>
     </div>
+
+    <script>  
+        // End date
+        hyperform.addValidator(
+            document.getElementById('endDate'),
+            function (element) {
+                var valid = !document.getElementById('endDateSpecified').checked ||
+                    element.value;
+                element.setCustomValidity(
+                    valid ?
+                        '' :
+                        'Please enter an end date.'
+                );
+                return valid;
+            }
+        );
+        document.getElementById('checkbox').addEventListener('submit', function () {
+            document.getElementById('endDate').reportValidity();
+        });
+
+
+
+
+        hyperform(window);
+    </script>
 }

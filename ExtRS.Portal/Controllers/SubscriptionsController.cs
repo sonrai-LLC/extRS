@@ -187,8 +187,11 @@ namespace ExtRS.Portal.Controllers
         {
             viewModel.Subscription!.ExtensionSettings.ParameterValues[6].Value = viewModel.IncludeReport ? "True" : "False";
             viewModel.Subscription!.ExtensionSettings.ParameterValues[7].Value = viewModel.IncludeLink ? "True" : "False";
+            // Cannot deserialize save model datetime format UI datepickers set
+            viewModel.Subscription.Schedule.Definition.StartDateTime = viewModel.Subscription.Schedule.Definition.StartDateTime.Value;
+            viewModel.Subscription.Schedule.Definition.EndDate = viewModel.Subscription.Schedule.Definition.EndDate != null ? viewModel.Subscription.Schedule.Definition.EndDate.Value.AddTicks(1) : viewModel.Subscription.Schedule.Definition.EndDate;
 
-            foreach(var p in viewModel.Subscription!.ExtensionSettings.ParameterValues)
+            foreach (var p in viewModel.Subscription!.ExtensionSettings.ParameterValues)
             {
                 p.IsValueFieldReference = false;
             }
@@ -220,7 +223,7 @@ namespace ExtRS.Portal.Controllers
             .AddMinutes(viewModel.ScheduleStartMinutes)
             .ToUniversalTime();
 
-            if (viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval != null
+            if (viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence! != null
                 && viewModel.RecurrenceHours != 0)
             {
                 viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval +=
