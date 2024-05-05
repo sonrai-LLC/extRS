@@ -20,7 +20,7 @@ namespace ExtRS.Portal.Models
         public List<Report>? Reports { get; set; }
         public List<ReportParameterDefinition>? ReportParameters { get; set; }
         public List<ParameterValue>? SelectedReportParameters { get; set; }
-        public List<RecurrenceType> RecurrenceTypes = new List<RecurrenceType> { RecurrenceType.Hourly, RecurrenceType.Daily, RecurrenceType.Weekly, RecurrenceType.Monthly, RecurrenceType.Onetime }; // @Html.GetEnumSelectList (leaving out for now..)
+        public List<RecurrenceType> RecurrenceTypes = new List<RecurrenceType> { RecurrenceType.Hourly, RecurrenceType.Daily, RecurrenceType.Weekly, RecurrenceType.Monthly, RecurrenceType.Onetime };
         public string? SelectedRecurrence { get; set; }
         public int RecurrenceHours { get; set; }
         public int ScheduleStartHours { get; set; }

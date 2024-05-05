@@ -183,7 +183,7 @@ namespace ExtRS.Portal.Controllers
             return View("_Subscription", viewModel);
         }
 
-        public async Task<IActionResult> PostSubscription(SubscriptionView viewModel)     
+        public async Task<IActionResult> PostSubscription(SubscriptionView viewModel)
         {
             viewModel.Subscription!.ExtensionSettings.ParameterValues[6].Value = viewModel.IncludeReport ? "True" : "False";
             viewModel.Subscription!.ExtensionSettings.ParameterValues[7].Value = viewModel.IncludeLink ? "True" : "False";
@@ -216,7 +216,8 @@ namespace ExtRS.Portal.Controllers
                 viewModel.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence = null;
             if (viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval == null)
                 viewModel.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence = null;
-            if (viewModel.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence!.WeeksInterval == null)
+            if (viewModel.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence!.WeeksInterval == null
+                && viewModel.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek == null)
                 viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence = null;
             if (viewModel.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence!.Days == null)
                 viewModel.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence = null;
@@ -266,7 +267,45 @@ namespace ExtRS.Portal.Controllers
 
             List<Report> reports = await _ssrs.GetReports();
             SubscriptionView view = new SubscriptionView { CurrentTab = "Subscriptions", Subscription = subscription, ReportServerName = _configuration["ReportServerName"]!, Reports = reports };
-            
+
+            if (view.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence != null
+                || view.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence != null)
+            {
+                view.SelectedRecurrence = "Monthly";
+            }
+            if (view.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence == null
+                && view.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence == null
+                && view.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence != null
+                && view.Subscription.Schedule.Definition.Recurrence.DailyRecurrence == null
+                && view.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence == null)
+            {
+                view.SelectedRecurrence = "Weekly";
+            }
+            if (view.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence == null
+             && view.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence == null
+             && view.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence == null
+             && view.Subscription.Schedule.Definition.Recurrence.DailyRecurrence != null
+             && view.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence == null)
+            {
+                view.SelectedRecurrence = "Daily";
+            }
+            if (view.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence == null
+             && view.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence == null
+             && view.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence == null
+             && view.Subscription.Schedule.Definition.Recurrence.DailyRecurrence == null
+             && view.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence != null)
+            {
+                view.SelectedRecurrence = "Hourly";
+            }
+            if (view.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence == null
+                && view.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence == null
+                && view.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence == null
+                && view.Subscription.Schedule.Definition.Recurrence.DailyRecurrence == null
+                && view.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence == null)
+            {
+                view.SelectedRecurrence = "Onetime";
+            }
+
             return View("_Subscription", view);
         }
 

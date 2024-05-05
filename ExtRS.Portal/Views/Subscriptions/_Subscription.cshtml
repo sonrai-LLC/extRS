@@ -2,13 +2,46 @@
 @model SubscriptionView
 
 <script>
-    $(function () {
-        $("#startDateTime").datepicker();
-        $("#endDate").datepicker().val('');
+    $(document).ready(function () {
+        // Hyperform validation
+        hyperform.addValidator(
+            document.getElementById('endDate'),
+            function (element) {
+                var valid = !document.getElementById('endDateSpecified').checked ||
+                    element.value;
+                element.setCustomValidity(
+                    valid ?
+                        '' :
+                        'Please enter an end date.'
+                );
+                return valid;
+            }
+        );
+        document.getElementById('endDateSpecified').addEventListener('submit', function () {
+            document.getElementById('endDate').reportValidity();
+        });
+        hyperform(window);
+
+        var ele = $('#recurrenceTypes')[0];
+
+        // initialize recurrence
+        changeRecurrenceDiv(ele, '@Model.SelectedRecurrence');
+        $(function () {
+            $("#startDateTime").datepicker();
+            $("#endDate").datepicker().val('');
+        });
+
+        console.log("DOM ready");
     });
 </script>
+<style>
+    .scheduleTitleLabel {
+        color: lightblue;
+    }
+</style>
 
 <script>
+    // Recurrence selection show/hide
     function changeRecurrenceDiv(ele, scheduleType) {
         for (let i = 1; i < 6; i++) {
             if (i == indexMatchingText(ele, scheduleType)) {
@@ -30,12 +63,9 @@
         }
         return undefined;
     }
+
 </script>
-<style>
-    .scheduleTitleLabel {
-        color: lightblue;
-    }
-</style>
+
 @using (Html.BeginForm("PostSubscription", "Subscriptions", FormMethod.Post))
 {
     <div class="container">
@@ -63,7 +93,7 @@
                 <br />
                 <h5>SCHEDULE</h5>
                 <fieldset name="schedule">
-                    @Html.DropDownListFor(x => x.SelectedRecurrence, new SelectList(Model.RecurrenceTypes), "--Select--", new { onchange = "changeRecurrenceDiv(this, this.value)" })
+                    @Html.DropDownListFor(x => x.SelectedRecurrence, new SelectList(Model.RecurrenceTypes), "--Select--", new { onchange = "changeRecurrenceDiv(this, this.value)", @id = "recurrenceTypes" })
                     <br />
                     <br />
                     <div style="height:11%">
@@ -244,7 +274,7 @@
             </div> *@
                 <br />
                 <br />
-                <input type="submit" value="Apply" />
+                <input type="submit" value="Save" style="width:10%" />
                 <br />
                 <br />
                 <div style="font-size:8pt">
@@ -257,25 +287,4 @@
             </div>
         </section>
     </div>
-
-    <script>  
-        // End date
-        hyperform.addValidator(
-            document.getElementById('endDate'),
-            function (element) {
-                var valid = !document.getElementById('endDateSpecified').checked ||
-                    element.value;
-                element.setCustomValidity(
-                    valid ?
-                        '' :
-                        'Please enter an end date.'
-                );
-                return valid;
-            }
-        );
-        document.getElementById('checkbox').addEventListener('submit', function () {
-            document.getElementById('endDate').reportValidity();
-        });
-        hyperform(window);
-    </script>
 }
