@@ -85,7 +85,7 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<ODataCatalogItems>(await response.Content.ReadAsStringAsync())!.Value;
         }
 
-        public async Task<Subscription> CreateSubscription(Subscription subscription)
+        public async Task<Subscription> SaveSubscription(Subscription subscription)
         {
             Subscription newSubscription = new Subscription();
             try
@@ -94,12 +94,21 @@ namespace Sonrai.ExtRS
                 {
                     NullValueHandling = NullValueHandling.Ignore
                 };
-
                 var subscriptionJson = JsonConvert.SerializeObject(subscription, Formatting.Indented, new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore
                 });
-                var response = await CallApi(HttpVerbs.POST, "Subscriptions", subscriptionJson);
+
+                HttpResponseMessage response;
+                if(subscription.Id != null)
+                {
+                    response = await CallApi(HttpVerbs.PUT, string.Format("Subscriptions({0})", subscription.Id), subscriptionJson);
+                }
+                else
+                {
+                    response = await CallApi(HttpVerbs.POST, "Subscriptions", subscriptionJson);
+                }
+                
                 var newSubscription2 = JsonConvert.DeserializeObject<Subscription>(await response.Content.ReadAsStringAsync());
 
                 return newSubscription2!;

@@ -103,7 +103,7 @@ namespace ExtRS.Portal.Controllers
                 ParameterValues = new List<ParameterValue>()
             };
 
-            await _ssrs.CreateSubscription(newSubscription);
+            await _ssrs.SaveSubscription(newSubscription);
             List<Subscription> subscriptions = await _ssrs.GetSubscriptions();
 
             foreach (var subscription in subscriptions)
@@ -198,7 +198,10 @@ namespace ExtRS.Portal.Controllers
 
             ProcessSchedule(ref viewModel);
 
-            await _ssrs.CreateSubscription(viewModel.Subscription!);
+
+            await _ssrs.SaveSubscription(viewModel.Subscription!);
+
+
             var subscriptions = await GetSubscriptions();
             var subscriptionsViewModel = new SubscriptionsView() { Subscriptions = subscriptions, CurrentTab = "Subscriptions" };
 

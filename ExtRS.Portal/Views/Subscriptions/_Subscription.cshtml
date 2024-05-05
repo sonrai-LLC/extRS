@@ -232,6 +232,7 @@
                         @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[9].Name)
                         @Html.TextAreaFor(x => x.Subscription!.ExtensionSettings.ParameterValues[9].Value)
                     </p>
+                    @Html.HiddenFor(x => x.Subscription.Id)
                 </fieldset>
                 <br />
                 <br />
@@ -275,10 +276,6 @@
         document.getElementById('checkbox').addEventListener('submit', function () {
             document.getElementById('endDate').reportValidity();
         });
-
-
-
-
         hyperform(window);
     </script>
 }

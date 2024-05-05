@@ -22,8 +22,8 @@
             string html = SubscriptionsController.GetSubscriptionsHtml(@Model.Subscriptions);
             @Html.Raw(html)
         }
+        <input type="button"
+               value="Create a Subscription"
+               onclick="location.href='@Url.Action("Subscription", "Subscriptions")'" class="ui-button" style="float:right; margin-bottom:2%; margin-bottom:2%" />
     </section>
-    <input type="button"
-           value="Create a Subscription"
-           onclick="location.href='@Url.Action("Subscription", "Subscriptions")'" class="ui-button"  style="float:right" />
 </div>
