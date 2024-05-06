@@ -31,6 +31,12 @@
             $("#endDate").datepicker().val('');
         });
 
+        $(function () {
+            $('.endDateCheck').change(function () {
+                $('#endDate').toggle(this.checked);
+            }).change();
+        });
+
         console.log("DOM ready");
     });
 </script>
@@ -62,6 +68,30 @@
             }
         }
         return undefined;
+    }
+
+    function onlyOne(checkbox) {
+        var checkboxes = document.getElementsByName('check')
+        checkboxes.forEach((item) => {
+            if (item !== checkbox) item.checked = false
+        })
+    }
+
+    function check(input) {
+        var checkboxes = document.getElementsByClassName("radioCheck");
+
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked == true) {
+                checkboxes[i].checked = false;
+            }
+        }
+
+        if (input.checked == true) {
+            input.checked = false;
+        }
+        else {
+            input.checked = true;
+        }
     }
 
 </script>
@@ -101,7 +131,7 @@
                             <b class="scheduleTitleLabel;">Hourly schedule</b>
                             <fieldset>
                                 Run the scedule every:
-                                @Html.TextBoxFor(x => x.RecurrenceHours) hours &nbsp; @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence.MinutesInterval) minutes
+                                @Html.TextBoxFor(x => x.RecurrenceHours, new { @maxlength = "2", @style = "width:30px" }) hours &nbsp; @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence.MinutesInterval, new { @maxlength = "2", @style = "width:30px" }) minutes
                             </fieldset>
                         </div>
                         <div id="recurrenceContainer2" style="display:none; max-height: 0;">
@@ -126,7 +156,7 @@
                                 </div>
                                 <div>
                                     <input type="radio" id="repeatAfterDays" name="dailyRecurr" value="repeatAfterDays" />
-                                    <label for="repeatAfterDays">Repeat after this number of days:</label> @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.DailyRecurrence.DaysInterval)
+                                    <label for="repeatAfterDays">Repeat after this number of days:</label> @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.DailyRecurrence.DaysInterval, new { @maxlength = "3", @style = "width:40px" })
                                 </div>
                             </fieldset>
                         </div>
@@ -134,7 +164,7 @@
                             <b class="scheduleTitleLabel;">Weekly schedule</b>
                             <fieldset>
                                 <div id="weeklyRecurrenceContainer">
-                                    Repeat after this number of weeks: @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.WeeksInterval)
+                                    Repeat after this number of weeks: @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.WeeksInterval, new { @maxlength = "2", @style = "width:30px" })
                                     <br />
                                     On day(s):<br />
                                     <label for="indWeekdays">On the following days:</label>
@@ -177,7 +207,7 @@
                                 @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Friday) Fri
                                 @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Saturday) Sat
                                 <br />
-                                On calendar day(s): @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.Days)
+                                On calendar day(s): @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.Days, new { @maxlength = "150", @style = "width:150px" })
                             </fieldset>
                         </div>
                         <div id="recurrenceContainer5" style="display: none; max-height: 0;">
@@ -192,15 +222,16 @@
                     </p>
                     <p>
                         <label style="font-size:10pt">Begin running this schedule on:</label><br />
-                        @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.StartDateTime, "{0:MM/dd/yyyy}", new { @id = "startDateTime", @class = "input-small", @required = "required" })
+                        @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.StartDateTime, "{0:MM/dd/yyyy}", new { @style = "width:100px", @id = "startDateTime", @class = "input-small", @required = "required" })
                     </p>
                     <label style="font-size:10pt">at:</label>
                     <br />
-                    @Html.TextBoxFor(x => x.ScheduleStartHours, new { @required = "required", @style = "width:4%" }) : @Html.TextBoxFor(x => x.ScheduleStartMinutes, new { @required = "required", @style = "width:4%" }) @Html.CheckBoxFor(x => x.IsAM, new { @id = "isAM" }) AM / @Html.CheckBoxFor(x => x.IsPM, new { @id = "isPM" }) PM
+                    @Html.TextBoxFor(x => x.ScheduleStartHours, new { @maxlength = "2", @required = "required", @style = "width:30px" }) : @Html.TextBoxFor(x => x.ScheduleStartMinutes, new { @maxlength = "2", @required = "required", @style = "width:30px" }) @Html.CheckBoxFor(x => x.IsAM, new { @id = "isAM", @class = "radioCheck", @onclick = "check(this)" }) AM / @Html.CheckBoxFor(x => x.IsPM, new { @id = "isPM", @class = "radioCheck", @onclick = "check(this)" }) PM
+                    <br />
                     <br />
                     <p>
-                        @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.EndDateSpecified, new { @id = "endDateSpecified" }) <label style="font-size:10pt">Stop this schedule on:</label><br />
-                        @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.EndDate, "{0:MM/dd/yyyy}", new { @id = "endDate", @class = "input-small" })
+                        @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.EndDateSpecified, new { @id = "endDateSpecified", @class = "endDateCheck" }) <label style="font-size:10pt">Stop this schedule on:</label><br />
+                        @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.EndDate, "{0:MM/dd/yyyy}", new { @id = "endDate", @class = "input-small", @style = "width:100px; display:none" })
                     <p>
                 </fieldset>
                 <br />
