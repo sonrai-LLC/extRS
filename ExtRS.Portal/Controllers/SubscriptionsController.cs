@@ -198,9 +198,7 @@ namespace ExtRS.Portal.Controllers
 
             ProcessSchedule(ref viewModel);
 
-
             await _ssrs.SaveSubscription(viewModel.Subscription!);
-
 
             var subscriptions = await GetSubscriptions();
             var subscriptionsViewModel = new SubscriptionsView() { Subscriptions = subscriptions, CurrentTab = "Subscriptions" };

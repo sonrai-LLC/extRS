@@ -73,7 +73,7 @@ namespace Sonrai.ExtRS
 
                 return response.First();
             }
-           catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -105,6 +105,24 @@ namespace Sonrai.ExtRS
             var newsItems = document.All.Where(m => m.LocalName == "title").ToList();
 
             return newsItems.Select(x => x.InnerHtml).ToList();
+        }
+
+        public static async Task<List<string>> GetGoogleNewsWithLinks(string search)
+        {
+            HttpClient client = new HttpClient();
+            var content = await client.GetStringAsync(string.Format("https://news.google.com/rss/search?q={0}", search));
+            var parser = new HtmlParser();
+            var document = parser.ParseDocument(content);
+            var newsItems = document.All.Where(m => m.LocalName == "title").ToList();
+            var linkItems = document.All.Where(x => x.LocalName == "link").ToList();
+            var newsLinkItems = new List<string>();
+
+            for (int i = 0; i < newsItems.Count; i++)
+            {
+                newsLinkItems.Add("<a href='" + linkItems[i].NextSibling!.NodeValue + "' target=_blank>" + newsItems[i].InnerHtml + "</a>");
+            }
+
+            return newsLinkItems;
         }
 
         public static async Task<string> GetNewsApiNews(string search, string fromDate, string apiKey)
@@ -161,7 +179,7 @@ namespace Sonrai.ExtRS
 
             return obj["access_token"];
         }
-        
+
         public static string GetAuthTokenFedEx(string clientId, string clientSecret)
         {
             var client = new RestClient("https://apis-sandbox.fedex.com/oauth/");
@@ -198,7 +216,7 @@ namespace Sonrai.ExtRS
 
         public static RestResponse GetShippingRatesUPS(int lbs, decimal ounces, Address origin, Address destination, string authToken, string service, string shipperNumber, bool isProd = false)
         {
-            var client = new RestClient(string.Format("{0}rating/v1/", isProd ?  upsProd : upsTest));  //C2016A
+            var client = new RestClient(string.Format("{0}rating/v1/", isProd ? upsProd : upsTest));  //C2016A
             var request = new RestRequest("rate", Method.Post);
             request.AddHeader("Authorization", "Bearer " + authToken);
             request.AddHeader("X-locale", "en_US");
@@ -309,7 +327,7 @@ namespace Sonrai.ExtRS
           }
         }";
 
-       
+
 
         public static string RateRequestFedEx = @"{
           ""accountNumber"": {
@@ -368,7 +386,7 @@ namespace Sonrai.ExtRS
 
         public static RestResponse GetTrackingInfoUPS(string trackingNumber, string authToken, bool isProd = false)
         {
-            var client = new RestClient(string.Format("{0}/track/v1/details/{1}", isProd ? upsProd : upsTest,  trackingNumber));
+            var client = new RestClient(string.Format("{0}/track/v1/details/{1}", isProd ? upsProd : upsTest, trackingNumber));
             var request = new RestRequest("details", Method.Get);
             request.AddHeader("Authorization", "Bearer " + authToken);
             request.AddHeader("X-locale", "en_US");
@@ -403,17 +421,17 @@ namespace Sonrai.ExtRS
         }
 
         public static RestResponse GetVerifyAddressUSPS(string userId, string address1, string address2, string city, string state, string zip, bool isProd = false)
-		{
-			var client = new RestClient(isProd ? uspsProd : uspsTest + "shippingapi.dll?API=Verify&XML=" +
-				string.Format(VerifyAddressUSPS, userId, address1, address2, city, state, zip));
-			var request = new RestRequest();
-			request.AddHeader("Content-Type", "application/xml");
-			var response = client.Execute(request);
+        {
+            var client = new RestClient(isProd ? uspsProd : uspsTest + "shippingapi.dll?API=Verify&XML=" +
+                string.Format(VerifyAddressUSPS, userId, address1, address2, city, state, zip));
+            var request = new RestRequest();
+            request.AddHeader("Content-Type", "application/xml");
+            var response = client.Execute(request);
 
-			return response;
-		}
+            return response;
+        }
 
-		public static string TrackingRequestUSPS = @"
+        public static string TrackingRequestUSPS = @"
          <TrackRequest USERID='{0}'>
             <TrackID ID='{1}'></TrackID>
          </TrackRequest>";
@@ -432,8 +450,8 @@ namespace Sonrai.ExtRS
              ]}
            }";
 
-		//https://secure.shippingapis.com/shippingapi.dll?API=Verify&XML=
-		public static string VerifyAddressUSPS = @"
+        //https://secure.shippingapis.com/shippingapi.dll?API=Verify&XML=
+        public static string VerifyAddressUSPS = @"
         <AddressValidateRequest USERID=""{0}"">
         <Revision>1</Revision>
         <Address ID=""0"">

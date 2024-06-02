@@ -214,7 +214,7 @@ namespace Sonrai.ExtRS.UnitTests
                 ""ParameterValues"": []
             }";
 
-            Subscription subscription = await ssrs.CreateSubscription(JsonConvert.DeserializeObject<Subscription>(json)!);
+            Subscription subscription = await ssrs.SaveSubscription(JsonConvert.DeserializeObject<Subscription>(json)!);
             Assert.IsTrue(subscription.DeliveryExtension != null);
 
             var getResponse = await ssrs.GetSubscription(subscription.Id.ToString()!);
