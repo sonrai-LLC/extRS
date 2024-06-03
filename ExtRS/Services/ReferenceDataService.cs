@@ -119,7 +119,7 @@ namespace Sonrai.ExtRS
 
             for (int i = 0; i < newsItems.Count; i++)
             {
-                newsLinkItems.Add("<a href='" + linkItems[i].NextSibling!.NodeValue + "' target=_blank>" + newsItems[i].InnerHtml + "</a>");
+                newsLinkItems.Add("<a href='" + linkItems[i].NextSibling!.NodeValue + "' target='_blank'>" + newsItems[i].InnerHtml + "</a>");
             }
 
             return newsLinkItems;
