@@ -116,14 +116,23 @@
                     </p>
                     <p>
                         <label style="font-size:10pt">Report:</label><br />
-                        @Html.DropDownListFor(x => x.Subscription!.Report, new SelectList(Model.Reports, "Path", "Name"), "--Select--", new { @required = "required" })
+                        @if (Model.Subscription!.Id == null)
+                        {
+                            @Html.DropDownListFor(x => x.Subscription!.Report, new SelectList(Model.Reports, "Path", "Name"), "--Select--", new { @required = "required" })
+                        }
+                        else
+                        {
+                            @Html.Label(Model.Subscription!.Report);
+                            @Html.HiddenFor(x => x.Subscription!.Report)
+                        }
                     </p>
                 </fieldset>
                 <br />
                 <br />
                 <h5>SCHEDULE</h5>
                 <fieldset name="schedule">
-                    @Html.DropDownListFor(x => x.SelectedRecurrence, new SelectList(Model.RecurrenceTypes), "--Select--", new { onchange = "changeRecurrenceDiv(this, this.value)", @id = "recurrenceTypes" })
+
+                    @Html.DropDownListFor(x => x.SelectedRecurrence, new SelectList(Model.RecurrenceTypes), "--Select--", new { onchange = "changeRecurrenceDiv(this, this.value)", @id = "recurrenceTypes" });
                     <br />
                     <br />
                     <div style="height:11%">

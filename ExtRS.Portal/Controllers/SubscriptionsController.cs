@@ -214,8 +214,8 @@ namespace ExtRS.Portal.Controllers
                 viewModel.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence = null;
             if (viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval == null)
                 viewModel.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence = null;
-            if (viewModel.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence!.WeeksInterval == null
-                && viewModel.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek == null)
+            if (viewModel.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence!.WeeksInterval == null)
+                //&& viewModel.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek == null)
                 viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence = null;
             if (viewModel.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence!.Days == null)
                 viewModel.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence = null;
@@ -302,6 +302,16 @@ namespace ExtRS.Portal.Controllers
                 && view.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence == null)
             {
                 view.SelectedRecurrence = "Onetime";
+            }
+
+            if (view.Subscription.ExtensionSettings.ParameterValues[6].Value == "True")
+            {
+                view.IncludeReport = true;
+            }
+
+            if (view.Subscription.ExtensionSettings.ParameterValues[7].Value == "True")
+            {
+                view.IncludeLink = true;
             }
 
             return View("_Subscription", view);
