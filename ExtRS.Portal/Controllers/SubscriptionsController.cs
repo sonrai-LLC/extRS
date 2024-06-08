@@ -277,6 +277,9 @@ namespace ExtRS.Portal.Controllers
             List<Report> reports = await _ssrs.GetReports();
             SubscriptionView view = new SubscriptionView { CurrentTab = "Subscriptions", Subscription = subscription, ReportServerName = _configuration["ReportServerName"]!, Reports = reports };
 
+            view.ScheduleStartHours = view.Subscription.Schedule.Definition.StartDateTime.Value.Hour;
+            view.ScheduleStartMinutes = view.Subscription.Schedule.Definition.StartDateTime.Value.Minute;
+
             if (view.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence != null
                 || view.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence != null)
             {
