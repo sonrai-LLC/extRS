@@ -90,13 +90,10 @@ namespace Sonrai.ExtRS
             Subscription newSubscription = new Subscription();
             try
             {
-                JsonSerializer _jsonWriter = new JsonSerializer
-                {
-                    NullValueHandling = NullValueHandling.Ignore
-                };
                 var subscriptionJson = JsonConvert.SerializeObject(subscription, Formatting.Indented, new JsonSerializerSettings
                 {
-                    NullValueHandling = NullValueHandling.Ignore
+                    NullValueHandling = NullValueHandling.Ignore,
+                    DateFormatString = "yyyy-MM-ddThh:mm:ssZ"
                 });
 
                 HttpResponseMessage response;

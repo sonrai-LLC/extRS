@@ -28,7 +28,7 @@
         changeRecurrenceDiv(ele, '@Model.SelectedRecurrence');
         $(function () {
             $("#startDateTime").datepicker();
-            $("#endDate").datepicker().val('');
+            $("#endDate").datepicker();
         });
 
         $(function () {
@@ -140,7 +140,8 @@
                             <b class="scheduleTitleLabel;">Hourly schedule</b>
                             <fieldset>
                                 Run the scedule every:
-                                @Html.TextBoxFor(x => x.RecurrenceHours, new { @maxlength = "2", @style = "width:30px" }) hours &nbsp; @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence.MinutesInterval, new { @maxlength = "2", @style = "width:30px" }) minutes
+                                @Html.HiddenFor(x => x.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence.MinutesInterval)
+                                @Html.TextBoxFor(x => x.RecurrenceHours, new { @maxlength = "2", @style = "width:30px" }) hours &nbsp; @Html.TextBoxFor(x => x.RecurrenceMinutes, new { @maxlength = "2", @style = "width:30px" }) minutes
                             </fieldset>
                         </div>
                         <div id="recurrenceContainer2" style="display:none; max-height: 0;">
@@ -184,7 +185,6 @@
                                     @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Thursday) Thu
                                     @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Friday) Fri
                                     @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Saturday) Sat
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Sunday) Sun
                                     <br />
                                 </div>
                             </fieldset>
@@ -240,7 +240,7 @@
                     <br />
                     <p>
                         @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.EndDateSpecified, new { @id = "endDateSpecified", @class = "endDateCheck" }) <label style="font-size:10pt">Stop this schedule on:</label><br />
-                        @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.EndDate, "{0:MM/dd/yyyy}", new { @id = "endDate", @class = "input-small", @style = "width:100px; display:none" })
+                        @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.EndDate, "{0:MM/dd/yyyy}", new { @id = "endDate", @class = "input-small", @style = "width:100px; display:block" })
                     <p>
                 </fieldset>
                 <br />

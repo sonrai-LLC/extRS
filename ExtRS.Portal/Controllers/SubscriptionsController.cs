@@ -8,6 +8,7 @@ using System.Data;
 using DataSet = ReportingServices.Api.Models.Subscription;
 using Microsoft.Extensions.Azure;
 using Microsoft.Identity.Client;
+using Sonrai.ExtRS.Models.Enums;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -187,9 +188,10 @@ namespace ExtRS.Portal.Controllers
         {
             viewModel.Subscription!.ExtensionSettings.ParameterValues[6].Value = viewModel.IncludeReport ? "True" : "False";
             viewModel.Subscription!.ExtensionSettings.ParameterValues[7].Value = viewModel.IncludeLink ? "True" : "False";
-            // Cannot deserialize save model datetime format UI datepickers set
-            viewModel.Subscription.Schedule.Definition.StartDateTime = viewModel.Subscription.Schedule.Definition.StartDateTime.Value;
-            viewModel.Subscription.Schedule.Definition.EndDate = viewModel.Subscription.Schedule.Definition.EndDate != null ? viewModel.Subscription.Schedule.Definition.EndDate.Value.AddTicks(1) : viewModel.Subscription.Schedule.Definition.EndDate;
+            if(viewModel.Subscription.Schedule.Definition.EndDate != null)
+            {
+                viewModel.Subscription.Schedule.Definition.EndDateSpecified = true;
+            }
 
             foreach (var p in viewModel.Subscription!.ExtensionSettings.ParameterValues)
             {
@@ -208,29 +210,38 @@ namespace ExtRS.Portal.Controllers
 
         public SubscriptionView ProcessSchedule(ref SubscriptionView viewModel)
         {
-            if (viewModel.Subscription!.Schedule.Definition.Recurrence.DailyRecurrence!.DaysInterval == null)
+            if (viewModel.SelectedRecurrence != RecurrenceType.Daily)
+            {
                 viewModel.Subscription.Schedule.Definition!.Recurrence.DailyRecurrence = null;
-            if (viewModel.Subscription!.Schedule.Definition.Recurrence.MonthlyDOWRecurrence!.MonthsOfYear == null)
+            }
+            if (viewModel.SelectedRecurrence != RecurrenceType.MonthlyDOW)
+            {
                 viewModel.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence = null;
-            if (viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval == null)
+            }
+            if (viewModel.SelectedRecurrence != RecurrenceType.Hourly)
+            {
                 viewModel.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence = null;
-            if (viewModel.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence!.WeeksInterval == null)
-                //&& viewModel.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek == null)
+            }
+            else
+            {        
+                viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval = viewModel.RecurrenceMinutes + (viewModel.RecurrenceHours * 60);
+            }
+            if (viewModel.SelectedRecurrence != RecurrenceType.Weekly)
+            {
                 viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence = null;
-            if (viewModel.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence!.Days == null)
+            }
+            else
+            {
+                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.WeeksIntervalSpecified = viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.WeeksInterval != null;
+            }
+            if (viewModel.SelectedRecurrence != RecurrenceType.Monthly)
+            {
                 viewModel.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence = null;
+            }
 
             viewModel.Subscription!.Schedule.Definition.StartDateTime = viewModel.Subscription!.Schedule.Definition.StartDateTime!.Value
             .AddHours(viewModel.IsPM ? viewModel.ScheduleStartHours + 12 : viewModel.ScheduleStartHours)
-            .AddMinutes(viewModel.ScheduleStartMinutes)
-            .ToUniversalTime();
-
-            if (viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence! != null
-                && viewModel.RecurrenceHours != 0)
-            {
-                viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval +=
-                    (viewModel.RecurrenceHours * 60);
-            }
+            .AddMinutes(viewModel.ScheduleStartMinutes);
 
             if (viewModel.ScheduleRecurrenceIsEveryWeekday)
             {
@@ -269,7 +280,7 @@ namespace ExtRS.Portal.Controllers
             if (view.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence != null
                 || view.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence != null)
             {
-                view.SelectedRecurrence = "Monthly";
+                view.SelectedRecurrence = RecurrenceType.Monthly;
             }
             if (view.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence == null
                 && view.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence == null
@@ -277,7 +288,7 @@ namespace ExtRS.Portal.Controllers
                 && view.Subscription.Schedule.Definition.Recurrence.DailyRecurrence == null
                 && view.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence == null)
             {
-                view.SelectedRecurrence = "Weekly";
+                view.SelectedRecurrence = RecurrenceType.Weekly;
             }
             if (view.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence == null
              && view.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence == null
@@ -285,7 +296,7 @@ namespace ExtRS.Portal.Controllers
              && view.Subscription.Schedule.Definition.Recurrence.DailyRecurrence != null
              && view.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence == null)
             {
-                view.SelectedRecurrence = "Daily";
+                view.SelectedRecurrence = RecurrenceType.Daily;
             }
             if (view.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence == null
              && view.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence == null
@@ -293,7 +304,9 @@ namespace ExtRS.Portal.Controllers
              && view.Subscription.Schedule.Definition.Recurrence.DailyRecurrence == null
              && view.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence != null)
             {
-                view.SelectedRecurrence = "Hourly";
+                view.SelectedRecurrence = RecurrenceType.Hourly;
+                view.RecurrenceHours = (int)view.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval! / 60;
+                view.RecurrenceMinutes = (int)view.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval! - (view.RecurrenceHours * 60);
             }
             if (view.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence == null
                 && view.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence == null
@@ -301,7 +314,7 @@ namespace ExtRS.Portal.Controllers
                 && view.Subscription.Schedule.Definition.Recurrence.DailyRecurrence == null
                 && view.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence == null)
             {
-                view.SelectedRecurrence = "Onetime";
+                view.SelectedRecurrence = RecurrenceType.Onetime;
             }
 
             if (view.Subscription.ExtensionSettings.ParameterValues[6].Value == "True")
