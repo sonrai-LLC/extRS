@@ -12,7 +12,7 @@
     #container {
         min-width: 310px;
         max-width: 1200px;
-        height: 600px;
+        height: 400px;
         margin: 0 auto;
     }
 
@@ -198,11 +198,16 @@
 
 
             Highcharts.chart('tree', {
+                  chart: {
+                    height: '30%'
+                },
 
                 title: {
                     text: 'Actual value within range',
                     align: 'left'
                 },
+
+                height: 200,
 
                 subtitle: {
                     text: 'Source: ' +
@@ -304,7 +309,8 @@
                             series.addPoint([x, y]);
 
                         }
-                    }
+                    },
+                    height: '30%'
                 },
                 title: {
                     text: 'Enter data by clicking the responsive line chart',
@@ -2265,7 +2271,8 @@
                     panKey: 'shift',
                     scrollablePlotArea: {
                         minWidth: 600
-                    }
+                    },
+                    height: '30%'
                 },
 
                 caption: {
@@ -2750,7 +2757,8 @@
                     type: 'spline',
                     events: {
                         load: onChartLoad
-                    }
+                    },
+                    height: '30%'
                 },
 
                 time: {
@@ -2859,7 +2867,7 @@
     </script>
 </head>
 
-<table style="width: 100%; height:92%">
-    <tr><td style="height:45%;width:50%"><div id="cpu"></div></td><td style="height:45%;width:50%"><div id="sales"></div></td></tr>
-    <tr><td style="height:45%;width:50%"><div id="tree"></td><td style="height:15%;width:50%"><div id="dow"></div></td></tr>
+<table style="width: 100%; height: 600px">
+    <tr><td style="height:200px !important;width:50%"><div id="cpu"></div></td><td style="height:200px !important;width:50%"><div id="sales"></div></td></tr>
+    <tr><td style="height:30%;width:50%"><div id="tree"></td><td style="height:30%;width:50%"><div id="dow"></div></td></tr>
 </table>

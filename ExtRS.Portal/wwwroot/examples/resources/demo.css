@@ -17,7 +17,7 @@ body.dt-example-bootstrap {
 
 div.container {
 	max-width: 980px;
-	min-height: 600px;
+	min-height: 300px;
 	margin: 0 auto;
 	overflow: hidden;
 }

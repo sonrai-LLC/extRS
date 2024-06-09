@@ -186,6 +186,11 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<IActionResult> PostSubscription(SubscriptionView viewModel)
         {
+            if(!viewModel.Subscription.Schedule.Definition.EndDateSpecified)
+            {
+                viewModel.Subscription.Schedule.Definition.EndDate = null;
+            }
+
             viewModel.Subscription!.ExtensionSettings.ParameterValues[6].Value = viewModel.IncludeReport ? "True" : "False";
             viewModel.Subscription!.ExtensionSettings.ParameterValues[7].Value = viewModel.IncludeLink ? "True" : "False";
             if(viewModel.Subscription.Schedule.Definition.EndDate != null)
