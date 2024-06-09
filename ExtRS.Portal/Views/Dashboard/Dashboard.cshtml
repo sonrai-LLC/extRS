@@ -197,74 +197,75 @@
                 ];
 
 
-            // Highcharts.chart('tree', {
-            //       chart: {
-            //         //height: '30%'
-            //     },
+            Highcharts.chart('tree', {
 
-            //     title: {
-            //         text: 'Actual value within range',
-            //         align: 'left'
-            //     },
+                chart: {
+                    height: "33%"
+                },
 
-            //     height: 200,
+                title: {
+                    text: 'Actual value within range',
+                    align: 'left'
+                },
 
-            //     subtitle: {
-            //         text: 'Source: ' +
-            //             '<a href="https://www.yr.no/nb/historikk/graf/1-113585/Norge/Viken/Nesbyen/Nesbyen?q=2022-07"' +
-            //             'target="_blank">YR</a>',
-            //         align: 'left'
-            //     },
+                height: 200,
 
-            //     xAxis: {
-            //         type: 'datetime',
-            //         accessibility: {
-            //             rangeDescription: 'Range: Jul 1st 2022 to Jul 31st 2022.'
-            //         }
-            //     },
+                subtitle: {
+                    text: 'Source: ' +
+                        '<a href="https://www.yr.no/nb/historikk/graf/1-113585/Norge/Viken/Nesbyen/Nesbyen?q=2022-07"' +
+                        'target="_blank">YR</a>',
+                    align: 'left'
+                },
 
-            //     yAxis: {
-            //         title: {
-            //             text: null
-            //         }
-            //     },
+                xAxis: {
+                    type: 'datetime',
+                    accessibility: {
+                        rangeDescription: 'Range: Jul 1st 2022 to Jul 31st 2022.'
+                    }
+                },
 
-            //     tooltip: {
-            //         crosshairs: true,
-            //         shared: true,
-            //         valueSuffix: '°C'
-            //     },
+                yAxis: {
+                    title: {
+                        text: null
+                    }
+                },
 
-            //     plotOptions: {
-            //         series: {
-            //             pointStart: Date.UTC(2022, 6, 1),
-            //             pointIntervalUnit: 'day'
-            //         }
-            //     },
+                tooltip: {
+                    crosshairs: true,
+                    shared: true,
+                    valueSuffix: '°C'
+                },
 
-            //     series: [{
-            //         name: 'Actual value',
-            //         data: averages,
-            //         zIndex: 1,
-            //         marker: {
-            //             fillColor: 'white',
-            //             lineWidth: 2,
-            //             lineColor: Highcharts.getOptions().colors[0]
-            //         }
-            //     }, {
-            //         name: '',
-            //         data: ranges,
-            //         type: 'arearange',
-            //         lineWidth: 0,
-            //         linkedTo: ':previous',
-            //         color: Highcharts.getOptions().colors[0],
-            //         fillOpacity: 0.3,
-            //         zIndex: 0,
-            //         marker: {
-            //             enabled: false
-            //         }
-            //     }]
-            // });
+                plotOptions: {
+                    series: {
+                        pointStart: Date.UTC(2022, 6, 1),
+                        pointIntervalUnit: 'day'
+                    }
+                },
+
+                series: [{
+                    name: 'Actual value',
+                    data: averages,
+                    zIndex: 1,
+                    marker: {
+                        fillColor: 'white',
+                        lineWidth: 2,
+                        lineColor: Highcharts.getOptions().colors[0]
+                    }
+                }, {
+                    name: '',
+                    data: ranges,
+                    type: 'arearange',
+                    lineWidth: 0,
+                    linkedTo: ':previous',
+                    color: Highcharts.getOptions().colors[0],
+                    fillOpacity: 0.3,
+                    zIndex: 0,
+                    marker: {
+                        enabled: false
+                    }
+                }]
+            });
 
 
             // Plugin to add a pulsating marker on add point
@@ -297,6 +298,7 @@
             Highcharts.chart('dow', {
                 chart: {
                     type: 'scatter',
+                    height: "33%",
                     margin: [70, 50, 60, 80],
                     events: {
                         click: function (e) {
@@ -309,8 +311,7 @@
                             series.addPoint([x, y]);
 
                         }
-                    },
-                    height: '65%'
+                    }
                 },
                 title: {
                     text: 'Enter data by clicking the responsive line chart',
@@ -2260,244 +2261,244 @@
             ];
 
             // Now create the chart
-            // Highcharts.chart('sales', {
+            Highcharts.chart('sales', {
 
-            //     chart: {
-            //         type: 'area',
-            //         zooming: {
-            //             type: 'x'
-            //         },
-            //         panning: true,
-            //         panKey: 'shift',
-            //         scrollablePlotArea: {
-            //             minWidth: 600
-            //         }//,
-            //         //height: '30%'
-            //     },
+                chart: {
+                    type: 'area',
+                    zooming: {
+                        type: 'x'
+                    },
+                    panning: true,
+                    panKey: 'shift',
+                    scrollablePlotArea: {
+                        minWidth: 600
+                    },      
+                    height: '33%'
+                },
 
-            //     caption: {
-            //         text: 'This chart uses the Highcharts Annotations feature to place ' +
-            //             'labels at various points of interest. The labels are responsive ' +
-            //             'and will be hidden to avoid overlap on small screens.'
-            //     },
+                caption: {
+                    text: 'This chart uses the Highcharts Annotations feature to place ' +
+                        'labels at various points of interest. The labels are responsive ' +
+                        'and will be hidden to avoid overlap on small screens.'
+                },
 
-            //     title: {
-            //         text: 'Time series with annotation labels',
-            //         align: 'center'
-            //     },
+                title: {
+                    text: 'Time series with annotation labels',
+                    align: 'center'
+                },
 
-            //     accessibility: {
-            //         description: 'This line chart uses the Highcharts Annotations ' +
-            //             'feature to place labels at various points of interest. The ' +
-            //             'labels are responsive and will be hidden to avoid overlap on ' +
-            //             'small screens. Image description: An annotated line chart ' +
-            //             'illustrates the 8th stage of the 2017 Tour de France cycling ' +
-            //             'race from the start point in Dole to the finish line at Station ' +
-            //             'des Rousses. Altitude is plotted on the Y-axis, and distance is ' +
-            //             'plotted on the X-axis. The line graph is interactive, and the ' +
-            //             'user can trace the altitude level along the stage. The graph is ' +
-            //             'shaded below the data line to visualize the mountainous ' +
-            //             'altitudes encountered on the 187.5-kilometre stage. The three ' +
-            //             'largest climbs are highlighted at Col de la Joux, Côte de Viry ' +
-            //             'and the final 11.7-kilometer, 6.4% gradient climb to Montée de ' +
-            //             'la Combe de Laisia Les Molunes which peaks at 1200 meters above ' +
-            //             'sea level. The stage passes through the villages of Arbois, ' +
-            //             'Montrond, Bonlieu, Chassal and Saint-Claude along the route.',
-            //         landmarkVerbosity: 'one'
-            //     },
+                accessibility: {
+                    description: 'This line chart uses the Highcharts Annotations ' +
+                        'feature to place labels at various points of interest. The ' +
+                        'labels are responsive and will be hidden to avoid overlap on ' +
+                        'small screens. Image description: An annotated line chart ' +
+                        'illustrates the 8th stage of the 2017 Tour de France cycling ' +
+                        'race from the start point in Dole to the finish line at Station ' +
+                        'des Rousses. Altitude is plotted on the Y-axis, and distance is ' +
+                        'plotted on the X-axis. The line graph is interactive, and the ' +
+                        'user can trace the altitude level along the stage. The graph is ' +
+                        'shaded below the data line to visualize the mountainous ' +
+                        'altitudes encountered on the 187.5-kilometre stage. The three ' +
+                        'largest climbs are highlighted at Col de la Joux, Côte de Viry ' +
+                        'and the final 11.7-kilometer, 6.4% gradient climb to Montée de ' +
+                        'la Combe de Laisia Les Molunes which peaks at 1200 meters above ' +
+                        'sea level. The stage passes through the villages of Arbois, ' +
+                        'Montrond, Bonlieu, Chassal and Saint-Claude along the route.',
+                    landmarkVerbosity: 'one'
+                },
 
-            //     lang: {
-            //         accessibility: {
-            //             screenReaderSection: {
-            //                 annotations: {
-            //                     descriptionNoPoints: '{annotationText}, at distance ' +
-            //                         '{annotation.options.point.x}km, elevation ' +
-            //                         '{annotation.options.point.y} meters.'
-            //                 }
-            //             }
-            //         }
-            //     },
+                lang: {
+                    accessibility: {
+                        screenReaderSection: {
+                            annotations: {
+                                descriptionNoPoints: '{annotationText}, at distance ' +
+                                    '{annotation.options.point.x}km, elevation ' +
+                                    '{annotation.options.point.y} meters.'
+                            }
+                        }
+                    }
+                },
 
-            //     credits: {
-            //         enabled: false
-            //     },
+                credits: {
+                    enabled: false
+                },
 
-            //     annotations: [{
-            //         draggable: '',
-            //         labelOptions: {
-            //             backgroundColor: 'rgba(255,255,255,0.5)',
-            //             verticalAlign: 'top',
-            //             y: 15
-            //         },
-            //         labels: [{
-            //             point: {
-            //                 xAxis: 0,
-            //                 yAxis: 0,
-            //                 x: 27.98,
-            //                 y: 255
-            //             },
-            //             text: 'Arbois'
-            //         }, {
-            //             point: {
-            //                 xAxis: 0,
-            //                 yAxis: 0,
-            //                 x: 45.5,
-            //                 y: 611
-            //             },
-            //             text: 'Montrond'
-            //         }, {
-            //             point: {
-            //                 xAxis: 0,
-            //                 yAxis: 0,
-            //                 x: 63,
-            //                 y: 651
-            //             },
-            //             text: 'Mont-sur-Monnet'
-            //         }, {
-            //             point: {
-            //                 xAxis: 0,
-            //                 yAxis: 0,
-            //                 x: 84,
-            //                 y: 789
-            //             },
-            //             x: -10,
-            //             text: 'Bonlieu'
-            //         }, {
-            //             point: {
-            //                 xAxis: 0,
-            //                 yAxis: 0,
-            //                 x: 129.5,
-            //                 y: 382
-            //             },
-            //             text: 'Chassal'
-            //         }, {
-            //             point: {
-            //                 xAxis: 0,
-            //                 yAxis: 0,
-            //                 x: 159,
-            //                 y: 443
-            //             },
-            //             text: 'Saint-Claude'
-            //         }]
-            //     }, {
-            //         draggable: '',
-            //         labels: [{
-            //             point: {
-            //                 xAxis: 0,
-            //                 yAxis: 0,
-            //                 x: 101.44,
-            //                 y: 1026
-            //             },
-            //             x: -30,
-            //             text: 'Col de la Joux'
-            //         }, {
-            //             point: {
-            //                 xAxis: 0,
-            //                 yAxis: 0,
-            //                 x: 138.5,
-            //                 y: 748
-            //             },
-            //             text: 'Côte de Viry'
-            //         }, {
-            //             point: {
-            //                 xAxis: 0,
-            //                 yAxis: 0,
-            //                 x: 176.4,
-            //                 y: 1202
-            //             },
-            //             text: 'Montée de la Combe <br>de Laisia Les Molunes'
-            //         }]
-            //     }, {
-            //         draggable: '',
-            //         labelOptions: {
-            //             shape: 'connector',
-            //             align: 'right',
-            //             justify: false,
-            //             crop: true,
-            //             style: {
-            //                 fontSize: '10px',
-            //                 textOutline: '1px white'
-            //             }
-            //         },
-            //         labels: [{
-            //             point: {
-            //                 xAxis: 0,
-            //                 yAxis: 0,
-            //                 x: 96.2,
-            //                 y: 783
-            //             },
-            //             text: '6.1 km climb <br>4.6% on avg.'
-            //         }, {
-            //             point: {
-            //                 xAxis: 0,
-            //                 yAxis: 0,
-            //                 x: 134.5,
-            //                 y: 540
-            //             },
-            //             text: '7.6 km climb <br>5.2% on avg.'
-            //         }, {
-            //             point: {
-            //                 xAxis: 0,
-            //                 yAxis: 0,
-            //                 x: 172.2,
-            //                 y: 925
-            //             },
-            //             text: '11.7 km climb <br>6.4% on avg.'
-            //         }]
-            //     }],
+                annotations: [{
+                    draggable: '',
+                    labelOptions: {
+                        backgroundColor: 'rgba(255,255,255,0.5)',
+                        verticalAlign: 'top',
+                        y: 15
+                    },
+                    labels: [{
+                        point: {
+                            xAxis: 0,
+                            yAxis: 0,
+                            x: 27.98,
+                            y: 255
+                        },
+                        text: 'Arbois'
+                    }, {
+                        point: {
+                            xAxis: 0,
+                            yAxis: 0,
+                            x: 45.5,
+                            y: 611
+                        },
+                        text: 'Montrond'
+                    }, {
+                        point: {
+                            xAxis: 0,
+                            yAxis: 0,
+                            x: 63,
+                            y: 651
+                        },
+                        text: 'Mont-sur-Monnet'
+                    }, {
+                        point: {
+                            xAxis: 0,
+                            yAxis: 0,
+                            x: 84,
+                            y: 789
+                        },
+                        x: -10,
+                        text: 'Bonlieu'
+                    }, {
+                        point: {
+                            xAxis: 0,
+                            yAxis: 0,
+                            x: 129.5,
+                            y: 382
+                        },
+                        text: 'Chassal'
+                    }, {
+                        point: {
+                            xAxis: 0,
+                            yAxis: 0,
+                            x: 159,
+                            y: 443
+                        },
+                        text: 'Saint-Claude'
+                    }]
+                }, {
+                    draggable: '',
+                    labels: [{
+                        point: {
+                            xAxis: 0,
+                            yAxis: 0,
+                            x: 101.44,
+                            y: 1026
+                        },
+                        x: -30,
+                        text: 'Col de la Joux'
+                    }, {
+                        point: {
+                            xAxis: 0,
+                            yAxis: 0,
+                            x: 138.5,
+                            y: 748
+                        },
+                        text: 'Côte de Viry'
+                    }, {
+                        point: {
+                            xAxis: 0,
+                            yAxis: 0,
+                            x: 176.4,
+                            y: 1202
+                        },
+                        text: 'Montée de la Combe <br>de Laisia Les Molunes'
+                    }]
+                }, {
+                    draggable: '',
+                    labelOptions: {
+                        shape: 'connector',
+                        align: 'right',
+                        justify: false,
+                        crop: true,
+                        style: {
+                            fontSize: '10px',
+                            textOutline: '1px white'
+                        }
+                    },
+                    labels: [{
+                        point: {
+                            xAxis: 0,
+                            yAxis: 0,
+                            x: 96.2,
+                            y: 783
+                        },
+                        text: '6.1 km climb <br>4.6% on avg.'
+                    }, {
+                        point: {
+                            xAxis: 0,
+                            yAxis: 0,
+                            x: 134.5,
+                            y: 540
+                        },
+                        text: '7.6 km climb <br>5.2% on avg.'
+                    }, {
+                        point: {
+                            xAxis: 0,
+                            yAxis: 0,
+                            x: 172.2,
+                            y: 925
+                        },
+                        text: '11.7 km climb <br>6.4% on avg.'
+                    }]
+                }],
 
-            //     xAxis: {
-            //         labels: {
-            //             format: '{value} km'
-            //         },
-            //         minRange: 5,
-            //         title: {
-            //             text: 'Distance'
-            //         },
-            //         accessibility: {
-            //             rangeDescription: 'Range: 0 to 187.8km.'
-            //         }
-            //     },
+                xAxis: {
+                    labels: {
+                        format: '{value} km'
+                    },
+                    minRange: 5,
+                    title: {
+                        text: 'Distance'
+                    },
+                    accessibility: {
+                        rangeDescription: 'Range: 0 to 187.8km.'
+                    }
+                },
 
-            //     yAxis: {
-            //         startOnTick: true,
-            //         endOnTick: false,
-            //         maxPadding: 0.35,
-            //         title: {
-            //             text: null
-            //         },
-            //         labels: {
-            //             format: '{value} m'
-            //         },
-            //         accessibility: {
-            //             description: 'Elevation',
-            //             rangeDescription: 'Range: 0 to 1,553 meters'
-            //         }
-            //     },
+                yAxis: {
+                    startOnTick: true,
+                    endOnTick: false,
+                    maxPadding: 0.35,
+                    title: {
+                        text: null
+                    },
+                    labels: {
+                        format: '{value} m'
+                    },
+                    accessibility: {
+                        description: 'Elevation',
+                        rangeDescription: 'Range: 0 to 1,553 meters'
+                    }
+                },
 
-            //     tooltip: {
-            //         headerFormat: 'Distance: {point.x:.1f} km<br>',
-            //         pointFormat: '{point.y} m a. s. l.',
-            //         shared: true
-            //     },
+                tooltip: {
+                    headerFormat: 'Distance: {point.x:.1f} km<br>',
+                    pointFormat: '{point.y} m a. s. l.',
+                    shared: true
+                },
 
-            //     legend: {
-            //         enabled: false
-            //     },
+                legend: {
+                    enabled: false
+                },
 
-            //     series: [{
-            //         data: elevationData,
-            //         lineColor: Highcharts.getOptions().colors[1],
-            //         color: Highcharts.getOptions().colors[2],
-            //         fillOpacity: 0.5,
-            //         name: 'Elevation',
-            //         marker: {
-            //             enabled: false
-            //         },
-            //         threshold: null
-            //     }]
+                series: [{
+                    data: elevationData,
+                    lineColor: Highcharts.getOptions().colors[1],
+                    color: Highcharts.getOptions().colors[2],
+                    fillOpacity: 0.5,
+                    name: 'Elevation',
+                    marker: {
+                        enabled: false
+                    },
+                    threshold: null
+                }]
 
-            // });
+            });
 
 
             // const chart = Highcharts.chart('sales', {
@@ -2758,7 +2759,7 @@
                     events: {
                         load: onChartLoad
                     },
-                    height: '65%'
+                    height: '33%'
                 },
 
                 time: {
@@ -2868,6 +2869,6 @@
 </head>
 
 <table style="width: 100%; height: 600px">
-    <tr><td><div id="cpu"></div></td><td style="height:100% !important;width:50%"><div id="dow"></div></td></tr>
-   @*  <tr><td style="height:30%;width:50%"><div id="tree"></td><td style="height:30%;width:50%"><div id="sales"></div></td></tr> *@
+    <tr><td style="height:200px !important;width:50%"><div id="cpu"></div></td><td style="height:200px !important;width:50%"><div id="sales"></div></td></tr>
+    <tr><td style="height:30%;width:50%"><div id="tree"></td><td style="height:30%;width:50%"><div id="dow"></div></td></tr>
 </table>
