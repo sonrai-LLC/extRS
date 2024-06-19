@@ -121,7 +121,12 @@ namespace Sonrai.ExtRS
         public async Task<Subscription> GetSubscription(string id)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Subscriptions({0})", id));
-            return JsonConvert.DeserializeObject<Subscription>(await response.Content.ReadAsStringAsync())!;
+            var subscription = JsonConvert.DeserializeObject<Subscription>(await response.Content.ReadAsStringAsync());
+
+            var offset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
+            subscription!.Schedule.Definition.StartDateTime = subscription!.Schedule.Definition.StartDateTime!.Value.AddHours(Math.Abs(offset.TotalHours));
+
+            return subscription;
         }
 
         public async Task<bool> DeleteSubscription(string id)

@@ -5,6 +5,14 @@ namespace Sonrai.ExtRS
 {
     public class EncryptionService
     {
+        /// <summary>
+        /// Encrypts an input string with an input key.
+        /// </summary>
+        /// <param name="clearText">The string to encrypt.</param>
+        /// <param name="enc_key">The encryption key to use for encryption of clearText.</param>
+        /// <returns>
+        /// An encrypted string based on the clearText input.
+        /// </returns>
         public static string Encrypt(string clearText, string enc_key)
         {
             var cipherText = "";
@@ -28,6 +36,14 @@ namespace Sonrai.ExtRS
             return cipherText;
         }
 
+        /// <summary>
+        /// Decrypts an encrypted/cipher string with an input key.
+        /// </summary>
+        /// <param name="cipherText">The string to decrypt.</param>
+        /// <param name="enc_key">The encryption key to use for decryption of cipherText.</param>
+        /// <returns>
+        /// An decrypted string based on the cipherText input.
+        /// </returns>
         public static string Decrypt(string cipherText, string enc_key)
         {
             var clearText = "";
