@@ -6,6 +6,8 @@
 <script src="https://code.highcharts.com/modules/data.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/bullet.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/treemap.js"></script>
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <style>
@@ -267,6 +269,182 @@
             //     }]
             // });
 
+            // Highcharts.setOptions({
+            //     chart: {
+            //         inverted: true,
+            //         marginLeft: 135,
+            //         type: 'bullet'
+            //     },
+            //     title: {
+            //         text: null
+            //     },
+            //     legend: {
+            //         enabled: false
+            //     },
+            //     yAxis: {
+            //         gridLineWidth: 0
+            //     },
+            //     plotOptions: {
+            //         series: {
+            //             pointPadding: 0.25,
+            //             borderWidth: 0,
+            //             color: '#000',
+            //             targetOptions: {
+            //                 width: '200%'
+            //             }
+            //         }
+            //     },
+            //     credits: {
+            //         enabled: false
+            //     },
+            //     exporting: {
+            //         enabled: false
+            //     }
+            // });
+
+            Highcharts.chart('tree', {
+                chart: {
+                    marginTop: 40,
+                    inverted: true,
+                    type: 'bullet'
+                },
+                title: {
+                    text: '2017 YTD'
+                },
+                xAxis: {
+                    categories: [
+                        '<span class="hc-cat-title">Revenue</span><br/>U.S. $ ' +
+                        '(1,000s)'
+                    ]
+                },
+                yAxis: {
+                    plotBands: [{
+                        from: 0,
+                        to: 150,
+                        color: '#666'
+                    }, {
+                        from: 150,
+                        to: 225,
+                        color: '#999'
+                    }, {
+                        from: 225,
+                        to: 9e9,
+                        color: '#bbb'
+                    }],
+                    title: null
+                },
+                series: [{
+                    name: 'DB2',
+                    data: [{
+                        y: 175,
+                        target: 150
+                    }]
+                },
+                {
+                    name: 'Oracle',
+                    data: [{
+                        y: 255,
+                        target: 250
+                    }]
+                },
+                {
+                    name: 'SQL Server',
+                    data: [{
+                        y: 297,
+                        target: 250
+                    }]
+                }
+                ],
+                    tooltip: {
+                        pointFormat: '<b>{point.y}</b> (with target at {point.target})'
+                    },
+                    plotOptions: {
+                        series: {
+                            pointPadding: 0.25,
+                            borderWidth: 0,
+                            color: '#000',
+                            targetOptions: {
+                                width: '200%'
+                            }
+                        }
+                    },
+                });
+
+            // Highcharts.chart('container2', {
+            //     xAxis: {
+            //         categories: ['<span class="hc-cat-title">Profit</span><br/>%']
+            //     },
+            //     yAxis: {
+            //         plotBands: [{
+            //             from: 0,
+            //             to: 20,
+            //             color: '#666'
+            //         }, {
+            //             from: 20,
+            //             to: 25,
+            //             color: '#999'
+            //         }, {
+            //             from: 25,
+            //             to: 100,
+            //             color: '#bbb'
+            //         }],
+            //         labels: {
+            //             format: '{value}%'
+            //         },
+            //         title: null
+            //     },
+            //     series: [{
+            //         data: [{
+            //             y: 22,
+            //             target: 27
+            //         }]
+            //     }],
+            //     tooltip: {
+            //         pointFormat: '<b>{point.y}</b> (with target at {point.target})'
+            //     }
+            // });
+
+
+            // Highcharts.chart('container3', {
+            //     xAxis: {
+            //         categories: [
+            //             '<span class="hc-cat-title">New Customers</span><br/>' +
+            //             'Count'
+            //         ]
+            //     },
+            //     yAxis: {
+            //         plotBands: [{
+            //             from: 0,
+            //             to: 1400,
+            //             color: '#666'
+            //         }, {
+            //             from: 1400,
+            //             to: 2000,
+            //             color: '#999'
+            //         }, {
+            //             from: 2000,
+            //             to: 9e9,
+            //             color: '#bbb'
+            //         }],
+            //         labels: {
+            //             format: '{value}'
+            //         },
+            //         title: null
+            //     },
+            //     series: [{
+            //         data: [{
+            //             y: 1650,
+            //             target: 2100
+            //         }]
+            //     }],
+            //     tooltip: {
+            //         pointFormat: '<b>{point.y}</b> (with target at {point.target})'
+            //     },
+            //     credits: {
+            //         enabled: true
+            //     }
+            // });
+
 
             // Plugin to add a pulsating marker on add point
             Highcharts.addEvent(Highcharts.Series, 'addPoint', e => {
@@ -375,7 +553,6 @@
                     }
                 }]
             });
-
 
             // Data generated from http://www.bikeforums.net/professional-cycling-fans/1113087-2017-tour-de-france-gpx-tcx-files.html
             const elevationData = [
@@ -2272,7 +2449,7 @@
                     panKey: 'shift',
                     scrollablePlotArea: {
                         minWidth: 600
-                    },      
+                    },
                     height: '33%'
                 },
 
@@ -2627,77 +2804,6 @@
             // });
 
 
-            // // Handle the keyboard navigation
-            // document.getElementById('controls').onkeydown = function (e) {
-            //     let lastPlayed;
-
-            //     const speaker = new Highcharts.sonification.SonificationSpeaker({
-            //         volume: 0.4, rate: 2
-            //     });
-
-            //     // Announce values + series name after playing individual points. We
-            //     // just reuse the accessibility description for the point, for simplicity.
-            //     // We use a single SonificationSpeaker for the announcement, since it makes
-            //     // it easy to avoid multiple announcements overlapping.
-            //     function onSinglePointPlayed(e) {
-            //         const point = e.pointsPlayed && e.pointsPlayed[0];
-            //         if (point) {
-            //             speaker.sayAtTime(
-            //                 700, point.accessibility.valueDescription +
-            //                 ' ' + point.series.name
-            //             );
-            //         }
-            //     }
-
-            //     if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
-            //         chart.sonification.playAdjacent(
-            //             e.key === 'ArrowRight', onSinglePointPlayed
-            //         );
-
-            //     } else if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-            //         const newSeries = chart.sonification
-            //             .playAdjacentSeries(e.key === 'ArrowUp', 'x', onSinglePointPlayed);
-            //         lastPlayed = chart.sonification.getLastPlayedPoint();
-            //         if (lastPlayed.x && newSeries) {
-            //             // Speak new series if not first point
-            //             chart.sonification.speak(newSeries.name);
-            //         }
-
-            //     } else if (e.key === ' ') {
-            //         chart.toggleSonify(false);
-
-            //     } else if (e.key === 'Home' || e.key === 'End') {
-            //         lastPlayed = chart.sonification.getLastPlayedPoint();
-            //         if (lastPlayed) {
-            //             lastPlayed.series.points[e.key === 'End' ?
-            //                 lastPlayed.series.points.length - 1 : 0
-            //             ].sonify(onSinglePointPlayed);
-            //         }
-
-            //     } else {
-            //         return; // Don't prevent default on unknown keys
-            //     }
-            //     speaker.cancel();
-            //     e.preventDefault();
-            // };
-
-
-            // // Start sonification mode
-            // document.getElementById('sonify').onclick = function () {
-            //     // Show the help field and set keyboard focus to it
-            //     const controls = document.getElementById('controls');
-            //     controls.className = 'visible';
-
-            //     setTimeout(function () {
-            //         controls.focus();
-            //     }, 10);
-
-            //     // Notification sound to indicate something happened
-            //     chart.sonification.playNote('vibraphone', {
-            //         note: 'g6', volume: 0.2, noteDuration: 300
-            //     });
-            // };
-
             const onChartLoad = function () {
                 const chart = this,
                     series = chart.series[0];
@@ -2825,50 +2931,12 @@
                     }
                 ]
             });
-
-
-            // Highcharts.theme = {
-            //     colors: ['#058DC7', '#50B432', '#ED561B', '#DDDF00', '#24CBE5', '#64E572',
-            //         '#FF9655', '#FFF263', '#6AF9C4'],
-            //     chart: {
-            //         backgroundColor: {
-            //             linearGradient: [0, 0, 500, 500],
-            //             stops: [
-            //                 [0, 'rgb(255, 255, 255)'],
-            //                 [1, 'rgb(240, 240, 255)']
-            //             ]
-            //         },
-            //     },
-            //     title: {
-            //         style: {
-            //             color: '#000',
-            //             font: 'bold 16px "Trebuchet MS", Verdana, sans-serif'
-            //         }
-            //     },
-            //     subtitle: {
-            //         style: {
-            //             color: '#666666',
-            //             font: 'bold 12px "Trebuchet MS", Verdana, sans-serif'
-            //         }
-            //     },
-            //     legend: {
-            //         itemStyle: {
-            //             font: '9pt Trebuchet MS, Verdana, sans-serif',
-            //             color: 'black'
-            //         },
-            //         itemHoverStyle: {
-            //             color: 'gray'
-            //         }
-            //     }
-            // };
-            // // Apply the theme
-            // Highcharts.setOptions(Highcharts.theme);
-
         });
     </script>
 </head>
 
 <table style="width: 100%; height: 600px">
     <tr><td style="height:200px !important;width:50%"><div id="cpu"></div></td><td style="height:200px !important;width:50%"><div id="sales"></div></td></tr>
-    <tr><td style="height:30%;width:50%"><div id="tree"></td><td style="height:30%;width:50%"><div id="dow"></div></td></tr>
+    <tr><td style="height:30%;width:50%"><div id="tree" style="height:100%"></td><td style="height:30%;width:50%"><div id="dow"></div></td></tr>
 </table>
+<iframe src="https://tickertapes.net?embedded=true" style="width:100%; height:26%"></iframe>
