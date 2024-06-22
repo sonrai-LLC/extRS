@@ -90,11 +90,14 @@ namespace Sonrai.ExtRS
             Subscription newSubscription = new Subscription();
             try
             {
+                // offset selected datetime for UTC format
+                var offset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
+                subscription!.Schedule.Definition.StartDateTime = subscription!.Schedule.Definition.StartDateTime!.Value.AddHours(Math.Abs(offset.TotalHours));
+
                 var subscriptionJson = JsonConvert.SerializeObject(subscription, Formatting.Indented, new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore,
                     DateFormatString = "yyyy-MM-ddTHH:mm:ssZ",
-                    DateFormatHandling = DateFormatHandling.IsoDateFormat
                 });
 
                 HttpResponseMessage response;
@@ -123,9 +126,6 @@ namespace Sonrai.ExtRS
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Subscriptions({0})", id));
             var subscription = JsonConvert.DeserializeObject<Subscription>(await response.Content.ReadAsStringAsync());
-
-            var offset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
-            subscription!.Schedule.Definition.StartDateTime = subscription!.Schedule.Definition.StartDateTime!.Value.AddHours(Math.Abs(offset.TotalHours));
 
             return subscription;
         }
