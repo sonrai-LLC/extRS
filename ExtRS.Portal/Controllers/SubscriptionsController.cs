@@ -5,7 +5,6 @@ using Sonrai.ExtRS;
 using Sonrai.ExtRS.Models;
 using System.Diagnostics;
 using System.Data;
-using DataSet = ReportingServices.Api.Models.Subscription;
 using Microsoft.Extensions.Azure;
 using Microsoft.Identity.Client;
 using Sonrai.ExtRS.Models.Enums;
