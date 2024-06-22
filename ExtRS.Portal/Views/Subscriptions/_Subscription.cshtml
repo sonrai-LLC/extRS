@@ -149,24 +149,6 @@
                             <b class="scheduleTitleLabel;">Daily schedule</b>
                             <fieldset>
                                 <div>
-                                    <input type="radio" id="indWeekdays" name="dailyRecurr" value="indWeekdays" checked />
-                                    <label for="indWeekdays">On the following days:</label>
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Sunday) Sun
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Monday) Mon
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Tuesday) Tue
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Wednesday) Wed
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Thursday) Thu
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Friday) Fri
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Saturday) Sat
-                                </div>
-                                <div>
-                                    <input type="radio" id="everyWeekDay" name="dailyRecurr" value="everyWeekDay" />
-                                    <label for="everyWeekDay">Every</label>
-                                    Weekday @Html.CheckBoxFor(x => x.ScheduleRecurrenceIsEveryWeekday)
-                                    Weekend @Html.CheckBoxFor(x => x.ScheduleRecurrenceIsEveryWeekend)
-                                </div>
-                                <div>
-                                    <input type="radio" id="repeatAfterDays" name="dailyRecurr" value="repeatAfterDays" />
                                     <label for="repeatAfterDays">Repeat after this number of days:</label> @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.DailyRecurrence.DaysInterval, new { @maxlength = "3", @style = "width:40px" })
                                 </div>
                             </fieldset>
@@ -177,7 +159,7 @@
                                 <div id="weeklyRecurrenceContainer">
                                     Repeat after this number of weeks: @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.WeeksInterval, new { @maxlength = "2", @style = "width:30px" })
                                     <br />
-                                    On day(s):<br />
+@*                                     <input type="radio" id="indWeekdays" name="dailyRecurr" value="indWeekdays" checked /> *@
                                     <label for="indWeekdays">On the following days:</label>
                                     @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Sunday) Sun
                                     @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Monday) Mon
@@ -187,6 +169,10 @@
                                     @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Friday) Fri
                                     @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Saturday) Sat
                                     <br />
+@*                                     <input type="radio" id="everyWeekDay" name="dailyRecurr" value="everyWeekDay" />
+                                    <label for="everyWeekDay">Every</label>
+                                    Weekday @Html.CheckBoxFor(x => x.ScheduleRecurrenceIsEveryWeekday)
+                                    Weekend @Html.CheckBoxFor(x => x.ScheduleRecurrenceIsEveryWeekend) *@
                                 </div>
                             </fieldset>
                         </div>
@@ -208,7 +194,7 @@
                                 @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.November) Nov
                                 @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.December) Dec
                                 <br />
-                                On day(s) of the week:
+@*                                 On day(s) of the week:
                                 @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Sunday) Sun
                                 @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Monday) Mon
                                 @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Tuesday) Tue
@@ -216,7 +202,7 @@
                                 @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Thursday) Thu
                                 @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Friday) Fri
                                 @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Saturday) Sat
-                                <br />
+                                <br /> *@
                                 On calendar day(s): @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.Days, new { @maxlength = "150", @style = "width:150px" })
                             </fieldset>
                         </div>
@@ -226,7 +212,7 @@
                         </div>
                     </div>
                     <br />
-                    <p>
+                    <p style="font-size:8pt">
                         Choose whether to run the report on an hourly, daily, weekly, monthly, or one time basis.<br />
                         All times are expressed in @TimeZoneInfo.Local.
                     </p>

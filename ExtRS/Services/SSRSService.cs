@@ -93,7 +93,8 @@ namespace Sonrai.ExtRS
                 var subscriptionJson = JsonConvert.SerializeObject(subscription, Formatting.Indented, new JsonSerializerSettings
                 {
                     NullValueHandling = NullValueHandling.Ignore,
-                    DateFormatString = "yyyy-MM-ddThh:mm:ssZ"
+                    DateFormatString = "yyyy-MM-ddTHH:mm:ssZ",
+                    DateFormatHandling = DateFormatHandling.IsoDateFormat
                 });
 
                 HttpResponseMessage response;

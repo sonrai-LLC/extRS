@@ -218,10 +218,6 @@ namespace ExtRS.Portal.Controllers
             {
                 viewModel.Subscription.Schedule.Definition!.Recurrence.DailyRecurrence = null;
             }
-            if (viewModel.SelectedRecurrence != RecurrenceType.MonthlyDOW)
-            {
-                viewModel.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence = null;
-            }
             if (viewModel.SelectedRecurrence != RecurrenceType.Hourly)
             {
                 viewModel.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence = null;
@@ -240,6 +236,7 @@ namespace ExtRS.Portal.Controllers
             }
             if (viewModel.SelectedRecurrence != RecurrenceType.Monthly)
             {
+                viewModel.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence = null;
                 viewModel.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence = null;
             }
 
@@ -281,7 +278,10 @@ namespace ExtRS.Portal.Controllers
             List<Report> reports = await _ssrs.GetReports();
             SubscriptionView view = new SubscriptionView { CurrentTab = "Subscriptions", Subscription = subscription, ReportServerName = _configuration["ReportServerName"]!, Reports = reports };
 
-            view.ScheduleStartHours = view.Subscription.Schedule.Definition.StartDateTime!.Value.Hour;
+
+            view.IsPM = view.Subscription.Schedule.Definition.StartDateTime.Value.Hour >= 12;
+            view.IsAM = !view.IsPM;
+            view.ScheduleStartHours = view.Subscription.Schedule.Definition.StartDateTime!.Value.Hour - (view.IsPM ? 12 : 0);
             view.ScheduleStartMinutes = view.Subscription.Schedule.Definition.StartDateTime.Value.Minute;
 
             if (view.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence != null
