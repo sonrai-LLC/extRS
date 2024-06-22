@@ -241,7 +241,31 @@
                 display: none;
             }
         }
-
+        @@-webkit-keyframes borderBlink {    
+            from, to {    
+                border-color: transparent    
+            }    
+            50% {    
+                border-color: cyan    
+            }    
+        }    
+        @@keyframes borderBlink {    
+            from, to {    
+                border-color: transparent    
+            }    
+            50% {    
+                border-color: cyan    
+            }    
+        }    
+        .borderBlink{    
+            border: 2px solid cyan;
+            /* add 'border-color: transparent' if you wish no border to show initially */   
+        }
+/*         .borderBlink::selection {
+             border: 2px solid cyan;
+            -webkit-animation: borderBlink .25s step-end 5;    
+            animation: borderBlink .25s step-end 5;    
+        } */
     </style>
 
     <script>
