@@ -242,6 +242,12 @@
                 <br />
                 <br />
                 <h5>DELIVERY (email)</h5>
+                @if(Model.Subscription.ExtensionSettings.ParameterValues.Count() != 10)
+                {
+                   <div>(admin subscription)</div>
+                }
+                else
+                {
                 <fieldset name="delivery">
                     <p>
                         <label style="font-size:10pt">To:</label><br />
@@ -300,6 +306,7 @@
                     </p>
                     @Html.HiddenFor(x => x.Subscription.Id)
                 </fieldset>
+                }
                 <br />
                 <br />
                 @*   <h5>PARAMETERS</h5>
