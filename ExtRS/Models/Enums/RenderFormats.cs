@@ -6,15 +6,13 @@ namespace Sonrai.ExtRS.Models.Enums
     {
         [Description("PDF")]
         PDF,
-        [Description("Excel")]
-        Excel,
+        [Description("EXCEL")]
+        EXCELOPENXML,
         [Description("TIFF")]
         TIFF,
         [Description("CSV")]
         CSV,
         [Description("XML")]
-        XML,
-        [Description("Data Feed")]
-        DataFeed
+        XML
     }
 }

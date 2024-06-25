@@ -1,4 +1,5 @@
 ﻿@using Sonrai.ExtRS.Models.Enums
+
 @model SubscriptionView
 <script>
     $(document).ready(function () {
@@ -280,7 +281,7 @@
                         @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[5].Name)
                         @Html.DropDownListFor(x => x.Subscription!.ExtensionSettings.ParameterValues[5].Value,
                                  Enum.GetValues(typeof(RenderFormats)).Cast<RenderFormats>()
-                                 .Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }))
+                                     .Select(x => new SelectListItem { Text = EnumExtensions.GetEnumDescription(x), Value = x.ToString() }))
                     </p>
                     <p>
                         <label style="font-size:10pt">Include Report:</label><br />

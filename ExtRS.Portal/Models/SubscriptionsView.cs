@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Reflection;
 using ReportingServices.Api.Models;
 using Sonrai.ExtRS.Models.Enums;
 
@@ -37,5 +38,21 @@ namespace ExtRS.Portal.Models
         public bool IncludeLink { get; set; }
         private string? _currentTab;
         public override string? CurrentTab { get { return _currentTab; } set { _currentTab = value!; } }
+    }
+
+    public static class EnumExtensions
+    {
+        public static string GetEnumDescription(Enum value)
+        {
+            FieldInfo fi = value.GetType().GetField(value.ToString());
+            DescriptionAttribute[] attributes = fi.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
+
+            if (attributes != null && attributes.Any())
+            {
+                return attributes.First().Description;
+            }
+
+            return value.ToString();
+        }
     }
 }

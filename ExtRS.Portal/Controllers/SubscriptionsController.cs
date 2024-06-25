@@ -8,6 +8,8 @@ using System.Data;
 using Microsoft.Extensions.Azure;
 using Microsoft.Identity.Client;
 using Sonrai.ExtRS.Models.Enums;
+using System.ComponentModel;
+using System.Reflection;
 
 namespace ExtRS.Portal.Controllers
 {
