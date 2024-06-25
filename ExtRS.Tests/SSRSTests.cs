@@ -156,7 +156,6 @@ namespace Sonrai.ExtRS.UnitTests
         {
             string json = @"{
             ""@odata.context"": ""https://localhost/reports/api/v2.0/$metadata#Subscriptions/$entity"",
-                ""Id"": ""eff45b9d-d850-41ed-85ec-3cd59a5673c9"",
                 ""Owner"": """ + Resources.User + @""",
                 ""IsDataDriven"": false,
                 ""Description"": ""string..."",
