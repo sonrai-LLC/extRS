@@ -8,8 +8,6 @@ namespace Sonrai.ExtRS.Models.Enums
         PDF,
         [Description("EXCEL")]
         EXCELOPENXML,
-        [Description("TIFF")]
-        TIFF,
         [Description("CSV")]
         CSV,
         [Description("XML")]

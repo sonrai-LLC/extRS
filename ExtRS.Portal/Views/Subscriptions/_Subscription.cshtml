@@ -132,8 +132,7 @@
                         }
                         else
                         {
-                            @Html.Label(Model.Subscription!.Report)
-                            ;
+                            @Html.Label(Model.Subscription!.Report)                           
                             @Html.HiddenFor(x => x.Subscription!.Report)
                         }
                     </p>
@@ -142,7 +141,6 @@
                 <br />
                 <h5>SCHEDULE</h5>
                 <fieldset name="schedule">
-
                     @Html.DropDownListFor(x => x.SelectedRecurrence, new SelectList(Model.RecurrenceTypes), "--Select--", new { onchange = "changeRecurrenceDiv(this, this.value)", @id = "recurrenceTypes", @class = "bg-dark text-white" })
                     <br />
                     <br />

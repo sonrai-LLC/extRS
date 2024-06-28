@@ -280,7 +280,11 @@ namespace ExtRS.Portal.Controllers
             List<Report> reports = await _ssrs.GetReports();
             SubscriptionView view = new SubscriptionView { CurrentTab = "Subscriptions", Subscription = subscription, ReportServerName = _configuration["ReportServerName"]!, Reports = reports };
 
-
+            if(subscription.ExtensionSettings.ParameterValues.Count != 10)
+            {
+                // reorder and blank any blank vals
+            }
+            
             view.IsPM = view.Subscription.Schedule.Definition.StartDateTime.Value.Hour >= 12;
             view.IsAM = !view.IsPM;
             view.ScheduleStartHours = view.Subscription.Schedule.Definition.StartDateTime!.Value.Hour - (view.IsPM ? 12 : 0);
