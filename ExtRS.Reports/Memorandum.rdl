@@ -1,16 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily" xmlns:am="http://schemas.microsoft.com/sqlserver/reporting/authoringmetadata">
-  <am:AuthoringMetadata>
-    <am:CreatedBy>
-      <am:Name>SSDTRS</am:Name>
-      <am:Version>17.5.33530.505</am:Version>
-    </am:CreatedBy>
-    <am:UpdatedBy>
-      <am:Name>SSDTRS</am:Name>
-      <am:Version>17.5.33530.505</am:Version>
-    </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2023-07-14T01:12:50.3074420Z</am:LastModifiedTimestamp>
-  </am:AuthoringMetadata>
+<Report MustUnderstand="df" xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner" xmlns:df="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition/defaultfontfamily">
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
@@ -254,7 +243,7 @@
               <Paragraph>
                 <TextRuns>
                   <TextRun>
-                    <Value>Effective today, 4/20/2024, all Wisconsin cannabis convictions are expunged from state records and Wisconsin individual adults and businesses are free to possess, cultivate and transact all forms of cannabis in accordance with new state adult-use cannabis laws.</Value>
+                    <Value>Effective today, 4/20/2025, all Wisconsin cannabis convictions are expunged from state records and Wisconsin individual adults and businesses are free to possess, cultivate and transact all forms of cannabis in accordance with new state adult-use cannabis laws.</Value>
                     <Style>
                       <FontWeight>Normal</FontWeight>
                     </Style>
