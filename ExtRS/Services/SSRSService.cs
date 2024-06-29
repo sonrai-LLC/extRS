@@ -226,16 +226,16 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<ODataSubscriptions>(await response.Content.ReadAsStringAsync())!.Value;
         }
 
-        public async Task<DataSetParameter> GetDataSetParameterDefinition(string idOrPath)
+        public async Task<ODataDataSetParameters> GetDataSetParameterDefinitions(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("DataSets({0})/ParameterDefinitions", idOrPath));
-            return JsonConvert.DeserializeObject<DataSetParameter>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<ODataDataSetParameters>(await response.Content.ReadAsStringAsync())!;
         }
 
         public async Task<List<ReportParameterDefinition>> GetReportParameterDefinition(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/ParameterDefinitions", idOrPath));
-            List<ReportParameterDefinition> parms = JsonConvert.DeserializeObject<List<ReportParameterDefinition>>(await response.Content.ReadAsStringAsync())!;
+            var parms = JsonConvert.DeserializeObject<ODataReportParameterDefinitions>(await response.Content.ReadAsStringAsync())!.Value.ToList();
 
             return parms;
         }
@@ -305,9 +305,8 @@ namespace Sonrai.ExtRS
 
         public async Task<string> GetParameterHtml(string pathOrId)
         {
-            List<ReportParameterDefinition> definitions = await GetReportParameterDefinition(pathOrId);
-            // TODO: will improve above method and implement this method
-            // once ExtRS is fully implemented
+            var definitions = await GetReportParameterDefinition(pathOrId);
+
             return "";
         }
 

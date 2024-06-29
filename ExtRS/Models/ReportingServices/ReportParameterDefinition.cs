@@ -89,21 +89,21 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="ParameterState", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ParameterState")]
-    public ReportParameterState ParameterState { get; set; }
+    public string ParameterState { get; set; }
 
     /// <summary>
     /// Gets or Sets ParameterType
     /// </summary>
     [DataMember(Name="ParameterType", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ParameterType")]
-    public ReportParameterType ParameterType { get; set; }
+    public string ParameterType { get; set; }
 
     /// <summary>
     /// Gets or Sets ParameterVisibility
     /// </summary>
     [DataMember(Name="ParameterVisibility", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ParameterVisibility")]
-    public ReportParameterVisibility ParameterVisibility { get; set; }
+    public string ParameterVisibility { get; set; }
 
     /// <summary>
     /// A string value that specifies text used to prompt a user for the value of the ReportParameter.
