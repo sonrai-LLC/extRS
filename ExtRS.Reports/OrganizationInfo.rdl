@@ -7,9 +7,9 @@
     </am:CreatedBy>
     <am:UpdatedBy>
       <am:Name>SSDTRS</am:Name>
-      <am:Version>17.5.33530.505</am:Version>
+      <am:Version>17.10.35013.160</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2023-07-12T03:49:35.9469387Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2024-06-30T03:08:48.1275838Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
@@ -1068,21 +1068,6 @@
               <BackgroundGradientType>None</BackgroundGradientType>
             </Style>
           </Chart>
-          <Image Name="personMainImg">
-            <Source>Embedded</Source>
-            <Value>logaster201804ibm</Value>
-            <Sizing>FitProportional</Sizing>
-            <Top>0.06944in</Top>
-            <Left>0.20708in</Left>
-            <Height>2.31944in</Height>
-            <Width>2.80208in</Width>
-            <ZIndex>3</ZIndex>
-            <Style>
-              <Border>
-                <Style>None</Style>
-              </Border>
-            </Style>
-          </Image>
         </ReportItems>
         <Height>3.87375in</Height>
         <Style />

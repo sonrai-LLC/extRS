@@ -187,14 +187,14 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<IActionResult> PostSubscription(SubscriptionView viewModel)
         {
-            if(!viewModel.Subscription.Schedule.Definition.EndDateSpecified)
+            if (!viewModel.Subscription.Schedule.Definition.EndDateSpecified)
             {
                 viewModel.Subscription.Schedule.Definition.EndDate = null;
             }
 
             viewModel.Subscription!.ExtensionSettings.ParameterValues[6].Value = viewModel.IncludeReport ? "True" : "False";
             viewModel.Subscription!.ExtensionSettings.ParameterValues[7].Value = viewModel.IncludeLink ? "True" : "False";
-            if(viewModel.Subscription.Schedule.Definition.EndDate != null)
+            if (viewModel.Subscription.Schedule.Definition.EndDate != null)
             {
                 viewModel.Subscription.Schedule.Definition.EndDateSpecified = true;
             }
@@ -225,7 +225,7 @@ namespace ExtRS.Portal.Controllers
                 viewModel.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence = null;
             }
             else
-            {        
+            {
                 viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval = viewModel.RecurrenceMinutes + (viewModel.RecurrenceHours * 60);
             }
             if (viewModel.SelectedRecurrence != RecurrenceType.Weekly)
@@ -280,11 +280,11 @@ namespace ExtRS.Portal.Controllers
             List<Report> reports = await _ssrs.GetReports();
             SubscriptionView view = new SubscriptionView { CurrentTab = "Subscriptions", Subscription = subscription, ReportServerName = _configuration["ReportServerName"]!, Reports = reports };
 
-            if(subscription.ExtensionSettings.ParameterValues.Count != 10)
+            if (subscription.ExtensionSettings.ParameterValues.Count != 10)
             {
                 // reorder and blank any blank vals
             }
-            
+
             view.IsPM = view.Subscription.Schedule.Definition.StartDateTime.Value.Hour >= 12;
             view.IsAM = !view.IsPM;
             view.ScheduleStartHours = view.Subscription.Schedule.Definition.StartDateTime!.Value.Hour - (view.IsPM ? 12 : 0);
