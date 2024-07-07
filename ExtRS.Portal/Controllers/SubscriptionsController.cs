@@ -163,38 +163,43 @@ namespace ExtRS.Portal.Controllers
                 IsActive = true,
                 IsDataDriven = false,
                 Owner = "extRSAuth",
-                ExtensionSettings = new ExtensionSettings()
-                {
-                    Extension = "Report Server Email",
-                    ParameterValues = new List<ParameterValue>()
-                    {
-                        new ParameterValue() { Name = "TO", IsValueFieldReference = true },
-                        new ParameterValue() { Name = "CC" },
-                        new ParameterValue() { Name = "BCC" },
-                        new ParameterValue() { Name = "ReplyTo" },
-                        new ParameterValue() { Name = "Subject" },
-                        new ParameterValue() { Name = "RenderFormat" },
-                        new ParameterValue() { Name = "IncludeReport" },
-                        new ParameterValue() { Name = "IncludeLink" },
-                        new ParameterValue() { Name = "Priority" },
-                        new ParameterValue() { Name = "Comment" }
-                    }
-                }
+                ExtensionSettings = GetNewExtensionSettings()
             };
 
             return View("_Subscription", viewModel);
         }
 
+        public ExtensionSettings GetNewExtensionSettings()
+        {
+            return new ExtensionSettings()
+            {
+                Extension = "Report Server Email",
+                ParameterValues = new List<ParameterValue>()
+                {
+                    new ParameterValue() { Name = "TO", IsValueFieldReference = true },
+                    new ParameterValue() { Name = "CC" },
+                    new ParameterValue() { Name = "BCC" },
+                    new ParameterValue() { Name = "ReplyTo" },
+                    new ParameterValue() { Name = "Subject" },
+                    new ParameterValue() { Name = "RenderFormat" },
+                    new ParameterValue() { Name = "IncludeReport" },
+                    new ParameterValue() { Name = "IncludeLink" },
+                    new ParameterValue() { Name = "Priority" },
+                    new ParameterValue() { Name = "Comment" }
+                }
+            };
+        }
+
         public async Task<IActionResult> PostSubscription(SubscriptionView viewModel)
         {
-            if(!viewModel.Subscription.Schedule.Definition.EndDateSpecified)
+            if (!viewModel.Subscription.Schedule.Definition.EndDateSpecified)
             {
                 viewModel.Subscription.Schedule.Definition.EndDate = null;
             }
 
             viewModel.Subscription!.ExtensionSettings.ParameterValues[6].Value = viewModel.IncludeReport ? "True" : "False";
             viewModel.Subscription!.ExtensionSettings.ParameterValues[7].Value = viewModel.IncludeLink ? "True" : "False";
-            if(viewModel.Subscription.Schedule.Definition.EndDate != null)
+            if (viewModel.Subscription.Schedule.Definition.EndDate != null)
             {
                 viewModel.Subscription.Schedule.Definition.EndDateSpecified = true;
             }
@@ -225,7 +230,7 @@ namespace ExtRS.Portal.Controllers
                 viewModel.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence = null;
             }
             else
-            {        
+            {
                 viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval = viewModel.RecurrenceMinutes + (viewModel.RecurrenceHours * 60);
             }
             if (viewModel.SelectedRecurrence != RecurrenceType.Weekly)
@@ -280,11 +285,11 @@ namespace ExtRS.Portal.Controllers
             List<Report> reports = await _ssrs.GetReports();
             SubscriptionView view = new SubscriptionView { CurrentTab = "Subscriptions", Subscription = subscription, ReportServerName = _configuration["ReportServerName"]!, Reports = reports };
 
-            if(subscription.ExtensionSettings.ParameterValues.Count != 10)
+            if (subscription.ExtensionSettings.ParameterValues.Count != 10)
             {
-                // reorder and blank any blank vals
+                subscription.ExtensionSettings = GetNewExtensionSettings();
             }
-            
+
             view.IsPM = view.Subscription.Schedule.Definition.StartDateTime.Value.Hour >= 12;
             view.IsAM = !view.IsPM;
             view.ScheduleStartHours = view.Subscription.Schedule.Definition.StartDateTime!.Value.Hour - (view.IsPM ? 12 : 0);
