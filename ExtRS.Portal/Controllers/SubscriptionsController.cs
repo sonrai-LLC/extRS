@@ -169,6 +169,7 @@ namespace ExtRS.Portal.Controllers
             return View("_Subscription", viewModel);
         }
 
+        // refactor to populate for existing ParameterValues
         public ExtensionSettings GetNewExtensionSettings()
         {
             return new ExtensionSettings()
