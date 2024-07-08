@@ -163,26 +163,32 @@ namespace ExtRS.Portal.Controllers
                 IsActive = true,
                 IsDataDriven = false,
                 Owner = "extRSAuth",
-                ExtensionSettings = new ExtensionSettings()
-                {
-                    Extension = "Report Server Email",
-                    ParameterValues = new List<ParameterValue>()
-                    {
-                        new ParameterValue() { Name = "TO", IsValueFieldReference = true },
-                        new ParameterValue() { Name = "CC" },
-                        new ParameterValue() { Name = "BCC" },
-                        new ParameterValue() { Name = "ReplyTo" },
-                        new ParameterValue() { Name = "Subject" },
-                        new ParameterValue() { Name = "RenderFormat" },
-                        new ParameterValue() { Name = "IncludeReport" },
-                        new ParameterValue() { Name = "IncludeLink" },
-                        new ParameterValue() { Name = "Priority" },
-                        new ParameterValue() { Name = "Comment" }
-                    }
-                }
+                ExtensionSettings = GetNewExtensionSettings()
             };
 
             return View("_Subscription", viewModel);
+        }
+
+        // refactor to populate for existing ParameterValues
+        public ExtensionSettings GetNewExtensionSettings()
+        {
+            return new ExtensionSettings()
+            {
+                Extension = "Report Server Email",
+                ParameterValues = new List<ParameterValue>()
+                {
+                    new ParameterValue() { Name = "TO", IsValueFieldReference = true },
+                    new ParameterValue() { Name = "CC" },
+                    new ParameterValue() { Name = "BCC" },
+                    new ParameterValue() { Name = "ReplyTo" },
+                    new ParameterValue() { Name = "Subject" },
+                    new ParameterValue() { Name = "RenderFormat" },
+                    new ParameterValue() { Name = "IncludeReport" },
+                    new ParameterValue() { Name = "IncludeLink" },
+                    new ParameterValue() { Name = "Priority" },
+                    new ParameterValue() { Name = "Comment" }
+                }
+            };
         }
 
         public async Task<IActionResult> PostSubscription(SubscriptionView viewModel)
@@ -282,7 +288,7 @@ namespace ExtRS.Portal.Controllers
 
             if (subscription.ExtensionSettings.ParameterValues.Count != 10)
             {
-                // reorder and blank any blank vals
+                subscription.ExtensionSettings = GetNewExtensionSettings();
             }
 
             view.IsPM = view.Subscription.Schedule.Definition.StartDateTime.Value.Hour >= 12;

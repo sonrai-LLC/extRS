@@ -39,6 +39,7 @@ namespace EditorNetCoreDemo.Controllers
                         //.Validator(Validation.Numeric())
                         .SetFormatter(Format.IfEmpty(null))
                     )
+
                     .Field(new Field("Email"))  
                     .TryCatch(true)
                     .Process(Request)
