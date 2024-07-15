@@ -145,6 +145,13 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(result.Count > 0);
         }
 
+        [TestMethod]
+        public async Task GetGoogleNewsWithLinksSucceeds()
+        {
+            var result = await ReferenceDataService.GetGoogleNewsWithLinks("IBM");
+            Assert.IsTrue(result.Count > 0);
+        }
+
         [Ignore]
         [TestMethod]
         public void GetGoogleTranslationSucceeds()

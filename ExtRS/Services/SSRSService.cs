@@ -35,6 +35,8 @@ namespace Sonrai.ExtRS
             HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
             using (var handler = new HttpClientHandler() { CookieContainer = _cookieContainer })
             {
+                operation = operation += "?UserName=extRSAuth"; // you can set this to any valid RSUser to get catalog item-level sec
+
                 using (_client = new HttpClient(handler))
                 {
                     switch (verb)
