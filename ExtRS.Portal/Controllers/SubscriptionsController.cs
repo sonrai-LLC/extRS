@@ -336,12 +336,14 @@ namespace ExtRS.Portal.Controllers
                 view.SelectedRecurrence = RecurrenceType.Onetime;
             }
 
-            if (view.Subscription.ExtensionSettings.ParameterValues[6].Value == "True")
+            if (view.Subscription.ExtensionSettings.ParameterValues.Count >= 7 &&
+                view.Subscription.ExtensionSettings.ParameterValues[6].Value == "True")
             {
                 view.IncludeReport = true;
             }
 
-            if (view.Subscription.ExtensionSettings.ParameterValues[7].Value == "True")
+            if (view.Subscription.ExtensionSettings.ParameterValues.Count >= 8 &&
+                view.Subscription.ExtensionSettings.ParameterValues[7].Value == "True")
             {
                 view.IncludeLink = true;
             }
