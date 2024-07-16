@@ -948,7 +948,6 @@ Fields!WinPct.Value &lt;= .400, "red")</Color>
                             <PaddingBottom>2pt</PaddingBottom>
                           </Style>
                         </Textbox>
-                        <rd:Selected>true</rd:Selected>
                       </CellContents>
                     </TablixCell>
                     <TablixCell>
@@ -2197,6 +2196,16 @@ Fields!WinPct.Value &lt;= .400, "red")</Color>
         <cl:HideUpdateNotifications>true</cl:HideUpdateNotifications>
       </cl:ComponentMetadata>
     </ReportParameter>
+    <ReportParameter Name="UserName">
+      <DataType>String</DataType>
+      <DefaultValue>
+        <Values>
+          <Value>n/a</Value>
+        </Values>
+      </DefaultValue>
+      <Prompt>UserName</Prompt>
+      <Hidden>true</Hidden>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -2212,6 +2221,11 @@ Fields!WinPct.Value &lt;= .400, "red")</Color>
           <ColumnIndex>1</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>Qs</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>2</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>UserName</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>

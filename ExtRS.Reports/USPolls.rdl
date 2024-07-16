@@ -1676,6 +1676,19 @@
       <Prompt>Qs</Prompt>
       <Hidden>true</Hidden>
     </ReportParameter>
+    <ReportParameter Name="UserName">
+      <DataType>String</DataType>
+      <Nullable>true</Nullable>
+      <DefaultValue>
+        <Values>
+          <Value>n/a</Value>
+        </Values>
+      </DefaultValue>
+      <AllowBlank>true</AllowBlank>
+      <Prompt>UserName</Prompt>
+      <Hidden>true</Hidden>
+      <UsedInQuery>False</UsedInQuery>
+    </ReportParameter>
   </ReportParameters>
   <ReportParametersLayout>
     <GridLayoutDefinition>
@@ -1696,6 +1709,11 @@
           <ColumnIndex>2</ColumnIndex>
           <RowIndex>0</RowIndex>
           <ParameterName>Qs</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>3</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>UserName</ParameterName>
         </CellDefinition>
       </CellDefinitions>
     </GridLayoutDefinition>
