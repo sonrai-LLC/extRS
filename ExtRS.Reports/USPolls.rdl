@@ -720,7 +720,11 @@
                         <Border>
                           <Width>3pt</Width>
                         </Border>
-                        <Color>=Iif(Fields!party.Value = "DEM", "#0096FF", "maroon")</Color>
+                        <Color>=Switch(
+Fields!candidate_name.Value = "Kamala Harris", "#00BFFF",
+Fields!candidate_name.Value = "Joe Biden", "#073980",
+Fields!candidate_name.Value = "Donald Trump", "Maroon"
+)</Color>
                       </Style>
                       <ChartMarker>
                         <Type>Auto</Type>
@@ -1117,7 +1121,11 @@
                       </ChartDataLabel>
                       <Style>
                         <Border />
-                        <Color>=Iif(Fields!party.Value = "DEM", "#0096FF", "maroon")</Color>
+                        <Color>=Switch(
+Fields!candidate_name.Value = "Kamala Harris", "#00BFFF",
+Fields!candidate_name.Value = "Joe Biden", "#073980",
+Fields!candidate_name.Value = "Donald Trump", "Maroon"
+)</Color>
                       </Style>
                       <ChartMarker>
                         <Size>1pt</Size>
