@@ -3,6 +3,7 @@ using ReportingServices.Api.Models;
 using ExtRS.Portal.Models;
 using Sonrai.ExtRS;
 using Sonrai.ExtRS.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -24,6 +25,7 @@ namespace ExtRS.Portal.Controllers
             _ssrs = new SSRSService(_connection, _configuration);
         }
 
+        [Authorize]
         public async Task<IActionResult> Dashboard()
         {
             Report report = await _ssrs.GetReport("path='/Reports/Team'");
