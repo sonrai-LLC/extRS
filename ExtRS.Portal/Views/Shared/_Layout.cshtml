@@ -536,7 +536,7 @@
 </div>
 
 
-
+@* 
 @{
     if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)
     {
@@ -547,7 +547,15 @@
         Layout = "/Areas/Identity/Pages/_Layout.cshtml";
     }
 }
+ *@
 
+<form class="form-inline" action="/Account/Logout" method="post">
+    <button type="submit" class="nav-link btn btn-link text-dark">QUIT</button>
+</form>
+<br/>
+<a class="nav-link text-dark" title="Manage" href="/Identity/Account/Manage">Hello colin@sonrai.io!</a>
+
+@* 
 <h1>Manage your account</h1>
 
 <div>
@@ -557,12 +565,12 @@
       @*   <div class="col-md-3">
             <partial name="_ManageNav" />
         </div> *@
-        <div class="col-md-9">
+@*         <div class="col-md-9">
             @RenderBody()
         </div>
     </div>
 </div>
-
-@section Scripts {
+ *@
+@* @section Scripts {
     @RenderSection("Scripts", required: false)
-}
+} *@

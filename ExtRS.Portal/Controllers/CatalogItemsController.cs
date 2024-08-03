@@ -9,9 +9,11 @@ using System.Text;
 using System.IO;
 using System;
 using System.Security.Policy;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExtRS.Portal.Controllers
 {
+    [Authorize]
     public class CatalogItemsController : Controller
     {
         private readonly ILogger<CatalogItemsController> _logger;

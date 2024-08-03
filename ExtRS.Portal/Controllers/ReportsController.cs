@@ -10,9 +10,11 @@ using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using static Microsoft.EntityFrameworkCore.Metadata.Internal.EntityType;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExtRS.Portal.Controllers
 {
+    [Authorize]
     public class ReportsController : Controller
     {
         private readonly ILogger<ReportsController> _logger;

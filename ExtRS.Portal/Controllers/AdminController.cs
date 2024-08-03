@@ -3,9 +3,11 @@ using ExtRS.Portal.Models;
 using ReportingServices.Api.Models;
 using Sonrai.ExtRS;
 using Sonrai.ExtRS.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExtRS.Portal.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> _logger;

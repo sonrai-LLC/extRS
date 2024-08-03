@@ -4,9 +4,11 @@ using DataTables;
 using ExtRS.Portal.Models;
 using Sonrai.ExtRS;
 using Sonrai.ExtRS.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EditorNetCoreDemo.Controllers
 {
+    [Authorize]
     public class StatsController : Controller
     {
         private readonly ILogger<StatsController> _logger;

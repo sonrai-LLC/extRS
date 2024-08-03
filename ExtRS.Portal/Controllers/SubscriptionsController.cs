@@ -10,9 +10,12 @@ using Microsoft.Identity.Client;
 using Sonrai.ExtRS.Models.Enums;
 using System.ComponentModel;
 using System.Reflection;
+using AngleSharp.Css;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExtRS.Portal.Controllers
 {
+    [Authorize]
     public class SubscriptionsController : Controller
     {
         private readonly ILogger<SubscriptionsController> _logger;
@@ -163,30 +166,45 @@ namespace ExtRS.Portal.Controllers
                 IsActive = true,
                 IsDataDriven = false,
                 Owner = "extRSAuth",
-                ExtensionSettings = GetNewExtensionSettings()
+                ExtensionSettings = GetNewExtensionSettings(null)
             };
 
             return View("_Subscription", viewModel);
         }
 
         // refactor to populate for existing ParameterValues
-        public ExtensionSettings GetNewExtensionSettings()
+        public ExtensionSettings GetNewExtensionSettings(List<ParameterValue>? extensionParameters)
         {
+            if (extensionParameters != null)
+            {
+                extensionParameters = new List<ParameterValue>();
+            }
+            var to = extensionParameters.Where(x => x.Name == "TO").FirstOrDefault();
+            var cc = extensionParameters.Where(x => x.Name == "CC").FirstOrDefault();
+            var bcc = extensionParameters.Where(x => x.Name == "BCC").FirstOrDefault();
+            var replyTo = extensionParameters.Where(x => x.Name == "ReplyTo").FirstOrDefault();
+            var subject = extensionParameters.Where(x => x.Name == "Subject").FirstOrDefault();
+            var renderFormat = extensionParameters.Where(x => x.Name == "RenderFormat").FirstOrDefault();
+            var includeReport = extensionParameters.Where(x => x.Name == "IncludeReport").FirstOrDefault();
+            var includeLink = extensionParameters.Where(x => x.Name == "IncludeLink").FirstOrDefault();
+            var priority = extensionParameters.Where(x => x.Name == "Priority").FirstOrDefault();
+            var comment = extensionParameters.Where(x => x.Name == "Comment").FirstOrDefault();
+
             return new ExtensionSettings()
             {
                 Extension = "Report Server Email",
                 ParameterValues = new List<ParameterValue>()
                 {
-                    new ParameterValue() { Name = "TO", IsValueFieldReference = true },
-                    new ParameterValue() { Name = "CC" },
-                    new ParameterValue() { Name = "BCC" },
-                    new ParameterValue() { Name = "ReplyTo" },
-                    new ParameterValue() { Name = "Subject" },
-                    new ParameterValue() { Name = "RenderFormat" },
-                    new ParameterValue() { Name = "IncludeReport" },
-                    new ParameterValue() { Name = "IncludeLink" },
-                    new ParameterValue() { Name = "Priority" },
-                    new ParameterValue() { Name = "Comment" }
+                    new ParameterValue() { Name = "TO", IsValueFieldReference = true, Value = to?.Value! },
+                    new ParameterValue() { Name = "CC", Value = cc?.Value! },
+                    new ParameterValue() { Name = "BCC", Value = bcc?.Value! },
+                    new ParameterValue() { Name = "ReplyTo", Value = replyTo?.Value! },
+                    new ParameterValue() { Name = "Subject", Value = subject?.Value! },
+                    new ParameterValue() { Name = "RenderFormat", Value = renderFormat?.Value! },
+                    new ParameterValue() { Name = "IncludeReport", Value = includeReport?.Value! },
+                    new ParameterValue() { Name = "IncludeLink", Value = includeLink?.Value! },
+                    new ParameterValue() { Name = "Priority", Value = priority?.Value! },
+                    new ParameterValue() { Name = "Comment", Value = comment?.Value! }
                 }
             };
         }
@@ -288,7 +306,7 @@ namespace ExtRS.Portal.Controllers
 
             if (subscription.ExtensionSettings.ParameterValues.Count != 10)
             {
-                subscription.ExtensionSettings = GetNewExtensionSettings();
+                subscription.ExtensionSettings = GetNewExtensionSettings(subscription.ExtensionSettings.ParameterValues);
             }
 
             view.IsPM = view.Subscription.Schedule.Definition.StartDateTime.Value.Hour >= 12;

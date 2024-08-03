@@ -6,9 +6,11 @@ using Sonrai.ExtRS.Models;
 using System.Diagnostics;
 using System.Data;
 using DataSet = ReportingServices.Api.Models.DataSet;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExtRS.Portal.Controllers
 {
+    [Authorize]
     public class DatasetsController : Controller
     {
         private readonly ILogger<DatasetsController> _logger;
