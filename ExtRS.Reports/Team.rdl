@@ -2098,11 +2098,41 @@ Fields!WinPct.Value &lt;= .400, "red")</Color>
               <PaddingBottom>2pt</PaddingBottom>
             </Style>
           </Textbox>
+          <Textbox Name="Textbox5">
+            <CanGrow>true</CanGrow>
+            <KeepTogether>true</KeepTogether>
+            <Paragraphs>
+              <Paragraph>
+                <TextRuns>
+                  <TextRun>
+                    <Value>="javascript:eval(unescape('alert('hi'););"</Value>
+                    <Style />
+                  </TextRun>
+                </TextRuns>
+                <Style />
+              </Paragraph>
+            </Paragraphs>
+            <rd:DefaultName>Textbox5</rd:DefaultName>
+            <Top>0.20431in</Top>
+            <Left>6.72022in</Left>
+            <Height>0.67708in</Height>
+            <Width>1.29602in</Width>
+            <ZIndex>18</ZIndex>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+              <PaddingLeft>2pt</PaddingLeft>
+              <PaddingRight>2pt</PaddingRight>
+              <PaddingTop>2pt</PaddingTop>
+              <PaddingBottom>2pt</PaddingBottom>
+            </Style>
+          </Textbox>
         </ReportItems>
         <Height>4.87389in</Height>
         <Style />
       </Body>
-      <Width>7.62041in</Width>
+      <Width>8.23499in</Width>
       <Page>
         <PageHeader>
           <Height>0.08333in</Height>

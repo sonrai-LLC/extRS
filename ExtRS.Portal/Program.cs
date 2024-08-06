@@ -9,6 +9,12 @@ using Sonrai.ExtRS;
 using System.Data.Common;
 using System.Threading.RateLimiting;
 using WebPWrecover.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
 
 DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
 var builder = WebApplication.CreateBuilder(args);
@@ -57,9 +63,13 @@ builder.Services.AddScoped<UserModel>();
 builder.Services.AddScoped<IdentityUser>();
 builder.Services.AddScoped<SignInManager<UserModel>>();
 
+builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
+
 // SocialAuth .Use() here
 
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages()
+    .AddMicrosoftIdentityUI();
 builder.Services.AddIdentityCore<UserModel>(options => options.SignIn.RequireConfirmedAccount = true)
  .AddEntityFrameworkStores<ApplicationDbContext>()
  .AddDefaultTokenProviders();
@@ -72,7 +82,10 @@ builder.Services.Configure<IdentityOptions>(options =>
     // Configure Customize password requirements, lockout settings, etc.
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = options.DefaultPolicy;
+});
 
 
 var app = builder.Build();
@@ -109,6 +122,7 @@ app.UseEndpoints(endpoints =>
 app.UseSession();
 app.UseRateLimiter();
 app.MapRazorPages();
+app.MapControllers();
 
 app.UseCors(builder => builder
 .WithOrigins("https://localhost", "https://ssrssrv.net")
