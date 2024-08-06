@@ -63,8 +63,8 @@ builder.Services.AddScoped<UserModel>();
 builder.Services.AddScoped<IdentityUser>();
 builder.Services.AddScoped<SignInManager<UserModel>>();
 
-builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
+//builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
+//    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
 
 // SocialAuth .Use() here
 
