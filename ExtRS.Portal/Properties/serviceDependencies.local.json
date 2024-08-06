@@ -6,13 +6,12 @@
       "type": "secrets.keyVault",
       "connectionId": "VaultUri"
     },
-    "identityapp1": {
-      "ignored": "true",
-      "type": "identityapp"
-    },
     "mssql1": {
-      "ignored": "true",
-      "type": "mssql"
+      "serviceConnectorResourceId": "",
+      "secretStore": "AzureKeyVault",
+      "type": "mssql.onprem",
+      "connectionId": "ConnectionStrings:DefaultConnection",
+      "dynamicId": null
     }
   }
 }

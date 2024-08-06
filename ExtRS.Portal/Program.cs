@@ -95,17 +95,19 @@ app.UseAuthentication();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
-    app.UseMigrationsEndPoint();
+	app.UseMigrationsEndPoint();
+	app.UseMigrationsEndPoint();
 }
 else
 {
     var keyVaultEndpoint = new Uri("https://sonraivault.vault.azure.net/");
     builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
-    app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
+    //var keyVaultEndpoint = new Uri("https://sonraivault.vault.azure.net/");
+    //builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
+    //app.UseExceptionHandler("/Home/Error");
 }
+
+
 
 app.UseHsts();
 app.UseHttpsRedirection();
