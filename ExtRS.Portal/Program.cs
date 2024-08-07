@@ -5,22 +5,14 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web.UI;
 using Sonrai.ExtRS;
 using System.Data.Common;
 using System.Threading.RateLimiting;
 using WebPWrecover.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.UI;
 
 DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
-
-// Add services to the container.
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
 	.AddEntityFrameworkStores<ApplicationDbContext>();
@@ -76,7 +68,6 @@ builder.Services.AddIdentityCore<UserModel>(options => options.SignIn.RequireCon
 
 builder.Services.AddAuthentication();
 
-// TODO: immplement!
 builder.Services.Configure<IdentityOptions>(options =>
 {
     // Configure Customize password requirements, lockout settings, etc.
@@ -86,7 +77,6 @@ builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = options.DefaultPolicy;
 });
-
 
 var app = builder.Build();
 
@@ -106,8 +96,6 @@ else
     //builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
     //app.UseExceptionHandler("/Home/Error");
 }
-
-
 
 app.UseHsts();
 app.UseHttpsRedirection();
