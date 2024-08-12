@@ -66,7 +66,17 @@ builder.Services.AddIdentityCore<UserModel>(options => options.SignIn.RequireCon
  .AddEntityFrameworkStores<ApplicationDbContext>()
  .AddDefaultTokenProviders();
 
-builder.Services.AddAuthentication();
+builder.Services.AddAuthentication()
+.AddGoogle(googleOptions =>
+{
+    googleOptions.ClientId = "";
+    googleOptions.ClientSecret = "";
+})
+.AddLinkedIn(o =>
+{
+    o.ClientId = "";
+    o.ClientSecret = "";
+});
 
 builder.Services.Configure<IdentityOptions>(options =>
 {
