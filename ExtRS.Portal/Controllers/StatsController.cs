@@ -29,7 +29,7 @@ namespace EditorNetCoreDemo.Controllers
 
         public async Task<ActionResult> Stats() 
         {
-            return View("Stats", new StatsView() { CurrentTab = "Stats", SystemInfo = await _ssrs.GetSystemInfo(), ReportExecutionStats = await _ssrs.GetReportExecutionStats(_configuration["rapport"]) });
+            return View("Stats", new StatsView() { CurrentTab = "Stats", SystemInfo = await _ssrs.GetSystemInfo(), ReportExecutionStats = await _ssrs.GetReportExecutionStats(_configuration["defaultConnection"]!) });
         }
     }
 }
