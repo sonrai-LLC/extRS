@@ -5,32 +5,41 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Web.UI;
 using Sonrai.ExtRS;
 using System.Data.Common;
 using System.Threading.RateLimiting;
 using WebPWrecover.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.UI;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
+
+// Add services to the container.
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-	.AddEntityFrameworkStores<ApplicationDbContext>();
+    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 builder.Services.AddRateLimiter(options =>
 {
-	options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
-	{
-		return RateLimitPartition.GetFixedWindowLimiter(partitionKey: httpContext.Request.Headers.Host.ToString(), partition =>
-			new FixedWindowRateLimiterOptions
-			{
-				PermitLimit = 20,
-				AutoReplenishment = true,
-				Window = TimeSpan.FromSeconds(10)
-			});
-	});
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
+    {
+        return RateLimitPartition.GetFixedWindowLimiter(partitionKey: httpContext.Request.Headers.Host.ToString(), partition =>
+            new FixedWindowRateLimiterOptions
+            {
+                PermitLimit = 20,
+                AutoReplenishment = true,
+                Window = TimeSpan.FromSeconds(10)
+            });
+    });
 });
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -44,21 +53,16 @@ builder.Services.ConfigureApplicationCookie(o => {
 
 builder.Services.AddSession(options =>
 {
-	options.Cookie.Name = "_dltdgst";
-	options.IdleTimeout = TimeSpan.FromSeconds(1000);
-	options.Cookie.HttpOnly = true;
-	options.Cookie.IsEssential = true;
+    options.Cookie.Name = "_dltdgst";
+    options.IdleTimeout = TimeSpan.FromSeconds(1000);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 builder.Services.AddScoped<EncryptionService>();
 builder.Services.AddScoped<UserModel>();
 builder.Services.AddScoped<IdentityUser>();
 builder.Services.AddScoped<SignInManager<UserModel>>();
-
-//builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
-//    .AddMicrosoftIdentityWebApp(builder.Configuration.GetSection("AzureAd"));
-
-// SocialAuth .Use() here
 
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
@@ -88,6 +92,7 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
+
 var app = builder.Build();
 
 app.UseAuthentication();
@@ -95,8 +100,8 @@ app.UseAuthentication();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-	app.UseMigrationsEndPoint();
-	app.UseMigrationsEndPoint();
+    app.UseMigrationsEndPoint();
+    app.UseMigrationsEndPoint();
 }
 else
 {
