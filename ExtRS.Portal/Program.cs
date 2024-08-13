@@ -73,13 +73,13 @@ builder.Services.AddIdentityCore<UserModel>(options => options.SignIn.RequireCon
 builder.Services.AddAuthentication()
 .AddGoogle(googleOptions =>
 {
-    googleOptions.ClientId = "";
-    googleOptions.ClientSecret = "";
+    googleOptions.ClientId = builder.Configuration["googleClientId"]!;
+    googleOptions.ClientSecret = builder.Configuration["googleClientSecret"]!;
 })
 .AddLinkedIn(o =>
 {
-    o.ClientId = "";
-    o.ClientSecret = "";
+    o.ClientId = builder.Configuration["linkedInClientId"]!;
+    o.ClientSecret = builder.Configuration["linkedInClientSecret"]!;
 });
 
 builder.Services.Configure<IdentityOptions>(options =>
