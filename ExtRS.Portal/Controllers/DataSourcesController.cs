@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using ExtRS.Portal.Models;
+﻿using ExtRS.Portal.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using ReportingServices.Api.Models;
 using Sonrai.ExtRS;
 using Sonrai.ExtRS.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -12,17 +12,19 @@ namespace ExtRS.Portal.Controllers
     {
         private readonly ILogger<DataSourcesController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly SSRSConnection _connection;
         private readonly HttpClient _httpClient;
         private SSRSService _ssrs;
 
-        public DataSourcesController(ILogger<DataSourcesController> logger, IConfiguration configuration)
+        public DataSourcesController(ILogger<DataSourcesController> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
             _httpClient = new HttpClient();
             _connection = new SSRSConnection(_configuration["ReportServerName"]!, _configuration["User"]!, AuthenticationType.ExtRSAuth);
-            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _configuration["User"]!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
             _ssrs = new SSRSService(_connection, _configuration);
         }
 

@@ -12,17 +12,19 @@ namespace ExtRS.Portal.Controllers
     {
         private readonly ILogger<AdminController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly SSRSConnection _connection;
         private readonly HttpClient _httpClient;
         private SSRSService _ssrs;
 
-        public AdminController(ILogger<AdminController> logger, IConfiguration configuration)
+        public AdminController(ILogger<AdminController> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
             _httpClient = new HttpClient();
-            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _configuration["User"]!, AuthenticationType.ExtRSAuth);
-            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _configuration["User"]!, configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
+            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _httpContextAccessor.HttpContext.User.Identity.Name!, AuthenticationType.ExtRSAuth);
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext!.User.Identity!.Name!, configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
             _ssrs = new SSRSService(_connection, _configuration);
         }
 
