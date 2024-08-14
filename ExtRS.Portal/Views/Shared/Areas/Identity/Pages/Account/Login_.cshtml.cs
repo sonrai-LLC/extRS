@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 
 namespace ExtRS.Portal.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class LoginModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
@@ -84,6 +85,7 @@ namespace ExtRS.Portal.Areas.Identity.Pages.Account
             public bool RememberMe { get; set; }
         }
 
+        [AllowAnonymous]
         public async Task OnGetAsync(string returnUrl = null)
         {
             if (!string.IsNullOrEmpty(ErrorMessage))
@@ -101,6 +103,7 @@ namespace ExtRS.Portal.Areas.Identity.Pages.Account
             ReturnUrl = returnUrl;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
             returnUrl ??= Url.Content("~/");

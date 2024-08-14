@@ -92,6 +92,12 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.LoginPath = "/Account/Login";
+    //options.LogoutPath = $"/account/logout";
+    //options.AccessDeniedPath = "/Account/Login";
+});
 
 var app = builder.Build();
 

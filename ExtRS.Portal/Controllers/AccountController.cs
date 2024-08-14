@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ExtRS.Portal.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
@@ -20,6 +20,13 @@ namespace ExtRS.Portal.Controllers
             _logger = logger;
             _configuration = configuration;
             _signInManager = signInManager;
+        }
+
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+           // return View("/Shared/Areas/Identity/Pages/Account/Login.cshtml");
+           return View("Login");
         }
 
         public async Task<IActionResult> Logout()
