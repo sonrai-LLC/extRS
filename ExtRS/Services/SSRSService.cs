@@ -259,7 +259,8 @@ namespace Sonrai.ExtRS
             StringContent httpContent = new StringContent(GetCredentialJson(user, password, domain), Encoding.UTF8, "application/json");
 
             // first check the ReportServer db to ensure the user exists, and if not, create new RS user.
-            // {{ ie. "Id": "00000000-0000-0000-0000-000000000000", }}
+            // {{ ie. "Id": "00000000-0000-0000-0000-000000000000"
+            // ....otherwise the user session is ephemeral and no Policies can be assoc'd w/the user}}
 
             var response = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
             HttpHeaders headers = response.Headers;
