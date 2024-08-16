@@ -74,7 +74,7 @@ namespace ExtRS.Portal.Controllers
         {
             creationDate = Convert.ToDateTime(creationDate).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss");
             Report report = await _ssrs.GetReport(reportId);
-            string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true&UserName={2}}&rs:Snapshot={3}", _ssrs._conn.ReportServerName, report.Name, _httpContextAccessor.HttpContext!.User!.Identity!.Name!, creationDate);
+            string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true&UserName={2}&rs:Snapshot={3}", _ssrs._conn.ReportServerName, report.Name, _httpContextAccessor.HttpContext!.User!.Identity!.Name!, creationDate);
             uri += "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
 
             ReportView view = new ReportView() { SelectedReport = new Report { Uri = uri } };
