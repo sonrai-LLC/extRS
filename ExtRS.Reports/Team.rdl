@@ -1165,7 +1165,6 @@ Fields!WinPct.Value &lt;= .400, "red")</Color>
             </TablixRowHierarchy>
             <RepeatColumnHeaders>true</RepeatColumnHeaders>
             <FixedColumnHeaders>true</FixedColumnHeaders>
-            <KeepTogether>true</KeepTogether>
             <DataSetName>Team</DataSetName>
             <Top>4.41207in</Top>
             <Left>0.12638in</Left>
@@ -2118,6 +2117,9 @@ Fields!WinPct.Value &lt;= .400, "red")</Color>
             <Height>0.67708in</Height>
             <Width>1.29602in</Width>
             <ZIndex>18</ZIndex>
+            <Visibility>
+              <Hidden>true</Hidden>
+            </Visibility>
             <Style>
               <Border>
                 <Style>None</Style>
@@ -2132,7 +2134,7 @@ Fields!WinPct.Value &lt;= .400, "red")</Color>
         <Height>4.87389in</Height>
         <Style />
       </Body>
-      <Width>8.23499in</Width>
+      <Width>8.01624in</Width>
       <Page>
         <PageHeader>
           <Height>0.08333in</Height>
