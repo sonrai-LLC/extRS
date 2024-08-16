@@ -19,17 +19,19 @@ namespace ExtRS.Portal.Controllers
     {
         private readonly ILogger<ReportsController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly SSRSConnection _connection;
         private readonly HttpClient _httpClient;
         private SSRSService _ssrs;
 
-        public ReportsController(ILogger<ReportsController> logger, IConfiguration configuration)
+        public ReportsController(ILogger<ReportsController> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
             _httpClient = new HttpClient();
-            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _configuration["User"]!, AuthenticationType.ExtRSAuth);
-            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _configuration["User"]!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
+            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _httpContextAccessor.HttpContext!.User.Identity!.Name!, AuthenticationType.ExtRSAuth);
+            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
             _ssrs = new SSRSService(_connection, _configuration);
         }
 
@@ -58,7 +60,7 @@ namespace ExtRS.Portal.Controllers
             {
                 report = await _ssrs.GetReport(id);
             }
-            string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true&UserName={2}", _ssrs._conn.ReportServerName, report.Name, _configuration["User"]!);
+            string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true&UserName={2}", _ssrs._conn.ReportServerName, report.Name, _httpContextAccessor.HttpContext!.User!.Identity!.Name!);
 
             uri += "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
             report.Uri = uri;
@@ -72,7 +74,7 @@ namespace ExtRS.Portal.Controllers
         {
             creationDate = Convert.ToDateTime(creationDate).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss");
             Report report = await _ssrs.GetReport(reportId);
-            string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true&UserName={2}}&rs:Snapshot={3}", _ssrs._conn.ReportServerName, report.Name, _configuration["User"]!, creationDate);
+            string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true&UserName={2}}&rs:Snapshot={3}", _ssrs._conn.ReportServerName, report.Name, _httpContextAccessor.HttpContext!.User!.Identity!.Name!, creationDate);
             uri += "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
 
             ReportView view = new ReportView() { SelectedReport = new Report { Uri = uri } };
