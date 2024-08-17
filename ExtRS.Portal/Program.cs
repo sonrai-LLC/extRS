@@ -23,7 +23,7 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 // Add services to the container.
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers().AddNewtonsoftJson();
@@ -46,7 +46,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
-builder.Services.ConfigureApplicationCookie(o => {
+builder.Services.ConfigureApplicationCookie(o =>
+{
     o.ExpireTimeSpan = TimeSpan.FromDays(5);
     o.SlidingExpiration = true;
 });
@@ -60,13 +61,13 @@ builder.Services.AddSession(options =>
 });
 
 builder.Services.AddScoped<EncryptionService>();
-builder.Services.AddScoped<UserModel>();
+builder.Services.AddScoped<ApplicationUser>();
 builder.Services.AddScoped<IdentityUser>();
-builder.Services.AddScoped<SignInManager<UserModel>>();
+builder.Services.AddScoped<SignInManager<ApplicationUser>>();
 
 builder.Services.AddRazorPages()
     .AddMicrosoftIdentityUI();
-builder.Services.AddIdentityCore<UserModel>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
  .AddEntityFrameworkStores<ApplicationDbContext>()
  .AddDefaultTokenProviders();
 
@@ -91,7 +92,6 @@ builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = options.DefaultPolicy;
 });
-
 
 var app = builder.Build();
 

@@ -13,13 +13,21 @@ namespace ExtRS.Portal.Controllers
     {
         private readonly ILogger<AccountController> _logger;
         private readonly IConfiguration _configuration;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly SignInManager<ApplicationUser> _signInManager;
 
-        public AccountController(ILogger<AccountController> logger, IConfiguration configuration, SignInManager<IdentityUser> signInManager)
+        public AccountController(ILogger<AccountController> logger, IConfiguration configuration, SignInManager<ApplicationUser> signInManager)
         {
             _logger = logger;
             _configuration = configuration;
             _signInManager = signInManager;
+        }
+
+        public async Task<IActionResult> Login()
+        {
+            await _signInManager.SignOutAsync();
+            _logger.LogInformation("User logged out.");
+
+            return View("Dashboard", "Dashboard");
         }
 
         public async Task<IActionResult> Logout()

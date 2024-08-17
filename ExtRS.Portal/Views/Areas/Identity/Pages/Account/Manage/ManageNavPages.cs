@@ -3,9 +3,10 @@
 #nullable disable
 
 using System;
+using System.IO;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
-namespace  ExtRS.Portal.Areas.Identity.Pages.Account.Manage
+namespace ExtRS.Portal.Views.Areas.Identity.Pages.Account.Manage
 {
     /// <summary>
     ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
@@ -115,8 +116,8 @@ namespace  ExtRS.Portal.Areas.Identity.Pages.Account.Manage
         /// </summary>
         public static string PageNavClass(ViewContext viewContext, string page)
         {
-            var activePage = viewContext.ViewData["ActivePage"] as string
-                ?? System.IO.Path.GetFileNameWithoutExtension(viewContext.ActionDescriptor.DisplayName);
+            var activePage = Path.GetFileNameWithoutExtension(viewContext.ActionDescriptor.DisplayName); // viewContext.//ViewData["ActivePage"] as string
+                //?? P;
             return string.Equals(activePage, page, StringComparison.OrdinalIgnoreCase) ? "active" : null;
         }
     }
