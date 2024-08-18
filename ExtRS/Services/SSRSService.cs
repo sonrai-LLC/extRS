@@ -60,6 +60,12 @@ namespace Sonrai.ExtRS
             return response;
         }
 
+        public async Task<HttpResponseMessage> DeleteSession(string user, string password, string server)
+        {
+            HttpResponseMessage response = await CallApi(HttpVerbs.DELETE, "Session");
+            return response;
+        }
+
         public async Task<HttpResponseMessage> DeleteSession()
         {
             HttpResponseMessage response = await CallApi(HttpVerbs.DELETE, "Session");
