@@ -46,7 +46,9 @@ namespace ExtRS.Portal.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation("User logged out.");
+
             await _ssrs.DeleteSession();
+
             _logger.LogInformation("User logged out of SSRS.");
 
             return RedirectToAction("Dashboard", "Dashboard");

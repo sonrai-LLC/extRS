@@ -60,10 +60,10 @@ namespace Sonrai.ExtRS
             return response;
         }
 
-        public async Task<HttpResponseMessage> DeleteSession(string user, string password, string server)
+        public async Task<Me> GetRSSessionUser()
         {
-            HttpResponseMessage response = await CallApi(HttpVerbs.DELETE, "Session");
-            return response;
+            var response = await CallApi(HttpVerbs.GET, "Me");
+            return JsonConvert.DeserializeObject<Me>(await response.Content.ReadAsStringAsync())!;
         }
 
         public async Task<HttpResponseMessage> DeleteSession()
