@@ -1585,7 +1585,7 @@ Fields!candidate_name.Value = "Donald Trump", "Maroon"
                       </Style>
                     </TextRun>
                     <TextRun>
-                      <Value>=User!UserID &amp; "-" &amp; Parameters!UserName.Value</Value>
+                      <Value>=User!UserID</Value>
                       <Style>
                         <FontStyle>Italic</FontStyle>
                         <FontSize>8pt</FontSize>

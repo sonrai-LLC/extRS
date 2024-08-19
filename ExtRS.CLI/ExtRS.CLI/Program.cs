@@ -12,7 +12,7 @@ namespace ExtRS.CLI
             Console.WriteLine(":::::::ExtRS Command Line Interface:::::::");
             Console.WriteLine();
             string username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
-            string boxing = 
+            string boxing =
                             "\r\n" + "\r\n" + @"
                                 ( •_•)                          (•_• )
                                   (ง)ง                            ୧( ୧ )
@@ -21,7 +21,7 @@ namespace ExtRS.CLI
                             :::::::::::::::::::::::::::::::::::::::::::::::::::::::" + "\r\n" + "\r\n" + "\r\n";
 
             int now = DateTime.Now.Hour;
-            if(now > 5 && now < 12)
+            if (now > 5 && now < 12)
             {
                 Console.WriteLine("Good morning, " + username);
             }
@@ -38,6 +38,13 @@ namespace ExtRS.CLI
             ShowAsciiArt();
 
             Console.ReadLine();
+
+            Console.WriteLine(@"Welcome to extRS v1.0
+                                The following commands are available:
+
+                                l                           - lists all reports
+                                r -reportName               - displays configuration of specific report
+                                r -reportName               - displays configuration of specific report");
         }
 
         public static void ShowAsciiArt()

@@ -30,11 +30,15 @@ namespace ExtRS.Portal.Controllers
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
             _httpClient = new HttpClient();
-            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _httpContextAccessor.HttpContext!.User.Identity!.Name!, AuthenticationType.ExtRSAuth);
-            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
+            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _httpContextAccessor.HttpContext!.User.Identity!.Name!, AuthenticationType.ExtRSAuth);   
             _ssrs = new SSRSService(_connection, _configuration);
 
+            _ssrs._conn.SqlAuthCookie = ""; // cleare the cookie
             var loggedInIsWho = _ssrs.GetRSSessionUser().Result;
+
+            _ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
+
+           
         }
 
         public async Task<IActionResult> Reports(ReportsView view)

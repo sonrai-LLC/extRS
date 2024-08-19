@@ -23,7 +23,8 @@ namespace Sonrai.ExtRS
         {
             _conn = connection;
             _client = new HttpClient();
-            _cookieContainer.Add(new Cookie("sqlAuthCookie", _conn.SqlAuthCookie, "/", configuration == null ? "localhost" : configuration["ReportServerName"]!));
+            var cookie = new Cookie("sqlAuthCookie", _conn.SqlAuthCookie, "/", configuration == null ? "localhost" : configuration["ReportServerName"]!);
+            _cookieContainer.Add(cookie);
             _serverUrl = string.Format("https://{0}/reports/api/v2.0/", _conn.ReportServerName);
             _configuration = configuration;
         } 
@@ -64,12 +65,6 @@ namespace Sonrai.ExtRS
         {
             var response = await CallApi(HttpVerbs.GET, "Me");
             return JsonConvert.DeserializeObject<Me>(await response.Content.ReadAsStringAsync())!;
-        }
-
-        public async Task<HttpResponseMessage> DeleteSession()
-        {
-            HttpResponseMessage response = await CallApi(HttpVerbs.DELETE, "Session");
-            return response;
         }
          
         public async Task<CatalogItem> CreateCatalogItem(string json)
@@ -189,6 +184,12 @@ namespace Sonrai.ExtRS
             return true;
         }
 
+        public async Task<HttpResponseMessage> DeleteSession()
+        {
+            var response = await CallApi(HttpVerbs.DELETE, "Session");
+            return response;
+        }
+
         public async Task<List<Folder>> GetFolders()
         {
             var response = await CallApi(HttpVerbs.GET, "Folders");
@@ -258,17 +259,25 @@ namespace Sonrai.ExtRS
             return "{" + string.Format("\"UserName\":\"{0}\",\"Password\": \"{1}\",\"Domain\":\"{2}\"", user, password, domain) + "}";
         }
 
-        public static async Task<string> GetSqlAuthCookie(HttpClient client, string user = "extRSAuth", string password = "", string domain = "localhost")
+        public async Task<string> GetSqlAuthCookie(HttpClient client, string user = "extRSAuth", string password = "", string domain = "localhost")
         {
-            string cookie = "";
-            StringContent httpContent = new StringContent(GetCredentialJson(user, password, domain), Encoding.UTF8, "application/json");
+            string cookie = "sqlAuthCookie=";
+            //StringContent httpContent = new StringContent(GetCredentialJson(user, password, domain), Encoding.UTF8, "application/json");
 
             // first check the ReportServer db to ensure the user exists, and if not, create new RS user.
             // {{ ie. "Id": "00000000-0000-0000-0000-000000000000"
             // ....otherwise the user session is ephemeral and no Policies can be assoc'd w/the user}}
 
-            var response = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
-            HttpHeaders headers = response.Headers;
+            //var postResponse = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
+            //var deleteResponse = await client.DeleteAsync(string.Format("https://{0}/reports/api/v2.0/Session"));
+            //postResponse = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
+
+            // first, delete existing session to replace with new cookie if user has changed
+            var postResponse = await CreateSession(user, password, "localhost");
+            //await DeleteSession();
+            //postResponse = await CreateSession(user, password, domain);
+
+            HttpHeaders headers = postResponse.Headers;
             if (headers.TryGetValues("Set-Cookie", out IEnumerable<string> values))
             {
                 cookie = values.First();

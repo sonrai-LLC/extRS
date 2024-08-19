@@ -28,8 +28,8 @@ namespace ExtRS.Portal.Controllers
             _httpContextAccessor = httpContextAccessor;
             _httpClient = new HttpClient();
             _connection = new SSRSConnection(_configuration["ReportServerName"]!, _httpContextAccessor.HttpContext!.User.Identity!.Name!, AuthenticationType.ExtRSAuth);
-            _connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
             _ssrs = new SSRSService(_connection, _configuration);
+            _ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
         }
 
         public async Task<IActionResult> Login() // TODO: implement Scaffolding (harder than it seems like it should be...)
@@ -44,10 +44,26 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
-            _logger.LogInformation("User logged out.");
 
             await _ssrs.DeleteSession();
+         
+          
+            _ssrs._conn.SqlAuthCookie = "";
+            await _ssrs.DeleteSession();
+
+
+            await _signInManager.SignOutAsync();
+            _httpClient.Dispose();
+                //
+
+            _httpContextAccessor.HttpContext = null;
+            _logger.LogInformation("User logged out.");
+
+            Response.Cookies.Delete("sqlAuthCookie");
+            Response.Cookies.Append("sqlAuthCookie", "", new CookieOptions()
+            {
+                Expires = DateTime.Now.AddDays(-1)
+            });
 
             _logger.LogInformation("User logged out of SSRS.");
 
