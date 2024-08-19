@@ -6,6 +6,7 @@ using Sonrai.ExtRS.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using System.Net;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -45,27 +46,31 @@ namespace ExtRS.Portal.Controllers
         public async Task<IActionResult> Logout()
         {
 
-            await _ssrs.DeleteSession();
-         
-          
-            _ssrs._conn.SqlAuthCookie = "";
-            await _ssrs.DeleteSession();
-
+            //await _ssrs.DeleteSession();
+                  
+            //_ssrs._conn.SqlAuthCookie = "";
+            //await _ssrs.DeleteSession();
 
             await _signInManager.SignOutAsync();
-            _httpClient.Dispose();
-                //
 
-            _httpContextAccessor.HttpContext = null;
-            _logger.LogInformation("User logged out.");
+            HttpContext.Response.Cookies.Delete("sqlAuthCookie");
 
-            Response.Cookies.Delete("sqlAuthCookie");
-            Response.Cookies.Append("sqlAuthCookie", "", new CookieOptions()
-            {
-                Expires = DateTime.Now.AddDays(-1)
-            });
 
-            _logger.LogInformation("User logged out of SSRS.");
+            //HttpCookie myCookie = new HttpCookie("sqlAuthCookie");
+            //cookie.Expires = DateTime.Now.AddDays(-1d);
+            //Response.Cookies.Add(cookie);
+
+            //_httpClient.Dispose();
+
+            //_logger.LogInformation("User logged out.");
+
+            //Response.Cookies.Delete("sqlAuthCookie");
+            ////Response.Cookies.Append("sqlAuthCookie", "", new CookieOptions()
+            ////{
+            ////    Expires = DateTime.Now.AddDays(-1)
+            ////});
+
+            //_logger.LogInformation("User logged out of SSRS.");
 
             return RedirectToAction("Dashboard", "Dashboard");
         }
