@@ -8,7 +8,7 @@ using System.Security.Principal;
 
 namespace ExtRS.Portal.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class DashboardController : Controller
     {
         private readonly ILogger<DashboardController> _logger;
