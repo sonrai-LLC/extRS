@@ -262,20 +262,9 @@ namespace Sonrai.ExtRS
         public async Task<string> GetSqlAuthCookie(HttpClient client, string user = "extRSAuth", string password = "", string domain = "localhost")
         {
             string cookie = "sqlAuthCookie=";
-            //StringContent httpContent = new StringContent(GetCredentialJson(user, password, domain), Encoding.UTF8, "application/json");
-
-            // first check the ReportServer db to ensure the user exists, and if not, create new RS user.
-            // {{ ie. "Id": "00000000-0000-0000-0000-000000000000"
-            // ....otherwise the user session is ephemeral and no Policies can be assoc'd w/the user}}
-
-            //var postResponse = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
-            //var deleteResponse = await client.DeleteAsync(string.Format("https://{0}/reports/api/v2.0/Session"));
-            //postResponse = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
 
             // first, delete existing session to replace with new cookie if user has changed
-            var postResponse = await CreateSession(user, password, "localhost");
-            //await DeleteSession();
-            //postResponse = await CreateSession(user, password, domain);
+            var postResponse = await CreateSession(user, password, domain);
 
             HttpHeaders headers = postResponse.Headers;
             if (headers.TryGetValues("Set-Cookie", out IEnumerable<string> values))

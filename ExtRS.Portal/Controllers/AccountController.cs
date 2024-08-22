@@ -72,7 +72,7 @@ namespace ExtRS.Portal.Controllers
 
             //_logger.LogInformation("User logged out of SSRS.");
 
-            return RedirectToAction("Dashboard", "Dashboard");
+            return RedirectToAction("Subscriptions", "Subscriptions");
         }
     }
 }

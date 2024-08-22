@@ -30,16 +30,11 @@ namespace ExtRS.Portal.Controllers
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
             _httpClient = new HttpClient();
-            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _httpContextAccessor.HttpContext!.User.Identity!.Name!, AuthenticationType.ExtRSAuth);   
-            _ssrs = new SSRSService(_connection, _configuration);
-
-            _ssrs._conn.SqlAuthCookie = ""; // cleare the cookie
-            var loggedInIsWho = _ssrs.GetRSSessionUser().Result;
-
-            _ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
-
-           
-        }
+            _connection = new SSRSConnection(_configuration["ReportServerName"]!, "extRSAuth", AuthenticationType.ExtRSAuth);   //_httpContextAccessor.HttpContext!.User.Identity!.Name!
+			_ssrs = new SSRSService(_connection, _configuration);
+			_ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, "extRSAuth", _configuration["extrspassphrase"]!, _connection.ReportServerName).Result; //_httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!
+																															   //var loggedInIsWho = _ssrs.GetRSSessionUser().Result;
+		}
 
         public async Task<IActionResult> Reports(ReportsView view)
         {
@@ -55,7 +50,7 @@ namespace ExtRS.Portal.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Report(string reportName, string id)
+		public async Task<IActionResult> Report(string reportName, string id)
         {
             Report report;
             if (reportName is not null)
@@ -66,9 +61,9 @@ namespace ExtRS.Portal.Controllers
             {
                 report = await _ssrs.GetReport(id);
             }
-            string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true&UserName={2}", _ssrs._conn.ReportServerName, report.Name, _httpContextAccessor.HttpContext!.User!.Identity!.Name!);
+            string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true&UserName={2}", _ssrs._conn.ReportServerName, report.Name, "extRSAuth"); //_httpContextAccessor.HttpContext!.User!.Identity!.Name!
 
-            uri += "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+			uri += "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
             report.Uri = uri;
 
             ReportView view = new ReportView() { SelectedReport = report };
