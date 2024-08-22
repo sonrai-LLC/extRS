@@ -7,8 +7,8 @@ using Sonrai.ExtRS.Models;
 
 namespace ExtRS.Portal.Controllers
 {
-    [Authorize]
-    public class DataSourcesController : Controller
+	[AllowAnonymous]
+	public class DataSourcesController : Controller
     {
         private readonly ILogger<DataSourcesController> _logger;
         private readonly IConfiguration _configuration;
@@ -25,7 +25,7 @@ namespace ExtRS.Portal.Controllers
             _httpClient = new HttpClient();
             _connection = new SSRSConnection(_configuration["ReportServerName"]!, _configuration["User"]!, AuthenticationType.ExtRSAuth);
             _ssrs = new SSRSService(_connection, _configuration);
-            _ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
+            _ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, "extRSAuth", _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
         }
 
         public async Task<IActionResult> DataSources()
