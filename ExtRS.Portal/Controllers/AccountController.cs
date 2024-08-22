@@ -54,7 +54,7 @@ namespace ExtRS.Portal.Controllers
             await _signInManager.SignOutAsync();
 
             HttpContext.Response.Cookies.Delete("sqlAuthCookie");
-
+            //HttpContext.Session.Aba
 
             //HttpCookie myCookie = new HttpCookie("sqlAuthCookie");
             //cookie.Expires = DateTime.Now.AddDays(-1d);

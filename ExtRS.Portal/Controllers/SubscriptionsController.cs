@@ -69,7 +69,7 @@ namespace ExtRS.Portal.Controllers
             Subscription newSubscription = new Subscription()
             {
                 Id = new Guid(),
-                Owner = "extRSAuth",
+                Owner = _httpContextAccessor.HttpContext!.User.Identity!.Name!,
                 IsDataDriven = false,
                 Description = description,
                 Report = "/Reports/Team",
@@ -79,7 +79,7 @@ namespace ExtRS.Portal.Controllers
                 LastRunTime = DateTime.Now,
                 DeliveryExtension = "Report Server Email",
                 LocalizedDeliveryExtensionName = "Email",
-                ModifiedBy = "extRSAuth",
+                ModifiedBy = _httpContextAccessor.HttpContext!.User.Identity!.Name!,
                 ModifiedDate = DateTime.Now,
                 Uri = "",
                 LastStatus = "",
@@ -167,7 +167,7 @@ namespace ExtRS.Portal.Controllers
                 EventType = "TimedSubscription",
                 IsActive = true,
                 IsDataDriven = false,
-                Owner = "extRSAuth",
+                Owner = _httpContextAccessor.HttpContext!.User.Identity!.Name!,
                 ExtensionSettings = GetNewExtensionSettings(null)
             };
 
