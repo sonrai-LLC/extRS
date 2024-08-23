@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.Net;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -35,10 +36,7 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<IActionResult> Login() // TODO: implement Scaffolding (harder than it seems like it should be...)
         {
-           //await _signInManager.SignInAsync();
             _logger.LogInformation("User logged in.");
-            await _ssrs.DeleteSession();
-            _logger.LogInformation("User logged out of SSRS.");
 
             return View("Dashboard", "Dashboard");
         }
@@ -46,33 +44,12 @@ namespace ExtRS.Portal.Controllers
         public async Task<IActionResult> Logout()
         {
 
-            //await _ssrs.DeleteSession();
-                  
-            //_ssrs._conn.SqlAuthCookie = "";
-            //await _ssrs.DeleteSession();
-
-            await _signInManager.SignOutAsync();
-
-            HttpContext.Response.Cookies.Delete("sqlAuthCookie");
-            //HttpContext.Session.Aba
-
-            //HttpCookie myCookie = new HttpCookie("sqlAuthCookie");
-            //cookie.Expires = DateTime.Now.AddDays(-1d);
-            //Response.Cookies.Add(cookie);
-
-            //_httpClient.Dispose();
-
-            //_logger.LogInformation("User logged out.");
-
-            //Response.Cookies.Delete("sqlAuthCookie");
-            ////Response.Cookies.Append("sqlAuthCookie", "", new CookieOptions()
-            ////{
-            ////    Expires = DateTime.Now.AddDays(-1)
-            ////});
-
-            //_logger.LogInformation("User logged out of SSRS.");
-
-            return RedirectToAction("Subscriptions", "Subscriptions");
+			await _ssrs.DeleteSession();
+			var cookieContent = Request.Cookies["sqlAuthCookie"];
+			Response.Cookies.Delete("sqlAuthCookie");
+			await _signInManager.SignOutAsync();
+			
+			return RedirectToAction("Subscriptions", "Subscriptions");
         }
     }
 }
