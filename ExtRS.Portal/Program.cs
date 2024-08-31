@@ -38,7 +38,7 @@ builder.Services.AddRateLimiter(options =>
             {
                 PermitLimit = 20,
                 AutoReplenishment = true,
-                Window = TimeSpan.FromSeconds(10000)
+                Window = TimeSpan.FromSeconds(100000)
             });
     });
 });
@@ -49,16 +49,17 @@ builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 builder.Services.ConfigureApplicationCookie(o =>
 {
-    o.ExpireTimeSpan = TimeSpan.FromSeconds(10000);
-    o.SlidingExpiration = true;
+    o.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+	o.SlidingExpiration = true;
 });
 
 builder.Services.AddSession(options =>
 {
     options.Cookie.Name = "_dltdgst";
-    options.IdleTimeout = TimeSpan.FromSeconds(10000);
+    options.IdleTimeout = TimeSpan.FromMinutes(10);
     options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = false;
+    options.Cookie.IsEssential = true;
+    options.Cookie.Domain = "portal.ssrssrv.net";
 });
 
 builder.Services.AddScoped<EncryptionService>();
