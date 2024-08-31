@@ -38,7 +38,7 @@ builder.Services.AddRateLimiter(options =>
             {
                 PermitLimit = 20,
                 AutoReplenishment = true,
-                Window = TimeSpan.FromSeconds(10)
+                Window = TimeSpan.FromSeconds(10000)
             });
     });
 });
@@ -49,16 +49,16 @@ builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 builder.Services.ConfigureApplicationCookie(o =>
 {
-    o.ExpireTimeSpan = TimeSpan.FromDays(5);
+    o.ExpireTimeSpan = TimeSpan.FromSeconds(10000);
     o.SlidingExpiration = true;
 });
 
 builder.Services.AddSession(options =>
 {
     options.Cookie.Name = "_dltdgst";
-    options.IdleTimeout = TimeSpan.FromSeconds(1000);
+    options.IdleTimeout = TimeSpan.FromSeconds(10000);
     options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = false;
+    options.Cookie.IsEssential = true;
 });
 
 builder.Services.AddScoped<EncryptionService>();
@@ -97,6 +97,7 @@ builder.Services.AddAuthorization(options =>
 var app = builder.Build();
 
 app.UseAuthentication();
+app.UseCookiePolicy();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -134,7 +135,7 @@ app.MapRazorPages();
 app.MapControllers();
 
 app.UseCors(builder => builder
-.WithOrigins("https://localhost", "https://ssrssrv.net")
+.WithOrigins("https://localhost", "https://ssrssrv.net", "https://portal.ssrssrv.net")
 .AllowAnyMethod()
 .AllowAnyHeader());
 

@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.Web;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -35,33 +36,28 @@ namespace ExtRS.Portal.Controllers
             _ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
         }
 
-		//[HttpGet]
-		//public IActionResult SignIn() // TODO: implement Scaffolding (harder than it seems like it should be...)
-		//{
-		//	_signInManager.SignInAsync(new ApplicationUser(), new , true);
-		//	_logger.LogInformation("User logged in.");
-		//	return View("Dashboard", "Dashboard");
-		//}
-
-        [HttpGet]
-		public IActionResult LogOut()
+		[HttpGet]
+		public async Task<IActionResult> LogOutAsync()
 		{
-			_ssrs.DeleteSession();
-			_ssrs.ClearCookies(_httpContextAccessor, "portal.ssrssrv.net, ssrssrv.net");
-			_signInManager.SignOutAsync();
+			await _ssrs.DeleteSession();
+			_ssrs.ClearCookies(_httpContextAccessor, "http://ssrssrv.net,http://portal.ssrssrv.net,_dltdgst");
+			await _signInManager.SignOutAsync();
 			HttpContext.Session.Clear();
 			_httpContextAccessor!.HttpContext!.Session.Clear();
+			_httpContextAccessor!.HttpContext!.Session.Remove("_dltdgst");
 
+			return new RedirectToPageResult("/Account/Login", new { area = "Identity" });
+		}
+
+		[HttpGet]
+		public IActionResult SignedIn()
+		{
 			return RedirectToAction("Dashboard", "Dashboard");
 		}
-    }
+	}
 }
 
-//[HttpGet]
-//public IActionResult SignedIn() // TODO: implement Scaffolding (harder than it seems like it should be...)
-//{
-//    return "";
-//}
+
 
 //[HttpGet]
 //      public IActionResult SignedOut()
