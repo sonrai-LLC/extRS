@@ -17,6 +17,7 @@ using Microsoft.Identity.Web;
 using Microsoft.Identity.Web.UI;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
+
 DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
@@ -57,7 +58,7 @@ builder.Services.AddSession(options =>
     options.Cookie.Name = "_dltdgst";
     options.IdleTimeout = TimeSpan.FromSeconds(1000);
     options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
+    options.Cookie.IsEssential = false;
 });
 
 builder.Services.AddScoped<EncryptionService>();
@@ -116,7 +117,10 @@ app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseSession();
+app.UseAuthentication();
 app.UseAuthorization();
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
@@ -124,7 +128,7 @@ app.UseEndpoints(endpoints =>
     pattern: "{controller=Dashboard}/{action=Dashboard}");
     endpoints.MapRazorPages();
 });
-app.UseSession();
+
 app.UseRateLimiter();
 app.MapRazorPages();
 app.MapControllers();

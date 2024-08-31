@@ -11,8 +11,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace ExtRS.Portal.Controllers
 {
-    [Authorize]
-    public class AccountController : Controller
+
+	[Authorize]
+	public class AccountController : Controller
     {
         private readonly ILogger<AccountController> _logger;
         private readonly IConfiguration _configuration;
@@ -34,22 +35,43 @@ namespace ExtRS.Portal.Controllers
             _ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
         }
 
-        public async Task<IActionResult> Login() // TODO: implement Scaffolding (harder than it seems like it should be...)
-        {
-            _logger.LogInformation("User logged in.");
+		//[HttpGet]
+		//public IActionResult SignIn() // TODO: implement Scaffolding (harder than it seems like it should be...)
+		//{
+		//	_signInManager.SignInAsync(new ApplicationUser(), new , true);
+		//	_logger.LogInformation("User logged in.");
+		//	return View("Dashboard", "Dashboard");
+		//}
 
-            return View("Dashboard", "Dashboard");
-        }
+        [HttpGet]
+		public IActionResult LogOut()
+		{
+			_ssrs.DeleteSession();
+			_ssrs.ClearCookies(_httpContextAccessor, "portal.ssrssrv.net, ssrssrv.net");
+			_signInManager.SignOutAsync();
+			HttpContext.Session.Clear();
+			_httpContextAccessor!.HttpContext!.Session.Clear();
 
-        public async Task<IActionResult> Logout()
-        {
-
-			await _ssrs.DeleteSession();
-			var cookieContent = Request.Cookies["sqlAuthCookie"];
-			Response.Cookies.Delete("sqlAuthCookie");
-			await _signInManager.SignOutAsync();
-			
-			return RedirectToAction("Subscriptions", "Subscriptions");
-        }
+			return RedirectToAction("Dashboard", "Dashboard");
+		}
     }
 }
+
+//[HttpGet]
+//public IActionResult SignedIn() // TODO: implement Scaffolding (harder than it seems like it should be...)
+//{
+//    return "";
+//}
+
+//[HttpGet]
+//      public IActionResult SignedOut()
+//      {
+//          _ssrs.DeleteSession();
+//          _ssrs.ClearCookies(_httpContextAccessor, "portal.ssrssrv.net, ssrssrv.net");
+//          _signInManager.SignOutAsync();
+
+//          //HttpContext.Session.Clear();
+//          //_httpContextAccessor!.HttpContext!.Session.Clear();
+
+//          return RedirectToAction("Dashboard", "Dashboard");
+//      }

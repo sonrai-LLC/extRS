@@ -18,7 +18,7 @@ namespace ExtRS.Portal.Controllers
         private readonly HttpClient _httpClient;
         private SSRSService _ssrs;
 
-        public DashboardController(ILogger<DashboardController> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+		public DashboardController(ILogger<DashboardController> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _logger = logger;
             _configuration = configuration;
