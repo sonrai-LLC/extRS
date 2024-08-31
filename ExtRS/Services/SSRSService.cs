@@ -384,12 +384,12 @@ namespace Sonrai.ExtRS
 						_httpContextAccesor.HttpContext.Response.Cookies.Delete(cookie.Key, new CookieOptions()
 						{
 							Domain = domain,
-							Expires = DateTimeOffset.UtcNow.AddSeconds(1),
+							Expires = DateTimeOffset.UtcNow.AddMinutes(1),
 							IsEssential = true,
 							Secure = true,
 							SameSite = SameSiteMode.Lax,
 							HttpOnly = true
-						}); ;;
+						});
 					}
 				}
 			}

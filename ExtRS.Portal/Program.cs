@@ -58,7 +58,7 @@ builder.Services.AddSession(options =>
     options.Cookie.Name = "_dltdgst";
     options.IdleTimeout = TimeSpan.FromSeconds(10000);
     options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
+    options.Cookie.IsEssential = false;
 });
 
 builder.Services.AddScoped<EncryptionService>();
