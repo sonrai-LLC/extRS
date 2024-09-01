@@ -21,6 +21,8 @@ namespace Sonrai.ExtRS
 		string _serverUrl;
 		private IHttpContextAccessor _httpContextAccessor;
 		private readonly SSRSConnection _connection;
+		private readonly string domains;
+
 		public SSRSService(SSRSConnection connection, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
 		{
 			_conn = connection;
@@ -30,6 +32,7 @@ namespace Sonrai.ExtRS
 			_httpContextAccessor = httpContextAccessor;
 			var cookie = new Cookie("sqlAuthCookie", GetSqlAuthCookie(_client, _httpContextAccessor.HttpContext.User?.Identity!.Name ?? "extRSAuth", _configuration["extrspassphrase"]!, _configuration["ReportServerName"]!).Result, "/", _configuration["ReportServerName"]);
 			_cookieContainer.Add(cookie);
+			domains = _configuration["ReportServerName"] + "," + "_dltdgst";
 		}
 		public async Task<HttpResponseMessage?> CallApi(HttpVerbs verb, string operation, string content = "", string parameters = "")
 		{
@@ -66,7 +69,7 @@ namespace Sonrai.ExtRS
 		public async Task<HttpResponseMessage> DeleteSession()
 		{
 			var response = await CallApi(HttpVerbs.DELETE, "Session");
-			ClearCookies(_httpContextAccessor, "http://ssrssrv.net,http://portal.ssrssrv.net,_dltdgst");
+			ClearSqlAuthCookies(_httpContextAccessor, domains);
 			return response;
 		}
 
@@ -276,7 +279,10 @@ namespace Sonrai.ExtRS
 			//postResponse = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
 
 			// first, delete existing session to replace with new cookie if user has changed
-			//var deleteResponse = await DeleteSession();
+			if (_cookieContainer.GetAllCookies().Where(x => x.Name == "sqlAuthCookie").Count() > 0)
+			{
+				var deleteResponse = await DeleteSession();
+			}
 
 			// create new session
 			var postResponse = await CreateSession(user, password, domain);
@@ -375,25 +381,25 @@ namespace Sonrai.ExtRS
 			}
 		}
 
-		public async void ClearCookies(IHttpContextAccessor _httpContextAccesor, string domains)
+		public void ClearSqlAuthCookies(IHttpContextAccessor _httpContextAccesor, string domains)
 		{
+			_cookieContainer.SetCookies(new Uri("https://ssrssrv.net"), "id=sqlAuthCookie; Expires=1-1-1900");
+
 			foreach (var domain in domains.Split(","))
 			{
-				foreach (var cookie in _httpContextAccesor.HttpContext.Request.Cookies)
+				_httpContextAccesor.HttpContext.Response.Cookies.Delete("sqlAuthCookie", new CookieOptions()
 				{
-					if (cookie.Key == "sqlAuthCookie")
-					{
-						_httpContextAccesor.HttpContext.Response.Cookies.Delete(cookie.Key, new CookieOptions()
-						{
-							Domain = domain,
-							Expires = DateTimeOffset.UtcNow.AddMinutes(-1),
-							//IsEssential = false,
-							//Secure = true,
-							SameSite = SameSiteMode.Lax,
-							//HttpOnly = true
-						}); ;
-					}
-				}
+					Domain = domain,
+					Expires = DateTimeOffset.UtcNow.AddYears(-1),
+					IsEssential = false,
+					Secure = true,
+					SameSite = SameSiteMode.Lax,
+					HttpOnly = true,
+					Path = "/",
+					MaxAge = TimeSpan.FromMinutes(1)
+				});
+
+				//_cookieContainer.GetAllCookies().Where(x => x.Name == "sqlAuthCookie");
 			}
 		}
 	}
