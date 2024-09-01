@@ -33,13 +33,13 @@ namespace ExtRS.Portal.Controllers
             _httpClient = new HttpClient();
             _connection = new SSRSConnection(_configuration["ReportServerName"]!, _httpContextAccessor.HttpContext!.User.Identity!.Name!, AuthenticationType.ExtRSAuth);
             _ssrs = new SSRSService(_connection, _configuration);
-            //_ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
+            _ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
         }
 
 		[HttpGet]
 		public async Task<IActionResult> LogOutAsync()
 		{
-			var deleteResponse = await _ssrs.DeleteSession(_httpContextAccessor.HttpContext!.User!.Identity!.Name!, _configuration["extrspassphrase"]!.ToString(), _connection.ReportServerName);
+			var deleteResponse = await _ssrs.DeleteSession();
 			await _signInManager.SignOutAsync();
 			_ssrs.ClearCookies(_httpContextAccessor, "http://ssrssrv.net,http://portal.ssrssrv.net,_dltdgst");
 			HttpContext.Session.Clear();
@@ -53,7 +53,8 @@ namespace ExtRS.Portal.Controllers
 		public async Task<IActionResult> SignedIn()
 		{
 			var info = await _signInManager.GetExternalLoginInfoAsync();
-			await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true);
+			await _signInManager.ExternalLoginSignInAsync(info!.LoginProvider, info.ProviderKey, isPersistent: false);
+			_ssrs.DeleteSession();
 			return RedirectToAction("Dashboard", "Dashboard");
 		}
 	}
