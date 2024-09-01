@@ -53,8 +53,13 @@ namespace ExtRS.Portal.Controllers
             Report report;
             if (_ssrs._conn.UserName != _httpContextAccessor.HttpContext!.User.Identity!.Name!)
             {
-                var session = await _ssrs.CreateSession(_httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName);
-                _ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
+				//if (_ssrs._conn.UserName != _httpContextAccessor.HttpContext!.User.Identity!.Name!)
+				//{
+				//	var session = await _ssrs.CreateSession(_httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName);
+				//	_ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
+				//}
+				//_ssrs.CreateSession()
+               // _ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
 			}
             if (reportName is not null)
             {
@@ -71,7 +76,7 @@ namespace ExtRS.Portal.Controllers
 
             ReportView view = new ReportView() { SelectedReport = report };
 
-            Response.Cookies.Delete("sqlAuthCookie");
+            //Response.Cookies.Delete("sqlAuthCookie");
             return View("_Report", view);
         }
 
