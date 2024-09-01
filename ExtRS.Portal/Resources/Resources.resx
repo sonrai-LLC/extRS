@@ -120,4 +120,13 @@
   <data name="Hello" xml:space="preserve">
     <value>Hi!</value>
   </data>
+  <data name="Passphrase" xml:space="preserve">
+    <value>This_IS_a_simpl_Passphrase</value>
+  </data>
+  <data name="ReportServerName" xml:space="preserve">
+    <value>localhost</value>
+  </data>
+  <data name="User" xml:space="preserve">
+    <value>cfitzg1983@gmail.com</value>
+  </data>
 </root>

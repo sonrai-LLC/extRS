@@ -64,8 +64,7 @@ namespace Sonrai.ExtRS
 
 		public async Task<HttpResponseMessage> DeleteSession(string user, string password, string server)
 		{
-			string credentials = GetCredentialJson(user, password, server);
-			var response = await CallApi(HttpVerbs.DELETE, "Session", credentials);
+			var response = await CallApi(HttpVerbs.DELETE, "Session");
 			return response;
 		}
 
@@ -275,7 +274,7 @@ namespace Sonrai.ExtRS
 			//postResponse = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
 
 			// first, delete existing session to replace with new cookie if user has changed
-			var deleteResponse = await DeleteSession(user, password, domain);
+			//var deleteResponse = await DeleteSession(user, password, domain);
 
 			// create new session
 			var postResponse = await CreateSession(user, password, domain);
@@ -385,7 +384,7 @@ namespace Sonrai.ExtRS
 						_httpContextAccesor.HttpContext.Response.Cookies.Delete(cookie.Key, new CookieOptions()
 						{
 							Domain = domain,
-							Expires = DateTimeOffset.UtcNow,
+							Expires = DateTimeOffset.UtcNow.AddMinutes(-1),
 							IsEssential = false,
 							Secure = true,
 							SameSite = SameSiteMode.Lax,

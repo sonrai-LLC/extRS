@@ -26,7 +26,7 @@ namespace ExtRS.Portal.Controllers
             _httpClient = new HttpClient();
             _connection = new SSRSConnection(_configuration["ReportServerName"]!, _httpContextAccessor.HttpContext!.User.Identity!.Name!, AuthenticationType.ExtRSAuth); //_httpContextAccessor.HttpContext.User.Identity.Name!
 			_ssrs = new SSRSService(_connection, _configuration);
-            _ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext!.User.Identity!.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result; //_httpContextAccessor.HttpContext.User.Identity.Name!
+            _ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext!.User.Identity!.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result; //_httpContextAccessor.HttpContext.User.Identity.Name!							
 		}
 
         [AllowAnonymous]
