@@ -39,8 +39,8 @@ namespace ExtRS.Portal.Controllers
 		[HttpGet]
 		public async Task<IActionResult> LogOutAsync()
 		{
-			var deleteResponse = await _ssrs.DeleteSession();
 			await _signInManager.SignOutAsync();
+			await _ssrs.DeleteSession();		
 			_ssrs.ClearCookies(_httpContextAccessor, "http://ssrssrv.net,http://portal.ssrssrv.net,_dltdgst");
 			HttpContext.Session.Clear();
 			_httpContextAccessor!.HttpContext!.Session.Clear();
