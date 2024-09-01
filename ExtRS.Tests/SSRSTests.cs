@@ -42,7 +42,7 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task DeleteSessionSucceeds()
         {
-            var result = await ssrs.DeleteSession(Resources.User, Resources.Passphrase, Resources.ReportServerName);
+            var result = await ssrs.DeleteSession();
             Assert.IsTrue(Convert.ToString(result.StatusCode) == "OK");
         }
 

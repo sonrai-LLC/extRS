@@ -16,14 +16,15 @@ namespace EditorNetCoreDemo.Controllers
         private readonly SSRSConnection _connection;
         private readonly HttpClient _httpClient;
         private SSRSService _ssrs;
+        private HttpContextAccessor _httpContextAccessor;
 
-        public StatsController(ILogger<StatsController> logger, IConfiguration configuration)
+		public StatsController(ILogger<StatsController> logger, IConfiguration configuration)
         {
             _logger = logger;
             _configuration = configuration;
             _httpClient = new HttpClient();
             _connection = new SSRSConnection(_configuration["ReportServerName"]!, _configuration["User"]!, AuthenticationType.ExtRSAuth);
-            _ssrs = new SSRSService(_connection, _configuration);
+            _ssrs = new SSRSService(_connection, _configuration, _httpContextAccessor);
             _ssrs._conn.SqlAuthCookie = _ssrs.GetSqlAuthCookie(_httpClient, _configuration["User"]!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
         }
 

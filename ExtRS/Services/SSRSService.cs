@@ -19,17 +19,18 @@ namespace Sonrai.ExtRS
 		private HttpClient _client;
 		CookieContainer _cookieContainer = new CookieContainer();
 		string _serverUrl;
-
-		public SSRSService(SSRSConnection connection, IConfiguration? configuration)
+		private IHttpContextAccessor _httpContextAccessor;
+		private readonly SSRSConnection _connection;
+		public SSRSService(SSRSConnection connection, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
 		{
 			_conn = connection;
 			_client = new HttpClient();
-			var cookie = new Cookie("sqlAuthCookie", _conn.SqlAuthCookie, "/", configuration == null ? "localhost" : configuration["ReportServerName"]!);
-			_cookieContainer.Add(cookie);
 			_serverUrl = string.Format("https://{0}/reports/api/v2.0/", _conn.ReportServerName);
 			_configuration = configuration;
+			_httpContextAccessor = httpContextAccessor;
+			var cookie = new Cookie("sqlAuthCookie", GetSqlAuthCookie(_client, _httpContextAccessor.HttpContext.User?.Identity!.Name ?? "extRSAuth", _configuration["extrspassphrase"]!, _configuration["ReportServerName"]!).Result, "/", _configuration["ReportServerName"]);
+			_cookieContainer.Add(cookie);
 		}
-
 		public async Task<HttpResponseMessage?> CallApi(HttpVerbs verb, string operation, string content = "", string parameters = "")
 		{
 			HttpResponseMessage response = new HttpResponseMessage();
@@ -65,6 +66,7 @@ namespace Sonrai.ExtRS
 		public async Task<HttpResponseMessage> DeleteSession()
 		{
 			var response = await CallApi(HttpVerbs.DELETE, "Session");
+			ClearCookies(_httpContextAccessor, "http://ssrssrv.net,http://portal.ssrssrv.net,_dltdgst");
 			return response;
 		}
 
@@ -274,7 +276,7 @@ namespace Sonrai.ExtRS
 			//postResponse = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
 
 			// first, delete existing session to replace with new cookie if user has changed
-			var deleteResponse = await DeleteSession();
+			//var deleteResponse = await DeleteSession();
 
 			// create new session
 			var postResponse = await CreateSession(user, password, domain);
@@ -373,7 +375,7 @@ namespace Sonrai.ExtRS
 			}
 		}
 
-		public void ClearCookies(IHttpContextAccessor _httpContextAccesor, string domains)
+		public async void ClearCookies(IHttpContextAccessor _httpContextAccesor, string domains)
 		{
 			foreach (var domain in domains.Split(","))
 			{
@@ -385,10 +387,10 @@ namespace Sonrai.ExtRS
 						{
 							Domain = domain,
 							Expires = DateTimeOffset.UtcNow.AddMinutes(-1),
-							IsEssential = false,
-							Secure = true,
+							//IsEssential = false,
+							//Secure = true,
 							SameSite = SameSiteMode.Lax,
-							HttpOnly = true
+							//HttpOnly = true
 						}); ;
 					}
 				}
