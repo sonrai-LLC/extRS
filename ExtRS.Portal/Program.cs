@@ -38,7 +38,7 @@ builder.Services.AddRateLimiter(options =>
             {
                 PermitLimit = 20,
                 AutoReplenishment = true,
-                Window = TimeSpan.FromSeconds(100000)
+                Window = TimeSpan.FromMinutes(15)
             });
     });
 });
@@ -49,7 +49,7 @@ builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
 builder.Services.ConfigureApplicationCookie(o =>
 {
-    o.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+    o.ExpireTimeSpan = TimeSpan.FromMinutes(2);
 	o.SlidingExpiration = true;
 });
 

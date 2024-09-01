@@ -117,7 +117,7 @@ namespace ExtRS.Portal.Views.Areas.Identity.Pages.Account.Manage
         public static string PageNavClass(ViewContext viewContext, string page)
         {
             var activePage = Path.GetFileNameWithoutExtension(viewContext.ActionDescriptor.DisplayName); // viewContext.//ViewData["ActivePage"] as string
-                //?? P;
+                                                                                                         //?? P;
             return string.Equals(activePage, page, StringComparison.OrdinalIgnoreCase) ? "active" : null;
         }
     }

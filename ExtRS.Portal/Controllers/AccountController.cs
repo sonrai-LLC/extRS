@@ -39,7 +39,7 @@ namespace ExtRS.Portal.Controllers
 		[HttpGet]
 		public async Task<IActionResult> LogOutAsync()
 		{
-			await _ssrs.DeleteSession();		
+			var deleteResponse = await _ssrs.DeleteSession(_httpContextAccessor.HttpContext!.User!.Identity!.Name!, _configuration["extrspassphrase"]!.ToString(), _connection.ReportServerName);
 			await _signInManager.SignOutAsync();
 			_ssrs.ClearCookies(_httpContextAccessor, "http://ssrssrv.net,http://portal.ssrssrv.net,_dltdgst");
 			HttpContext.Session.Clear();
@@ -50,8 +50,10 @@ namespace ExtRS.Portal.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult SignedIn()
+		public async Task<IActionResult> SignedIn()
 		{
+			var info = await _signInManager.GetExternalLoginInfoAsync();
+			await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: true);
 			return RedirectToAction("Dashboard", "Dashboard");
 		}
 	}

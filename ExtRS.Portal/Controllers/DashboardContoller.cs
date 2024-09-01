@@ -32,9 +32,7 @@ namespace ExtRS.Portal.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Dashboard()
         {
-            Report report = await _ssrs.GetReport("path='/Reports/Team'");
-            DashboardView model = new DashboardView { Report = report, CurrentTab = "Dashboard" };
-
+            DashboardView model = new DashboardView { CurrentTab = "Dashboard" };
             return View(model);
         }
 
