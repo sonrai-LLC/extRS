@@ -90,15 +90,23 @@ builder.Services.Configure<IdentityOptions>(options =>
     // Configure Customize password requirements, lockout settings, etc.
 });
 
-builder.Services.AddAuthorization(options =>
-{
-    options.FallbackPolicy = options.DefaultPolicy;
-});
+
+
+
+
+//builder.Services.AddAuthorization(options =>
+//{
+//    options.FallbackPolicy = options.DefaultPolicy;
+//});
 
 var app = builder.Build();
 
-app.UseAuthentication();
-app.UseCookiePolicy();
+//app.UseAuthentication();
+//app.UseCookiePolicy();
+
+
+
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -120,8 +128,16 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
-app.UseAuthentication();
-app.UseAuthorization();
+
+
+
+
+
+//app.UseAuthentication();
+//app.UseAuthorization();
+
+
+
 
 app.UseEndpoints(endpoints =>
 {

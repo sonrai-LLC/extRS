@@ -401,7 +401,7 @@ namespace Sonrai.ExtRS
         {
             var client = new RestClient(string.Format("{0}/track/v1/", isProd ? fedexProd : fedexTest));
             var request = new RestRequest("trackingnumbers", Method.Post);
-            request.AddHeader("Authorization", "Bearer " + authToken);
+            request.AddHeader("Authorization", "BearerToken " + authToken);
             request.AddHeader("X-locale", "en_US");
             request.AddBody(TrackingRequestFedEx.Replace("{0}", trackingNumber).Replace("{1}", "FDXE").Replace("{2}", trackingNumber + "-1"));
             var response = client.Execute(request);

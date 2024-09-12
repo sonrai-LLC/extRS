@@ -7,6 +7,7 @@ using System;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace Sonrai.ExtRS.UnitTests
 {
@@ -15,22 +16,31 @@ namespace Sonrai.ExtRS.UnitTests
     {
         private SSRSService ssrs;
         private HttpClient httpClient;
+        private IConfiguration _configuration { get; }
 
-        //[TestInitialize]
-        //public async Task InitializeTests()
-        //{
-        //    httpClient = new HttpClient();
-        //    SSRSConnection connection = new SSRSConnection(Resources.ReportServerName, Resources.User, AuthenticationType.ExtRSAuth);
-        //    connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, Resources.User, Resources.Passphrase, connection.ReportServerName);
-        //    ssrs = new SSRSService(connection, null);
-        //}
+        public SSRSTests()
+        {
+            // set your API ids and secrets in UserSecrets (right-click project: "Manage User Secrets")  
+            var builder = new ConfigurationBuilder()
+              .AddUserSecrets<ReferenceDataTests>();
+            _configuration = builder.Build();
+        }
 
-        //[TestMethod]
-        //public async Task GetGetSqlAuthCookieSucceeds()
-        //{
-        //    var cookieString = await SSRSService.GetSqlAuthCookie(httpClient, Resources.User, Resources.Passphrase, Resources.ReportServerName);
-        //    Assert.IsTrue(cookieString.Length > 0);
-        //}
+        [TestInitialize]
+        public async Task InitializeTests()
+        {
+            httpClient = new HttpClient();
+            SSRSConnection connection = new SSRSConnection(Resources.ReportServerName, Resources.User, AuthenticationType.ExtRSAuth);
+            ssrs = new SSRSService(connection, _configuration, null);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, Resources.User, Resources.Passphrase, connection.ReportServerName);
+        }
+
+        [TestMethod]
+        public async Task GetGetSqlAuthCookieSucceeds()
+        {
+            var cookieString = await SSRSService.GetSqlAuthCookie(httpClient, Resources.User, Resources.Passphrase, Resources.ReportServerName);
+            Assert.IsTrue(cookieString.Length > 0);
+        }
 
         [TestMethod]
         public async Task CreateSessionSucceeds()
@@ -159,7 +169,7 @@ namespace Sonrai.ExtRS.UnitTests
                 ""Owner"": """ + Resources.User + @""",
                 ""IsDataDriven"": false,
                 ""Description"": ""string..."",
-                ""Report"": ""/Reports/Team"",
+                ""Report"": ""/Reports/USPolls"",
                 ""IsActive"": true,
                 ""EventType"": ""TimedSubscription"",
                 ""ScheduleDescription"": ""string..."",
@@ -258,9 +268,9 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetParameterHtmlSucceeds()
         {
-            var result = await ssrs.GetParameterHtml("path='/Reports/Team'");
+            var result = await ssrs.GetParameterHtml("path='/Reports/USPolls'");
             Assert.IsNotNull(result);
-            //Assert.IsTrue(result.Contains("<") && result.Contains("/>"));
+            Assert.IsTrue(result.Contains("<div>") && result.Contains("</div>"));
         }
 
         [TestMethod]

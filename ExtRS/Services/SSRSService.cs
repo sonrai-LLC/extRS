@@ -30,7 +30,7 @@ namespace Sonrai.ExtRS
 			_serverUrl = string.Format("https://{0}/reports/api/v2.0/", _conn.ReportServerName);
 			_configuration = configuration;
 			_httpContextAccessor = httpContextAccessor;
-			var cookie = new Cookie("sqlAuthCookie", GetSqlAuthCookie(_client, _httpContextAccessor.HttpContext.User?.Identity!.Name ?? "extRSAuth", _configuration["extrspassphrase"]!, _configuration["ReportServerName"]!).Result, "/", _configuration["ReportServerName"]);
+			var cookie = new Cookie("sqlAuthCookie", GetSqlAuthCookie(_client, _httpContextAccessor?.HttpContext.User?.Identity!.Name ?? "extRSAuth", _configuration["extrspassphrase"]!, _configuration["ReportServerName"]!).Result, "/", _configuration["ReportServerName"]);
 			_cookieContainer.Add(cookie);
 			domains = _configuration["ReportServerName"] + "," + "_dltdgst";
 		}
@@ -69,7 +69,6 @@ namespace Sonrai.ExtRS
 		public async Task<HttpResponseMessage> DeleteSession()
 		{
 			var response = await CallApi(HttpVerbs.DELETE, "Session");
-			ClearSqlAuthCookies(_httpContextAccessor, domains);
 			return response;
 		}
 
@@ -265,43 +264,25 @@ namespace Sonrai.ExtRS
 			return "{" + string.Format("\"UserName\":\"{0}\",\"Password\": \"{1}\",\"Domain\":\"{2}\"", user, password, domain) + "}";
 		}
 
-		public async Task<string> GetSqlAuthCookie(HttpClient client, string user, string password, string domain)
-		{
-			string cookie = "sqlAuthCookie=";
-			//StringContent httpContent = new StringContent(GetCredentialJson(user, password, domain), Encoding.UTF8, "application/json");
+        public static async Task<string> GetSqlAuthCookie(HttpClient client, string user = "extRSAuth", string password = "", string domain = "localhost")
+        {
+            string cookie = "";
+            StringContent httpContent = new StringContent(GetCredentialJson(user, password, domain), Encoding.UTF8, "application/json");
 
-			// first check the ReportServer db to ensure the user exists, and if not, create new RS user.
-			// {{ ie. "Id": "00000000-0000-0000-0000-000000000000"
-			// ....otherwise the user session is ephemeral and no Policies can be assoc'd w/the user}}
+            var response = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
+            HttpHeaders headers = response.Headers;
+            if (headers.TryGetValues("Set-Cookie", out IEnumerable<string> values))
+            {
+                cookie = values.First();
+            }
+            string pattern = @"(sqlAuthCookie=[A-Z0-9])\w+";
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            Match sqlAuthCookie = regex.Match(cookie);
 
-			//var postResponse = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
-			//var deleteResponse = await client.DeleteAsync(string.Format("https://{0}/reports/api/v2.0/Session"));
-			//postResponse = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
+            return sqlAuthCookie.Value.Replace("sqlAuthCookie=", "");
+        }
 
-			// first, delete existing session to replace with new cookie if user has changed
-			if (_cookieContainer.GetAllCookies().Where(x => x.Name == "sqlAuthCookie").Count() > 0)
-			{
-				var deleteResponse = await DeleteSession();
-			}
-
-			// create new session
-			var postResponse = await CreateSession(user, password, domain);
-			//await DeleteSession();
-			//postResponse = await CreateSession(user, password, domain);
-
-			HttpHeaders headers = postResponse.Headers;
-			if (headers.TryGetValues("Set-Cookie", out IEnumerable<string> values))
-			{
-				cookie = values.First();
-			}
-			string pattern = @"(sqlAuthCookie=[A-Z0-9])\w+";
-			Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
-			Match sqlAuthCookie = regex.Match(cookie);
-
-			return sqlAuthCookie.Value.Replace("sqlAuthCookie=", "");
-		}
-
-		public async Task<string> GetCatalogItemHtml(string pathOrId, string onClick = "", string css = "")
+        public async Task<string> GetCatalogItemHtml(string pathOrId, string onClick = "", string css = "")
 		{
 			CatalogItem catalogItem = await GetCatalogItem(pathOrId);
 			StringBuilder sb = new StringBuilder();
@@ -336,9 +317,15 @@ namespace Sonrai.ExtRS
 		public async Task<string> GetParameterHtml(string pathOrId)
 		{
 			var definitions = await GetReportParameterDefinition(pathOrId);
+			StringBuilder sb = new StringBuilder();
 
-			return "";
-		}
+			foreach(var def in definitions)
+			{
+				sb.Append("<div>").Append(def.Name).Append("</div>");
+            }
+
+			return sb.ToString();
+        }
 
 		public string GetCascadeParameters(string source, string sourceCol, string cascade, string casecadeCol)
 		{
@@ -381,26 +368,26 @@ namespace Sonrai.ExtRS
 			}
 		}
 
-		public void ClearSqlAuthCookies(IHttpContextAccessor _httpContextAccesor, string domains)
-		{
-			_cookieContainer.SetCookies(new Uri("https://ssrssrv.net"), "id=sqlAuthCookie; Expires=1-1-1900");
+		//public void ClearSqlAuthCookies(IHttpContextAccessor _httpContextAccesor, string domains)
+		//{
+		//	_cookieContainer.SetCookies(new Uri("https://ssrssrv.net"), "id=sqlAuthCookie; Expires=1-1-1900");
 
-			foreach (var domain in domains.Split(","))
-			{
-				_httpContextAccesor.HttpContext.Response.Cookies.Delete("sqlAuthCookie", new CookieOptions()
-				{
-					Domain = domain,
-					Expires = DateTimeOffset.UtcNow.AddYears(-1),
-					IsEssential = false,
-					Secure = true,
-					SameSite = SameSiteMode.Lax,
-					HttpOnly = true,
-					Path = "/",
-					MaxAge = TimeSpan.FromMinutes(1)
-				});
+		//	foreach (var domain in domains.Split(","))
+		//	{
+		//		_httpContextAccesor.HttpContext.Response.Cookies.Delete("sqlAuthCookie", new CookieOptions()
+		//		{
+		//			Domain = domain,
+		//			Expires = DateTimeOffset.UtcNow.AddYears(-1),
+		//			IsEssential = false,
+		//			Secure = true,
+		//			SameSite = SameSiteMode.Lax,
+		//			HttpOnly = true,
+		//			Path = "/",
+		//			MaxAge = TimeSpan.FromMinutes(1)
+		//		});
 
-				//_cookieContainer.GetAllCookies().Where(x => x.Name == "sqlAuthCookie");
-			}
-		}
+		//		//_cookieContainer.GetAllCookies().Where(x => x.Name == "sqlAuthCookie");
+		//	}
+		//}
 	}
 }
