@@ -403,7 +403,7 @@ namespace Sonrai.ExtRS
             var request = new RestRequest("trackingnumbers", Method.Post);
             request.AddHeader("Authorization", "BearerToken " + authToken);
             request.AddHeader("X-locale", "en_US");
-            request.AddBody(TrackingRequestFedEx.Replace("{0}", trackingNumber).Replace("{1}", "FDXE").Replace("{2}", trackingNumber + "-1"));
+            request.AddBody(TrackingRequestFedEx.Replace("{0}", trackingNumber + "-1").Replace("{1}", "FDXE").Replace("{2}", trackingNumber));
             var response = client.Execute(request);
 
             return response;
@@ -437,18 +437,24 @@ namespace Sonrai.ExtRS
          </TrackRequest>";
 
 
-        public static string TrackingRequestFedEx = @"{
-              'includeDetailedScans': true,
-              'trackingInfo': [
-                {
-                  'trackingNumberInfo': {
-                    'trackingNumber': '{0}',
-                    'carrierCode': '{1}',
-                    'trackingNumberUniqueId': '{2}'
-                  }
+        public static string TrackingRequestFedEx = @"
+             {
+                ""includeDetailedScans"": true,
+                ""associatedType"": ""STANDARD_MPS"",
+                ""masterTrackingNumberInfo"": {
+                    ""shipDateEnd"": ""2018-11-03"",
+                    ""shipDateBegin"": ""2018-11-01"",
+                    ""trackingNumberInfo"": {
+                        ""trackingNumberUniqueId"": {0},
+                        ""carrierCode"": {1},
+                        ""trackingNumber"": {2}
+                    }
+                },
+                ""pagingDetails"": {
+                ""resultsPerPage"": 56,
+                ""pagingToken"": ""38903279038""
                 }
-             ]}
-           }";
+              }";
 
         //https://secure.shippingapis.com/shippingapi.dll?API=Verify&XML=
         public static string VerifyAddressUSPS = @"
