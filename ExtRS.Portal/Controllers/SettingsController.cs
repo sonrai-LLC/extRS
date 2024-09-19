@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EditorNetCoreDemo.Controllers
 {
-	//[Authorize]
+	[Authorize]
 	public class SettingsController : Controller
     {
         private readonly ILogger<SettingsController> _logger;
@@ -77,7 +77,7 @@ namespace EditorNetCoreDemo.Controllers
             return View("_LoginPartial");
         }
 
-        //[Authorize]
+        [Authorize]
         public IActionResult Privacy()
         {
             return View();

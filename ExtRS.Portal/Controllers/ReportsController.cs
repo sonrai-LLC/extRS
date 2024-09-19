@@ -14,8 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ExtRS.Portal.Controllers
 {
-    //[Authorize]
-    [AllowAnonymous]
+    [Authorize]
     public class ReportsController : Controller
     {
         private readonly ILogger<ReportsController> _logger;

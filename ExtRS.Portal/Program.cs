@@ -91,22 +91,15 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 
-
-
-
-//builder.Services.AddAuthorization(options =>
-//{
-//    options.FallbackPolicy = options.DefaultPolicy;
-//});
+builder.Services.AddAuthorization(options =>
+{
+    options.FallbackPolicy = options.DefaultPolicy;
+});
 
 var app = builder.Build();
 
-//app.UseAuthentication();
-//app.UseCookiePolicy();
-
-
-
-
+app.UseAuthentication();
+app.UseCookiePolicy();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -118,9 +111,6 @@ else
 {
     var keyVaultEndpoint = new Uri("https://sonraivault.vault.azure.net/");
     builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
-    //var keyVaultEndpoint = new Uri("https://sonraivault.vault.azure.net/");
-    //builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
-    //app.UseExceptionHandler("/Home/Error");
 }
 
 app.UseHsts();
@@ -128,16 +118,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
-
-
-
-
-
-//app.UseAuthentication();
-//app.UseAuthorization();
-
-
-
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {

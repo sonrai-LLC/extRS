@@ -8,7 +8,7 @@ using DataSet = ReportingServices.Api.Models.DataSet;
 
 namespace ExtRS.Portal.Controllers
 {
-	//[Authorize]
+	[Authorize]
 	public class DatasetsController : Controller
     {
         private readonly ILogger<DatasetsController> _logger;
