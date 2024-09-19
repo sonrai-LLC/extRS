@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ExtRS.Portal.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class SubscriptionsController : Controller
     {
         private readonly ILogger<SubscriptionsController> _logger;
