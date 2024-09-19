@@ -401,9 +401,12 @@ namespace Sonrai.ExtRS
         {
             var client = new RestClient(string.Format("{0}/track/v1/", isProd ? fedexProd : fedexTest));
             var request = new RestRequest("trackingnumbers", Method.Post);
-            request.AddHeader("Authorization", "BearerToken " + authToken);
+            request.AddHeader("Authorization", "Bearer " + authToken);
+            request.AddHeader("Token", authToken);
+            request.AddHeader("x-customer-transaction-id", "624deea6-b708-470c-8c39-4b5511281492");
             request.AddHeader("X-locale", "en_US");
-            request.AddBody(TrackingRequestFedEx.Replace("{0}", trackingNumber + "-1").Replace("{1}", "FDXE").Replace("{2}", trackingNumber));
+            request.AddHeader("content-type", "application/json");
+            request.AddBody(TrackingRequestFedEx.Replace("{0}", trackingNumber + "-1").Replace("{1}", "FDXG").Replace("{2}", trackingNumber));
             var response = client.Execute(request);
 
             return response;
@@ -436,24 +439,16 @@ namespace Sonrai.ExtRS
             <TrackID ID='{1}'></TrackID>
          </TrackRequest>";
 
-
         public static string TrackingRequestFedEx = @"
              {
                 ""includeDetailedScans"": true,
-                ""associatedType"": ""STANDARD_MPS"",
-                ""masterTrackingNumberInfo"": {
-                    ""shipDateEnd"": ""2018-11-03"",
-                    ""shipDateBegin"": ""2018-11-01"",
+                ""trackingInfo"": [{
                     ""trackingNumberInfo"": {
-                        ""trackingNumberUniqueId"": {0},
-                        ""carrierCode"": {1},
-                        ""trackingNumber"": {2}
+                        ""trackingNumberUniqueId"": ""{0}"",
+                        ""carrierCode"": ""{1}"",
+                        ""trackingNumber"": ""{2}""
                     }
-                },
-                ""pagingDetails"": {
-                ""resultsPerPage"": 56,
-                ""pagingToken"": ""38903279038""
-                }
+                }]
               }";
 
         //https://secure.shippingapis.com/shippingapi.dll?API=Verify&XML=

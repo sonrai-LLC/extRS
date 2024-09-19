@@ -43,7 +43,6 @@ namespace Sonrai.ExtRS.UnitTests
             fedexSecret = secretVals.Where(x => x.Key == "fedexSecret").First().Value!;
             tiingoAPIToken = secretVals.Where(x => x.Key == "tiingoAPIToken").First().Value!;
             googleAPIKey = secretVals.Where(x => x.Key == "googleAPIKey").First().Value!;
-
         }
 
         [TestInitialize]
@@ -188,7 +187,7 @@ namespace Sonrai.ExtRS.UnitTests
             result = ReferenceDataService.GetTrackingInfo(Shipper.UPS, "", "", authToken);
             Assert.IsTrue(result.IsSuccessful);
             authToken = ReferenceDataService.GetAuthTokenFedEx(fedexId, fedexSecret);
-            result = ReferenceDataService.GetTrackingInfo(Shipper.FedEx, "9261299991099834284833", "", authToken);
+            result = ReferenceDataService.GetTrackingInfo(Shipper.FedEx, "377101283611590", "", authToken);
             Assert.IsTrue(result.IsSuccessful);
         }
     }
