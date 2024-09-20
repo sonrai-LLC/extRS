@@ -14,7 +14,6 @@ using System.Diagnostics;
 
 namespace ExtRS.Portal.Controllers
 {
-
 	[Authorize]
 	public class AccountController : Controller
 	{
