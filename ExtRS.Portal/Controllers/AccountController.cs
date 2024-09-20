@@ -47,11 +47,6 @@ namespace ExtRS.Portal.Controllers
 		{
 			await _signInManager.SignOutAsync();
 			await _ssrs.DeleteSession();
-			_ssrs.DeleteSession();
-			HttpContext.Session.Clear();
-			_httpContextAccessor!.HttpContext!.Session.Clear();
-			_httpContextAccessor!.HttpContext!.Session.Remove("_dltdgst");
-			_ssrs._conn.SqlAuthCookie = "";
 
 			return new RedirectToPageResult("/Account/Login", new { area = "Identity" });
 		}

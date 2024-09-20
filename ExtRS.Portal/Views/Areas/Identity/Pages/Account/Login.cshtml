@@ -5,6 +5,15 @@
     ViewData["Title"] = "Log in";
 }
 
+<script>
+    $(document).ready(function () {
+        alert('hi!');
+        console.log("ready to delete!");
+        delete_cookie("sqlAuthCookie", "/", "ssrssrv.net");
+        console.log("cookie deleted?");
+    });
+</script>
+
 <h1>@ViewData["Title"]</h1>
 <div class="row">
     <div class="col-md-4">

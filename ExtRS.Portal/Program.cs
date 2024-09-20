@@ -96,10 +96,18 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
+//builder.Services.AddSession(options =>
+//{
+//    options.IdleTimeout = TimeSpan.FromSeconds(30);
+//    options.Cookie.Name = "sqlAuthCookie";
+//});
+
+
 var app = builder.Build();
 
 app.UseAuthentication();
 app.UseCookiePolicy();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -117,7 +125,7 @@ app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseSession();
+//app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
