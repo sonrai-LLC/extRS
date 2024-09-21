@@ -10,7 +10,6 @@ using Microsoft.Identity.Client;
 using Sonrai.ExtRS.Models.Enums;
 using System.ComponentModel;
 using System.Reflection;
-using AngleSharp.Css;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ExtRS.Portal.Controllers

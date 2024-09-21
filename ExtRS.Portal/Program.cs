@@ -5,17 +5,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web.UI;
 using Sonrai.ExtRS;
 using System.Data.Common;
 using System.Threading.RateLimiting;
 using WebPWrecover.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.UI;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 
 DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
