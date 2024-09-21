@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Web;
 using Microsoft.Extensions.Hosting.Internal;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -42,13 +43,23 @@ namespace ExtRS.Portal.Controllers
 		}
 
 		[HttpGet]
-		public async Task<IActionResult> LogOutAsync()
+		public async Task LogOutAsync()
 		{
 			await _signInManager.SignOutAsync();
 			await _ssrs.DeleteSession();
 
-			return new RedirectToPageResult("/Account/Login", new { area = "Identity" });
-		}
+			 await Logon();
+        }
+
+		[AllowAnonymous]
+        //[HttpGet("/Identity/Account/Logon")]
+        //[Route("~/Identity/Account/Logon")]
+        public async Task<IActionResult> Logon()
+		{
+			//return new RedirectToPageResult("/Login.cshtml", new { area = "Pages/Identity/Account" });
+			//return new RedirectToPageResult("/Login.cshtml");
+            return LocalRedirect("/Login.cshtml");
+        }
 
 		[HttpGet]
 		public async Task<IActionResult> SignedIn()

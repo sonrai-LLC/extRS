@@ -20,9 +20,11 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<ApplicationDbContext>();
+
 builder.Services.AddControllersWithViews();
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
+
 builder.Services.AddRateLimiter(options =>
 {
     options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
@@ -90,24 +92,20 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
-//builder.Services.AddSession(options =>
-//{
-//    options.IdleTimeout = TimeSpan.FromSeconds(30);
-//    options.Cookie.Name = "sqlAuthCookie";
-//});
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(30);
+    options.Cookie.Name = "sqlAuthCookie";
+});
 
 
 var app = builder.Build();
 
-app.UseAuthentication();
-app.UseCookiePolicy();
-
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseMigrationsEndPoint();
-    app.UseMigrationsEndPoint();
+    //app.UseMigrationsEndPoint();
+    //app.UseMigrationsEndPoint();
 }
 else
 {
@@ -119,21 +117,35 @@ app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-//app.UseSession();
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Dashboard}/{action=Dashboard}");
-    endpoints.MapRazorPages();
-});
-
-app.UseRateLimiter();
 app.MapRazorPages();
 app.MapControllers();
+app.UseCookiePolicy();
+
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapControllerRoute(
+//    name: "default",
+//    pattern: "{controller=Dashboard}/{action=Dashboard}");
+//    endpoints.MapRazorPages();
+//});
+
+app.UseRateLimiter();
+
+//app.UseEndpoints(endpoints =>
+//{
+//    endpoints.MapDefaultControllerRoute().RequireAuthorization();
+//});
+
+
+app.UseMvc(routes =>
+{
+    routes.MapRoute(
+        name: "default",
+        template: "{controller=Account}/{action=Logon}");
+});
 
 app.UseCors(builder => builder
 .WithOrigins("https://localhost", "https://ssrssrv.net", "https://portal.ssrssrv.net")
