@@ -11,16 +11,18 @@ using System.Data.Common;
 using System.Threading.RateLimiting;
 using WebPWrecover.Services;
 
-        //public IConfiguration Configuration { get; }
-
-        //public Startup(IConfiguration configuration)
-        //{
-        //    Configuration = configuration;
-        //}
-
 DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
+
+// Add Session
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(10);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 // Add services to the container.
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
@@ -49,23 +51,30 @@ builder.Services.AddRateLimiter(options =>
 });
 
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-builder.Services.AddDistributedMemoryCache();
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
-builder.Services.ConfigureApplicationCookie(o =>
-{
-    o.ExpireTimeSpan = TimeSpan.FromMinutes(2);
-	o.SlidingExpiration = true;
-});
-
-builder.Services.AddSession(options =>
-{
-    options.Cookie.Name = "_dltdgst";
-    options.IdleTimeout = TimeSpan.FromMinutes(10);
-    options.Cookie.HttpOnly = true;
-    options.Cookie.IsEssential = true;
-    options.Cookie.Domain = "portal.ssrssrv.net";
-});
+//builder.Services.ConfigureApplicationCookie(o =>
+//{
+//    o.ExpireTimeSpan = TimeSpan.FromMinutes(2);
+//	o.SlidingExpiration = true;
+//    o.Cookie.Name = "_dltdgst";
+//});
+//builder.Services.AddSession(options =>
+//{
+//    options.Cookie.Name = "_dltdgst";
+//    options.IdleTimeout = TimeSpan.FromMinutes(10);
+//    options.Cookie.HttpOnly = true;
+//    options.Cookie.IsEssential = true;
+//    options.Cookie.Domain = "portal.ssrssrv.net";
+//});
+//builder.Services.AddSession(options =>
+//{
+//    options.Cookie.Name = "_dltdgst";
+//    options.IdleTimeout = TimeSpan.FromMinutes(10);
+//    //options.Cookie.HttpOnly = true;
+//    //options.Cookie.IsEssential = true;
+//    //options.Cookie.Domain = "localhost:7047";
+//});
 
 builder.Services.AddScoped<EncryptionService>();
 builder.Services.AddScoped<ApplicationUser>();
@@ -136,12 +145,12 @@ app.UseRateLimiter();
 //});
 
 
-app.UseMvc(routes =>
-{
-    routes.MapRoute(
-        name: "default",
-        template: "{controller=Account}/{action=Logon}");
-});
+//app.UseMvc(routes =>
+//{
+//    routes.MapRoute(
+//        name: "default",
+//        template: "{controller=Account}/{action=Logon}");
+//});
 
 app.UseCors(builder => builder
 .WithOrigins("https://localhost", "https://ssrssrv.net", "https://portal.ssrssrv.net")
@@ -150,6 +159,8 @@ app.UseCors(builder => builder
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMvc();
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
