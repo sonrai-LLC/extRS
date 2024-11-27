@@ -16,9 +16,9 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 namespace ExtRS.Portal.Controllers
 {
 	[Authorize]
-	public class AccountController : Controller
+	public class AccountMvcController : Controller
 	{
-		private readonly ILogger<AccountController> _logger;
+		private readonly ILogger<AccountMvcController> _logger;
 		private readonly IConfiguration _configuration;
 		private readonly IHttpContextAccessor _httpContextAccessor;
 		private readonly SignInManager<ApplicationUser> _signInManager;
@@ -28,7 +28,7 @@ namespace ExtRS.Portal.Controllers
 		public readonly string _domains;
 		private readonly IWebHostEnvironment _hostingEnvironment;
 
-		public AccountController(ILogger<AccountController> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, SignInManager<ApplicationUser> signInManager, IWebHostEnvironment hostingEnvironment)
+		public AccountMvcController(ILogger<AccountMvcController> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, SignInManager<ApplicationUser> signInManager, IWebHostEnvironment hostingEnvironment)
 		{
 			_logger = logger;
 			_configuration = configuration;
@@ -42,26 +42,18 @@ namespace ExtRS.Portal.Controllers
 			_hostingEnvironment = hostingEnvironment;
 		}
 
-		[HttpGet]
-		public async Task LogOutAsync()
+        [AllowAnonymous]
+        [HttpGet]
+		public async Task<IActionResult> LogoutMvc()
 		{
 			await _signInManager.SignOutAsync();
 			await _ssrs.DeleteSession();
 
-			 await Logon();
+            return RedirectToAction("Reports", "Reports");
         }
 
-		[AllowAnonymous]
-        //[HttpGet("/Identity/Account/Logon")]
-        //[Route("~/Identity/Account/Logon")]
-        public async Task<IActionResult> Logon()
-		{
-			//return new RedirectToPageResult("/Login.cshtml", new { area = "Pages/Identity/Account" });
-			//return new RedirectToPageResult("/Login.cshtml");
-            return LocalRedirect("/Login.cshtml");
-        }
-
-		[HttpGet]
+        [AllowAnonymous]
+        //[HttpGet]
 		public async Task<IActionResult> SignedIn()
 		{
 			var info = await _signInManager.GetExternalLoginInfoAsync();
@@ -71,20 +63,22 @@ namespace ExtRS.Portal.Controllers
 			_ssrs._conn.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
 			return RedirectToAction("Dashboard", "Dashboard");
 		}
+
+
+		[HttpGet]
+		public IActionResult SignedOut()
+		{
+			//_ssrs.DeleteSession();
+			//_ssrs.ClearCookies(_httpContextAccessor, "portal.ssrssrv.net, ssrssrv.net");
+			_signInManager.SignOutAsync();
+
+			//HttpContext.Session.Clear();
+			//_httpContextAccessor!.HttpContext!.Session.Clear();
+
+			return RedirectToAction("Dashboard", "Dashboard");
+		}
+
 	}
 }
 
 
-
-//[HttpGet]
-//      public IActionResult SignedOut()
-//      {
-//          _ssrs.DeleteSession();
-//          _ssrs.ClearCookies(_httpContextAccessor, "portal.ssrssrv.net, ssrssrv.net");
-//          _signInManager.SignOutAsync();
-
-//          //HttpContext.Session.Clear();
-//          //_httpContextAccessor!.HttpContext!.Session.Clear();
-
-//          return RedirectToAction("Dashboard", "Dashboard");
-//      }

@@ -1,4 +1,6 @@
-@model LayoutView
+@* @using Microsoft.AspNetCore.Mvc.ViewEngines
+@inject ICompositeViewEngine Engine *@
+
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>extRS</title>
@@ -523,7 +525,7 @@
                 @* <a href="@Url.Action("Admin", "Admin")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Admin" ? "active" : "")"><i class='bx bx-shield nav_icon'></i><span class="nav_name">Admin</span></a> *@
                 <br /> <br /> <br /> <br />
                 <a href="@Url.Action("Settings", "Settings")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Settings" ? "active" : "")"><i class='bx bx-wrench nav_icon'></i><span class="nav_name">guest</span></a>
-                <a href="@Url.Action("Logout", "Account")" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span></a>
+                <a href="@Url.Action("LogoutMvc", "AccountMvc")" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span></a>
             </div>
         </div>
     </nav>

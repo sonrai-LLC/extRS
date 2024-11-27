@@ -11,6 +11,12 @@ using System.Data.Common;
 using System.Threading.RateLimiting;
 using WebPWrecover.Services;
 
+        //public IConfiguration Configuration { get; }
+
+        //public Startup(IConfiguration configuration)
+        //{
+        //    Configuration = configuration;
+        //}
 
 DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
 var builder = WebApplication.CreateBuilder(args);
@@ -19,9 +25,12 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 // Add services to the container.
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddDefaultUI()
+    .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
+    //.AddMicrosoftIdentityUI();
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 
@@ -63,8 +72,6 @@ builder.Services.AddScoped<ApplicationUser>();
 builder.Services.AddScoped<IdentityUser>();
 builder.Services.AddScoped<SignInManager<ApplicationUser>>();
 
-builder.Services.AddRazorPages()
-    .AddMicrosoftIdentityUI();
 builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
  .AddEntityFrameworkStores<ApplicationDbContext>()
  .AddDefaultTokenProviders();
@@ -118,19 +125,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
-app.UseAuthentication();
-app.UseAuthorization();
-app.MapRazorPages();
 app.MapControllers();
 app.UseCookiePolicy();
-
-//app.UseEndpoints(endpoints =>
-//{
-//    endpoints.MapControllerRoute(
-//    name: "default",
-//    pattern: "{controller=Dashboard}/{action=Dashboard}");
-//    endpoints.MapRazorPages();
-//});
 
 app.UseRateLimiter();
 
@@ -151,5 +147,15 @@ app.UseCors(builder => builder
 .WithOrigins("https://localhost", "https://ssrssrv.net", "https://portal.ssrssrv.net")
 .AllowAnyMethod()
 .AllowAnyHeader());
+
+app.UseAuthentication();
+app.UseAuthorization();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Dashboard}/{action=Dashboard}");
+});
+app.MapRazorPages();
 
 app.Run();
