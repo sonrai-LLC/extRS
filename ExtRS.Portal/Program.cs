@@ -31,7 +31,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+builder.Services.AddRazorPages().WithRazorPagesRoot("/Areas");
     //.AddMicrosoftIdentityUI();
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
@@ -167,6 +167,7 @@ app.UseEndpoints(endpoints =>
     name: "default",
     pattern: "{controller=Dashboard}/{action=Dashboard}");
 });
+
 app.MapRazorPages();
 
 app.Run();
