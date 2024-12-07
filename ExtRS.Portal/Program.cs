@@ -145,13 +145,6 @@ app.UseRateLimiter();
 //});
 
 
-//app.UseMvc(routes =>
-//{
-//    routes.MapRoute(
-//        name: "default",
-//        template: "{controller=Account}/{action=Logon}");
-//});
-
 app.UseCors(builder => builder
 .WithOrigins("https://localhost", "https://ssrssrv.net", "https://portal.ssrssrv.net")
 .AllowAnyMethod()
@@ -160,7 +153,13 @@ app.UseCors(builder => builder
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseMvc();
+
+app.UseMvc(routes =>
+{
+    routes.MapRoute(
+        name: "default",
+        template: "{controller=Dashboard}/{action=Dashboard}");
+});
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(

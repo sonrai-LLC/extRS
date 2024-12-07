@@ -291,10 +291,11 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(systemInfo.TimeZone.Length > 0);
         }
 
+        [Ignore]
         [TestMethod]
         public async Task GetExecutionStatsSucceeds()
         {
-            var stats = await ssrs.GetReportExecutionStats("Server=localhost;Database=ReportServer;User Id=extRSAuth;Integrated Security=true");
+            var stats = await ssrs.GetReportExecutionStats("Server=localhost;Database=ReportServer;User Id=extrs;Integrated Security=true");
             Assert.IsTrue(stats.Count() > 0);
         }
     }

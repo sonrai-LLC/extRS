@@ -11,6 +11,7 @@ using static Microsoft.EntityFrameworkCore.Metadata.Internal.EntityType;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -20,11 +21,12 @@ namespace ExtRS.Portal.Controllers
         private readonly ILogger<ReportsController> _logger;
         private readonly IConfiguration _configuration;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly SSRSConnection _connection;
         private readonly HttpClient _httpClient;
         private SSRSService _ssrs;
 
-        public ReportsController(ILogger<ReportsController> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+        public ReportsController(ILogger<ReportsController> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, SignInManager<ApplicationUser> signInManager)
         {
             _logger = logger;
             _configuration = configuration;
@@ -32,7 +34,8 @@ namespace ExtRS.Portal.Controllers
             _httpClient = new HttpClient();
             _connection = new SSRSConnection(_configuration["ReportServerName"]!, _httpContextAccessor.HttpContext!.User.Identity!.Name!, AuthenticationType.ExtRSAuth);
 			_ssrs = new SSRSService(_connection, _configuration, _httpContextAccessor);
-		}
+            _signInManager = signInManager;
+        }
 
         public async Task<IActionResult> Reports(ReportsView view)
         {

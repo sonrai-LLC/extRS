@@ -47,7 +47,7 @@ namespace ExtRS.Portal.Controllers
 		public async Task<IActionResult> LogoutMvc()
 		{
 			await _signInManager.SignOutAsync();
-			await _ssrs.DeleteSession();
+			//await _ssrs.DeleteSession();
 
             return RedirectToAction("Reports", "Reports");
         }
