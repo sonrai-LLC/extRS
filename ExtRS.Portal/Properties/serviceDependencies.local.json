@@ -7,11 +7,10 @@
       "connectionId": "VaultUri"
     },
     "mssql1": {
-      "serviceConnectorResourceId": "",
-      "secretStore": "AzureKeyVault",
+      "secretStore": "LocalSecretsFile",
+      "resourceId": null,
       "type": "mssql.onprem",
-      "connectionId": "ConnectionStrings:DefaultConnection",
-      "dynamicId": null
+      "connectionId": "ConnectionStrings:DefaultConnection"
     }
   }
 }

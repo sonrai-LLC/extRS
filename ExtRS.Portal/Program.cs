@@ -31,8 +31,8 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages().WithRazorPagesRoot("/Areas");
-    //.AddMicrosoftIdentityUI();
+builder.Services.AddRazorPages().WithRazorPagesRoot("/Areas")
+    .AddMicrosoftIdentityUI();
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 
@@ -102,7 +102,6 @@ builder.Services.Configure<IdentityOptions>(options =>
     // Configure Customize password requirements, lockout settings, etc.
 });
 
-
 builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = options.DefaultPolicy;
@@ -113,7 +112,6 @@ builder.Services.AddSession(options =>
     options.IdleTimeout = TimeSpan.FromSeconds(30);
     options.Cookie.Name = "sqlAuthCookie";
 });
-
 
 var app = builder.Build();
 
@@ -136,14 +134,12 @@ app.UseRouting();
 app.UseSession();
 app.MapControllers();
 app.UseCookiePolicy();
-
 app.UseRateLimiter();
 
 //app.UseEndpoints(endpoints =>
 //{
 //    endpoints.MapDefaultControllerRoute().RequireAuthorization();
 //});
-
 
 app.UseCors(builder => builder
 .WithOrigins("https://localhost", "https://ssrssrv.net", "https://portal.ssrssrv.net")
@@ -152,7 +148,6 @@ app.UseCors(builder => builder
 
 app.UseAuthentication();
 app.UseAuthorization();
-
 
 app.UseMvc(routes =>
 {
