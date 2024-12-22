@@ -46,10 +46,12 @@ namespace ExtRS.Portal.Controllers
         [HttpGet]
 		public async Task<IActionResult> LogoutMvc()
 		{
-			await _signInManager.SignOutAsync();
-			//await _ssrs.DeleteSession();
+            await _signInManager.SignOutAsync();
+            //await _ssrs.DeleteSession();
 
-            return RedirectToAction("Reports", "Reports");
+            return RedirectToPage("/Account/Login", new { area = "Identity" });
+
+            // return RedirectToAction("Reports", "Reports");
         }
 
         [AllowAnonymous]

@@ -6,11 +6,12 @@
 }
 @* <script src="/_framework/aspnetcore-browser-refresh.js"></script> *@
 <h1>@ViewData["Title"]</h1>
+<img src="https://mkepanthers.com/images/2023/3/1/MBB_HLT_WSU.jpg" height="50" width="50"/>
 <div class="row">
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
-                <h2>Use a local account?</h2> 
+                <h2>Use a local account, bro.</h2> 
                 <hr />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <div class="form-floating mb-3">
@@ -34,7 +35,7 @@
                 </div>
                 <div>
                     <p>
-                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
+                        <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?!!!</a>
                     </p>
                     <p>
                         <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
