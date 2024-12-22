@@ -15,7 +15,6 @@ DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.In
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
-//builder.Services.AddDistributedMemoryCache();
 builder.Services.ConfigureApplicationCookie(o =>
 {
     o.ExpireTimeSpan = TimeSpan.FromMinutes(2);
@@ -30,7 +29,6 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().WithRazorPagesRoot("/Areas");
-    //.AddMicrosoftIdentityUI();
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 
@@ -78,6 +76,7 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
+//builder.Services.AddDistributedMemoryCache();
 //builder.Services.AddSession(options =>
 //{
 //    options.IdleTimeout = TimeSpan.FromSeconds(30);
