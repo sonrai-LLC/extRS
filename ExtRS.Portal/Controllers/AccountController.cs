@@ -15,8 +15,8 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace ExtRS.Portal.Controllers
 {
-	[Authorize]
-	public class AccountMvcController : Controller
+    [AllowAnonymous]
+    public class AccountMvcController : Controller
 	{
 		private readonly ILogger<AccountMvcController> _logger;
 		private readonly IConfiguration _configuration;
@@ -43,7 +43,7 @@ namespace ExtRS.Portal.Controllers
 		}
 
         [AllowAnonymous]
-        [HttpGet]
+        [HttpPost]
 		public async Task<IActionResult> LogoutMvc()
 		{
             await _signInManager.SignOutAsync();
