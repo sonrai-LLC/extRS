@@ -43,7 +43,7 @@ namespace ExtRS.Portal.Controllers
 		}
 
         [AllowAnonymous]
-        [HttpPost]
+        //[HttpPost]
 		public async Task<IActionResult> LogoutMvc()
 		{
             await _signInManager.SignOutAsync();
