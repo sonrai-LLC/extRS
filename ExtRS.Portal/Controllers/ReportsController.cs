@@ -43,7 +43,7 @@ namespace ExtRS.Portal.Controllers
 
             foreach (var report in reports)
             {
-                string uri = string.Format(Url.ActionLink("Report", "Reports", new { reportName = report.Name })!);
+                string uri = string.Format(Url.ActionLink("Report", "Reports", new { reportName = report.Name })!) + "&rs:ClearSession=True";
                 report.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
             }
 

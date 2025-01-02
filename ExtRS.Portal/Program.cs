@@ -15,7 +15,6 @@ DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.In
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
-//builder.Services.AddDistributedMemoryCache();
 builder.Services.ConfigureApplicationCookie(o =>
 {
     o.ExpireTimeSpan = TimeSpan.FromMinutes(2);
@@ -78,11 +77,12 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
-//builder.Services.AddSession(options =>
-//{
-//    options.IdleTimeout = TimeSpan.FromSeconds(30);
-//    options.Cookie.Name = "sqlAuthCookie";
-//});
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromSeconds(30);
+    options.Cookie.Name = "sqlAuthCookie";
+});
 
 var app = builder.Build();
 
@@ -102,7 +102,7 @@ app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-//app.UseSession();
+app.UseSession();
 app.UseCookiePolicy();
 app.UseRateLimiter();
 app.UseCors(builder => builder
