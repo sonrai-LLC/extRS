@@ -4,13 +4,14 @@
       "type": "secrets",
       "connectionId": "VaultUri"
     },
-    "secrets2": {
-      "type": "secrets",
-      "connectionId": "VaultUri"
-    },
     "mssql1": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:DefaultConnection"
+    },
+    "secrets2": {
+      "type": "secrets",
+      "connectionId": "SonraiVaultUri",
+      "dynamicId": null
     }
   }
 }

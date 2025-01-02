@@ -28,7 +28,6 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.R
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
-builder.Services.AddAuthentication(OpenIdConnectDefaults.AuthenticationScheme)
 builder.Services.AddRazorPages().WithRazorPagesRoot("/Areas")
     .AddMicrosoftIdentityUI();
 builder.Services.AddControllers().AddNewtonsoftJson();
