@@ -81,7 +81,6 @@ namespace ExtRS.Portal.Controllers
 
 
             await _signInManager.SignOutAsync();
-			_httpContextAccessor.HttpContext.Session.Clear();
 
 
             //// Create a CookieContainer instance

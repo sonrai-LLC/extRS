@@ -1,5 +1,18 @@
 {
   "dependencies": {
+    "secrets3": {
+      "ignored": "true",
+      "type": "secrets.keyVault"
+    },
+    "identityapp1": {
+      "ignored": "true",
+      "type": "identityapp"
+    },
+    "secrets1": {
+      "ignored": "true",
+      "type": "secrets",
+      "connectionId": "VaultUri"
+    },
     "secrets2": {
       "serviceConnectorResourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('serviceConnectorResourceGroupName')]/providers/Microsoft.Web/sites/extrs-web-prod/providers/Microsoft.ServiceLinker/linkers/SonraiVaultUri_1400A989BB",
       "secretStore": "AzureAppSettings",
@@ -7,6 +20,16 @@
       "type": "secrets.keyVault",
       "connectionId": "SonraiVaultUri",
       "dynamicId": null
+    },
+    "mssql1": {
+      "secretStore": "AzureAppSettings",
+      "resourceId": null,
+      "type": "mssql.onprem",
+      "connectionId": "ConnectionStrings:DefaultConnection"
+    },
+    "sqlite1": {
+      "ignored": "True",
+      "type": "sqlite"
     }
   }
 }
