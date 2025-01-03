@@ -5,45 +5,27 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Web.UI;
 using Sonrai.ExtRS;
 using System.Data.Common;
 using System.Threading.RateLimiting;
 using WebPWrecover.Services;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.Identity.Web;
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
-builder.Services.ConfigureApplicationCookie(o =>
-{
-    o.ExpireTimeSpan = TimeSpan.FromMinutes(2);
-    o.SlidingExpiration = true;
-    o.Cookie.Name = "_dltdgst";
-
-    o.LoginPath = "/Identity/Account/Login";
-    o.LogoutPath = "/Identity/Account/Logout";
-    o.AccessDeniedPath = "/Identity/Account/AccessDenied";
-    o.SlidingExpiration = true;
-
-    o.ReturnUrlParameter = CookieAuthenticationDefaults.ReturnUrlParameter;
-});
-
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddRazorPages().WithRazorPagesRoot("/Areas")
-    .AddMicrosoftIdentityUI();
+builder.Services.AddRazorPages().WithRazorPagesRoot("/Areas");
+    //.AddMicrosoftIdentityUI();
+builder.Services.AddIdentityCore<UserModel>(options => options.SignIn.RequireConfirmedAccount = false)
+ .AddEntityFrameworkStores<ApplicationDbContext>()
+ .AddDefaultTokenProviders();
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 
@@ -70,6 +52,7 @@ builder.Services.AddScoped<IdentityUser>();
 builder.Services.AddScoped<SignInManager<ApplicationUser>>();
 
 builder.Services.AddAuthentication()
+.AddCookie()
 .AddGoogle(googleOptions =>
 {
     googleOptions.ClientId = builder.Configuration["googleClientId"]!;
@@ -92,10 +75,17 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddDistributedMemoryCache();
+builder.Services.ConfigureApplicationCookie(o => {
+    o.ExpireTimeSpan = TimeSpan.FromDays(5);
+    o.SlidingExpiration = true;
+});
+
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromSeconds(30);
-    options.Cookie.Name = "sqlAuthCookie";
+    options.Cookie.Name = "_dltdgst";
+    options.IdleTimeout = TimeSpan.FromSeconds(1000);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 var app = builder.Build();
