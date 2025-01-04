@@ -1,16 +1,30 @@
 {
   "dependencies": {
-    "secrets1": {
-      "secretStore": null,
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/SonraiVault",
-      "type": "secrets.keyVault",
-      "connectionId": "VaultUri"
+    "identityapp1": {
+      "ignored": "true",
+      "type": "identityapp"
+    },
+    "secrets3": {
+      "type": "secrets.user",
+      "dynamicId": null
     },
     "mssql1": {
       "secretStore": "LocalSecretsFile",
       "resourceId": null,
       "type": "mssql.onprem",
       "connectionId": "ConnectionStrings:DefaultConnection"
+    },
+    "secrets2": {
+      "ignored": "true",
+      "type": "secrets",
+      "connectionId": "SonraiVaultUri",
+      "dynamicId": null
+    },
+    "secrets1": {
+      "secretStore": null,
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/SonraiVault",
+      "type": "secrets.keyVault",
+      "connectionId": "VaultUri"
     }
   }
 }

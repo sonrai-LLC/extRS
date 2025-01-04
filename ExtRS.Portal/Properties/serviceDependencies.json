@@ -1,16 +1,25 @@
 {
   "dependencies": {
-    "secrets1": {
+    "secrets3": {
       "type": "secrets",
-      "connectionId": "VaultUri"
+      "dynamicId": null
     },
     "secrets2": {
       "type": "secrets",
-      "connectionId": "VaultUri"
+      "connectionId": "SonraiVaultUri",
+      "dynamicId": null
     },
     "mssql1": {
       "type": "mssql",
       "connectionId": "ConnectionStrings:DefaultConnection"
+    },
+    "sqlite1": {
+      "ignored": "true",
+      "type": "sqlite"
+    },
+    "secrets1": {
+      "type": "secrets",
+      "connectionId": "VaultUri"
     }
   }
 }

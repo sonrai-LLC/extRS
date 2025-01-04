@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace ExtRS.Portal.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;

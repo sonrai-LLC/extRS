@@ -54,21 +54,27 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="1.1.2" />
-    <PackageReference Include="Azure.Core" Version="1.39.0" />
+    <PackageReference Include="AngleSharp" Version="1.2.0" />
+    <PackageReference Include="AspNet.Security.OAuth.LinkedIn" Version="9.0.0" />
+    <PackageReference Include="Azure.Core" Version="1.44.1" />
+    <PackageReference Include="Azure.Identity" Version="1.13.1" />
+    <PackageReference Include="coverlet.collector" Version="6.0.3">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Dapper" Version="2.1.35" />
     <PackageReference Include="GoogleMaps.LocationServices" Version="1.2.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="NLog" Version="5.3.2" />
-    <PackageReference Include="RestSharp" Version="112.0.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.8.6" />
-    <PackageReference Include="System.Drawing.Common" Version="8.0.2" />
+    <PackageReference Include="NLog" Version="5.3.4" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.9.0" />
+    <PackageReference Include="System.Drawing.Common" Version="9.0.0" />
     <!--<PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />-->
     <PackageReference Include="System.Runtime" Version="4.3.1" />
-    <PackageReference Include="System.Runtime.Caching" Version="8.0.0" />
-    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.0.0" />
+    <PackageReference Include="System.Runtime.Caching" Version="9.0.0" />
+    <PackageReference Include="System.Runtime.CompilerServices.Unsafe" Version="6.1.0" />
     <PackageReference Include="System.Runtime.Extensions" Version="4.3.1" />
     <!--<PackageReference Include="System.Runtime.Handles" Version="4.3.0" />
     <PackageReference Include="System.Runtime.InteropServices" Version="4.3.0" />
@@ -79,7 +85,7 @@
     <PackageReference Include="System.Runtime.Serialization.Formatters" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Json" Version="4.3.0" />
     <PackageReference Include="System.Runtime.Serialization.Xml" Version="4.3.0" />-->
-    <PackageReference Include="System.Text.Json" Version="8.0.4" />
+    <PackageReference Include="System.Text.Json" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>

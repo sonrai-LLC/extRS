@@ -368,26 +368,31 @@ namespace Sonrai.ExtRS
 			}
 		}
 
-		//public void ClearSqlAuthCookies(IHttpContextAccessor _httpContextAccesor, string domains)
-		//{
-		//	_cookieContainer.SetCookies(new Uri("https://ssrssrv.net"), "id=sqlAuthCookie; Expires=1-1-1900");
+		public void ClearSqlAuthCookies(IHttpContextAccessor _httpContextAccesor, string domains)
+		{
+			
+            _cookieContainer.SetCookies(new Uri("https://ssrssrv.net"), "id=sqlAuthCookie; Expires=1-1-1900");
 
-		//	foreach (var domain in domains.Split(","))
-		//	{
-		//		_httpContextAccesor.HttpContext.Response.Cookies.Delete("sqlAuthCookie", new CookieOptions()
-		//		{
-		//			Domain = domain,
-		//			Expires = DateTimeOffset.UtcNow.AddYears(-1),
-		//			IsEssential = false,
-		//			Secure = true,
-		//			SameSite = SameSiteMode.Lax,
-		//			HttpOnly = true,
-		//			Path = "/",
-		//			MaxAge = TimeSpan.FromMinutes(1)
-		//		});
+            var cookies = _cookieContainer.GetAllCookies().Where(x => x.Name == "sqlAuthCookie");
 
-		//		//_cookieContainer.GetAllCookies().Where(x => x.Name == "sqlAuthCookie");
-		//	}
-		//}
+            foreach (var domain in domains.Split(","))
+			{
+				_httpContextAccesor.HttpContext.Response.Cookies.Delete("sqlAuthCookie", new CookieOptions()
+				{
+					Domain = domain,
+					Expires = DateTimeOffset.UtcNow.AddYears(-1),
+					IsEssential = false,
+					Secure = true,
+					SameSite = SameSiteMode.Lax,
+					HttpOnly = true,
+					Path = "/",
+					MaxAge = TimeSpan.FromMinutes(1)
+				});
+
+				//_cookieContainer.GetAllCookies().Where(x => x.Name == "sqlAuthCookie");
+			}
+
+			cookies = _cookieContainer.GetAllCookies().Where(x => x.Name == "sqlAuthCookie");
+        }
 	}
 }

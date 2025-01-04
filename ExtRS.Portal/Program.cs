@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Web.UI;
 using Sonrai.ExtRS;
 using System.Data.Common;
 using System.Threading.RateLimiting;
@@ -23,7 +22,7 @@ builder.Services.ConfigureApplicationCookie(o =>
 });
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>()
     .AddDefaultUI()
     .AddDefaultTokenProviders();
@@ -55,6 +54,7 @@ builder.Services.AddScoped<IdentityUser>();
 builder.Services.AddScoped<SignInManager<ApplicationUser>>();
 
 builder.Services.AddAuthentication()
+.AddCookie()
 .AddGoogle(googleOptions =>
 {
     googleOptions.ClientId = builder.Configuration["googleClientId"]!;
@@ -76,12 +76,19 @@ builder.Services.AddAuthorization(options =>
     options.FallbackPolicy = options.DefaultPolicy;
 });
 
-//builder.Services.AddDistributedMemoryCache();
-//builder.Services.AddSession(options =>
-//{
-//    options.IdleTimeout = TimeSpan.FromSeconds(30);
-//    options.Cookie.Name = "sqlAuthCookie";
-//});
+builder.Services.AddDistributedMemoryCache();
+builder.Services.ConfigureApplicationCookie(o => {
+    o.ExpireTimeSpan = TimeSpan.FromDays(5);
+    o.SlidingExpiration = true;
+});
+
+builder.Services.AddSession(options =>
+{
+    options.Cookie.Name = "_dltdgst";
+    options.IdleTimeout = TimeSpan.FromSeconds(1000);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 var app = builder.Build();
 
@@ -101,7 +108,7 @@ app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-//app.UseSession();
+app.UseSession();
 app.UseCookiePolicy();
 app.UseRateLimiter();
 app.UseCors(builder => builder

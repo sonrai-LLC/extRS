@@ -144,6 +144,7 @@ namespace ExtRS.Portal.Areas.Identity.Pages.Account
             returnUrl = returnUrl ?? Url.Content("~/");
             // Get the information about the user from the external login provider
             var info = await _signInManager.GetExternalLoginInfoAsync();
+
             if (info == null)
             {
                 ErrorMessage = "Error loading external login information during confirmation.";
