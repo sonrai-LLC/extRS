@@ -43,73 +43,10 @@ namespace ExtRS.Portal.Controllers
 		}
 
         [AllowAnonymous]
-        //[HttpPost]
 		public async Task<IActionResult> LogoutMvc()
 		{
-
-            //var sqlAuthCookie = new Cookie("sqlAuthCookie", "sqlAuthCookie");
-            //sqlAuthCookie.Expires = DateTime.Now.AddDays(-1);
-            //_httpContextAccessor.HttpContext.Response.Cookies.Delete("sqlAuthCookie");
-
-            //         var cookieOptions = new CookieOptions();
-            //         cookieOptions.Expires = DateTime.Now.AddDays(-1);
-            //         cookieOptions.Path = "/";
-            //cookieOptions.Domain = "ssrssrv.net";
-            //cookieOptions.IsEssential = true;
-            //cookieOptions.SameSite = SameSiteMode.None;
-            ////cookieOptions.
-            //         Response.Cookies.Append("sqlAuthCookie", "", cookieOptions);
-            //         _httpContextAccessor.HttpContext.Response.Cookies.Append("sqlAuthCookie", "", cookieOptions);
-
-            //var cookies = _httpContextAccessor.HttpContext.Response.Cookies;
-
-            // Response.HttpContext.Session.Remove("sqlAuthCookie");
-
-            //HttpContext.Session.Clear();
-
-   //         List<Report> reports = await _ssrs.GetReports();
-
-   //         foreach (var report in reports)
-   //         {
-   //             string uri = string.Format(Url.ActionLink("Report", "Reports", new { reportName = report.Name })!);
-   //             report.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
-   //         }
-
-            //var URL = reports.First().Uri.Replace("localhost:7047", "ssrssrv.net");
-   //         response = await _ssrs.DeleteSession();
-			//_ssrs.ClearSqlAuthCookies(_httpContextAccessor, "ssrssrv.net");
-
-
             await _signInManager.SignOutAsync();
-
-
-            //// Create a CookieContainer instance
-            //var cookieContainer = new CookieContainer();
-
-            //// Create an HttpClientHandler and assign the CookieContainer to it
-            //var handler = new HttpClientHandler
-            //{
-            //    CookieContainer = cookieContainer,
-            //    UseCookies = true, // Ensure that the handler uses the CookieContainer
-            //};
-
-			//// Create an HttpClient instance with the HttpClientHandler
-			//using (var client = new HttpClient(handler))
-			//{
-			//	// Sample URI that sets cookies
-			//	var uri = new Uri("https://ssrssrv.net/ReportServer/logon.aspx");
-
-			//	// Send a GET request to the URI
-			//	var response = await client.GetAsync(uri);
-			//}
-
-          // var response = client.GetStreamAsync("https://ssrssrv.net/ReportServer/logon.aspx"); // clear RS user session
-
-			//return Redirect("https://ssrssrv.net/ReportServer/logon.aspx");
-
             return RedirectToPage("/Account/Login", new { area = "Identity" });
-
-            // return RedirectToAction("Reports", "Reports");
         }
 
         [AllowAnonymous]
