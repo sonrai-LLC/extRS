@@ -16,18 +16,20 @@ DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.In
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
+builder.Services.ConfigureApplicationCookie(o =>
+{
+    o.ExpireTimeSpan = TimeSpan.FromMinutes(2);
+    o.SlidingExpiration = true;
+    o.Cookie.Name = "_dltdgst";
+});
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
     //.AddDefaultUI()
     //.AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
-
 builder.Services.AddRazorPages().WithRazorPagesRoot("/Areas");
-    //.AddMicrosoftIdentityUI();
-builder.Services.AddIdentityCore<UserModel>(options => options.SignIn.RequireConfirmedAccount = false)
- .AddEntityFrameworkStores<ApplicationDbContext>()
- .AddDefaultTokenProviders();
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 

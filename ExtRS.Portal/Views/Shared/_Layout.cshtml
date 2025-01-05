@@ -501,7 +501,7 @@
     </script>
 </header>
 
-<partial name="_LoginPartial" />
+@* <partial name="_LoginPartial" /> *@
 
 <div class="breadcrumb">
     @Html.ActionLink(ViewContext.RouteData.Values["controller"]!.ToString()!.Replace("DataSources", "Data Sources"), ViewContext.RouteData.Values["controller"]!.ToString(), ViewContext.RouteData.Values["controller"]!.ToString())
@@ -574,6 +574,7 @@
     </div>
 </div>
  *@
-@section Scripts {
+@* @section Scripts {
     @RenderSection("Scripts", required: false)
 }
+ *@
