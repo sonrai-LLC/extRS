@@ -9,6 +9,8 @@ using Sonrai.ExtRS;
 using System.Data.Common;
 using System.Threading.RateLimiting;
 using WebPWrecover.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 
 DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
 var builder = WebApplication.CreateBuilder(args);
@@ -16,9 +18,9 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddDefaultUI()
-    .AddDefaultTokenProviders();
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+    //.AddDefaultUI()
+    //.AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddRazorPages().WithRazorPagesRoot("/Areas");
@@ -46,10 +48,6 @@ builder.Services.AddRateLimiter(options =>
 builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 builder.Services.Configure<AuthMessageSenderOptions>(builder.Configuration);
-builder.Services.AddScoped<EncryptionService>();
-builder.Services.AddScoped<ApplicationUser>();
-builder.Services.AddScoped<IdentityUser>();
-builder.Services.AddScoped<SignInManager<ApplicationUser>>();
 
 builder.Services.AddAuthentication()
 .AddCookie()
@@ -57,6 +55,7 @@ builder.Services.AddAuthentication()
 {
     googleOptions.ClientId = builder.Configuration["googleClientId"]!;
     googleOptions.ClientSecret = builder.Configuration["googleClientSecret"]!;
+
 })
 .AddLinkedIn(o =>
 {
@@ -64,10 +63,16 @@ builder.Services.AddAuthentication()
     o.ClientSecret = builder.Configuration["linkedInClientSecret"]!;
 });
 
-builder.Services.Configure<IdentityOptions>(options =>
+builder.Services.Configure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme, options =>
 {
-    // Configure Customize password requirements, lockout settings, etc.
+    options.ExpireTimeSpan = TimeSpan.FromHours(1); // Set expiration time for the cookie
+    options.SlidingExpiration = true;  // Enables sliding expiration
 });
+
+//builder.Services.Configure<IdentityOptions>(options =>
+//{
+//    // Configure Customize password requirements, lockout settings, etc.
+//});
 
 builder.Services.AddAuthorization(options =>
 {
@@ -75,18 +80,24 @@ builder.Services.AddAuthorization(options =>
 });
 
 builder.Services.AddDistributedMemoryCache();
-builder.Services.ConfigureApplicationCookie(o => {
+builder.Services.ConfigureApplicationCookie(o =>
+{
     o.ExpireTimeSpan = TimeSpan.FromDays(5);
     o.SlidingExpiration = true;
 });
-
 builder.Services.AddSession(options =>
 {
     options.Cookie.Name = "_dltdgst";
     options.IdleTimeout = TimeSpan.FromSeconds(1000);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
+    options.Cookie.SameSite = SameSiteMode.None;
+    options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
+builder.Services.AddScoped<EncryptionService>();
+builder.Services.AddScoped<ApplicationUser>();
+builder.Services.AddScoped<IdentityUser>();
+builder.Services.AddScoped<SignInManager<ApplicationUser>>();
 
 var app = builder.Build();
 
@@ -108,13 +119,14 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseSession();
 app.UseCookiePolicy();
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseRateLimiter();
 app.UseCors(builder => builder
 .WithOrigins("https://localhost", "https://ssrssrv.net", "https://portal.ssrssrv.net")
 .AllowAnyMethod()
 .AllowAnyHeader());
-app.UseAuthentication();
-app.UseAuthorization();
+
 
 app.UseMvc(routes =>
 {
