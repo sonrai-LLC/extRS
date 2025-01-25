@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace ExtRS.Portal.Controllers
 {
-    [AllowAnonymous]
     public class AccountMvcController : Controller
 	{
 		private readonly ILogger<AccountMvcController> _logger;
@@ -50,7 +49,7 @@ namespace ExtRS.Portal.Controllers
         }
 
         [AllowAnonymous]
-        //[HttpGet]
+        [HttpGet]
 		public async Task<IActionResult> SignedIn()
 		{
 			var info = await _signInManager.GetExternalLoginInfoAsync();
@@ -61,21 +60,11 @@ namespace ExtRS.Portal.Controllers
 			return RedirectToAction("Dashboard", "Dashboard");
 		}
 
-
 		[HttpGet]
 		public IActionResult SignedOut()
 		{
-			//_ssrs.DeleteSession();
-			//_ssrs.ClearCookies(_httpContextAccessor, "portal.ssrssrv.net, ssrssrv.net");
 			_signInManager.SignOutAsync();
-
-			//HttpContext.Session.Clear();
-			//_httpContextAccessor!.HttpContext!.Session.Clear();
-
 			return RedirectToAction("Dashboard", "Dashboard");
 		}
-
 	}
 }
-
-

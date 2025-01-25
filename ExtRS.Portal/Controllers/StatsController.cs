@@ -8,7 +8,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EditorNetCoreDemo.Controllers
 {
-    [Authorize]
     public class StatsController : Controller
     {
         private readonly ILogger<StatsController> _logger;

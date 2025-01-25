@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ExtRS.Portal.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class SubscriptionsController : Controller
     {
         private readonly ILogger<SubscriptionsController> _logger;
@@ -63,6 +63,7 @@ namespace ExtRS.Portal.Controllers
             return PartialView("_ManageSubscription", subscription);
         }
 
+        [Authorize]
         public async Task<string> CreateSubscriptionAjax(string id, string email = "colin@sonrai.io", string subject = "", string description = "", string renderFormat = "PDF")
         {
             Subscription newSubscription = new Subscription()
@@ -121,6 +122,7 @@ namespace ExtRS.Portal.Controllers
             return GetSubscriptionsHtml(subscriptions);
         }
 
+        [Authorize]
         public async Task<IActionResult> DeleteSubscriptionAjax(string id)
         {
             bool isDeleted = await _ssrs.DeleteSubscription(id);
@@ -136,6 +138,7 @@ namespace ExtRS.Portal.Controllers
             return View("Subscriptions", model);
         }
 
+        [Authorize]
         public static string GetSubscriptionsHtml(List<Subscription> subscriptions)
         {
             string viewHtml = "";
@@ -156,6 +159,7 @@ namespace ExtRS.Portal.Controllers
             return viewHtml;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> Subscription(SubscriptionView viewModel)
         {
@@ -289,6 +293,7 @@ namespace ExtRS.Portal.Controllers
             return viewModel;
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetSubscription(string id, string? subscriptionName)
         {

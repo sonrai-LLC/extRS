@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace ExtRS.Portal.Controllers
 {
-    [Authorize]
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> _logger;

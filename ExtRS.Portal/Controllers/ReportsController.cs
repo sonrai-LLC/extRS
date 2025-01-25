@@ -15,7 +15,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ExtRS.Portal.Controllers
 {
-    [Authorize]
+    [AllowAnonymous]
     public class ReportsController : Controller
     {
         private readonly ILogger<ReportsController> _logger;
@@ -51,7 +51,8 @@ namespace ExtRS.Portal.Controllers
             return View(model);
         }
 
-		public async Task<IActionResult> Report(string reportName, string id)
+        [Authorize]
+        public async Task<IActionResult> Report(string reportName, string id)
         {
             Report report;
             if (_ssrs._conn.UserName != _httpContextAccessor.HttpContext!.User.Identity!.Name!)
