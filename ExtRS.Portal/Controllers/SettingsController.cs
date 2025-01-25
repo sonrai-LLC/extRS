@@ -5,7 +5,8 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace EditorNetCoreDemo.Controllers
 {
-	public class SettingsController : Controller
+    [AllowAnonymous]
+    public class SettingsController : Controller
     {
         private readonly ILogger<SettingsController> _logger;
         private readonly IConfiguration _configuration;

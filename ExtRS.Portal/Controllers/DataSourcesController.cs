@@ -7,6 +7,7 @@ using Sonrai.ExtRS.Models;
 
 namespace ExtRS.Portal.Controllers
 {
+    [AllowAnonymous]
     public class DataSourcesController : Controller
     {
         private readonly ILogger<DataSourcesController> _logger;

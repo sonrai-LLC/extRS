@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 
 namespace ExtRS.Portal.Controllers
 {
+    [AllowAnonymous]
     public class AccountMvcController : Controller
 	{
 		private readonly ILogger<AccountMvcController> _logger;

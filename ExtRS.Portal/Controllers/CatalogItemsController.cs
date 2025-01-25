@@ -9,6 +9,7 @@ using System.Text;
 
 namespace ExtRS.Portal.Controllers
 {
+    [AllowAnonymous]
     public class CatalogItemsController : Controller
     {
         private readonly ILogger<CatalogItemsController> _logger;
