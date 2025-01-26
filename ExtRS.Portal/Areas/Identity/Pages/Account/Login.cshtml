@@ -1,4 +1,7 @@
 ﻿@page
+@{
+    Layout = null;
+}
 @using ExtRS.Portal.Areas.Identity.Account
 @model LoginModel
 
@@ -6,39 +9,70 @@
     ViewData["Title"] = "Log in";
 }
 
+<style>
+    body{
+        background-color: #2f2f2f;
+        font-family: Arial;
+    }
+
+    a{
+        color: cyan
+    }
+
+    .loginDiv {
+        max-width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 10%;
+        color:#ffffff;
+    }
+
+    .form-label{
+        font-weight: bold;
+        font-size: 18pt;
+        color: #ffffff;
+    }
+</style>
+
 <iframe src="https://ssrssrv.net/ReportServer/logon.aspx" style="display:none;"></iframe>
-<h1>@ViewData["Title"]</h1>
-<div class="row">
+@* <h1>@ViewData["Title"]</h1> *@
+
+<div class="loginDiv">
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
-                <h2>Use a local account to log in, yes?</h2>
+          @*       <h2>Use a local account to log in, yes?!!</h2> *@
                 <hr />
+                <br /><br />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                    <label asp-for="Input.Email" class="form-label">Email</label>
-                    <span asp-validation-for="Input.Email" class="text-danger"></span>
-                </div>
-                <div class="form-floating mb-3">
-                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" />
-                    <label asp-for="Input.Password" class="form-label">Password</label>
-                    <span asp-validation-for="Input.Password" class="text-danger"></span>
-                </div>
+                <table>
+                        <tr>
+                            <td><label asp-for="Input.Email" class="form-label">Email</label></td>
+                            <td><input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" /></td>
+                        </tr>
+                        <tr>
+                            <td><label asp-for="Input.Password" class="form-label">Password</label></td>
+                            <td><input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" /></td>
+                        </tr>
+                </table>
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
                 <div class="checkbox mb-3">
-                    <label asp-for="Input.RememberMe" class="form-label">
+                    <label asp-for="Input.RememberMe">
                         <input class="form-check-input" asp-for="Input.RememberMe" />
                         @Html.DisplayNameFor(m => m.Input.RememberMe)
                     </label>
                 </div>
+                <br/>
                 <div>
-                    <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">Log in</button>
+                    <button id="login-submit" type="submit" style="font-weight:bold; font-size:16pt; height:35px; width:85px">LOGIN</button>
                 </div>
-                <div>
+                <br /><br />
+                <div style="color:cyan">
                     <p>
                         <a id="forgot-password" asp-page="./ForgotPassword">Forgot your password?</a>
                     </p>
-                    <p>
+                    <p>    
                         <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl">Register as a new user</a>
                     </p>
                     <p>
@@ -50,7 +84,8 @@
     </div>
     <div class="col-md-6 col-md-offset-2">
         <section>
-            <h3>Use another service to log in.</h3>
+@*             <h3>Use another service to log in.</h3> *@
+            <br /><br />
             <hr />
             @{
                 if ((Model.ExternalLogins?.Count ?? 0) == 0)
@@ -69,7 +104,14 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {
-                                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                                    if(provider.Name == "Google")
+                                    {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img height="75" width="90" src="/images/google.jpg" /></button>
+                                    }
+                                    else if (provider.Name == "LinkedIn")
+                                    {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img height="75" width="75" src="/images/linkedin.webp" /></button>
+                                    }                                 
                                 }
                             </p>
                         </div>

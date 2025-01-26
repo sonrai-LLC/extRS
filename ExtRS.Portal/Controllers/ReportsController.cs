@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ExtRS.Portal.Controllers
 {
-    [AllowAnonymous]
     public class ReportsController : Controller
     {
         private readonly ILogger<ReportsController> _logger;
@@ -37,6 +36,7 @@ namespace ExtRS.Portal.Controllers
             _signInManager = signInManager;
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> Reports(ReportsView view)
         {
             List<Report> reports = await _ssrs.GetReports();
