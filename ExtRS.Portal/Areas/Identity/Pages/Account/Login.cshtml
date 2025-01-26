@@ -116,7 +116,7 @@
                             <p>
                                 @foreach (var provider in Model.ExternalLogins!)
                                 {
-                                    if(provider.Name == "Google")
+                                    if (provider.Name == "Google")
                                     {
                                         <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img height="75" width="100" src="/images/google.jpg" /></button>
                                     }
