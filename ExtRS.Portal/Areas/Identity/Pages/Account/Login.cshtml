@@ -32,26 +32,35 @@
         font-size: 18pt;
         color: #ffffff;
     }
+
+    .form-control {
+        font-weight: bold;
+        font-size: 18pt;
+/*         color: #ffffff !important;
+        background-color: #000000 !important; */
+    }
+
+    .validation-summary-errors{
+        font-weight: bold;
+        color: red !important;
+    }
 </style>
 
 <iframe src="https://ssrssrv.net/ReportServer/logon.aspx" style="display:none;"></iframe>
-@* <h1>@ViewData["Title"]</h1> *@
-
 <div class="loginDiv">
     <div class="col-md-4">
         <section>
             <form id="account" method="post">
-          @*       <h2>Use a local account to log in, yes?!!</h2> *@
                 <hr />
                 <br /><br />
                 <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
                 <table>
                         <tr>
-                            <td><label asp-for="Input.Email" class="form-label">Email</label></td>
+                            <td><label asp-for="Input.Email" class="form-label">Email</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td><input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" /></td>
                         </tr>
                         <tr>
-                            <td><label asp-for="Input.Password" class="form-label">Password</label></td>
+                            <td><label asp-for="Input.Password" class="form-label">Password</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
                             <td><input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" placeholder="password" /></td>
                         </tr>
                 </table>
@@ -65,7 +74,11 @@
                 </div>
                 <br/>
                 <div>
-                    <button id="login-submit" type="submit" style="font-weight:bold; font-size:16pt; height:35px; width:85px">LOGIN</button>
+                    <button id="login-submit" type="submit" style="font-weight:bold; font-size:16pt; height:45px; width:100px">LOGIN</button>
+                </div>
+                <br />
+                <div>
+                    <button id="login-submit3" asp-route-returnUrl="guestLogin" type="submit" style="font-weight:bold; font-size:16pt; height:45px; width:180px">GUEST LOGIN</button>
                 </div>
                 <br /><br />
                 <div style="color:cyan">
@@ -84,7 +97,6 @@
     </div>
     <div class="col-md-6 col-md-offset-2">
         <section>
-@*             <h3>Use another service to log in.</h3> *@
             <br /><br />
             <hr />
             @{
@@ -106,11 +118,11 @@
                                 {
                                     if(provider.Name == "Google")
                                     {
-                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img height="75" width="90" src="/images/google.jpg" /></button>
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img height="75" width="100" src="/images/google.jpg" /></button>
                                     }
                                     else if (provider.Name == "LinkedIn")
                                     {
-                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img height="75" width="75" src="/images/linkedin.webp" /></button>
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img height="75" width="80" src="/images/linkedin.webp" /></button>
                                     }                                 
                                 }
                             </p>

@@ -107,6 +107,16 @@ namespace ExtRS.Portal.Areas.Identity.Account
         {
             returnUrl ??= Url.Content("~/");
 
+            if(returnUrl == "guestLogin")
+            {
+                var result = await _signInManager.PasswordSignInAsync("guest@extrs.net", "Extrs1!", true, false);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("User logged in.");
+                    return LocalRedirect("/");
+                }
+            }
+
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
