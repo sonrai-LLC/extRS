@@ -19,9 +19,12 @@
       </DataSetParameters>
       <CommandText>SELECT        pollster, sponsors, display_name, methodology, state, start_date, CONVERT(date, end_date) AS end_date, office_type, party, candidate_name, CONVERT(decimal(3, 1), pct) AS pct
 FROM            POLLS
-WHERE    (state = @p1) AND (office_type = @p2)
-AND ((@p2 &lt;&gt; 'U.S. President') OR (@p2 = 'U.S. President' AND candidate_name IN('Joe Biden',  'Kamala Harris', 'Donald Trump')))
-AND CONVERT(datetime, start_date) &gt; '12/31/2023'
+WHERE    (
+(state = @p1 AND office_type = @p2)
+   OR
+(@p2 = 'U.S. President' AND office_type = @p2)
+) 
+AND end_date &gt; dateadd(yy, -1, getDate())
 ORDER BY end_date DESC</CommandText>
     </Query>
     <Fields>
