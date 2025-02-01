@@ -107,23 +107,23 @@ namespace ExtRS.Portal.Areas.Identity.Account
 
         public async Task<IActionResult> OnPostAsync(string returnUrl = null)
         {
+            // check to see if this is a Guest login
+            if (returnUrl == "guestLogin")
+            {
+                var loginResult = await _signInManager.PasswordSignInAsync(_configuration["guestLoginUsername"], _configuration["guestLoginPassword"], true, false);
+                if (loginResult.Succeeded)
+                {
+                    _logger.LogInformation("User logged in.");
+                    return LocalRedirect("/");
+                }
+            }
+
             returnUrl ??= Url.Content("~/");
 
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
 
             if (ModelState.IsValid)
             {
-                // check to see if this is a Guest login
-                if (returnUrl == "guestLogin")
-                {
-                    var loginResult = await _signInManager.PasswordSignInAsync(_configuration["guestLoginUsername"], _configuration["guestLoginPassword"], true, false);
-                    if (loginResult.Succeeded)
-                    {
-                        _logger.LogInformation("User logged in.");
-                        return LocalRedirect("/");
-                    }
-                }
-
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
