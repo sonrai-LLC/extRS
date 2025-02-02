@@ -11,6 +11,7 @@ using System.Threading.RateLimiting;
 using WebPWrecover.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
+using Sonrai.ExtRS.Models;
 
 DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
 var builder = WebApplication.CreateBuilder(args);
@@ -26,8 +27,6 @@ builder.Services.ConfigureApplicationCookie(o =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<ApplicationDbContext>();
-    //.AddDefaultUI()
-    //.AddDefaultTokenProviders();
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().WithRazorPagesRoot("/Areas");
 builder.Services.AddControllers().AddNewtonsoftJson();
@@ -71,11 +70,6 @@ builder.Services.Configure<CookieAuthenticationOptions>(IdentityConstants.Applic
     options.SlidingExpiration = true;  // Enables sliding expiration
 });
 
-//builder.Services.Configure<IdentityOptions>(options =>
-//{
-//    // Configure Customize password requirements, lockout settings, etc.
-//});
-
 builder.Services.AddAuthorization(options =>
 {
     options.FallbackPolicy = options.DefaultPolicy;
@@ -103,11 +97,9 @@ builder.Services.AddScoped<SignInManager<ApplicationUser>>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    //app.UseMigrationsEndPoint();
-    //app.UseMigrationsEndPoint();
+
 }
 else
 {
@@ -128,7 +120,6 @@ app.UseCors(builder => builder
 .WithOrigins("https://localhost", "https://ssrssrv.net", "https://portal.ssrssrv.net")
 .AllowAnyMethod()
 .AllowAnyHeader());
-
 
 app.UseMvc(routes =>
 {

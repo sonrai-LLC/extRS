@@ -18,6 +18,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Sonrai.ExtRS.Models;
+using Sonrai.ExtRS;
+using NuGet.Common;
 
 namespace ExtRS.Portal.Areas.Identity.Account
 {
@@ -29,14 +32,21 @@ namespace ExtRS.Portal.Areas.Identity.Account
         private readonly IUserStore<ApplicationUser> _userStore;
         private readonly IUserEmailStore<ApplicationUser> _emailStore;
         private readonly IEmailSender _emailSender;
+        private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly ILogger<ExternalLoginModel> _logger;
+        private readonly SSRSConnection _connection;
+        private readonly HttpClient _httpClient;
+        private readonly SSRSService _ssrs;
 
         public ExternalLoginModel(
             SignInManager<ApplicationUser> signInManager,
             UserManager<ApplicationUser> userManager,
             IUserStore<ApplicationUser> userStore,
             ILogger<ExternalLoginModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            IConfiguration configuration,
+            IHttpContextAccessor httpContextAccessor)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -44,6 +54,12 @@ namespace ExtRS.Portal.Areas.Identity.Account
             _emailStore = GetEmailStore();
             _logger = logger;
             _emailSender = emailSender;
+            _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
+            _httpClient = new HttpClient();
+            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _httpContextAccessor.HttpContext.User.Identity.Name!, AuthenticationType.ExtRSAuth);
+            _ssrs = new SSRSService(_connection, _configuration, _httpContextAccessor);
+            _ssrs._conn.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
         }
 
         /// <summary>
@@ -86,7 +102,7 @@ namespace ExtRS.Portal.Areas.Identity.Account
             [EmailAddress]
             public string Email { get; set; }
         }
-        
+
         public IActionResult OnGet() => RedirectToPage("./Login");
 
         public IActionResult OnPost(string provider, string returnUrl = null)
@@ -141,6 +157,9 @@ namespace ExtRS.Portal.Areas.Identity.Account
 
         public async Task<IActionResult> OnPostConfirmationAsync(string returnUrl = null)
         {
+
+            var rsUserCreated = await CreateRSUserWithBrowserPolicy(Input.Email);
+
             returnUrl = returnUrl ?? Url.Content("~/");
             // Get the information about the user from the external login provider
             var info = await _signInManager.GetExternalLoginInfoAsync();
@@ -184,7 +203,13 @@ namespace ExtRS.Portal.Areas.Identity.Account
                             return RedirectToPage("./RegisterConfirmation", new { Email = Input.Email });
                         }
 
-                        await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+                        //var rsUserCreated = await CreateRSUserWithBrowserPolicy(user.UserName);
+
+                        if (rsUserCreated)
+                        {
+                            await _signInManager.SignInAsync(user, isPersistent: false, info.LoginProvider);
+                        }
+
                         return LocalRedirect(returnUrl);
                     }
                 }
@@ -197,6 +222,24 @@ namespace ExtRS.Portal.Areas.Identity.Account
             ProviderDisplayName = info.ProviderDisplayName;
             ReturnUrl = returnUrl;
             return Page();
+        }
+
+        private async Task<bool> CreateRSUserWithBrowserPolicy(string user)
+        {
+            try
+            {
+                var catalogItems = await _ssrs.GetCatalogItems();
+                var reportsFolder = catalogItems.Where(x => x.Name == "Reports").FirstOrDefault();
+
+              //  await _ssrs.CreateGroupUserSystemPolicy(user, false);
+                await _ssrs.CreateCatalogItemBrowserPolicy(reportsFolder.Id.ToString(), user);
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         private ApplicationUser CreateUser()

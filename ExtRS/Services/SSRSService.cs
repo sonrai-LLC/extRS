@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using ExtRS.Models.ReportingServices;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
@@ -24,6 +25,9 @@ namespace Sonrai.ExtRS
         private readonly string domains;
         private readonly string sysAdmin = "System Administrator";
         private readonly string sysUser = "System User";
+        private readonly string sysAdminDesc = "View and modify system role assignments, system role definitions, system properties, and shared schedules.";
+        private readonly string sysUserDesc = "View system properties, shared schedules, and allow use of Report Builder or other clients that execute report definitions.";
+
 
         public SSRSService(SSRSConnection connection, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
@@ -81,22 +85,22 @@ namespace Sonrai.ExtRS
             return JsonConvert.DeserializeObject<Me>(await response.Content.ReadAsStringAsync())!;
         }
 
-        public async Task<List<Policy>> GetRSSystemPolicies()
+        public async Task<ODataPolicies> GetSystemPolicies()
         {
             var response = await CallApi(HttpVerbs.GET, "System/Policies");
-            return JsonConvert.DeserializeObject<List<Policy>>(await response!.Content!.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<ODataPolicies>(await response!.Content!.ReadAsStringAsync())!;
         }
 
-        public async Task CreateGroupUser(string groupUserName, bool isAdmin)
+        public async Task CreateGroupUserSystemPolicy(string groupUserName, bool isAdmin)
         {
-            List<Policy> systemPolicies = await GetRSSystemPolicies();
+            var systemPolicies = await GetSystemPolicies();
 
             try
             {
-                var newPolicy = new Policy() { GroupUserName = groupUserName, Roles = new List<Role> {new Role() { Name = !isAdmin ? sysUser : sysAdmin, Description = "...." }} };
-                systemPolicies.Add(newPolicy);
-                HttpResponseMessage response;
-                response = await CallApi(HttpVerbs.PUT, "System/Policies", JsonConvert.SerializeObject(systemPolicies));
+                var newPolicy = new Policy() { GroupUserName = groupUserName, Roles = new List<Role> { new Role() { Name = !isAdmin ? sysUser : sysAdmin, Description = !isAdmin ? sysUserDesc : sysAdminDesc } } };
+                systemPolicies.Value.Add(newPolicy);
+                var newSystemPolicies = new { Policies = systemPolicies.Value };
+                HttpResponseMessage response = await CallApi(HttpVerbs.PUT, "System/Policies", JsonConvert.SerializeObject(newSystemPolicies));
             }
             catch (Exception ex)
             {
@@ -104,16 +108,27 @@ namespace Sonrai.ExtRS
             }
         }
 
-        public async Task CreateCatalogItemPolicy(string id, string groupUserName, string role)
+        public async Task<ODataCatalogItemPolicies> GetCatalogItemPolicies(string id)
         {
-            List<Policy> systemPolicies = await GetRSSystemPolicies();
+            var response = await CallApi(HttpVerbs.GET, string.Format("CatalogItems({0})/Policies", id));
+            return JsonConvert.DeserializeObject<ODataCatalogItemPolicies>(await response!.Content!.ReadAsStringAsync())!;
+        }
 
+        public async Task CreateCatalogItemBrowserPolicy(string id, string groupUserName)
+        {
+            await CreateCatalogItemPolicy(id, groupUserName, "Browser", "May view folders, reports and subscribe to reports.");
+        }
+
+        public async Task CreateCatalogItemPolicy(string id, string groupUserName, string role, string description)
+        {
+            var catalogItemPolicies = await GetCatalogItemPolicies(id);
             try
             {
-                var newPolicy = new Policy() { GroupUserName = groupUserName, Roles = new List<Role> { new Role() { Name = role, Description = "...." } } };
-                systemPolicies.Add(newPolicy);
+                var newPolicy = new Policy() { GroupUserName = groupUserName, Roles = new List<Role> { new Role() { Name = role, Description = description } } };
+                catalogItemPolicies.Policies.Add(newPolicy);
+                var newPolicies = new { InheritParentPolicy = false, Policies = catalogItemPolicies.Policies };
                 HttpResponseMessage response;
-                response = await CallApi(HttpVerbs.PUT, string.Format("/CatalogItems({0})/Policies", id), JsonConvert.SerializeObject(systemPolicies));
+                response = await CallApi(HttpVerbs.PUT, string.Format("/CatalogItems({0})/Policies", id), JsonConvert.SerializeObject(newPolicies));
             }
             catch (Exception ex)
             {
