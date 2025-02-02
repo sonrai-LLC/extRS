@@ -231,7 +231,7 @@ namespace ExtRS.Portal.Areas.Identity.Account
                 var catalogItems = await _ssrs.GetCatalogItems();
                 var reportsFolder = catalogItems.Where(x => x.Name == "Reports").FirstOrDefault();
 
-              //  await _ssrs.CreateGroupUserSystemPolicy(user, false);
+                await _ssrs.CreateGroupUserSystemPolicy(user, false);
                 await _ssrs.CreateCatalogItemBrowserPolicy(reportsFolder.Id.ToString(), user);
             }
             catch (Exception e)

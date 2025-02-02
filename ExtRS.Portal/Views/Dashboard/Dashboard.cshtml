@@ -238,86 +238,86 @@
                 }, 1);
             });
 
-            Highcharts.chart('dow', {
-                chart: {
-                    type: 'scatter',
-                    height: "33%",
-                    margin: [70, 50, 60, 80],
-                    events: {
-                        click: function (e) {
-                            // find the clicked values and the series
-                            const x = Math.round(e.xAxis[0].value),
-                                y = Math.round(e.yAxis[0].value),
-                                series = this.series[0];
+            // Highcharts.chart('dow', {
+            //     chart: {
+            //         type: 'scatter',
+            //         height: "33%",
+            //         margin: [70, 50, 60, 80],
+            //         events: {
+            //             click: function (e) {
+            //                 // find the clicked values and the series
+            //                 const x = Math.round(e.xAxis[0].value),
+            //                     y = Math.round(e.yAxis[0].value),
+            //                     series = this.series[0];
 
-                            // Add it
-                            series.addPoint([x, y]);
+            //                 // Add it
+            //                 series.addPoint([x, y]);
 
-                        }
-                    }
-                },
-                title: {
-                    text: 'Enter data by clicking the responsive line chart',
-                    align: 'center'
-                },
-                subtitle: {
-                    text: 'Click to add a point. Click a point to remove it.',
-                    align: 'center'
-                },
-                accessibility: {
-                    announceNewData: {
-                        enabled: true
-                    }
-                },
-                xAxis: {
-                    gridLineWidth: 1,
-                    minPadding: 0.2,
-                    maxPadding: 0.2,
-                    maxZoom: 60
-                },
-                yAxis: {
-                    title: {
-                        text: 'Value'
-                    },
-                    minPadding: 0.2,
-                    maxPadding: 0.2,
-                    maxZoom: 60,
-                    plotLines: [{
-                        value: 0,
-                        width: 1,
-                        color: '#808080'
-                    }]
-                },
-                legend: {
-                    enabled: false
-                },
-                exporting: {
-                    enabled: false
-                },
-                plotOptions: {
-                    series: {
-                        stickyTracking: false,
-                        lineWidth: 3,
-                        point: {
-                            events: {
-                                click: function () {
-                                    if (this.series.data.length > 1) {
-                                        this.remove();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    data: [[20, 20], [80, 80]],
-                    color: Highcharts.getOptions().colors[3],
-                    marker: {
-                        lineWidth: 2,
-                        radius: 6
-                    }
-                }]
-            });
+            //             }
+            //         }
+            //     },
+            //     title: {
+            //         text: 'Enter data by clicking the responsive line chart',
+            //         align: 'center'
+            //     },
+            //     subtitle: {
+            //         text: 'Click to add a point. Click a point to remove it.',
+            //         align: 'center'
+            //     },
+            //     accessibility: {
+            //         announceNewData: {
+            //             enabled: true
+            //         }
+            //     },
+            //     xAxis: {
+            //         gridLineWidth: 1,
+            //         minPadding: 0.2,
+            //         maxPadding: 0.2,
+            //         maxZoom: 60
+            //     },
+            //     yAxis: {
+            //         title: {
+            //             text: 'Value'
+            //         },
+            //         minPadding: 0.2,
+            //         maxPadding: 0.2,
+            //         maxZoom: 60,
+            //         plotLines: [{
+            //             value: 0,
+            //             width: 1,
+            //             color: '#808080'
+            //         }]
+            //     },
+            //     legend: {
+            //         enabled: false
+            //     },
+            //     exporting: {
+            //         enabled: false
+            //     },
+            //     plotOptions: {
+            //         series: {
+            //             stickyTracking: false,
+            //             lineWidth: 3,
+            //             point: {
+            //                 events: {
+            //                     click: function () {
+            //                         if (this.series.data.length > 1) {
+            //                             this.remove();
+            //                         }
+            //                     }
+            //                 }
+            //             }
+            //         }
+            //     },
+            //     series: [{
+            //         data: [[20, 20], [80, 80]],
+            //         color: Highcharts.getOptions().colors[3],
+            //         marker: {
+            //             lineWidth: 2,
+            //             radius: 6
+            //         }
+            //     }]
+            // });
 
             // Now create the chart
             Highcharts.chart('sales', {
@@ -512,8 +512,8 @@
     </script>
 </head>
 
-<table style="width: 100%; height: 600px">
-    <tr><td style="height:30%;width:50%"><div id="cpu" style="height:100%"></div></td><td style="height:30%;width:50%"><div id="sales" style="height:100%"></div></td></tr>
-    <tr><td style="height:30%;width:50%"><div id="tree" style="height:100%"></td><td style="height:30%;width:50%"><div id="dow" style="height:100%"></div></td></tr>
+<table style="width: 100%; height: 500px">
+    <tr><td colspan="2" style="height:15%;width:100%"><div id="cpu" style="height:15%"></div></td></tr>
+    <tr><td style="height:30%;width:50%"><div id="tree" style="height:100%"></div></td><td style="height:30%;width:50%"><div id="sales" style="height:100%"></div></td></tr>
 </table>
 <iframe src="https://tickertapes.net?embedded=true" style="width:100%; height:26%"></iframe>
