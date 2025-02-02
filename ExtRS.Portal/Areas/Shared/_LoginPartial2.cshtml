@@ -1,12 +1,12 @@
 @using System.Security.Principal
 
-<ul class="navbar-nav">
+<ul class="navbar-nav" style="float:right !important">
 @if (User.Identity?.IsAuthenticated == true)
 {
-        <span class="navbar-text text-dark">@User.Identity?.Name</span>
-        <li class="nav-item">
+        <span class="navbar-text text-dark" style="color:cyan !important">@User.Identity?.Name</span>
+@*         <li class="nav-item">
             <a class="nav-link text-dark" asp-area="MicrosoftIdentity" asp-controller="Account" asp-action="SignOut">Sign out</a>
-        </li>
+        </li> *@
 }
 else
 {
