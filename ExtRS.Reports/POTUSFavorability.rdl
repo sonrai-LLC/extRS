@@ -834,25 +834,10 @@
             <ChartSeriesHierarchy>
               <ChartMembers>
                 <ChartMember>
-                  <Group Name="StatePollDataChart_SeriesGroup">
-                    <GroupExpressions>
-                      <GroupExpression>=Fields!politician.Value</GroupExpression>
-                    </GroupExpressions>
-                  </Group>
-                  <SortExpressions>
-                    <SortExpression>
-                      <Value>=Fields!politician.Value</Value>
-                    </SortExpression>
-                  </SortExpressions>
-                  <ChartMembers>
-                    <ChartMember>
-                      <Label>favorable</Label>
-                    </ChartMember>
-                    <ChartMember>
-                      <Label>unfavorable</Label>
-                    </ChartMember>
-                  </ChartMembers>
-                  <Label>=Fields!politician.Value</Label>
+                  <Label>favorable</Label>
+                </ChartMember>
+                <ChartMember>
+                  <Label>unfavorable</Label>
                 </ChartMember>
               </ChartMembers>
             </ChartSeriesHierarchy>

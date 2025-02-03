@@ -50,7 +50,7 @@
 WHERE    (
 [politician] = 'Donald Trump'
 ) 
-AND end_date &gt; dateadd(dd, -90, getDate())
+AND end_date &gt; dateadd(dd, -365, getDate())
 ORDER BY end_date DESC</CommandText>
       <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
     </Query>
