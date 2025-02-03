@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>localhost-refdata</DataSourceReference>
+      <CommandText>SELECT [poll_id]
+      ,[pollster_id]
+      ,[pollster]
+      ,[sponsor_ids]
+      ,[sponsors]
+      ,[display_name]
+      ,[pollster_rating_id]
+      ,[pollster_rating_name]
+      ,[numeric_grade]
+      ,[pollscore]
+      ,[methodology]
+      ,[transparency_score]
+      ,[state]
+      ,[start_date]
+      ,[end_date]
+      ,[sponsor_candidate_id]
+      ,[sponsor_candidate]
+      ,[sponsor_candidate_party]
+      ,[question_id]
+      ,[sample_size]
+      ,[population]
+      ,[subpopulation]
+      ,[population_full]
+      ,[tracking]
+      ,[created_at]
+      ,[notes]
+      ,[url]
+      ,[url_article]
+      ,[url_topline]
+      ,[url_crosstab]
+      ,[source]
+      ,[internal]
+      ,[partisan]
+      ,[imputed_sample_size]
+      ,[politician_id]
+      ,[politician]
+      ,[favorable]
+      ,[unfavorable]
+      ,[alternate_answers]
+      ,[very_favorable]
+      ,[somewhat_favorable]
+      ,[somewhat_unfavorable]
+      ,[very_unfavorable]
+  FROM [POTUS_FAVORABILITY]
+WHERE    (
+[politician] = 'Donald Trump'
+) 
+AND end_date &gt; dateadd(dd, -90, getDate())
+ORDER BY end_date DESC</CommandText>
+      <rd:UseGenericDesigner>true</rd:UseGenericDesigner>
+    </Query>
+    <Fields>
+      <Field Name="poll_id">
+        <DataField>poll_id</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="pollster">
+        <DataField>pollster</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="pollster_id">
+        <DataField>pollster_id</DataField>
+        <rd:TypeName>System.Int16</rd:TypeName>
+      </Field>
+      <Field Name="sponsors">
+        <DataField>sponsors</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="display_name">
+        <DataField>display_name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="methodology">
+        <DataField>methodology</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="sponsor_ids">
+        <DataField>sponsor_ids</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="state">
+        <DataField>state</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="start_date">
+        <DataField>start_date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="pollster_rating_id">
+        <DataField>pollster_rating_id</DataField>
+        <rd:TypeName>System.Int16</rd:TypeName>
+      </Field>
+      <Field Name="end_date">
+        <DataField>end_date</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="pollster_rating_name">
+        <DataField>pollster_rating_name</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="numeric_grade">
+        <DataField>numeric_grade</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="pollscore">
+        <DataField>pollscore</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="transparency_score">
+        <DataField>transparency_score</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="sponsor_candidate_id">
+        <DataField>sponsor_candidate_id</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="sponsor_candidate">
+        <DataField>sponsor_candidate</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="sponsor_candidate_party">
+        <DataField>sponsor_candidate_party</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="question_id">
+        <DataField>question_id</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="sample_size">
+        <DataField>sample_size</DataField>
+        <rd:TypeName>System.Int16</rd:TypeName>
+      </Field>
+      <Field Name="population">
+        <DataField>population</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="subpopulation">
+        <DataField>subpopulation</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="population_full">
+        <DataField>population_full</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="tracking">
+        <DataField>tracking</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="created_at">
+        <DataField>created_at</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="notes">
+        <DataField>notes</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="url">
+        <DataField>url</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="url_article">
+        <DataField>url_article</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="url_topline">
+        <DataField>url_topline</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="url_crosstab">
+        <DataField>url_crosstab</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="source">
+        <DataField>source</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="internal">
+        <DataField>internal</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="partisan">
+        <DataField>partisan</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="imputed_sample_size">
+        <DataField>imputed_sample_size</DataField>
+        <rd:TypeName>System.Int16</rd:TypeName>
+      </Field>
+      <Field Name="politician_id">
+        <DataField>politician_id</DataField>
+        <rd:TypeName>System.Int16</rd:TypeName>
+      </Field>
+      <Field Name="politician">
+        <DataField>politician</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="favorable">
+        <DataField>favorable</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="unfavorable">
+        <DataField>unfavorable</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="alternate_answers">
+        <DataField>alternate_answers</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="very_favorable">
+        <DataField>very_favorable</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="somewhat_favorable">
+        <DataField>somewhat_favorable</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="somewhat_unfavorable">
+        <DataField>somewhat_unfavorable</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+      <Field Name="very_unfavorable">
+        <DataField>very_unfavorable</DataField>
+        <rd:TypeName>System.Double</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

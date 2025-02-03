@@ -71,6 +71,7 @@
     <DataSet Include="NCAAMConferences.rsd" />
     <DataSet Include="Ozar.rsd" />
     <DataSet Include="Player.rsd" />
+    <DataSet Include="POTUSFavorability.rsd" />
     <DataSet Include="PrimaryImage.rsd" />
     <DataSet Include="Recruit.rsd" />
     <DataSet Include="Recruiting.rsd" />
@@ -112,6 +113,7 @@
     <Report Include="OfficialComms.rdl" />
     <Report Include="OrganizationInfo.rdl" />
     <Report Include="Ozar.rdl" />
+    <Report Include="POTUSFavorability.rdl" />
     <Report Include="PresidentialElectionsSM.rdl" />
     <Report Include="Recruit.rdl" />
     <Report Include="Recruiting.rdl" />
