@@ -183,7 +183,7 @@
   </ItemGroup>
 
   <Target Name="PostBuild" AfterTargets="PostBuildEvent">
-    <Exec Command="xcopy /Y &quot;$(ProjectDir)bin\Debug\net7.0\Sonrai.ExtRS.dll&quot;  &quot;C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\ReportServer\bin&quot;&#xD;&#xA;xcopy /Y &quot;$(ProjectDir)bin\Debug\net7.0\Sonrai.ExtRS.pdb&quot;  &quot;C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\ReportServer\bin&quot;&#xD;&#xA;xcopy /Y &quot;$(ProjectDir)bin\Debug\net7.0\Sonrai.ExtRS.dll&quot; &quot;C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\Portal&quot;&#xD;&#xA;xcopy /Y &quot;$(ProjectDir)bin\Debug\net7.0\Sonrai.ExtRS.pdb&quot; &quot;C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\Portal&quot;" />
+    <Exec Command="xcopy /Y &quot;$(ProjectDir)bin\Debug\net9.0\Sonrai.ExtRS.dll&quot;  &quot;C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\ReportServer\bin&quot;&#xD;&#xA;xcopy /Y &quot;$(ProjectDir)bin\Debug\net9.0\Sonrai.ExtRS.pdb&quot;  &quot;C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\ReportServer\bin&quot;&#xD;&#xA;xcopy /Y &quot;$(ProjectDir)bin\Debug\net9.0\Sonrai.ExtRS.dll&quot; &quot;C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\Portal&quot;&#xD;&#xA;xcopy /Y &quot;$(ProjectDir)bin\Debug\net9.0\Sonrai.ExtRS.pdb&quot; &quot;C:\Program Files\Microsoft SQL Server Reporting Services\SSRS\Portal&quot;" />
   </Target>
 
 </Project>
