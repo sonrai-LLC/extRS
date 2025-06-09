@@ -14,8 +14,8 @@ namespace Sonrai.ExtRS.UnitTests
     [TestClass]
     public class SSRSTests
     {
-        private SSRSService ssrs;
-        private HttpClient httpClient;
+        private SSRSService _ssrs;
+        private HttpClient _httpClient;
         private IConfiguration _configuration { get; }
 
         public SSRSTests()
@@ -29,135 +29,135 @@ namespace Sonrai.ExtRS.UnitTests
         [TestInitialize]
         public async Task InitializeTests()
         {
-            httpClient = new HttpClient();
+            _httpClient = new HttpClient();
             SSRSConnection connection = new SSRSConnection(Resources.ReportServerName, Resources.User, AuthenticationType.ExtRSAuth);
-            ssrs = new SSRSService(connection, _configuration, null);
-            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(httpClient, Resources.User, Resources.Passphrase, connection.ReportServerName);
+            _ssrs = new SSRSService(connection, _configuration, null);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, Resources.User, Resources.Passphrase, connection.ReportServerName);
         }
 
         [TestMethod]
         public async Task GetGetSqlAuthCookieSucceeds()
         {
-            var cookieString = await SSRSService.GetSqlAuthCookie(httpClient, Resources.User, Resources.Passphrase, Resources.ReportServerName);
+            var cookieString = await SSRSService.GetSqlAuthCookie(_httpClient, Resources.User, Resources.Passphrase, Resources.ReportServerName);
             Assert.IsTrue(cookieString.Length > 0);
         }
 
         [TestMethod]
         public async Task CreateSessionSucceeds()
         {   
-            HttpResponseMessage result = await ssrs.CreateSession(Resources.User, Resources.Passphrase, Resources.ReportServerName); 
+            HttpResponseMessage result = await _ssrs.CreateSession(Resources.User, Resources.Passphrase, Resources.ReportServerName); 
             Assert.IsTrue(Convert.ToString(result.StatusCode) == "Created");
         }
 
         [TestMethod]
         public async Task DeleteSessionSucceeds()
         {
-            var result = await ssrs.DeleteSession();
+            var result = await _ssrs.DeleteSession();
             Assert.IsTrue(Convert.ToString(result.StatusCode) == "OK");
         }
 
         [TestMethod]
         public async Task GetAllCatalogItemsSucceeds()
         {
-            var catalogItems = await ssrs.GetCatalogItems();
+            var catalogItems = await _ssrs.GetCatalogItems();
             Assert.IsTrue(catalogItems.Count > 0);
         }
 
         [TestMethod]
         public async Task GetCatalogItemSucceeds()
         {
-            CatalogItem dataSource = await ssrs.GetCatalogItem("path='/Reports/Team'");
+            CatalogItem dataSource = await _ssrs.GetCatalogItem("path='/Reports/MSSQLVersions'");
             Assert.IsTrue(dataSource.Name != null);
         }
 
         [TestMethod]
         public async Task GetReportsSucceeds()
         {
-            List<Report> reports = await ssrs.GetReports();
+            List<Report> reports = await _ssrs.GetReports();
             Assert.IsTrue(reports.Count > 0);
         }
 
         [TestMethod]
         public async Task GetReportSucceeds()
         {
-            Report report = await ssrs.GetReport("path='/Reports/Team'");
+            Report report = await _ssrs.GetReport("path='/Reports/MSSQLVersions'");
             Assert.IsTrue(report.Name != null);
         }
 
         [TestMethod]
         public async Task GetReportSnapshotsSucceeds()
         {
-            Report report = await ssrs.GetReport("path='/Reports/Team'");
+            Report report = await _ssrs.GetReport("path='/Reports/MSSQLVersions'");
             Assert.IsTrue(report.Name != null);
         }
 
         [TestMethod]
         public async Task GetFoldersSucceeds()
         {
-            List<Folder> folders = await ssrs.GetFolders();
+            List<Folder> folders = await _ssrs.GetFolders();
             Assert.IsTrue(folders.Count > 0);
         }
 
         [TestMethod]
         public async Task GetFolderSucceeds()
         {
-            Folder folder = await ssrs.GetFolder("path='/Reports'");
+            Folder folder = await _ssrs.GetFolder("path='/Reports'");
             Assert.IsTrue(folder.Name != null);
         }
 
         [TestMethod]
         public async Task GetDataSourcesSucceeds()
         {
-            List<DataSource> dataSources = await ssrs.GetDataSources();
+            List<DataSource> dataSources = await _ssrs.GetDataSources();
             Assert.IsTrue(dataSources.Count > 0);
         }
 
         [TestMethod]
         public async Task GetDataSourceSucceeds()
         {
-            DataSource dataSource = await ssrs.GetDataSource("path='/Data Sources/localhost'");
+            DataSource dataSource = await _ssrs.GetDataSource("path='/Data Sources/localhost'");
             Assert.IsTrue(dataSource.Name != null);
         }
 
         [TestMethod]
         public async Task GetDataSetsSucceeds()
         {
-            List<DataSet> datasets = await ssrs.GetDataSets();
+            List<DataSet> datasets = await _ssrs.GetDataSets();
             Assert.IsTrue(datasets.Count > 0);
         }
 
         [TestMethod]
         public async Task GetDataSetSucceeds()
         {
-            DataSet dataSource = await ssrs.GetDataSet("path='/DataSets/Team'");
+            DataSet dataSource = await _ssrs.GetDataSet("path='/DataSets/ConfigurationInfo'");
             Assert.IsTrue(dataSource.Name != null);
         }
 
         [TestMethod]
         public async Task GetReportSnapshotHistorySucceeds()
         {
-            DataSet dataSource = await ssrs.GetDataSet("path='/DataSets/Team'");
+            DataSet dataSource = await _ssrs.GetDataSet("path='/DataSets/ConfigurationInfo'");
             Assert.IsTrue(dataSource.Name != null);
         }
 
         [TestMethod]
         public async Task CreateSubscriptionSucceeds()
         {
-            DataSet dataSource = await ssrs.GetDataSet("path='/DataSets/Team'");
+            DataSet dataSource = await _ssrs.GetDataSet("path='/DataSets/ConfigurationInfo'");
             Assert.IsTrue(dataSource.Name != null);
         }
 
         [TestMethod]
         public async Task GetSubscriptionSucceeds()
         {
-            DataSet dataSource = await ssrs.GetDataSet("path='/DataSets/Team'");
+            DataSet dataSource = await _ssrs.GetDataSet("path='/DataSets/ConfigurationInfo'");
             Assert.IsTrue(dataSource.Name != null);
         }
 
         [TestMethod]
         public async Task SubscriptionSucceeds()
         {
-            DataSet dataSource = await ssrs.GetDataSet("path='/DataSets/Team'");
+            DataSet dataSource = await _ssrs.GetDataSet("path='/DataSets/ConfigurationInfo'");
             Assert.IsTrue(dataSource.Name != null);
         }
 
@@ -169,7 +169,7 @@ namespace Sonrai.ExtRS.UnitTests
                 ""Owner"": """ + Resources.User + @""",
                 ""IsDataDriven"": false,
                 ""Description"": ""string..."",
-                ""Report"": ""/Reports/USPolls"",
+                ""Report"": ""/Reports/MSSQLVersions"",
                 ""IsActive"": true,
                 ""EventType"": ""TimedSubscription"",
                 ""ScheduleDescription"": ""string..."",
@@ -223,13 +223,13 @@ namespace Sonrai.ExtRS.UnitTests
                 ""ParameterValues"": []
             }";
 
-            Subscription subscription = await ssrs.SaveSubscription(JsonConvert.DeserializeObject<Subscription>(json)!);
+            Subscription subscription = await _ssrs.SaveSubscription(JsonConvert.DeserializeObject<Subscription>(json)!);
             Assert.IsTrue(subscription.DeliveryExtension != null);
 
-            var getResponse = await ssrs.GetSubscription(subscription.Id.ToString()!);
+            var getResponse = await _ssrs.GetSubscription(subscription.Id.ToString()!);
             Assert.IsTrue(getResponse.Id != null);
 
-            var delResp = await ssrs.DeleteSubscription(subscription.Id.ToString()!);
+            var delResp = await _ssrs.DeleteSubscription(subscription.Id.ToString()!);
             Assert.IsTrue(delResp);
         }
 
@@ -246,7 +246,7 @@ namespace Sonrai.ExtRS.UnitTests
                 ""Size"": 0,
                 ""ModifiedBy"": ""extRSAuth"",
                 ""ModifiedDate"": ""2023-11-08T19:58:11.277-06:00"",
-                ""CreatedBy"": ""DayliteAdmin"",
+                ""CreatedBy"": ""extRSAuth"",
                 ""CreatedDate"": ""2022-07-30T15:03:24.563-05:00"",
                 ""ParentFolderId"": ""0cb3efb3-41cb-4480-a9c9-da642a19526e"",
                 ""IsFavorite"": false,
@@ -255,20 +255,20 @@ namespace Sonrai.ExtRS.UnitTests
                 ""Roles"": []
             }";
 
-            var createResponse = await ssrs.CreateCatalogItem(json);
+            var createResponse = await _ssrs.CreateCatalogItem(json);
             Assert.IsTrue(createResponse.Id != null);
 
-            var getResponse = await ssrs.GetCatalogItem(createResponse.Id.ToString()!);
+            var getResponse = await _ssrs.GetCatalogItem(createResponse.Id.ToString()!);
             Assert.IsTrue(getResponse.Id != null);
 
-            var deleteResponse = await ssrs.DeleteCatalogItem(getResponse.Id.ToString());
+            var deleteResponse = await _ssrs.DeleteCatalogItem(getResponse.Id.ToString());
             Assert.IsTrue(deleteResponse);
         }
 
         [TestMethod]
         public async Task GetParameterHtmlSucceeds()
         {
-            var result = await ssrs.GetParameterHtml("path='/Reports/USPolls'");
+            var result = await _ssrs.GetParameterHtml("path='/Reports/MSSQLVersions'");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.Contains("<div>") && result.Contains("</div>"));
         }
@@ -276,7 +276,7 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetCatalogItemHtmlSucceeds()
         {
-            string catalogItemResponse = await ssrs.GetCatalogItemHtml("path='/Reports/Team'");
+            string catalogItemResponse = await _ssrs.GetCatalogItemHtml("path='/Reports/MSSQLVersions'");
             Assert.IsTrue(catalogItemResponse.ToString().Contains("<div "));
             Assert.IsTrue(catalogItemResponse.ToString().Contains("</div>"));
         }
@@ -284,7 +284,7 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetSystemInfoSucceeds()
         {
-            SystemInfo systemInfo = await ssrs.GetSystemInfo();
+            SystemInfo systemInfo = await _ssrs.GetSystemInfo();
             Assert.IsTrue(systemInfo.ProductName.Length > 0);
             Assert.IsTrue(systemInfo.ProductType.Length > 0);
             Assert.IsTrue(systemInfo.ProductVersion.Length > 0);
@@ -295,7 +295,7 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetExecutionStatsSucceeds()
         {
-            var stats = await ssrs.GetReportExecutionStats("Server=localhost;Database=ReportServer;User Id=extrs;Integrated Security=true");
+            var stats = await _ssrs.GetReportExecutionStats("Server=localhost;Database=ReportServer;Integrated Security=true");
             Assert.IsTrue(stats.Count() > 0);
         }
     }

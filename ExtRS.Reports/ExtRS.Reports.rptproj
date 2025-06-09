@@ -56,6 +56,7 @@
     <DataSet Include="BinGan.rsd" />
     <DataSet Include="City.rsd" />
     <DataSet Include="Coach.rsd" />
+    <DataSet Include="ConfigurationInfo.rsd" />
     <DataSet Include="D1MBBCoaches.rsd" />
     <DataSet Include="Dave.rsd" />
     <DataSet Include="Device.rsd" />
