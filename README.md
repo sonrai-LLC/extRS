@@ -5,13 +5,6 @@ SSRS ain't dead- it's just a niche tool that hasn't fully realized its potential
 
 Here is an implementation of extRS in the form of an SSRS client (extRS.Portal.csproj) that exposes some of the default SSRS Portal feature set: https://extrs.net
 
-# Requirements
-This plug-in works as a drop-in Nuget package for .NET projects as well an SSRS Custom Assembly as described by Microsoft here: https://docs.microsoft.com/en-us/sql/reporting-services/custom-assemblies/using-custom-assemblies-with-reports?view=sql-server-ver15
-
-# Contents
-This package includes the following components:
-- Sonrai.ExtRS.dll
-
 # Examples
 
 ```
