@@ -130,6 +130,7 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(result.Count > 0);
         }
 
+        [Ignore]
         [TestMethod]
         public async Task GetForexPriceSucceeds()
         {

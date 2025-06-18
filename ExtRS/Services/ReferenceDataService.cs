@@ -503,9 +503,4 @@ namespace Sonrai.ExtRS
 
         #endregion
     }
-
-    public class GoogleTranslateResponse()
-    {
-        List<object> translations = new List<object>();
-    }
 }

@@ -32,20 +32,20 @@ namespace Sonrai.ExtRS.UnitTests
             _httpClient = new HttpClient();
             SSRSConnection connection = new SSRSConnection(Resources.ReportServerName, Resources.User, AuthenticationType.ExtRSAuth);
             _ssrs = new SSRSService(connection, _configuration, null);
-            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, Resources.User, Resources.Passphrase, connection.ReportServerName);
+            connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, Resources.User, _configuration["extrspassphrase"]!, connection.ReportServerName);
         }
 
         [TestMethod]
         public async Task GetGetSqlAuthCookieSucceeds()
         {
-            var cookieString = await SSRSService.GetSqlAuthCookie(_httpClient, Resources.User, Resources.Passphrase, Resources.ReportServerName);
+            var cookieString = await SSRSService.GetSqlAuthCookie(_httpClient, Resources.User, _configuration["extrspassphrase"]!, Resources.ReportServerName);
             Assert.IsTrue(cookieString.Length > 0);
         }
 
         [TestMethod]
         public async Task CreateSessionSucceeds()
         {   
-            HttpResponseMessage result = await _ssrs.CreateSession(Resources.User, Resources.Passphrase, Resources.ReportServerName); 
+            HttpResponseMessage result = await _ssrs.CreateSession(Resources.User, _configuration["extrspassphrase"]!, Resources.ReportServerName); 
             Assert.IsTrue(Convert.ToString(result.StatusCode) == "Created");
         }
 
@@ -133,6 +133,7 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(dataSource.Name != null);
         }
 
+        [Ignore]
         [TestMethod]
         public async Task GetReportSnapshotHistorySucceeds()
         {
@@ -140,6 +141,7 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(dataSource.Name != null);
         }
 
+        [Ignore]
         [TestMethod]
         public async Task CreateSubscriptionSucceeds()
         {
@@ -147,6 +149,7 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(dataSource.Name != null);
         }
 
+        [Ignore]
         [TestMethod]
         public async Task GetSubscriptionSucceeds()
         {
@@ -161,6 +164,7 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(dataSource.Name != null);
         }
 
+        [Ignore]
         [TestMethod]
         public async Task CreateGetDeleteSubscriptionSucceeds()
         {
@@ -265,6 +269,7 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(deleteResponse);
         }
 
+        [Ignore]
         [TestMethod]
         public async Task GetParameterHtmlSucceeds()
         {

@@ -9,12 +9,13 @@
       <am:Name>SSDTRS</am:Name>
       <am:Version>17.14.36127.28</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2025-05-31T21:33:01.1617345Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2025-06-18T15:55:30.1155760Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
   <DataSources>
     <DataSource Name="localhost">
+      <Transaction>true</Transaction>
       <DataSourceReference>localhost</DataSourceReference>
       <rd:SecurityType>None</rd:SecurityType>
       <rd:DataSourceID>7ae8264c-d9fe-46df-ba19-5d7b7a5188a7</rd:DataSourceID>
@@ -100,13 +101,13 @@ ORDER BY [MajorVersionName] DESC, [MinorVersionName] DESC</CommandText>
                   <Width>1.02594in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>2.12087in</Width>
+                  <Width>1.99599in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.33854in</Width>
                 </TablixColumn>
                 <TablixColumn>
-                  <Width>1.13102in</Width>
+                  <Width>1.25591in</Width>
                 </TablixColumn>
                 <TablixColumn>
                   <Width>1.23322in</Width>
@@ -909,7 +910,7 @@ ORDER BY [MajorVersionName] DESC, [MinorVersionName] DESC</CommandText>
             <DataSetName>MSSQLVersions</DataSetName>
             <Top>0.05556in</Top>
             <Height>0.46666in</Height>
-            <Width>11.03859in</Width>
+            <Width>11.0386in</Width>
             <Style>
               <Border>
                 <Style>None</Style>

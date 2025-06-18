@@ -61,15 +61,6 @@ namespace ExtRS.Tests.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This_IS_a_simpl_Passphrase.
-        /// </summary>
-        internal static string Passphrase {
-            get {
-                return ResourceManager.GetString("Passphrase", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to localhost.
         /// </summary>
         internal static string ReportServerName {
