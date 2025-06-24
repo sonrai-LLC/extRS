@@ -485,3 +485,8 @@ __pycache__/
 /ExtRS/ExtRS.nuspec
 /ExtRS.Portal/appsettings.json
 /ExtRS.Portal/appsettings.json
+/ExtRS.Portal/Properties/PublishProfiles
+/ExtRS.Portal/Properties/ServiceDependencies/extrs-web-prod - Web Deploy3
+/ExtRS.Portal/Properties/serviceDependencies.json
+*.json
+/ExtRS.Portal/Properties/ServiceDependencies/local/secrets1.arm.json
