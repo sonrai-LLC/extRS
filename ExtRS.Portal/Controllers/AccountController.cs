@@ -16,9 +16,9 @@ using Microsoft.AspNetCore.Mvc.Infrastructure;
 namespace ExtRS.Portal.Controllers
 {
     [AllowAnonymous]
-    public class AccountMvcController : Controller
+    public class AccountController : Controller
 	{
-		private readonly ILogger<AccountMvcController> _logger;
+		private readonly ILogger<AccountController> _logger;
 		private readonly IConfiguration _configuration;
 		private readonly IHttpContextAccessor _httpContextAccessor;
 		private readonly SignInManager<ApplicationUser> _signInManager;
@@ -28,7 +28,7 @@ namespace ExtRS.Portal.Controllers
 		public readonly string _domains;
 		private readonly IWebHostEnvironment _hostingEnvironment;
 
-		public AccountMvcController(ILogger<AccountMvcController> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, SignInManager<ApplicationUser> signInManager, IWebHostEnvironment hostingEnvironment)
+		public AccountController(ILogger<AccountController> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, SignInManager<ApplicationUser> signInManager, IWebHostEnvironment hostingEnvironment)
 		{
 			_logger = logger;
 			_configuration = configuration;

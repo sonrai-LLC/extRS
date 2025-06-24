@@ -31,6 +31,10 @@ namespace ExtRS.Portal.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Dashboard()
         {
+            if (!_httpContextAccessor!.HttpContext!.User.Identities.Any(x => x.IsAuthenticated))
+            {
+
+            }
             DashboardView model = new DashboardView { CurrentTab = "Dashboard" };
             return View(model);
         }

@@ -423,6 +423,19 @@ namespace Sonrai.ExtRS
             return translation!["data"]["translations"][0].translatedText.ToString();
         }
 
+        [Obsolete]
+        public static string GetGoogleTrendsEmbed(string translateText, string date, string geo, string term)
+        {
+            //< script type = "text/javascript" src = "https://ssl.gstatic.com/trends_nrtr/4116_RC01/embed_loader.js" ></ script > < script type = "text/javascript" > trends.embed.renderExploreWidget("TIMESERIES", { "comparisonItem":[{ "keyword":"milwaukee","geo":"US","time":"2004-01-01 2025-06-23"}],"category":0,"property":""}, { "exploreQuery":"date=all&geo=US&q=milwaukee","guestPath":"https://trends.google.com:443/trends/embed/"}); </ script >
+            //var client = new RestClient(string.Format("https://trends.google.com/trends/explore?date={0}}&geo={1}}&q={2}}", translateText, date, geo, term));
+            //var request = new RestRequest("", Method.Get);
+            //RestResponse response = client.Execute(request);
+
+            dynamic embedScript = JsonConvert.DeserializeObject<dynamic>(""); //
+
+            return embedScript;
+        }
+
         public static RestResponse GetVerifyAddressUSPS(string userId, string address1, string address2, string city, string state, string zip, bool isProd = false)
         {
             var client = new RestClient(isProd ? uspsProd : uspsTest + "shippingapi.dll?API=Verify&XML=" +

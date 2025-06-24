@@ -25,20 +25,12 @@ namespace ExtRS.Portal.Areas.Identity.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
         private readonly IConfiguration _configuration;
-        private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly SSRSConnection _connection;
-        private readonly HttpClient _httpClient;
-        private readonly SSRSService _ssrs;
 
-        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, IConfiguration configuration, IHttpContextAccessor _httpContextAccessor)
+        public LoginModel(SignInManager<ApplicationUser> signInManager, ILogger<LoginModel> logger, IConfiguration configuration)
         {
             _signInManager = signInManager;
             _logger = logger;
             _configuration = configuration;
-            _httpClient = new HttpClient();
-            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _httpContextAccessor.HttpContext.User.Identity.Name!, AuthenticationType.ExtRSAuth);
-            _ssrs = new SSRSService(_connection, _configuration, _httpContextAccessor);
-            _ssrs._conn.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
         }
 
         /// <summary>

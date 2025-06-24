@@ -15,7 +15,6 @@ using Sonrai.ExtRS.Models;
 
 DbProviderFactories.RegisterFactory("System.Data.SqlClient", SqlClientFactory.Instance);
 var builder = WebApplication.CreateBuilder(args);
-//var connectionString = builder.Configuration["defaultConnection"] ?? throw new InvalidOperationException("Connection string 'ApplicationDbContextConnection' not found.");
 
 builder.Services.ConfigureApplicationCookie(o =>
 {
