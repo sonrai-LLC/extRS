@@ -1,6 +1,3 @@
-@* @using Microsoft.AspNetCore.Mvc.ViewEngines
-@inject ICompositeViewEngine Engine *@
-
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>extRS</title>
@@ -210,8 +207,8 @@
             }
 
             .header {
-                /*                height: calc(var(--header-height) + 1rem);
-                                                        padding: 0 2rem 0 calc(var(--nav-width) + 2rem)*/
+              /*  height: calc(var(--header-height) + 1rem);
+                  padding: 0 2rem 0 calc(var(--nav-width) + 2rem)*/
             }
 
             .header_img {
@@ -295,20 +292,16 @@
             }
 
             showNavbar('header-toggle', 'nav-bar', 'body-pd', 'header');
-            ///*===== LINK ACTIVE =====*/
-            //const linkColor = document.querySelectorAll('.nav_link')
+            /*===== LINK ACTIVE =====*/
+            const linkColor = document.querySelectorAll('.nav_link')
 
-            //function colorLink(){
-            //if(linkColor){
-            //linkColor.forEach(l=> l.classList.remove('active'))
-            //this.classList.add('active')}
-            //}
+            function colorLink(){
+            if(linkColor){
+            linkColor.forEach(l => l.classList.remove('active'))
+            this.classList.add('active')}
+            }
 
-            //linkColor.forEach(l=> l.addEventListener('click', colorLink))
-
-            // Your code to run since DOM is loaded and ready
-            // TODO: implement more dyn here
-
+            linkColor.forEach(l => l.addEventListener('click', colorLink))
         });
     </script>
     <script>
@@ -530,15 +523,9 @@
     </nav>
 </div>
 <div class="bg-dark">
-    @* <script src="https://unpkg.com/htmx.org@1.9.4"></script>
-    <!-- have a button POST a click via AJAX -->
-    <button hx-post="/Report/Reports" hx-swap="outerHTML">
-    Click Me
-    </button>*@
     @RenderBody()
     <p style="font-size:8pt; float:right">© sonrai @DateTime.Now.Year</p>
 </div>
-
 
 @* 
 @{
