@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using ReportingServices.Api.Models;
 using Sonrai.ExtRS.Models;
-using System.Data.SqlClient;
+using Microsoft.Data.SqlClient;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Text;

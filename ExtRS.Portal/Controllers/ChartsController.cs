@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Dapper;
+using Microsoft.AspNetCore.Mvc;
 using ExtRS.Portal.Models;
 using ReportingServices.Api.Models;
 using Sonrai.ExtRS;
@@ -33,7 +34,8 @@ namespace ExtRS.Portal.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Charts(ReportsView view)
         {
-            ChartsView model = new ChartsView { Charts = new List<ChartView>(), CurrentTab = "Charts" };
+            ChartsView model = new ChartsView { Charts = new List<ChartView>(), CurrentTab = "Charts", HighChartsModel = await ReferenceDataService.GetGetVoteHubPollingData() };
+
             return View(model);
         }
 

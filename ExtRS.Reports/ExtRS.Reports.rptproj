@@ -126,7 +126,7 @@
     <Report Include="SpendAnalysis.rdl" />
     <Report Include="Team.rdl" />
     <Report Include="USPolls.rdl" />
-    <Report Include="VotehubApprovalPoll.rdl" />
+    <Report Include="VoteHubApprovalPoll.rdl" />
     <Report Include="VoterRegistration.rdl" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Reporting Services\Microsoft.ReportingServices.MSBuilder.targets" />

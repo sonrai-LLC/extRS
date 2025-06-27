@@ -1,9 +1,15 @@
 ﻿using AngleSharp.Dom;
 using AngleSharp.Html.Parser;
 using AngleSharp.Io;
+using Azure;
+using Dapper;
+using Microsoft.Data.SqlClient;
 using Newtonsoft.Json;
+using ReportingServices.Api.Models;
 using RestSharp;
 using Sonrai.ExtRS.Models.Tiingo;
+using System;
+using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
@@ -30,6 +36,33 @@ namespace Sonrai.ExtRS
         {
             HttpClient client = new HttpClient();
             return await client.GetStringAsync(string.Format("https://api.country.is/{0}", ip));
+        }
+         
+        public static async Task<HighChartsTimeSeriesModel> GetGetVoteHubPollingData(string connectionString = "")
+        {
+            if(connectionString == "")
+            {
+                connectionString = "Server=localhost;Database=master;Integrated Security=True;TrustServerCertificate=True";
+            }
+
+            using (var db = new SqlConnection(connectionString))
+            {
+                try
+                {
+                    db.Open();
+                }
+                catch (Exception ex)
+                {
+
+                }
+                string query = @"EXEC dbo.sp_GetVoteHubPollingData 1";
+
+                var approvalData = await db.QueryAsync<VoteHubApprovalDataModel>(query);
+
+                HighChartsTimeSeriesModel models = new HighChartsTimeSeriesModel(approvalData.ToList());
+
+                return models;
+            }
         }
 
         #endregion
@@ -515,5 +548,50 @@ namespace Sonrai.ExtRS
         }
 
         #endregion
+    }
+
+    public class VoteHubApprovalDataModel
+    {
+        public string pollster;
+        public string subject;
+        public string poll_type;
+        public int sample_size;
+        public DateTime created_at;
+        public decimal approve;
+        public decimal disapprove;
+    }
+
+    public class HighChartsTimeSeriesModel
+    {
+        public HighChartsTimeSeriesModel(List<VoteHubApprovalDataModel> voteHubApprovalDataModel)
+        {
+            Approve = voteHubApprovalDataModel.Select(x => new HighChartsTimeSeriesApprove(x)).ToList();
+            Disapprove = voteHubApprovalDataModel.Select(x => new HighChartsTimeSeriesDisapprove(x)).ToList();
+        }
+
+        public List<HighChartsTimeSeriesApprove> Approve;
+        public List<HighChartsTimeSeriesDisapprove> Disapprove;
+    }
+
+    public class HighChartsTimeSeriesApprove
+    {
+        public HighChartsTimeSeriesApprove(VoteHubApprovalDataModel voteHubApprovalDataModel)
+        {
+            Date = voteHubApprovalDataModel.created_at;
+            Approve = voteHubApprovalDataModel.approve;
+        }
+        public DateTime Date;
+        public decimal Approve;
+    }
+
+    public class HighChartsTimeSeriesDisapprove
+    {
+        public HighChartsTimeSeriesDisapprove(VoteHubApprovalDataModel voteHubApprovalDataModel)
+        {
+            Date = voteHubApprovalDataModel.created_at;
+            Disapprove = voteHubApprovalDataModel.disapprove;
+        }
+        public DateTime Date;
+        public decimal Disapprove;
     }
 }

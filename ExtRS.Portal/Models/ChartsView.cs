@@ -2,11 +2,13 @@
 using ReportingServices.Api.Models;
 using Microsoft.AspNetCore.Identity;
 using Sonrai.ExtRS.Models;
+using Sonrai.ExtRS;
 
 namespace ExtRS.Portal.Models
 {
     public class ChartsView : LayoutView
 	{
+        public HighChartsTimeSeriesModel HighChartsModel;
         public List<ChartView> Charts;
         private string _currentTab;
 
