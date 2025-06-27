@@ -12,6 +12,7 @@
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/themes/adaptive.js"></script>
 
+
 <style>
     #container {
         min-width: 310px;
@@ -126,6 +127,7 @@
         var d = new Date();
         $(document).ready(function () {
 
+            Highcharts.seriesTypes.line.prototype.getPointSpline = Highcharts.seriesTypes.spline.prototype.getPointSpline;
             Highcharts.chart('potusApproval', {
 
             title: {
@@ -149,9 +151,9 @@
                     rangeDescription: 'Range: 2025 to present'
                 },
                 type: 'datetime',
-                // labels: {
-                //     format: '{value:%Y-%m-%d}'
-                // }
+                labels: {
+                format: '{value:%m/%d/%Y}'
+                }
             },
 
             legend: {
@@ -160,22 +162,28 @@
                 verticalAlign: 'middle'
             },
 
-            plotOptions: {
-                series: {
-                    label: {
-                       // pointStart: '01-27-2025',
-                        pointIntervalUnit: 'day',
-                        connectorAllowed: false
-                    }
-                }
-            },
+             plotOptions: {
+                        area: {
+                            pointStart: 2024,
+                            marker: {
+                                enabled: false,
+                                symbol: 'circle',
+                                radius: 2,
+                                states: {
+                                    hover: {
+                                        enabled: true
+                                    }
+                                }
+                            }
+                        }
+                    },
 
             series: [{
                 name: 'Approve',
-                data: [ @Model.HighChartsModel.Approve.ToArray() ]
+                        data: [ @string.Join(", ", Model.HighChartsMarkupApproval) ]
             }, {
                 name: 'Disapprove',
-                data: [ @Model.HighChartsModel.Disapprove.ToArray() ]
+                        data: [ @string.Join(", ", Model.HighChartsMarkupDisapproval) ]
             }],
 
             responsive: {

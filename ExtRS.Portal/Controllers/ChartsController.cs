@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using System.Text.Json;
 
 namespace ExtRS.Portal.Controllers
 {
@@ -35,6 +36,31 @@ namespace ExtRS.Portal.Controllers
         public async Task<IActionResult> Charts(ReportsView view)
         {
             ChartsView model = new ChartsView { Charts = new List<ChartView>(), CurrentTab = "Charts", HighChartsModel = await ReferenceDataService.GetGetVoteHubPollingData() };
+
+
+
+            List<KeyValuePair<string, string>> approvalKeyVals = new();
+            List<KeyValuePair<string, string>> disapprovalKeyVals = new();
+
+            //int approvalCount = model.HighChartsModel.Approve.Count;
+            // int propertyCount = 2; // Assuming we have two properties: Id and Name
+            // string[,] approvalArray = new string[approvalCount, propertyCount];
+
+            for (int i = 0; i < model.HighChartsModel.Approve.Count; i++)
+            {
+                approvalKeyVals.Add(new KeyValuePair<string, string>(model.HighChartsModel.Approve[i].Date.ToString(), model.HighChartsModel.Approve[i].Approve.ToString()));
+            }
+
+            //int disApprovalCount = model.HighChartsModel.Disapprove.Count;
+            //string[,] disApprovalArray = new string[approvalCount, propertyCount];
+
+            for (int i = 0; i < model.HighChartsModel.Approve.Count; i++)
+            {
+                disapprovalKeyVals.Add(new KeyValuePair<string, string>(model.HighChartsModel.Approve[i].Date.ToString(), model.HighChartsModel.Disapprove[i].Disapprove.ToString()));
+            }
+
+            model.HighChartsMarkupApproval = approvalKeyVals;
+            model.HighChartsMarkupDisapproval = disapprovalKeyVals;
 
             return View(model);
         }

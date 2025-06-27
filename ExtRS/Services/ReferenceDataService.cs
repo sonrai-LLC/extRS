@@ -55,7 +55,7 @@ namespace Sonrai.ExtRS
                 {
 
                 }
-                string query = @"EXEC dbo.sp_GetVoteHubPollingData 1";
+                string query = @"EXEC dbo.sp_GetVoteHubPollingData";
 
                 var approvalData = await db.QueryAsync<VoteHubApprovalDataModel>(query);
 
@@ -577,10 +577,10 @@ namespace Sonrai.ExtRS
     {
         public HighChartsTimeSeriesApprove(VoteHubApprovalDataModel voteHubApprovalDataModel)
         {
-            Date = voteHubApprovalDataModel.created_at;
+            Date = DateOnly.FromDateTime(voteHubApprovalDataModel.created_at);
             Approve = voteHubApprovalDataModel.approve;
         }
-        public DateTime Date;
+        public DateOnly Date;
         public decimal Approve;
     }
 
@@ -588,10 +588,10 @@ namespace Sonrai.ExtRS
     {
         public HighChartsTimeSeriesDisapprove(VoteHubApprovalDataModel voteHubApprovalDataModel)
         {
-            Date = voteHubApprovalDataModel.created_at;
+            Date = DateOnly.FromDateTime(voteHubApprovalDataModel.created_at);
             Disapprove = voteHubApprovalDataModel.disapprove;
         }
-        public DateTime Date;
+        public DateOnly Date;
         public decimal Disapprove;
     }
 }

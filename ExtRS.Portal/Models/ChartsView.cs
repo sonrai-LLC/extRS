@@ -9,6 +9,9 @@ namespace ExtRS.Portal.Models
     public class ChartsView : LayoutView
 	{
         public HighChartsTimeSeriesModel HighChartsModel;
+        public List<KeyValuePair<string, string>> HighChartsMarkupApproval;
+        public List<KeyValuePair<string, string>> HighChartsMarkupDisapproval;
+
         public List<ChartView> Charts;
         private string _currentTab;
 
