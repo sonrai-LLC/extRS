@@ -80,7 +80,6 @@ namespace ExtRS.Portal.Controllers
 
             ReportView view = new ReportView() { SelectedReport = report };
 
-            //Response.Cookies.Delete("sqlAuthCookie");
             return View("_Report", view);
         }
 

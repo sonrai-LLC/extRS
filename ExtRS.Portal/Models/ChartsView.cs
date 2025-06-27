@@ -1,0 +1,22 @@
+﻿using ExtRS.Portal.Models;
+using ReportingServices.Api.Models;
+using Microsoft.AspNetCore.Identity;
+using Sonrai.ExtRS.Models;
+
+namespace ExtRS.Portal.Models
+{
+    public class ChartsView : LayoutView
+	{
+        public List<ChartView> Charts;
+        private string _currentTab;
+
+		public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
+    }
+
+    public class ChartView : LayoutView
+    {
+        public string Markup;
+        private string _currentTab;
+        public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
+    }
+}

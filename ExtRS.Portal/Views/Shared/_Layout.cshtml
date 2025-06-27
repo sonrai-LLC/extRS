@@ -512,7 +512,9 @@
                 <a href="@Url.Action("Dashboard", "Dashboard")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Dashboard" ? "active" : "")"><i class='bx bx-tachometer nav_icon'></i><span class="nav_name">Dashboard</span></a>
                 <a href="@Url.Action("DataSources", "DataSources")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "DataSources" ? "active" : "")"><i class='bx bx-cube nav_icon'></i><span class="nav_name">Data Sources</span></a>
                 <a href="@Url.Action("Datasets", "Datasets")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Datasets" ? "active" : "")"><i class='bx bx-table nav_icon'></i><span class="nav_name">Datasets</span></a>
-                <a href="@Url.Action("Reports", "Reports")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Reports" ? "active" : "")"><i class='bx bx-line-chart nav_icon'></i> <span class="nav_name">Reports</span></a>
+                <a href="@Url.Action("Reports", "Reports")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Reports" ? "active" : "")"><i class='bx bx-file nav_icon'></i> <span class="nav_name">RS Reports</span></a>
+                <a href="@Url.Action("Charts", "Charts")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Charts" ? "active" : "")"><i class='bx bx-line-chart nav_icon'></i> <span class="nav_name">HighCharts</span></a>
+                <a href="@Url.Action("Interactives", "Interactives")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Interactives" ? "active" : "")"><i class='bx bx-star nav_icon'></i> <span class="nav_name">PBI Interactives</span></a>
                 <a href="@Url.Action("Subscriptions", "Subscriptions")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Subscriptions" ? "active" : "")"> <i class='bx bx-mail-send nav_icon'></i> <span class="nav_name">Subscriptions</span></a>
                 <a href="@Url.Action("Stats", "Stats")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Stats" ? "active" : "")"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">Stats</span></a>
                 <br /> <br /> <br /> <br />
@@ -526,7 +528,7 @@
     @RenderBody()
     <p style="font-size:8pt; float:right">© sonrai @DateTime.Now.Year</p>
 </div>
-
+<i class='bxr  bx-file-report'></i>
 @* 
 @{
     if (ViewData.TryGetValue("ParentLayout", out var parentLayout) && parentLayout != null)

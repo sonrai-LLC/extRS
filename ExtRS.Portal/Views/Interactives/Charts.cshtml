@@ -1,0 +1,180 @@
+﻿@model ChartsView
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<script src="https://code.highcharts.com/dashboards/dashboards.js"></script>
+<script src="https://code.highcharts.com/modules/data.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<script src="https://code.highcharts.com/modules/bullet.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/treemap.js"></script>
+<script src="https://code.highcharts.com/modules/series-label.js"></script>
+<style>
+    #container {
+        min-width: 310px;
+        max-width: 1200px;
+        height: 200px;
+        margin: 0 auto;
+    }
+
+.highcharts-figure,
+.highcharts-data-table table {
+  min-width: 320px;
+  max-width: 800px;
+  margin: 1em auto;
+}
+
+#cpu {
+    height: 100%;
+    width: 100%;
+    position: relative;
+}
+
+#container {
+  height: 450px;
+}
+
+.highcharts-data-table table {
+  font-family: Verdana, sans-serif;
+  border-collapse: collapse;
+  border: 1px solid #ebebeb;
+  margin: 10px auto;
+  text-align: center;
+  width: 100%;
+  max-width: 500px;
+}
+
+.highcharts-data-table caption {
+  padding: 1em 0;
+  font-size: 1.2em;
+  color: #555;
+}
+
+.highcharts-data-table th {
+  font-weight: 600;
+  padding: 0.5em;
+}
+
+.highcharts-data-table td,
+.highcharts-data-table th,
+.highcharts-data-table caption {
+  padding: 0.5em;
+}
+
+.highcharts-data-table thead tr,
+.highcharts-data-table tr:nth-child(even) {
+  background: #f8f8f8;
+}
+
+.highcharts-data-table tr:hover {
+  background: #f1f7ff;
+}
+
+</style>
+<head>
+    <script>
+        var d = new Date();
+        $(document).ready(function () {
+            setInterval(function () {
+                var d = new Date();
+                $('.highcharts-subtitle')[0].innerHTML = d.toLocaleDateString() + ' at ' + d.toLocaleTimeString();
+            }, 1000);
+
+                Highcharts.chart('potusApproval', {
+                chart: {
+                    type: 'area',
+                     height: '33%'
+                },
+                accessibility: {
+                    description: 'Trump Job Approval'
+                },
+                title: {
+                    text: 'Trump Job Approval'
+                },
+                subtitle: {
+                    text: 'Source: <a href="https://api.votehub.com/polls?poll_type=approval&subject=Trump"' +
+                        'target="_blank">ref</a>'
+                },
+                xAxis: {
+                    allowDecimals: false,
+                    accessibility: {
+                        rangeDescription: 'Range: 01/20/2024 to Present.'
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Trump Job Approval'
+                    }
+                },
+                tooltip: {
+                    pointFormat: '%'
+                },
+                plotOptions: {
+                    area: {
+                        pointStart: 2024,
+                        marker: {
+                            enabled: false,
+                            symbol: 'circle',
+                            radius: 2,
+                            states: {
+                                hover: {
+                                    enabled: true
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Approve',
+                    data: [
+                        1, 1, 1, 2, 2, 2, 3.2, 3.5, 3.2, 4, 6, 5.8, 7,
+                        8, 8, 9.4, 12.2, 14.5, 12.8, 15.8, 19.8, 22.8, 25.5,
+                        26.3, 25.7, 27.2, 26.3, 29.5, 31.8, 34.8, 39.8, 41.8, 42.9, 43.9, 44.9, 47.9, 48.9
+                    ]
+                }, {
+                    name: 'Disapprove',
+                    data: [
+                        70, 69, 71, 73.2, 74.4, 75.1, 77.2, 78.2, 78.7,
+                        77.2, 75.2, 70.3, 68.8, 69.2, 67.3, 67.5, 64.2, 62.1, 63.2, 60.2, 60.1, 61.2,
+                        58.2, 57.2, 55.3, 49.8, 51.1, 52, 54.4, 51.1, 49.3, 46.2, 43.2, 41.1, 40.1, 39.1, 37.1
+                    ]
+                }]
+            });
+
+            // const onChartLoad = function () {
+            //     const chart = this,
+            //         series = chart.series[0];
+
+            //     setInterval(function () {
+            //         const x = (new Date()).getTime(), // current time
+            //             y = Math.random();
+
+            //         series.addPoint([x, y], true, true);
+            //     }, 1000);
+            // };
+
+            // // Create the initial data
+            // const data = (function () {
+            //     const data = [];
+            //     const time = new Date().getTime();
+
+            //     for (let i = -19; i <= 0; i += 1) {
+            //         data.push({
+            //             x: time + i * 1000,
+            //             y: Math.random()
+            //         });
+            //     }
+            //     return data;
+            // }());
+
+
+        });
+    </script>
+</head>
+
+<table style="width: 100%; height:50%">
+    <tr><td colspan="2"><div id="potusApproval"></div></td></tr>
+@*     <tr><td style="width:50%"><div id="tree"></div></td><td style="width:50%"><div id="sales"></div></td></tr> *@
+</table>
+@* <iframe src="https://tickertapes.net?embedded=true" style="width:100%; height:23%"></iframe> *@
