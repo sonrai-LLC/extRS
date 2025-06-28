@@ -565,33 +565,35 @@ namespace Sonrai.ExtRS
     {
         public HighChartsTimeSeriesModel(List<VoteHubApprovalDataModel> voteHubApprovalDataModel)
         {
-            Approve = voteHubApprovalDataModel.Select(x => new HighChartsTimeSeriesApprove(x)).ToList();
-            Disapprove = voteHubApprovalDataModel.Select(x => new HighChartsTimeSeriesDisapprove(x)).ToList();
+            Approves = voteHubApprovalDataModel.Select(x => x.approve.ToString()).ToList();
+            Disapproves = voteHubApprovalDataModel.Select(x => x.disapprove.ToString()).ToList();
+            Dates = voteHubApprovalDataModel.Select(x => DateOnly.FromDateTime(x.created_at).ToString()).ToList();
         }
 
-        public List<HighChartsTimeSeriesApprove> Approve;
-        public List<HighChartsTimeSeriesDisapprove> Disapprove;
+        public List<string> Approves;
+        public List<string> Disapproves;
+        public List<string> Dates;
     }
 
     public class HighChartsTimeSeriesApprove
     {
         public HighChartsTimeSeriesApprove(VoteHubApprovalDataModel voteHubApprovalDataModel)
         {
-            Date = DateOnly.FromDateTime(voteHubApprovalDataModel.created_at);
-            Approve = voteHubApprovalDataModel.approve;
+           // Date = DateOnly.FromDateTime(voteHubApprovalDataModel.created_at);
+            Approve = voteHubApprovalDataModel.approve.ToString();
         }
-        public DateOnly Date;
-        public decimal Approve;
+       // public DateOnly Date;
+        public string Approve;
     }
 
     public class HighChartsTimeSeriesDisapprove
     {
         public HighChartsTimeSeriesDisapprove(VoteHubApprovalDataModel voteHubApprovalDataModel)
         {
-            Date = DateOnly.FromDateTime(voteHubApprovalDataModel.created_at);
+           // Date = DateOnly.FromDateTime(voteHubApprovalDataModel.created_at);
             Disapprove = voteHubApprovalDataModel.disapprove;
         }
-        public DateOnly Date;
+      //  public DateOnly Date;
         public decimal Disapprove;
     }
 }
