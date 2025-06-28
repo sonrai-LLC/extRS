@@ -36,20 +36,6 @@ namespace ExtRS.Portal.Controllers
         public async Task<IActionResult> Charts(ReportsView view)
         {
             ChartsView model = new ChartsView { Charts = new List<ChartView>(), CurrentTab = "HighCharts", HighChartsModel = await ReferenceDataService.GetGetVoteHubPollingData(_configuration["defaultConnection"]) };
-
-
-            ////int approvalCount = model.HighChartsModel.Approve.Count;
-            //// int propertyCount = 2; // Assuming we have two properties: Id and Name
-            //// string[,] approvalArray = new string[approvalCount, propertyCount];
-
-            //for (int i = 0; i < model.HighChartsModel.Approve.Count; i++)
-            //{
-            //    approvalKeyVals.Add(new KeyValuePair<string, string>(model.HighChartsModel.Approve[i].Date.ToString(), model.HighChartsModel.Approve[i].Approve.ToString()));
-            //}
-
-            ////int disApprovalCount = model.HighChartsModel.Disapprove.Count;
-            ////string[,] disApprovalArray = new string[approvalCount, propertyCount];
-
             return View(model);
         }
 
