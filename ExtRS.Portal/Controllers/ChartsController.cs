@@ -35,7 +35,7 @@ namespace ExtRS.Portal.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Charts(ReportsView view)
         {
-            ChartsView model = new ChartsView { Charts = new List<ChartView>(), CurrentTab = "Charts", HighChartsModel = await ReferenceDataService.GetGetVoteHubPollingData(_configuration["defaultConnection"]) };
+            ChartsView model = new ChartsView { Charts = new List<ChartView>(), CurrentTab = "HighCharts", HighChartsModel = await ReferenceDataService.GetGetVoteHubPollingData(_configuration["defaultConnection"]) };
 
 
             ////int approvalCount = model.HighChartsModel.Approve.Count;

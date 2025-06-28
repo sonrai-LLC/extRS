@@ -47,7 +47,7 @@ namespace ExtRS.Portal.Controllers
                 report.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
             }
 
-            ReportsView model = new ReportsView { Reports = reports, CurrentTab = "Reports", ReportServerName = _configuration["ReportServerName"]! };
+            ReportsView model = new ReportsView { Reports = reports, CurrentTab = "RS Reports", ReportServerName = _configuration["ReportServerName"]! };
             return View(model);
         }
 

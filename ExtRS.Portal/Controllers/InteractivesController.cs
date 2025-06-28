@@ -33,7 +33,7 @@ namespace ExtRS.Portal.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Interactives(InteractivesView view)
         {
-            InteractivesView model = new InteractivesView { Interactives = new List<InteractiveView>(), CurrentTab = "Interactives" };
+            InteractivesView model = new InteractivesView { Interactives = new List<InteractiveView>(), CurrentTab = "PBI Interactives" };
             return View(model);
         }
 
