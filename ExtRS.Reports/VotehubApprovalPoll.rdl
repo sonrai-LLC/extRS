@@ -9,7 +9,7 @@
       <am:Name>SSDTRS</am:Name>
       <am:Version>17.14.36212.18</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2025-06-28T14:23:05.6435355Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2025-06-28T19:14:39.1308023Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
@@ -372,7 +372,7 @@
                             <Paragraph>
                               <TextRuns>
                                 <TextRun>
-                                  <Value>Approve</Value>
+                                  <Value>Disapprove</Value>
                                   <Style>
                                     <FontFamily />
                                     <FontSize>11pt</FontSize>
