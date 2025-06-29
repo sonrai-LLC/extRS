@@ -60,15 +60,15 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetSynonymsSucceeds()
         {
-            var result = await ReferenceDataService.GetSynonyms("nonplussed");
-            Assert.IsTrue(result.Length > 0);
+            var result = await ReferenceDataService.GetSynonyms("nonplussed bored");
+            Assert.IsTrue(result.Length > 2);
         }
 
         [TestMethod]
         public async Task GetSynonymsFails()
         {
-            var result = await ReferenceDataService.GetSynonyms("");
-            Assert.IsTrue(result.Length == 0);
+            var result = await ReferenceDataService.GetSynonyms(null);
+            Assert.IsTrue(result == "[]");
         }
 
         [TestMethod]
