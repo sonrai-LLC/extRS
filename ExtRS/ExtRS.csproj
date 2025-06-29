@@ -5,8 +5,8 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
 	<AssemblyName>Sonrai.ExtRS</AssemblyName>
-	<AssemblyVersion>1.0.1</AssemblyVersion>
-	<FileVersion>1.0.1</FileVersion>
+	<AssemblyVersion>2.0.1</AssemblyVersion>
+	<FileVersion>2.0.1</FileVersion>
 	<PackageIcon>ExtRS.png</PackageIcon>
 	<RepositoryUrl>https://github.com/sonrai-LLC/ExtRS</RepositoryUrl>
 	<RepositoryType>git</RepositoryType>
@@ -18,6 +18,8 @@
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<AnalysisLevel>none</AnalysisLevel>
 	<PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+	<Copyright>sonrai LLC</Copyright>
+	<Version>2.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
