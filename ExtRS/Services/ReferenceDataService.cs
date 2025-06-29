@@ -249,7 +249,7 @@ namespace Sonrai.ExtRS
 
         public static RestResponse GetShippingRatesUPS(int lbs, decimal ounces, Address origin, Address destination, string authToken, string service, string shipperNumber, bool isProd = false)
         {
-            var client = new RestClient(string.Format("{0}rating/v1/", isProd ? upsProd : upsTest));  //C2016A
+            var client = new RestClient(string.Format("{0}rating/v2409/", isProd ? upsProd : upsTest));  //C2016A
             var request = new RestRequest("rate", Method.Post);
             request.AddHeader("Authorization", "Bearer " + authToken);
             request.AddHeader("X-locale", "en_US");
@@ -327,16 +327,8 @@ namespace Sonrai.ExtRS
                   CountryCode: '{12}'
                 }
               },
-              PaymentDetails: {
-                ShipmentCharge: {
-                  Type: '01',
-                  BillShipper: {
-                    AccountNumber: '{2}'
-                  }
-                }
-              },
               Service: {
-                Code: '02',
+                Code: '003',
                 Description: '{13}'
               },
               Package: {
@@ -359,8 +351,6 @@ namespace Sonrai.ExtRS
             }
           }
         }";
-
-
 
         public static string RateRequestFedEx = @"{
           ""accountNumber"": {
