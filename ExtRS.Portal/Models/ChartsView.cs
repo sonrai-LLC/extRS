@@ -8,18 +8,18 @@ namespace ExtRS.Portal.Models
 {
     public class ChartsView : LayoutView
 	{
-        public HighChartsTimeSeriesModel HighChartsModel;
+        public HighChartsTimeSeriesModel? HighChartsModel;
 
-        public List<ChartView> Charts;
-        private string _currentTab;
+        public List<ChartView>? Charts;
+        private string? _currentTab;
 
-		public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
+		public override string CurrentTab { get { return _currentTab!; } set { _currentTab = value; } }
     }
 
     public class ChartView : LayoutView
     {
-        public string Markup;
-        private string _currentTab;
-        public override string CurrentTab { get { return _currentTab; } set { _currentTab = value; } }
+        public string? Markup;
+        private string? _currentTab;
+        public override string CurrentTab { get { return _currentTab!; } set { _currentTab = value; } }
     }
 }

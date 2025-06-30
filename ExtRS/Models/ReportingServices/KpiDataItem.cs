@@ -17,7 +17,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="Type", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Type")]
-    public KpiDataItemType Type { get; set; }
+    public KpiDataItemType? Type { get; set; }
 
 
     /// <summary>

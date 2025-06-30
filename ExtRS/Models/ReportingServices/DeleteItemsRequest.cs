@@ -17,7 +17,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="CatalogItemPaths", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "CatalogItemPaths")]
-    public List<string> CatalogItemPaths { get; set; }
+    public List<string>? CatalogItemPaths { get; set; }
 
 
     /// <summary>

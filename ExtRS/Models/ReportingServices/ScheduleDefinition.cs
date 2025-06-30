@@ -15,7 +15,7 @@ namespace ReportingServices.Api.Models
         public string? ScheduleId { get; set; }
         [DataMember(Name = "Definition", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "Definition")]
-        public ScheduleDefinition Definition { get; set; }
+        public required ScheduleDefinition Definition { get; set; }
     }
    /// <summary>
    /// An object that defines a schedule including a start date-time and an optional end date-time.
@@ -51,7 +51,7 @@ namespace ReportingServices.Api.Models
     /// </summary>
     [DataMember(Name="Recurrence", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Recurrence")]
-    public ScheduleRecurrence Recurrence { get; set; }
+    public ScheduleRecurrence? Recurrence { get; set; }
 
 
     /// <summary>

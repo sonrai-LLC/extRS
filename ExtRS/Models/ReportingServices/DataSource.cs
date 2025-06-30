@@ -14,7 +14,7 @@ namespace ReportingServices.Api.Models
     public class DataSource : CatalogItem
     {
         // the uri of the RS catalog item
-        public string Uri { get; set; }
+        public string? Uri { get; set; }
 
         /// <summary>
         /// A Boolean value that specifies whether the DataSource is enabled for use.
@@ -30,7 +30,7 @@ namespace ReportingServices.Api.Models
         /// <value>A string value that can be passed to a data source in order to begin the process of establishing connection.</value>
         [DataMember(Name = "ConnectionString", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "ConnectionString")]
-        public string ConnectionString { get; set; }
+        public string? ConnectionString { get; set; }
 
         /// <summary>
         /// DataSource extension such as 'SQL'.
@@ -38,7 +38,7 @@ namespace ReportingServices.Api.Models
         /// <value>DataSource extension such as 'SQL'.</value>
         [DataMember(Name = "DataSourceType", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "DataSourceType")]
-        public string DataSourceType { get; set; }
+        public string? DataSourceType { get; set; }
 
         /// <summary>
         /// Indicates whether the original connection string for the data source was expression-based.
@@ -61,14 +61,14 @@ namespace ReportingServices.Api.Models
         /// </summary>
         [DataMember(Name = "CredentialsByUser", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "CredentialsByUser")]
-        public CredentialsSuppliedByUser CredentialsByUser { get; set; }
+        public CredentialsSuppliedByUser? CredentialsByUser { get; set; }
 
         /// <summary>
         /// Gets or Sets CredentialsInServer
         /// </summary>
         [DataMember(Name = "CredentialsInServer", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "CredentialsInServer")]
-        public CredentialsStoredInServer CredentialsInServer { get; set; }
+        public CredentialsStoredInServer? CredentialsInServer { get; set; }
 
         /// <summary>
         /// Indicates whether this is a reference to a shared data source or an embedded data source.
@@ -83,7 +83,7 @@ namespace ReportingServices.Api.Models
         /// </summary>
         [DataMember(Name = "Subscriptions", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "Subscriptions")]
-        public Subscription Subscriptions { get; set; }
+        public Subscription? Subscriptions { get; set; }
 
 
         /// <summary>

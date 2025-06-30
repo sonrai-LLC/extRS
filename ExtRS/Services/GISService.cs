@@ -24,7 +24,7 @@ namespace Sonrai.ExtRS
             }
             else
             {
-                return null;
+                return null!;
             }
 
             return location;
@@ -85,12 +85,12 @@ namespace Sonrai.ExtRS
 
         public static string GetStateOrProvinceName(string abbreviation)
         {
-            return LocationRefData.StatesAndProvinces.Where(s => s.Abbreviation.Equals(abbreviation, StringComparison.CurrentCultureIgnoreCase)).Select(s => s.Name).FirstOrDefault();
+            return LocationRefData.StatesAndProvinces.Where(s => s.Abbreviation.Equals(abbreviation, StringComparison.CurrentCultureIgnoreCase)).Select(s => s.Name).FirstOrDefault()!;
         }
 
         public static string GetAbbreviation(string name)
         {
-            return LocationRefData.StatesAndProvinces.Where(s => s.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)).Select(s => s.Abbreviation).FirstOrDefault();
+            return LocationRefData.StatesAndProvinces.Where(s => s.Name.Equals(name, StringComparison.CurrentCultureIgnoreCase)).Select(s => s.Abbreviation).FirstOrDefault()!;
         }
 
         public static List<State> ToList()

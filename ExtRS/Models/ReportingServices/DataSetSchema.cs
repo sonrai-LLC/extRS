@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>The name of the DataSet.</value>
     [DataMember(Name="Name", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// The fields of the DataSet.
@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>The fields of the DataSet.</value>
     [DataMember(Name="Fields", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Fields")]
-    public List<DataSetField> Fields { get; set; }
+    public List<DataSetField>? Fields { get; set; }
 
     /// <summary>
     /// The parameters for the DataSet.
@@ -34,7 +34,7 @@ namespace ReportingServices.Api.Models {
     /// <value>The parameters for the DataSet.</value>
     [DataMember(Name="Parameters", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Parameters")]
-    public List<DataSetParameterInfo> Parameters { get; set; }
+    public List<DataSetParameterInfo>? Parameters { get; set; }
 
 
     /// <summary>

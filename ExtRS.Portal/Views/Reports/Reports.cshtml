@@ -2,7 +2,7 @@
 
 <div class="container">
     <section>
-        @foreach (var report in Model.Reports)
+        @foreach (var report in Model.Reports!)
         {
             <div id=@("dialog" + report.Id) class="dialog" style="display: none">
             </div>

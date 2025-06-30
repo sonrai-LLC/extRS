@@ -75,7 +75,7 @@
     <a href="#" onclick="createReportSnapshot('@Model.ReportId', 'Snapshot created');">Create Snapshot</a><br />
     <section id="snapshots">
         @{
-            string html = ReportsController.GetSnapshotsHtml(Model.ReportId, @Model.HistorySnapshots);
+            string html = ReportsController.GetSnapshotsHtml(Model.ReportId!, @Model.HistorySnapshots!);
             @Html.Raw(html);
         }
     </section>

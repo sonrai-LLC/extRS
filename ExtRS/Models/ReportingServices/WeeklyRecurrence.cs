@@ -33,7 +33,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="DaysOfWeek", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "DaysOfWeek")]
-    public DaysOfWeekSelector DaysOfWeek { get; set; }
+    public DaysOfWeekSelector? DaysOfWeek { get; set; }
 
 
     /// <summary>

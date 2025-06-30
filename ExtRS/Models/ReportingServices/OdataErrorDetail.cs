@@ -17,21 +17,21 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="code", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "code")]
-    public string Code { get; set; }
+    public string? Code { get; set; }
 
     /// <summary>
     /// Gets or Sets Message
     /// </summary>
     [DataMember(Name="message", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "message")]
-    public string Message { get; set; }
+    public string? Message { get; set; }
 
     /// <summary>
     /// Gets or Sets Target
     /// </summary>
     [DataMember(Name="target", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "target")]
-    public string Target { get; set; }
+    public string? Target { get; set; }
 
 
     /// <summary>

@@ -32,14 +32,14 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="DaysOfWeek", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "DaysOfWeek")]
-    public DaysOfWeekSelector DaysOfWeek { get; set; }
+    public DaysOfWeekSelector? DaysOfWeek { get; set; }
 
     /// <summary>
     /// Gets or Sets MonthsOfYear
     /// </summary>
     [DataMember(Name="MonthsOfYear", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "MonthsOfYear")]
-    public MonthsOfYearSelector MonthsOfYear { get; set; }
+    public MonthsOfYearSelector? MonthsOfYear { get; set; }
 
 
     /// <summary>

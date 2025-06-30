@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the label for the ValidValue.</value>
     [DataMember(Name="Label", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Label")]
-    public string Label { get; set; }
+    public string? Label { get; set; }
 
     /// <summary>
     /// A string value that specifies the value of the ValidValue.
@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the value of the ValidValue.</value>
     [DataMember(Name="Value", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Value")]
-    public string Value { get; set; }
+    public string? Value { get; set; }
 
 
     /// <summary>

@@ -9,8 +9,8 @@ namespace ReportingServices.Api.Models
 {
     public class ReportExecutionStats
     {
-        public readonly string UserName;
-        public readonly string Report;
-        public readonly int GeneratedNumber;
+        public required string UserName;
+        public required string Report;
+        public required int GeneratedNumber;
     }
 }

@@ -17,7 +17,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="error", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "error")]
-    public OdataErrorMain Error { get; set; }
+    public OdataErrorMain? Error { get; set; }
 
 
     /// <summary>

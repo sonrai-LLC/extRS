@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the name of the user or group to which the policy applies.</value>
     [DataMember(Name="GroupUserName", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "GroupUserName")]
-    public string GroupUserName { get; set; }
+    public required string GroupUserName { get; set; }
 
     /// <summary>
     /// An array of objects of type Role that specify the security roles that are included in the Policy.
@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>An array of objects of type Role that specify the security roles that are included in the Policy.</value>
     [DataMember(Name="Roles", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Roles")]
-    public List<Role> Roles { get; set; }
+    public required List<Role> Roles { get; set; }
 
 
     /// <summary>

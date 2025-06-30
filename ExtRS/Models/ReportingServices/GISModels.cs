@@ -2,12 +2,12 @@
 {
     public class Location
     {
-        public string Name;
-        public string Address;
-        public string Description;
-        public List<byte[]> Images;
-        public string Lat;
-        public string Long;
+        public string? Name;
+        public string? Address;
+        public string? Description;
+        public List<byte[]>? Images;
+        public string? Lat;
+        public string? Long;
     }
 
     public class State

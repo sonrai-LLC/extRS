@@ -15,7 +15,7 @@ namespace ReportingServices.Api.Models
     public class Resource : CatalogItem
     {
         // the uri of the RS catalog item
-        public string Uri { get; set;  }
+        public string? Uri { get; set;  }
 
         /// <summary>
         /// Get the string presentation of the object

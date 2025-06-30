@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>An array of string values that specify the ReportParameter's default values. If the parameter is multi-valued then the array can have more than one entry.</value>
     [DataMember(Name="DefaultValues", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "DefaultValues")]
-    public List<string> DefaultValues { get; set; }
+    public List<string>? DefaultValues { get; set; }
 
     /// <summary>
     ///  A boolean value that indicates whether the DefaultValues property is NULL.
@@ -50,7 +50,7 @@ namespace ReportingServices.Api.Models {
     /// <value>An array of string values that specify the dependencies for the ReportParameter.</value>
     [DataMember(Name="Dependencies", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Dependencies")]
-    public List<string> Dependencies { get; set; }
+    public List<string>? Dependencies { get; set; }
 
     /// <summary>
     /// Error returned when validating parameters.
@@ -58,7 +58,7 @@ namespace ReportingServices.Api.Models {
     /// <value>Error returned when validating parameters.</value>
     [DataMember(Name="ErrorMessage", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ErrorMessage")]
-    public string ErrorMessage { get; set; }
+    public string? ErrorMessage { get; set; }
 
     /// <summary>
     /// A boolean value that indicates whether the ReportParameter is multivalued.
@@ -74,7 +74,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the name for the ReportParameter. This name will typically be displayed in the user interface.</value>
     [DataMember(Name="Name", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// A boolean value that indicates whether the ReportParameter is allowed to be null.
@@ -89,21 +89,21 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="ParameterState", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ParameterState")]
-    public string ParameterState { get; set; }
+    public string? ParameterState { get; set; }
 
     /// <summary>
     /// Gets or Sets ParameterType
     /// </summary>
     [DataMember(Name="ParameterType", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ParameterType")]
-    public string ParameterType { get; set; }
+    public string? ParameterType { get; set; }
 
     /// <summary>
     /// Gets or Sets ParameterVisibility
     /// </summary>
     [DataMember(Name="ParameterVisibility", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ParameterVisibility")]
-    public string ParameterVisibility { get; set; }
+    public string? ParameterVisibility { get; set; }
 
     /// <summary>
     /// A string value that specifies text used to prompt a user for the value of the ReportParameter.
@@ -111,7 +111,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies text used to prompt a user for the value of the ReportParameter.</value>
     [DataMember(Name="Prompt", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Prompt")]
-    public string Prompt { get; set; }
+    public string? Prompt { get; set; }
 
     /// <summary>
     /// A boolean value that indicates whether the user should be prompted for the value for the ReportParameter.
@@ -134,7 +134,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="ValidValues", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ValidValues")]
-    public List<ValidValue> ValidValues { get; set; }
+    public List<ValidValue>? ValidValues { get; set; }
 
     /// <summary>
     /// A boolean value that indicates whether the ValidValues property is NULL.

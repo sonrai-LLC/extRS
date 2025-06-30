@@ -19,7 +19,7 @@
     @*     <a href="#" onclick="createSubscription(reportId, 'Subscription created');">Create Subscription</a><br /> *@
     <section id="subscriptions">
         @{
-            string html = SubscriptionsController.GetSubscriptionsHtml(@Model.Subscriptions);
+            string html = SubscriptionsController.GetSubscriptionsHtml(@Model!.Subscriptions!);
             @Html.Raw(html)
         }
         <input type="button"

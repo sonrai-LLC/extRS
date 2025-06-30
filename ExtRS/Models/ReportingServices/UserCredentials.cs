@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the user name for the user.</value>
     [DataMember(Name="UserName", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "UserName")]
-    public string UserName { get; set; }
+    public string? UserName { get; set; }
 
     /// <summary>
     /// A string value that specifies the password for the user.
@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the password for the user.</value>
     [DataMember(Name="Password", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Password")]
-    public string Password { get; set; }
+    public string? Password { get; set; }
 
     /// <summary>
     /// A string value that specifies the domain for the user.
@@ -34,7 +34,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the domain for the user.</value>
     [DataMember(Name="Domain", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Domain")]
-    public string Domain { get; set; }
+    public string? Domain { get; set; }
 
 
     /// <summary>

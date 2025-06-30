@@ -73,7 +73,7 @@ namespace Sonrai.ExtRS.UnitTests
                         fun,fun,forever
                         data, is, beautiful";
             var json = FormattingService.CsvToJson(csv, ",");
-            Assert.IsTrue(JToken.Parse(json).HasValues);
+            Assert.IsTrue(JToken.Parse(json!).HasValues);
         }
 
         [TestMethod]
@@ -502,7 +502,7 @@ namespace Sonrai.ExtRS.UnitTests
                         are,super,duper
                         fun,fun,forever
                         data, is, beautiful";
-            string json = FormattingService.CsvToJson(csv, ",");
+            string json = FormattingService.CsvToJson(csv, ",")!;
             Assert.IsTrue(JToken.Parse(json).HasValues);
         }
 

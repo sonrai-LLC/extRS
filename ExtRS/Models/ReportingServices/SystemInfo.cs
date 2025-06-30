@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the URL for the Report Server.</value>
     [DataMember(Name="ReportServerAbsoluteUrl", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ReportServerAbsoluteUrl")]
-    public string ReportServerAbsoluteUrl { get; set; }
+    public required string ReportServerAbsoluteUrl { get; set; }
 
     /// <summary>
     /// A string value that specifies the Report Server Virtual Directory.
@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the Report Server Virtual Directory.</value>
     [DataMember(Name="ReportServerRelativeUrl", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ReportServerRelativeUrl")]
-    public string ReportServerRelativeUrl { get; set; }
+    public required string ReportServerRelativeUrl { get; set; }
 
     /// <summary>
     /// A string value that specifies the URL for the Report Server web portal.
@@ -34,7 +34,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the URL for the Report Server web portal.</value>
     [DataMember(Name="WebPortalRelativeUrl", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "WebPortalRelativeUrl")]
-    public string WebPortalRelativeUrl { get; set; }
+    public required string WebPortalRelativeUrl { get; set; }
 
     /// <summary>
     /// A string value that specifies the name of the product being used.
@@ -42,7 +42,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the name of the product being used.</value>
     [DataMember(Name="ProductName", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ProductName")]
-    public string ProductName { get; set; }
+    public required string ProductName { get; set; }
 
     /// <summary>
     /// A string value that specifies the version of the product being used.
@@ -50,7 +50,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the version of the product being used.</value>
     [DataMember(Name="ProductVersion", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ProductVersion")]
-    public string ProductVersion { get; set; }
+    public required string ProductVersion { get; set; }
 
     /// <summary>
     /// A string value that specifies the type of the product being used.
@@ -58,7 +58,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the type of the product being used.</value>
     [DataMember(Name="ProductType", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ProductType")]
-    public string ProductType { get; set; }
+    public required string ProductType { get; set; }
 
     /// <summary>
     /// A string value that specifies the timezone being used by the server.
@@ -66,7 +66,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the timezone being used by the server.</value>
     [DataMember(Name="TimeZone", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "TimeZone")]
-    public string TimeZone { get; set; }
+    public required string TimeZone { get; set; }
 
 
     /// <summary>

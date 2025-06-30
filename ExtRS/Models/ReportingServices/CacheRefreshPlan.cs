@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the owner of the CacheRefreshPlan.</value>
     [DataMember(Name="Owner", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Owner")]
-    public string Owner { get; set; }
+    public string? Owner { get; set; }
 
     /// <summary>
     /// A string value that contains descriptive text about the CacheRefreshPlan.
@@ -34,7 +34,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains descriptive text about the CacheRefreshPlan.</value>
     [DataMember(Name="Description", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Description")]
-    public string Description { get; set; }
+    public required string Description { get; set; }
 
     /// <summary>
     /// A string value that contains the fully qualified URL path location of the CatalogItem that represents the CacheRefreshPlan.
@@ -42,7 +42,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains the fully qualified URL path location of the CatalogItem that represents the CacheRefreshPlan.</value>
     [DataMember(Name="CatalogItemPath", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "CatalogItemPath")]
-    public string CatalogItemPath { get; set; }
+    public required string CatalogItemPath { get; set; }
 
     /// <summary>
     /// A string value that specifies which EventType to use for logging.
@@ -50,14 +50,14 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies which EventType to use for logging.</value>
     [DataMember(Name="EventType", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "EventType")]
-    public string EventType { get; set; }
+    public required string EventType { get; set; }
 
     /// <summary>
     /// Gets or Sets Schedule
     /// </summary>
     [DataMember(Name="Schedule", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Schedule")]
-    public ScheduleReference Schedule { get; set; }
+    public required ScheduleReference Schedule { get; set; }
 
     /// <summary>
     /// A date-time value that specifies the date-time of the last run of the CacheRefreshPlan.
@@ -73,7 +73,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains the network username of the last user to modify the CacheRefreshPlan.</value>
     [DataMember(Name="LastStatus", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "LastStatus")]
-    public string LastStatus { get; set; }
+    public string? LastStatus { get; set; }
 
     /// <summary>
     /// A string value that contains the network user name of the last user to modify the CacheRefreshPlan
@@ -81,7 +81,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains the network user name of the last user to modify the CacheRefreshPlan</value>
     [DataMember(Name="ModifiedBy", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ModifiedBy")]
-    public string ModifiedBy { get; set; }
+    public string? ModifiedBy { get; set; }
 
     /// <summary>
     /// A string value that contains the date-time of the last modification to the CacheRefreshPlan.
@@ -97,7 +97,7 @@ namespace ReportingServices.Api.Models {
     /// <value>An array of parameter values for the CacheRefreshPlan. All parameters without a default value MUST have a value specified.</value>
     [DataMember(Name="ParameterValues", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ParameterValues")]
-    public List<ParameterValue> ParameterValues { get; set; }
+    public List<ParameterValue>? ParameterValues { get; set; }
 
 
     /// <summary>

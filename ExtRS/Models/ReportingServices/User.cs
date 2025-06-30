@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the network user name for the user.</value>
     [DataMember(Name="Username", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Username")]
-    public string Username { get; set; }
+    public string? Username { get; set; }
 
     /// <summary>
     /// A string value that specifies the name to display for the network user.
@@ -34,7 +34,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the name to display for the network user.</value>
     [DataMember(Name="DisplayName", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "DisplayName")]
-    public string DisplayName { get; set; }
+    public string? DisplayName { get; set; }
 
     /// <summary>
     /// A boolean value that indicates whether the user has items that are designated as favorite items.
@@ -50,7 +50,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies a path to a folder where a user's reports are stored by default. (This feature must be enabled by the server administrator).</value>
     [DataMember(Name="MyReportsPath", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "MyReportsPath")]
-    public string MyReportsPath { get; set; }
+    public string? MyReportsPath { get; set; }
 
 
     /// <summary>

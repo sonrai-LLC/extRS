@@ -7,7 +7,7 @@ namespace Sonrai.ExtRS.UnitTests
     public class GISTests
     {
         protected readonly string googleApiKey = "AIzaSyBwKjGONPjGa6Opj9j5XnlKzWZLGDT3Kbs"; // Google Maps API key, found here https://developers.google.com/maps/documentation/javascript/get-api-key
-        GISService gis;
+        GISService? gis;
 
        [TestInitialize] public void Init()
         {
@@ -17,28 +17,28 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public void ValidateAddressSucceeds()
         {
-            var result = gis.ValidateAddress("Beloit, WI");
+            var result = gis!.ValidateAddress("Beloit, WI");
             Assert.IsTrue(result);
         }
 
         [TestMethod]
         public void ValidateAddressFails()
         {
-            var result = gis.ValidateAddress("?-$#, ,,_}%");
+            var result = gis!.ValidateAddress("?-$#, ,,_}%");
             Assert.IsFalse(result);
         }
 
         [TestMethod]
         public void GetLocationFails()
         {
-            var result = gis.GetLocation("Beloit, WI");
-            Assert.IsTrue(result.Long.Length > 0);
+            var result = gis!.GetLocation("Beloit, WI");
+            Assert.IsTrue(result.Long!.Length > 0);
         }
 
         [TestMethod]
         public void GetLocationReturnsNothing()
         {
-            var result = gis.GetLocation("IYTDFOUYFUILYG");
+            var result = gis!.GetLocation("IYTDFOUYFUILYG");
             Assert.IsTrue(result == null);
         }
 
@@ -46,7 +46,7 @@ namespace Sonrai.ExtRS.UnitTests
         public void GetLocationsSucceeds()
         {
             List<string> locations = new List<string> { "Chicago, IL", "Milwaukee, WI", "Detroit, MI"};
-            var result = gis.GetLocations(locations);
+            var result = gis!.GetLocations(locations);
             Assert.IsTrue(result.Count == 3);
         }
 
@@ -54,7 +54,7 @@ namespace Sonrai.ExtRS.UnitTests
         public void GetLocationsReturnsNothing()
         {
             List<string> locations = new List<string> { "adv??asdvgsd, _B", "adgsdgvs, RE", "YTFYT??, H+" };
-            var result = gis.GetLocations(locations);
+            var result = gis!.GetLocations(locations);
             Assert.IsTrue(result.Count == 0);
         }
 
@@ -69,14 +69,14 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public void GetUnitedStatesFlagUrlFails()
         {
-            var result = GISService.GetUnitedStatesFlagUrl(null);
+            var result = GISService.GetUnitedStatesFlagUrl(null!);
             // expect exception
         }
 
         [TestMethod]
         public async Task GetUnitedStatesFlagImageSucceeds()
         {
-            var result = await gis.GetUnitedStatesFlagImage("wisconsin");
+            var result = await gis!.GetUnitedStatesFlagImage("wisconsin");
             Assert.IsTrue(result.Length > 0);
         }
 
@@ -84,7 +84,7 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetUnitedStatesFlagImageFails()
         {
-            var result = await gis.GetUnitedStatesFlagImage("ZZ");
+            var result = await gis!.GetUnitedStatesFlagImage("ZZ");
             // expect exception
         }
 

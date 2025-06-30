@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string that contains the name of the parameter.</value>
     [DataMember(Name="Name", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Name")]
-    public string Name { get; set; }
+    public required string Name { get; set; }
 
     /// <summary>
     /// A string that contains the value for the parameter.
@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string that contains the value for the parameter.</value>
     [DataMember(Name="Value", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Value")]
-    public string Value { get; set; }
+    public required string Value { get; set; }
 
     /// <summary>
     /// A boolean value that indicates if the parameter's value references a field.

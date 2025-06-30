@@ -17,7 +17,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="@odata.context", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "@odata.context")]
-    public string OdataContext { get; set; }
+    public string? OdataContext { get; set; }
 
     /// <summary>
     /// Gets or Sets OdataCount
@@ -31,7 +31,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="value", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "value")]
-    public List<Subscription> Value { get; set; }
+    public List<Subscription>? Value { get; set; }
 
 
     /// <summary>

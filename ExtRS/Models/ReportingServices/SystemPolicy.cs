@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>An array of objects of type Policy that specify the access policies to be applied to the System.</value>
     [DataMember(Name="Policies", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Policies")]
-    public List<Policy> Policies { get; set; }
+    public List<Policy>? Policies { get; set; }
 
 
     /// <summary>

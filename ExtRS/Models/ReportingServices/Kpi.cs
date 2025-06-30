@@ -17,21 +17,21 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="ValueFormat", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ValueFormat")]
-    public KpiValueFormat ValueFormat { get; set; }
+    public KpiValueFormat? ValueFormat { get; set; }
 
     /// <summary>
     /// Gets or Sets Visualization
     /// </summary>
     [DataMember(Name="Visualization", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Visualization")]
-    public KpiVisualization Visualization { get; set; }
+    public KpiVisualization? Visualization { get; set; }
 
     /// <summary>
     /// Gets or Sets DrillthroughTarget
     /// </summary>
     [DataMember(Name="DrillthroughTarget", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "DrillthroughTarget")]
-    public DrillthroughTarget DrillthroughTarget { get; set; }
+    public DrillthroughTarget? DrillthroughTarget { get; set; }
 
     /// <summary>
     /// A string value that specifies the currency. Must follow the ISO 4217 Currency codes standard.
@@ -39,21 +39,21 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the currency. Must follow the ISO 4217 Currency codes standard.</value>
     [DataMember(Name="Currency", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Currency")]
-    public string Currency { get; set; }
+    public string? Currency { get; set; }
 
     /// <summary>
     /// Gets or Sets Values
     /// </summary>
     [DataMember(Name="Values", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Values")]
-    public KpiValues Values { get; set; }
+    public KpiValues? Values { get; set; }
 
     /// <summary>
     /// Gets or Sets Data
     /// </summary>
     [DataMember(Name="Data", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Data")]
-    public KpiData Data { get; set; }
+    public KpiData? Data { get; set; }
 
 
     /// <summary>

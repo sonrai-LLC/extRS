@@ -17,14 +17,14 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="Name", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// Gets or Sets Type
     /// </summary>
     [DataMember(Name="Type", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Type")]
-    public string Type { get; set; }
+    public string? Type { get; set; }
 
 
     /// <summary>

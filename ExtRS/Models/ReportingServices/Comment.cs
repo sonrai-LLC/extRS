@@ -34,7 +34,7 @@ namespace ReportingServices.Api.Models {
     /// <value> A string value that represents the user who created the comment item.</value>
     [DataMember(Name="UserName", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "UserName")]
-    public string UserName { get; set; }
+    public string? UserName { get; set; }
 
     /// <summary>
     /// A unique UUID value that specifies the identifier of the thread of the comment. A comment thread can be used to group comments that are a response to one another in one grouping.
@@ -50,7 +50,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the server path to an attachment that is part of the comment.</value>
     [DataMember(Name="AttachmentPath", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "AttachmentPath")]
-    public string AttachmentPath { get; set; }
+    public string? AttachmentPath { get; set; }
 
     /// <summary>
     /// A string value that contains the text of the comment.
@@ -58,7 +58,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains the text of the comment.</value>
     [DataMember(Name="Text", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Text")]
-    public string Text { get; set; }
+    public string? Text { get; set; }
 
     /// <summary>
     /// A string that contains the date-time of the creation of the comment.

@@ -25,7 +25,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="Schedule", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Schedule")]
-    public ScheduleReference Schedule { get; set; }
+    public ScheduleReference? Schedule { get; set; }
 
 
     /// <summary>

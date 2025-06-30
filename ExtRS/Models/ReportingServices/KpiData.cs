@@ -17,28 +17,28 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="Value", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Value")]
-    public KpiDataItem Value { get; set; }
+    public KpiDataItem? Value { get; set; }
 
     /// <summary>
     /// Gets or Sets Goal
     /// </summary>
     [DataMember(Name="Goal", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Goal")]
-    public KpiDataItem Goal { get; set; }
+    public KpiDataItem? Goal { get; set; }
 
     /// <summary>
     /// Gets or Sets Status
     /// </summary>
     [DataMember(Name="Status", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Status")]
-    public KpiDataItem Status { get; set; }
+    public KpiDataItem? Status { get; set; }
 
     /// <summary>
     /// Gets or Sets TrendSet
     /// </summary>
     [DataMember(Name="TrendSet", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "TrendSet")]
-    public KpiDataItem TrendSet { get; set; }
+    public KpiDataItem? TrendSet { get; set; }
 
 
     /// <summary>

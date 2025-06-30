@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the name of the Role.</value>
     [DataMember(Name="Name", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// A string value that constains descriptive text for the Role.
@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that constains descriptive text for the Role.</value>
     [DataMember(Name="Description", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Description")]
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
 
     /// <summary>

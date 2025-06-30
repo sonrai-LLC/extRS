@@ -23,7 +23,7 @@ namespace ExtRS.CLI
             var program = new Program();
 
             SSRSConnection connection = new SSRSConnection(Resources.ReportServerName, Resources.User, AuthenticationType.ExtRSAuth);
-            ssrs = new SSRSService(connection, _configuration, null);
+            ssrs = new SSRSService(connection, _configuration, null!);
             connection.SqlAuthCookie = SSRSService.GetSqlAuthCookie(httpClient, Resources.User, Resources.Passphrase, connection.ReportServerName).Result;
 
             Console.WriteLine(":::::::ExtRS Command Line Interface:::::::");
@@ -69,7 +69,7 @@ namespace ExtRS.CLI
             {
                 case "l":
                     {
-                        SSRSService _ssrs = new SSRSService(new SSRSConnection("localhost", "extRSAuth", AuthenticationType.ExtRSAuth), _configuration, null);
+                        SSRSService _ssrs = new SSRSService(new SSRSConnection("localhost", "extRSAuth", AuthenticationType.ExtRSAuth), _configuration, null!);
                         var reports = _ssrs.GetReports().Result;
                         foreach(var report in reports)
                         {

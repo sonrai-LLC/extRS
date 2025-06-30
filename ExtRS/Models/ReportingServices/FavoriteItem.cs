@@ -25,7 +25,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="Item", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Item")]
-    public CatalogItem Item { get; set; }
+    public CatalogItem? Item { get; set; }
 
 
     /// <summary>

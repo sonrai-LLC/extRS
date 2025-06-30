@@ -17,28 +17,28 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="code", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "code")]
-    public string Code { get; set; }
+    public string? Code { get; set; }
 
     /// <summary>
     /// Gets or Sets Message
     /// </summary>
     [DataMember(Name="message", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "message")]
-    public string Message { get; set; }
+    public string? Message { get; set; }
 
     /// <summary>
     /// Gets or Sets Target
     /// </summary>
     [DataMember(Name="target", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "target")]
-    public string Target { get; set; }
+    public string? Target { get; set; }
 
     /// <summary>
     /// Gets or Sets Details
     /// </summary>
     [DataMember(Name="details", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "details")]
-    public List<OdataErrorDetail> Details { get; set; }
+    public List<OdataErrorDetail>? Details { get; set; }
 
     /// <summary>
     /// The structure of this object is service-specific.
@@ -46,7 +46,7 @@ namespace ReportingServices.Api.Models {
     /// <value>The structure of this object is service-specific.</value>
     [DataMember(Name="innererror", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "innererror")]
-    public Object Innererror { get; set; }
+    public Object? Innererror { get; set; }
 
 
     /// <summary>

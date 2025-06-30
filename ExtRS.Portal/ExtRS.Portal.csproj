@@ -9,6 +9,7 @@
   
 <PropertyGroup>
  <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+ <LangVersion>preview</LangVersion>
 </PropertyGroup>
 
   <ItemGroup>

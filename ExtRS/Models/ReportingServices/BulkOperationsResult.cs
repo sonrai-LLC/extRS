@@ -17,7 +17,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="FailedOperations", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "FailedOperations")]
-    public List<string> FailedOperations { get; set; }
+    public List<string>? FailedOperations { get; set; }
 
     /// <summary>
     /// Gets or Sets HasErrors

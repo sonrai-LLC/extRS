@@ -25,7 +25,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="HistorySnapshotsOptions", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "HistorySnapshotsOptions")]
-    public ReportHistorySnapshotsOptions HistorySnapshotsOptions { get; set; }
+    public ReportHistorySnapshotsOptions? HistorySnapshotsOptions { get; set; }
 
 
     /// <summary>

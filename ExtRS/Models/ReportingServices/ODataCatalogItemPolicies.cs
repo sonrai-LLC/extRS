@@ -20,7 +20,7 @@ namespace ExtRS.Models.ReportingServices
         /// </summary>
         [DataMember(Name = "@odata.context", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "@odata.context")]
-        public string ODataContext { get; set; }
+        public string? ODataContext { get; set; }
 
         /// <summary>
         /// Gets or Sets OdataCount
@@ -41,7 +41,7 @@ namespace ExtRS.Models.ReportingServices
         /// </summary>
         [DataMember(Name = "Policies", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "Policies")]
-        public List<Policy> Policies { get; set; }
+        public List<Policy>? Policies { get; set; }
 
         [DataMember(Name = "InheritParentPolicy", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "InheritParentPolicy")]
@@ -49,7 +49,7 @@ namespace ExtRS.Models.ReportingServices
 
         [DataMember(Name = "Id", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "Id")]
-        public string Id { get; set; }
+        public string? Id { get; set; }
 
         //InheritParentPolicy
 

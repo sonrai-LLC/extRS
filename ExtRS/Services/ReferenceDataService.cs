@@ -51,7 +51,7 @@ namespace Sonrai.ExtRS
                 {
                     db.Open();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
 
                 }
@@ -80,7 +80,7 @@ namespace Sonrai.ExtRS
             var content = await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}?token={1}", ticker, tiingoToken));
             var response = JsonConvert.DeserializeObject<TickerInfo>(content);
 
-            return response;
+            return response!;
         }
 
         public static async Task<string> GetTickerPrice(string ticker, string tiingoToken)
@@ -104,14 +104,14 @@ namespace Sonrai.ExtRS
                 var content = await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}/prices?token={1}", ticker, tiingoToken));
                 var response = JsonConvert.DeserializeObject<List<Ticker>>(content);
 
-                return response.First();
+                return response!.First();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
 
-            return null;
+            return null!;
         }
 
         public static async Task<List<Ticker>> GetTickerPriceHistoryObject(string ticker, string start, string end, string tiingoToken)
@@ -120,7 +120,7 @@ namespace Sonrai.ExtRS
             var content = await client.GetStringAsync(string.Format("https://api.tiingo.com/tiingo/daily/{0}/prices?startDate={1}&endDate={2}&token={3}", ticker, start, end, tiingoToken));
             var tiingoTickers = JsonConvert.DeserializeObject<List<Ticker>>(content);
 
-            return tiingoTickers;
+            return tiingoTickers!;
         }
 
         public static async Task<string> GetForexPrice(string currencies, string tiingoToken)
@@ -208,7 +208,7 @@ namespace Sonrai.ExtRS
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddBody("grant_type=client_credentials");
             RestResponse response = client.Execute(request);
-            dynamic obj = JsonConvert.DeserializeObject<dynamic>(response.Content!);
+            dynamic obj = JsonConvert.DeserializeObject<dynamic>(response.Content!)!;
 
             return obj["access_token"];
         }
@@ -220,7 +220,7 @@ namespace Sonrai.ExtRS
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
             request.AddBody(string.Format("grant_type=client_credentials&client_id={0}&client_secret={1}", clientId, clientSecret));
             RestResponse response = client.Execute(request);
-            dynamic obj = JsonConvert.DeserializeObject<dynamic>(response.Content!);
+            dynamic obj = JsonConvert.DeserializeObject<dynamic>(response.Content!)!;
 
             return obj["access_token"];
         }
@@ -441,7 +441,7 @@ namespace Sonrai.ExtRS
             var request = new RestRequest("", Method.Get);
             RestResponse response = client.Execute(request);
 
-            dynamic translation = JsonConvert.DeserializeObject<dynamic>(response.Content);
+            dynamic translation = JsonConvert.DeserializeObject<dynamic>(response!.Content!)!;
 
             return translation!["data"]["translations"][0].translatedText.ToString();
         }
@@ -454,7 +454,7 @@ namespace Sonrai.ExtRS
             //var request = new RestRequest("", Method.Get);
             //RestResponse response = client.Execute(request);
 
-            dynamic embedScript = JsonConvert.DeserializeObject<dynamic>(""); //
+            dynamic embedScript = JsonConvert.DeserializeObject<dynamic>("")!; //
 
             return embedScript;
         }
@@ -542,9 +542,9 @@ namespace Sonrai.ExtRS
 
     public class VoteHubApprovalDataModel
     {
-        public string pollster;
-        public string subject;
-        public string poll_type;
+        public string? pollster;
+        public string? subject;
+        public string? poll_type;
         public int sample_size;
         public DateTime created_at;
         public decimal approve;

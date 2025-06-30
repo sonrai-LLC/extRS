@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the value of the Value Property for the KPI.</value>
     [DataMember(Name="Value", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Value")]
-    public string Value { get; set; }
+    public string? Value { get; set; }
 
     /// <summary>
     /// A Double value that specifies the value of the Goal Property for the KPI.
@@ -42,7 +42,7 @@ namespace ReportingServices.Api.Models {
     /// <value>An array of values that specifies the trendset for the KPI.</value>
     [DataMember(Name="TrendSet", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "TrendSet")]
-    public List<int?> TrendSet { get; set; }
+    public List<int?>? TrendSet { get; set; }
 
 
     /// <summary>

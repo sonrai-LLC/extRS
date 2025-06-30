@@ -149,7 +149,7 @@
                             <b class="scheduleTitleLabel;">Hourly schedule</b>
                             <fieldset>
                                 Run the scedule every:
-                                @Html.HiddenFor(x => x.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence.MinutesInterval)
+                                @Html.HiddenFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.MinuteRecurrence!.MinutesInterval)
                                 @Html.TextBoxFor(x => x.RecurrenceHours, new { @maxlength = "2", @style = "width:30px", @class = "bg-dark text-white" }) hours &nbsp; @Html.TextBoxFor(x => x.RecurrenceMinutes, new { @maxlength = "2", @style = "width:30px", @class = "bg-dark text-white" }) minutes
                             </fieldset>
                         </div>
@@ -157,7 +157,7 @@
                             <b class="scheduleTitleLabel;">Daily schedule</b>
                             <fieldset>
                                 <div>
-                                    <label for="repeatAfterDays">Repeat after this number of days:</label> @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.DailyRecurrence.DaysInterval, new { @maxlength = "3", @style = "width:40px", @class = "bg-dark text-white" })
+                                    <label for="repeatAfterDays">Repeat after this number of days:</label> @Html.TextBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.DailyRecurrence!.DaysInterval, new { @maxlength = "3", @style = "width:40px", @class = "bg-dark text-white" })
                                 </div>
                             </fieldset>
                         </div>
@@ -165,17 +165,17 @@
                             <b class="scheduleTitleLabel;">Weekly schedule</b>
                             <fieldset>
                                 <div id="weeklyRecurrenceContainer">
-                                    Repeat after this number of weeks: @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.WeeksInterval, new { @maxlength = "2", @style = "width:30px", @class = "bg-dark text-white" })
+                                    Repeat after this number of weeks: @Html.TextBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.WeeklyRecurrence!.WeeksInterval, new { @maxlength = "2", @style = "width:30px", @class = "bg-dark text-white" })
                                     <br />
 @*                                     <input type="radio" id="indWeekdays" name="dailyRecurr" value="indWeekdays" checked /> *@
                                     <label for="indWeekdays">On the following days:</label>
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Sunday) Sun
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Monday) Mon
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Tuesday) Tue
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Wednesday) Wed
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Thursday) Thu
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Friday) Fri
-                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence.DaysOfWeek.Saturday) Sat
+                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.WeeklyRecurrence!.DaysOfWeek!.Sunday!) Sun
+                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.WeeklyRecurrence!.DaysOfWeek!.Monday) Mon
+                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.WeeklyRecurrence!.DaysOfWeek!.Tuesday) Tue
+                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.WeeklyRecurrence!.DaysOfWeek!.Wednesday) Wed
+                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.WeeklyRecurrence!.DaysOfWeek!.Thursday) Thu
+                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.WeeklyRecurrence!.DaysOfWeek!.Friday) Fri
+                                    @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.WeeklyRecurrence!.DaysOfWeek!.Saturday) Sat
                                     <br />
 @*                                     <input type="radio" id="everyWeekDay" name="dailyRecurr" value="everyWeekDay" />
                                     <label for="everyWeekDay">Every</label>
@@ -189,18 +189,18 @@
                                 <b class="scheduleTitleLabel;">Monthly schedule</b>
                                 <br />
                                 Months:
-                                @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.January) Jan
-                                @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.February) Feb
-                                @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.March) Mar
-                                @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.April) Apr
-                                @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.May) May
-                                @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.June) Jun
-                                @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.July) Jul
-                                @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.August) Aug
-                                @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.September) Sep
-                                @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.October) Oct
-                                @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.November) Nov
-                                @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.MonthsOfYear.December) Dec
+                                @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence!.MonthsOfYear!.January) Jan
+                                @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence!.MonthsOfYear!.February) Feb
+                                @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence!.MonthsOfYear!.March) Mar
+                                @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence!.MonthsOfYear!.April) Apr
+                                @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence!.MonthsOfYear!.May) May
+                                @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence!.MonthsOfYear!.June) Jun
+                                @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence!.MonthsOfYear!.July) Jul
+                                @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence!.MonthsOfYear!.August) Aug
+                                @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence!.MonthsOfYear!.September) Sep
+                                @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence!.MonthsOfYear!.October) Oct
+                                @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence!.MonthsOfYear!.November) Nov
+                                @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence!.MonthsOfYear!.December) Dec
                                 <br />
 @*                                 On day(s) of the week:
                                 @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Sunday) Sun
@@ -211,7 +211,7 @@
                                 @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Friday) Fri
                                 @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyDOWRecurrence.DaysOfWeek.Saturday) Sat
                                 <br /> *@
-                                On calendar day(s): @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.Recurrence.MonthlyRecurrence.Days, new { @maxlength = "150", @style = "width:150px", @class = "bg-dark text-white" })
+                                On calendar day(s): @Html.TextBoxFor(x => x!.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence!.Days, new { @maxlength = "150", @style = "width:150px", @class = "bg-dark text-white" })
                             </fieldset>
                         </div>
                         <div id="recurrenceContainer5" style="display: none; max-height: 0;">
@@ -226,7 +226,7 @@
                     </p>
                     <p>
                         <label style="font-size:10pt">Begin running this schedule on:</label><br />
-                        @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.StartDateTime, "{0:MM/dd/yyyy}", new { @style = "width:100px", @id = "startDateTime", @class = "input-small bg-dark text-white", @required = "required" })
+                        @Html.TextBoxFor(x => x.Subscription!.Schedule!.Definition.StartDateTime, "{0:MM/dd/yyyy}", new { @style = "width:100px", @id = "startDateTime", @class = "input-small bg-dark text-white", @required = "required" })
                     </p>
                     <label style="font-size:10pt">at:</label>
                     <br />
@@ -234,14 +234,14 @@
                     <br />
                     <br />
                     <p>
-                        @Html.CheckBoxFor(x => x.Subscription!.Schedule.Definition.EndDateSpecified, new { @id = "endDateSpecified", @class = "endDateCheck" }) <label style="font-size:10pt">Stop this schedule on:</label><br />
-                        @Html.TextBoxFor(x => x.Subscription!.Schedule.Definition.EndDate, "{0:MM/dd/yyyy}", new { @id = "endDate", @class = "input-small", @style = "width:100px; display:none" })
+                        @Html.CheckBoxFor(x => x.Subscription!.Schedule!.Definition.EndDateSpecified, new { @id = "endDateSpecified", @class = "endDateCheck" }) <label style="font-size:10pt">Stop this schedule on:</label><br />
+                        @Html.TextBoxFor(x => x.Subscription!.Schedule!.Definition.EndDate, "{0:MM/dd/yyyy}", new { @id = "endDate", @class = "input-small", @style = "width:100px; display:none" })
                     <p>
                 </fieldset>
                 <br />
                 <br />
                 <h5>DELIVERY (email)</h5>
-                @if(Model.Subscription.ExtensionSettings.ParameterValues.Count() != 10)
+                @if(Model.Subscription!.ExtensionSettings!.ParameterValues!.Count() != 10)
                 {
                    <div>(admin subscription)</div>
                 }
@@ -250,58 +250,58 @@
                 <fieldset name="delivery">
                     <p>
                         <label style="font-size:10pt">To:</label><br />
-                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[0].Name)
-                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings.ParameterValues[0].Value, new { @required = "required", @class = "bg-dark text-white" })
+                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![0].Name)
+                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![0].Value, new { @required = "required", @class = "bg-dark text-white" })
                     </p>
                     <p>
                         <label style="font-size:10pt">Cc:</label><br />
-                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[1].Name)
-                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings.ParameterValues[1].Value, new {  @class = "bg-dark text-white" })
+                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![1].Name)
+                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![1].Value, new {  @class = "bg-dark text-white" })
                     </p>
                     <p>
                         <label style="font-size:10pt">Bcc:</label><br />
-                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[2].Name)
-                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings.ParameterValues[2].Value, new { @class = "bg-dark text-white" })
+                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![2].Name)
+                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![2].Value, new { @class = "bg-dark text-white" })
                     </p>
                     <p>
                         <label style="font-size:10pt">Reply to:</label><br />
-                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[3].Name)
-                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings.ParameterValues[3].Value, new { @class = "bg-dark text-white" })
+                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![3].Name)
+                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![3].Value, new { @class = "bg-dark text-white" })
                     </p>
                     <p style="font-size:8pt;">(Use (;) to separate multiple e-mail addresses.)</p>
                     <p>
                         <label style="font-size:10pt">Subject:</label><br />
-                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[4].Name)
-                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings.ParameterValues[4].Value, new { @required = "required", @class = "bg-dark text-white" })
+                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![4].Name)
+                        @Html.TextBoxFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![4].Value, new { @required = "required", @class = "bg-dark text-white" })
                     </p>
                     <p>
                         <label style="font-size:10pt">Render Format:</label><br />
-                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[5].Name)
-                        @Html.DropDownListFor(x => x.Subscription!.ExtensionSettings.ParameterValues[5].Value,
+                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![5].Name)
+                        @Html.DropDownListFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![5].Value,
                                  Enum.GetValues(typeof(RenderFormats)).Cast<RenderFormats>()
                                      .Select(x => new SelectListItem { Text = EnumExtensions.GetEnumDescription(x), Value = x.ToString() }))
                     </p>
                     <p>
                         <label style="font-size:10pt">Include Report:</label><br />
-                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[6].Name, new { @class = "bg-dark text-white" })
+                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![6].Name, new { @class = "bg-dark text-white" })
                         @Html.CheckBoxFor(x => x.IncludeReport)
                     </p>
                     <p>
                         <label style="font-size:10pt">Include Link:</label><br />
-                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[7].Name, new { @class = "bg-dark text-white" })
+                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![7].Name, new { @class = "bg-dark text-white" })
                         @Html.CheckBoxFor(x => x.IncludeLink)
                     </p>
                     <p>
                         <label style="font-size:10pt">Priority:</label><br />
-                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[8].Name, new { @class = "bg-dark text-white" })
-                        @Html.DropDownListFor(x => x.Subscription!.ExtensionSettings.ParameterValues[8].Value,
+                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![8].Name, new { @class = "bg-dark text-white" })
+                        @Html.DropDownListFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![8].Value,
                                  Enum.GetValues(typeof(EmailPriority)).Cast<EmailPriority>()
                                  .Select(x => new SelectListItem { Text = x.ToString(), Value = x.ToString() }), "--Select--", new { @required = "required", @class = "bg-dark text-white" })
                     </p>
                     <p>
                         <label style="font-size:10pt">Comment:</label><br />
-                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings.ParameterValues[9].Name)
-                        @Html.TextAreaFor(x => x.Subscription!.ExtensionSettings.ParameterValues[9].Value, new { @class = "bg-dark text-white" })
+                        @Html.HiddenFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![9].Name)
+                        @Html.TextAreaFor(x => x.Subscription!.ExtensionSettings!.ParameterValues![9].Value, new { @class = "bg-dark text-white" })
                     </p>
                     @Html.HiddenFor(x => x.Subscription.Id)
                 </fieldset>

@@ -17,7 +17,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="Type", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Type")]
-    public MobileReportThumbnailType Type { get; set; }
+    public MobileReportThumbnailType? Type { get; set; }
 
 
     /// <summary>

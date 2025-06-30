@@ -18,8 +18,8 @@ namespace ExtRS.Portal.Models
 
     public class SubscriptionView : LayoutView
     {
-        public Subscription? Subscription { get; set; }
-        public List<Report>? Reports { get; set; }
+        public required Subscription Subscription { get; set; }
+        public required List<Report> Reports { get; set; }
         public List<ReportParameterDefinition>? ReportParameters { get; set; }
         public List<ParameterValue>? SelectedReportParameters { get; set; }
         public List<RecurrenceType> RecurrenceTypes = new List<RecurrenceType> { RecurrenceType.Hourly, RecurrenceType.Daily, RecurrenceType.Weekly, RecurrenceType.Monthly, RecurrenceType.Onetime };
@@ -44,7 +44,7 @@ namespace ExtRS.Portal.Models
     {
         public static string GetEnumDescription(Enum value)
         {
-            FieldInfo fi = value.GetType().GetField(value.ToString());
+            FieldInfo fi = value.GetType().GetField(value.ToString())!;
             DescriptionAttribute[] attributes = fi.GetCustomAttributes(typeof(DescriptionAttribute), false) as DescriptionAttribute[];
 
             if (attributes != null && attributes.Any())

@@ -17,7 +17,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="ExtensionType", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ExtensionType")]
-    public ExtensionType ExtensionType { get; set; }
+    public ExtensionType? ExtensionType { get; set; }
 
     /// <summary>
     /// A string value that specifies the name for the Extension. This name will typically be displayed in the user interface.
@@ -25,7 +25,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the name for the Extension. This name will typically be displayed in the user interface.</value>
     [DataMember(Name="Name", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// A string value that specifies a localized name for the Extension.
@@ -33,7 +33,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies a localized name for the Extension.</value>
     [DataMember(Name="LocalizedName", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "LocalizedName")]
-    public string LocalizedName { get; set; }
+    public string? LocalizedName { get; set; }
 
     /// <summary>
     /// A Boolean value that indicates if the Extension is visible. If false, the item will generally not appear in listings of available extensions.

@@ -17,14 +17,14 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="CatalogItemPaths", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "CatalogItemPaths")]
-    public List<string> CatalogItemPaths { get; set; }
+    public List<string>? CatalogItemPaths { get; set; }
 
     /// <summary>
     /// Gets or Sets TargetPath
     /// </summary>
     [DataMember(Name="TargetPath", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "TargetPath")]
-    public string TargetPath { get; set; }
+    public string? TargetPath { get; set; }
 
 
     /// <summary>

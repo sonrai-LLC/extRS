@@ -5,9 +5,9 @@ namespace Sonrai.ExtRS.Models
     public class SSRSConnection
     {
         public HttpClient _httpClient { get; set; }
-        public string SqlAuthCookie;
+        public string? SqlAuthCookie;
         public string UserName;
-        public string UserRole;
+        public string? UserRole;
         public string ReportServerName;
         public AuthenticationType AuthenticationType;
 

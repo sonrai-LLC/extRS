@@ -49,7 +49,7 @@ namespace EditorNetCoreDemo.Controllers
 
                 return Json(response);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
 
             }

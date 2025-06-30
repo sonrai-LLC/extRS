@@ -17,7 +17,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="DrillthroughTargetType", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "DrillthroughTargetType")]
-    public DrillthroughTargetType DrillthroughTargetType { get; set; }
+    public DrillthroughTargetType? DrillthroughTargetType { get; set; }
 
 
     /// <summary>

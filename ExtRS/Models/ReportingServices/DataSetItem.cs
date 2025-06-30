@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>The time unit for the DataSetItem. The possible values for this string are the following: 'Year', 'Quarter', 'Month', 'Weekday', 'Hour'.</value>
     [DataMember(Name="TimeUnit", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "TimeUnit")]
-    public string TimeUnit { get; set; }
+    public string? TimeUnit { get; set; }
 
     /// <summary>
     /// A string value that specifies the name of the column in the DataSetItem that represents date and time.
@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the name of the column in the DataSetItem that represents date and time.</value>
     [DataMember(Name="DateTimeColumn", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "DateTimeColumn")]
-    public string DateTimeColumn { get; set; }
+    public string? DateTimeColumn { get; set; }
 
 
     /// <summary>

@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the name for the ExtensionParameter.</value>
     [DataMember(Name="Name", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// The name of the extension setting that is displayed to the user.
@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>The name of the extension setting that is displayed to the user.</value>
     [DataMember(Name="DisplayName", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "DisplayName")]
-    public string DisplayName { get; set; }
+    public string? DisplayName { get; set; }
 
     /// <summary>
     /// Indicates whether the value is required.
@@ -50,7 +50,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string that represents the value of an extension parameter.</value>
     [DataMember(Name="Value", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Value")]
-    public string Value { get; set; }
+    public string? Value { get; set; }
 
     /// <summary>
     /// An error that describes a problem with the value of the setting.
@@ -58,7 +58,7 @@ namespace ReportingServices.Api.Models {
     /// <value>An error that describes a problem with the value of the setting.</value>
     [DataMember(Name="Error", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Error")]
-    public string Error { get; set; }
+    public string? Error { get; set; }
 
     /// <summary>
     /// Indicates whether the extension parameter value should be encrypted in the Report Server database.
@@ -82,7 +82,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A set of values that can be configured for the setting.</value>
     [DataMember(Name="ValidValues", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ValidValues")]
-    public List<ValidValue> ValidValues { get; set; }
+    public List<ValidValue>? ValidValues { get; set; }
 
     /// <summary>
     /// A Boolean value that indicates whether the ValidValues property is null.

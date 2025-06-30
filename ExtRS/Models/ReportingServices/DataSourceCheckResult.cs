@@ -24,7 +24,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="ErrorMessage", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ErrorMessage")]
-    public string ErrorMessage { get; set; }
+    public string? ErrorMessage { get; set; }
 
 
     /// <summary>

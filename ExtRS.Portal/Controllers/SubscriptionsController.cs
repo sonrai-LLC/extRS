@@ -184,16 +184,16 @@ namespace ExtRS.Portal.Controllers
             {
                 extensionParameters = new List<ParameterValue>();
             }
-            var to = extensionParameters.Where(x => x.Name == "TO").FirstOrDefault();
-            var cc = extensionParameters.Where(x => x.Name == "CC").FirstOrDefault();
-            var bcc = extensionParameters.Where(x => x.Name == "BCC").FirstOrDefault();
-            var replyTo = extensionParameters.Where(x => x.Name == "ReplyTo").FirstOrDefault();
-            var subject = extensionParameters.Where(x => x.Name == "Subject").FirstOrDefault();
-            var renderFormat = extensionParameters.Where(x => x.Name == "RenderFormat").FirstOrDefault();
-            var includeReport = extensionParameters.Where(x => x.Name == "IncludeReport").FirstOrDefault();
-            var includeLink = extensionParameters.Where(x => x.Name == "IncludeLink").FirstOrDefault();
-            var priority = extensionParameters.Where(x => x.Name == "Priority").FirstOrDefault();
-            var comment = extensionParameters.Where(x => x.Name == "Comment").FirstOrDefault();
+            var to = extensionParameters!.Where(x => x.Name == "TO").FirstOrDefault();
+            var cc = extensionParameters!.Where(x => x.Name == "CC").FirstOrDefault();
+            var bcc = extensionParameters!.Where(x => x.Name == "BCC").FirstOrDefault();
+            var replyTo = extensionParameters!.Where(x => x.Name == "ReplyTo").FirstOrDefault();
+            var subject = extensionParameters!.Where(x => x.Name == "Subject").FirstOrDefault();
+            var renderFormat = extensionParameters!.Where(x => x.Name == "RenderFormat").FirstOrDefault();
+            var includeReport = extensionParameters!.Where(x => x.Name == "IncludeReport").FirstOrDefault();
+            var includeLink = extensionParameters!.Where(x => x.Name == "IncludeLink").FirstOrDefault();
+            var priority = extensionParameters!.Where(x => x.Name == "Priority").FirstOrDefault();
+            var comment = extensionParameters!.Where(x => x.Name == "Comment").FirstOrDefault();
 
             return new ExtensionSettings()
             {
@@ -216,19 +216,19 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<IActionResult> PostSubscription(SubscriptionView viewModel)
         {
-            if (!viewModel.Subscription.Schedule.Definition.EndDateSpecified)
+            if (!viewModel.Subscription!.Schedule!.Definition!.EndDateSpecified)
             {
                 viewModel.Subscription.Schedule.Definition.EndDate = null;
             }
 
-            viewModel.Subscription!.ExtensionSettings.ParameterValues[6].Value = viewModel.IncludeReport ? "True" : "False";
-            viewModel.Subscription!.ExtensionSettings.ParameterValues[7].Value = viewModel.IncludeLink ? "True" : "False";
-            if (viewModel.Subscription.Schedule.Definition.EndDate != null)
+            viewModel?.Subscription?.ExtensionSettings?.ParameterValues?[6].Value = viewModel.IncludeReport ? "True" : "False";
+            viewModel?.Subscription?.ExtensionSettings?.ParameterValues?[7].Value = viewModel.IncludeLink ? "True" : "False";
+            if (viewModel?.Subscription.Schedule.Definition.EndDate != null)
             {
                 viewModel.Subscription.Schedule.Definition.EndDateSpecified = true;
             }
 
-            foreach (var p in viewModel.Subscription!.ExtensionSettings.ParameterValues)
+            foreach (var p in viewModel?.Subscription?.ExtensionSettings?.ParameterValues!)
             {
                 p.IsValueFieldReference = false;
             }
@@ -247,47 +247,47 @@ namespace ExtRS.Portal.Controllers
         {
             if (viewModel.SelectedRecurrence != RecurrenceType.Daily)
             {
-                viewModel.Subscription.Schedule.Definition!.Recurrence.DailyRecurrence = null;
+                viewModel?.Subscription?.Schedule?.Definition?.Recurrence?.DailyRecurrence = null;
             }
-            if (viewModel.SelectedRecurrence != RecurrenceType.Hourly)
+            if (viewModel?.SelectedRecurrence != RecurrenceType.Hourly)
             {
-                viewModel.Subscription.Schedule.Definition.Recurrence.MinuteRecurrence = null;
-            }
-            else
-            {
-                viewModel.Subscription!.Schedule.Definition.Recurrence.MinuteRecurrence!.MinutesInterval = viewModel.RecurrenceMinutes + (viewModel.RecurrenceHours * 60);
-            }
-            if (viewModel.SelectedRecurrence != RecurrenceType.Weekly)
-            {
-                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence = null;
+                viewModel?.Subscription?.Schedule?.Definition?.Recurrence?.MinuteRecurrence = null;
             }
             else
             {
-                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.WeeksIntervalSpecified = viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.WeeksInterval != null;
+                viewModel?.Subscription!.Schedule?.Definition?.Recurrence?.MinuteRecurrence!.MinutesInterval = viewModel.RecurrenceMinutes + (viewModel.RecurrenceHours * 60);
             }
-            if (viewModel.SelectedRecurrence != RecurrenceType.Monthly)
+            if (viewModel?.SelectedRecurrence != RecurrenceType.Weekly)
             {
-                viewModel.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence = null;
-                viewModel.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence = null;
+                viewModel?.Subscription?.Schedule?.Definition?.Recurrence?.WeeklyRecurrence = null;
+            }
+            else
+            {
+                viewModel?.Subscription?.Schedule?.Definition?.Recurrence?.WeeklyRecurrence!.WeeksIntervalSpecified = viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.WeeksInterval != null;
+            }
+            if (viewModel!.SelectedRecurrence != RecurrenceType.Monthly)
+            {
+                viewModel?.Subscription?.Schedule?.Definition?.Recurrence?.MonthlyDOWRecurrence = null;
+                viewModel?.Subscription?.Schedule?.Definition?.Recurrence?.MonthlyRecurrence = null;
             }
 
-            viewModel.Subscription!.Schedule.Definition.StartDateTime = viewModel.Subscription!.Schedule.Definition.StartDateTime!.Value
+            viewModel!.Subscription!.Schedule!.Definition!.StartDateTime = viewModel.Subscription!.Schedule.Definition.StartDateTime!.Value
             .AddHours(viewModel.IsPM ? viewModel.ScheduleStartHours + 12 : viewModel.ScheduleStartHours)
             .AddMinutes(viewModel.ScheduleStartMinutes);
 
             if (viewModel.ScheduleRecurrenceIsEveryWeekday)
             {
-                viewModel.Subscription!.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Monday = true;
-                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Tuesday = true;
-                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Wednesday = true;
-                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Thursday = true;
-                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Friday = true;
+                viewModel.Subscription!.Schedule!.Definition!.Recurrence!.WeeklyRecurrence!.DaysOfWeek!.Monday = true;
+                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek!.Tuesday = true;
+                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek!.Wednesday = true;
+                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek!.Thursday = true;
+                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek!.Friday = true;
             }
 
             if (viewModel.ScheduleRecurrenceIsEveryWeekend)
             {
-                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Saturday = true;
-                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek.Sunday = true;
+                viewModel!.Subscription!.Schedule!.Definition!.Recurrence!.WeeklyRecurrence!.DaysOfWeek!.Saturday = true;
+                viewModel.Subscription.Schedule.Definition.Recurrence.WeeklyRecurrence!.DaysOfWeek!.Sunday = true;
             }
 
             return viewModel;
@@ -310,18 +310,18 @@ namespace ExtRS.Portal.Controllers
             List<Report> reports = await _ssrs.GetReports();
             SubscriptionView view = new SubscriptionView { CurrentTab = "Subscriptions", Subscription = subscription, ReportServerName = _configuration["ReportServerName"]!, Reports = reports };
 
-            if (subscription.ExtensionSettings.ParameterValues.Count != 10)
+            if (subscription!.ExtensionSettings!.ParameterValues!.Count != 10)
             {
                 subscription.ExtensionSettings = GetNewExtensionSettings(subscription.ExtensionSettings.ParameterValues);
             }
 
-            view.IsPM = view.Subscription.Schedule.Definition.StartDateTime.Value.Hour >= 12;
+            view.IsPM = view!.Subscription!.Schedule!.Definition!.StartDateTime!.Value.Hour >= 12;
             view.IsAM = !view.IsPM;
             view.ScheduleStartHours = view.Subscription.Schedule.Definition.StartDateTime!.Value.Hour - (view.IsPM ? 12 : 0);
             view.ScheduleStartMinutes = view.Subscription.Schedule.Definition.StartDateTime.Value.Minute;
 
-            if (view.Subscription.Schedule.Definition.Recurrence.MonthlyRecurrence != null
-                || view.Subscription.Schedule.Definition.Recurrence.MonthlyDOWRecurrence != null)
+            if (view!.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyRecurrence != null
+                || view!.Subscription!.Schedule!.Definition!.Recurrence!.MonthlyDOWRecurrence != null)
             {
                 view.SelectedRecurrence = RecurrenceType.Monthly;
             }
@@ -360,7 +360,7 @@ namespace ExtRS.Portal.Controllers
                 view.SelectedRecurrence = RecurrenceType.Onetime;
             }
 
-            if (view.Subscription.ExtensionSettings.ParameterValues.Count >= 7 &&
+            if (view!.Subscription!.ExtensionSettings!.ParameterValues!.Count >= 7 &&
                 view.Subscription.ExtensionSettings.ParameterValues[6].Value == "True")
             {
                 view.IncludeReport = true;

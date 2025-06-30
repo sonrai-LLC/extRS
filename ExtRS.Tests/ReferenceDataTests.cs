@@ -67,7 +67,7 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetSynonymsFails()
         {
-            var result = await ReferenceDataService.GetSynonyms(null);
+            var result = await ReferenceDataService.GetSynonyms(null!);
             Assert.IsTrue(result == "[]");
         }
 
@@ -97,7 +97,7 @@ namespace Sonrai.ExtRS.UnitTests
         public async Task GetTickerInfoObjectSucceeds()
         {
             var result = await ReferenceDataService.GetTickerInfoObject("JCI", tiingoAPIToken);
-            Assert.IsTrue(result.StartDate != null);
+            Assert.IsTrue(result.StartDate > DateTime.MinValue);
         }
 
         [TestMethod]
@@ -118,9 +118,9 @@ namespace Sonrai.ExtRS.UnitTests
         public async Task GetTickerPriceObjectSucceeds()
         {
             Ticker result = await ReferenceDataService.GetTickerPriceObject("JCI", tiingoAPIToken);
-            Assert.IsTrue(result.Open != null);
-            Assert.IsTrue(result.High != null);
-            Assert.IsTrue(result.Close != null);
+            Assert.IsTrue(result.Open > 0);
+            Assert.IsTrue(result.High > 0);
+            Assert.IsTrue(result.Close > 0);
         }
 
         [TestMethod]

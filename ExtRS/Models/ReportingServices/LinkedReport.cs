@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value> A string value that specifies the path to the report item that this linked report is linked to.</value>
     [DataMember(Name="Link", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Link")]
-    public string Link { get; set; }
+    public string? Link { get; set; }
 
 
     /// <summary>

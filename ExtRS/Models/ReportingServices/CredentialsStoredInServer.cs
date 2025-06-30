@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains the user name to be used to connect to an external data source.</value>
     [DataMember(Name="UserName", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "UserName")]
-    public string UserName { get; set; }
+    public string? UserName { get; set; }
 
     /// <summary>
     /// A string value that contains the password to be used to connect to an external data source.
@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains the password to be used to connect to an external data source.</value>
     [DataMember(Name="Password", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Password")]
-    public string Password { get; set; }
+    public string? Password { get; set; }
 
     /// <summary>
     /// A boolean value that indicates whether the supplied credentials should be used as Windows credentials.

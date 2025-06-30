@@ -56,7 +56,7 @@ namespace ExtRS.Portal.Controllers
 			var info = await _signInManager.GetExternalLoginInfoAsync();
 			await _signInManager.ExternalLoginSignInAsync(info!.LoginProvider, info.ProviderKey, isPersistent: false);
 			await _ssrs.DeleteSession();
-			await _ssrs.CreateSession(_httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName);
+			await _ssrs.CreateSession(_httpContextAccessor.HttpContext!.User!.Identity!.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName);
 			_ssrs._conn.SqlAuthCookie = SSRSService.GetSqlAuthCookie(_httpClient, _httpContextAccessor.HttpContext.User.Identity.Name!, _configuration["extrspassphrase"]!, _connection.ReportServerName).Result;
 			return RedirectToAction("Dashboard", "Dashboard");
 		}

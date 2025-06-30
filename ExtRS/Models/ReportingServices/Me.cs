@@ -23,19 +23,19 @@ namespace ReportingServices.Api.Models
 
         [DataMember(Name = "Username", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "Username")]
-        public string Username { get; set; }
+        public string? Username { get; set; }
 
         [DataMember(Name = "DisplayName", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "DisplayName")]
-        public string DisplayName { get; set; }
+        public string? DisplayName { get; set; }
 
         [DataMember(Name = "HasFavoriteItems", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "HasFavoriteItems")]
-        public string HasFavoriteItems { get; set; }
+        public string? HasFavoriteItems { get; set; }
 
         [DataMember(Name = "MyReportsPath", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "MyReportsPath")]
-        public string MyReportsPath { get; set; }
+        public string? MyReportsPath { get; set; }
 
         public override string ToString()
         {

@@ -17,14 +17,14 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="ExecutionType", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ExecutionType")]
-    public ItemExecutionType ExecutionType { get; set; }
+    public required ItemExecutionType ExecutionType { get; set; }
 
     /// <summary>
     /// Gets or Sets Expiration
     /// </summary>
     [DataMember(Name="Expiration", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Expiration")]
-    public ExpirationReference Expiration { get; set; }
+    public required ExpirationReference Expiration { get; set; }
 
 
     /// <summary>

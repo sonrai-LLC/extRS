@@ -16,7 +16,7 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public void EncryptUrlFails()
         {
-            EncryptionService.Encrypt(null, null);
+            EncryptionService.Encrypt(null!, null!);
         }
 
         [TestMethod]
@@ -29,7 +29,7 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public void DecryptUrlFails()
         {
-            EncryptionService.Decrypt(null, null);
+            EncryptionService.Decrypt(null!, null!);
         }
     }
 }

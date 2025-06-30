@@ -20,8 +20,7 @@ namespace Sonrai.ExtRS
         private HttpClient _client;
         CookieContainer _cookieContainer = new CookieContainer();
         string _serverUrl;
-        private IHttpContextAccessor _httpContextAccessor;
-        private readonly SSRSConnection _connection;
+        private IHttpContextAccessor? _httpContextAccessor;
         private readonly string domains;
         private readonly string sysAdmin = "System Administrator";
         private readonly string sysUser = "System User";
@@ -36,7 +35,7 @@ namespace Sonrai.ExtRS
             _serverUrl = string.Format("https://{0}/reports/api/v2.0/", _conn.ReportServerName);
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
-            var cookie = new Cookie("sqlAuthCookie", GetSqlAuthCookie(_client, _httpContextAccessor?.HttpContext.User?.Identity!.Name ?? "extRSAuth", _configuration["extrspassphrase"]!, _configuration["ReportServerName"]!).Result, "/", _configuration["ReportServerName"]);
+            var cookie = new Cookie("sqlAuthCookie", GetSqlAuthCookie(_client, _httpContextAccessor?.HttpContext?.User?.Identity!.Name ?? "extRSAuth", _configuration["extrspassphrase"]!, _configuration["ReportServerName"]!).Result, "/", _configuration["ReportServerName"]);
             _cookieContainer.Add(cookie);
             domains = _configuration["ReportServerName"] + "," + "_dltdgst";
         }
@@ -69,20 +68,20 @@ namespace Sonrai.ExtRS
         public async Task<HttpResponseMessage> CreateSession(string user, string password, string server)
         {
             string credentials = GetCredentialJson(user, password, server);
-            HttpResponseMessage response = await CallApi(HttpVerbs.POST, "Session", credentials);
-            return response;
+            HttpResponseMessage? response = await CallApi(HttpVerbs.POST, "Session", credentials);
+            return response!;
         }
 
         public async Task<HttpResponseMessage> DeleteSession()
         {
             var response = await CallApi(HttpVerbs.DELETE, "Session");
-            return response;
+            return response!;
         }
 
         public async Task<Me> GetRSSessionUser()
         {
             var response = await CallApi(HttpVerbs.GET, "Me");
-            return JsonConvert.DeserializeObject<Me>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<Me>(await response!.Content!.ReadAsStringAsync())!;
         }
 
         public async Task<ODataPolicies> GetSystemPolicies()
@@ -98,11 +97,11 @@ namespace Sonrai.ExtRS
             try
             {
                 var newPolicy = new Policy() { GroupUserName = groupUserName, Roles = new List<Role> { new Role() { Name = !isAdmin ? sysUser : sysAdmin, Description = !isAdmin ? sysUserDesc : sysAdminDesc } } };
-                systemPolicies.Value.Add(newPolicy);
+                systemPolicies!.Value!.Add(newPolicy);
                 var newSystemPolicies = new { Policies = systemPolicies.Value };
-                HttpResponseMessage response = await CallApi(HttpVerbs.PUT, "System/Policies", JsonConvert.SerializeObject(newSystemPolicies));
+                HttpResponseMessage? response = await CallApi(HttpVerbs.PUT, "System/Policies", JsonConvert.SerializeObject(newSystemPolicies));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -125,12 +124,11 @@ namespace Sonrai.ExtRS
             try
             {
                 var newPolicy = new Policy() { GroupUserName = groupUserName, Roles = new List<Role> { new Role() { Name = role, Description = description } } };
-                catalogItemPolicies.Policies.Add(newPolicy);
+                catalogItemPolicies!.Policies!.Add(newPolicy);
                 var newPolicies = new { InheritParentPolicy = false, Policies = catalogItemPolicies.Policies };
-                HttpResponseMessage response;
-                response = await CallApi(HttpVerbs.PUT, string.Format("/CatalogItems({0})/Policies", id), JsonConvert.SerializeObject(newPolicies));
+                HttpResponseMessage? httpResponseMessage = await CallApi(HttpVerbs.PUT, string.Format("/CatalogItems({0})/Policies", id), JsonConvert.SerializeObject(newPolicies));
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -139,19 +137,19 @@ namespace Sonrai.ExtRS
         public async Task<CatalogItem> CreateCatalogItem(string json)
         {
             var response = await CallApi(HttpVerbs.POST, "CatalogItems", json);
-            return JsonConvert.DeserializeObject<CatalogItem>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<CatalogItem>(await response!.Content.ReadAsStringAsync())!;
         }
 
         public async Task<CatalogItem> GetCatalogItem(string id)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("CatalogItems({0})", id));
-            return JsonConvert.DeserializeObject<CatalogItem>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<CatalogItem>(await response!.Content.ReadAsStringAsync())!;
         }
 
         public async Task<List<CatalogItem>> GetCatalogItems()
         {
             var response = await CallApi(HttpVerbs.GET, "CatalogItems");
-            return JsonConvert.DeserializeObject<ODataCatalogItems>(await response.Content.ReadAsStringAsync())!.Value;
+            return JsonConvert.DeserializeObject<ODataCatalogItems>(await response!.Content.ReadAsStringAsync())!.Value!;
         }
 
         public async Task<Subscription> SaveSubscription(Subscription subscription)
@@ -161,7 +159,7 @@ namespace Sonrai.ExtRS
             {
                 // offset selected datetime for UTC format
                 var offset = TimeZoneInfo.Local.GetUtcOffset(DateTime.UtcNow);
-                subscription!.Schedule.Definition.StartDateTime = subscription!.Schedule.Definition.StartDateTime!.Value.AddHours(Math.Abs(offset.TotalHours));
+                subscription!.Schedule!.Definition!.StartDateTime = subscription!.Schedule.Definition.StartDateTime!.Value.AddHours(Math.Abs(offset.TotalHours));
 
                 var subscriptionJson = JsonConvert.SerializeObject(subscription, Formatting.Indented, new JsonSerializerSettings
                 {
@@ -169,7 +167,7 @@ namespace Sonrai.ExtRS
                     DateFormatString = "yyyy-MM-ddTHH:mm:ssZ",
                 });
 
-                HttpResponseMessage response;
+                HttpResponseMessage? response;
                 if (subscription.Id != null)
                 {
                     response = await CallApi(HttpVerbs.PUT, string.Format("Subscriptions({0})", subscription.Id), subscriptionJson);
@@ -179,11 +177,11 @@ namespace Sonrai.ExtRS
                     response = await CallApi(HttpVerbs.POST, "Subscriptions", subscriptionJson);
                 }
 
-                var newSubscription2 = JsonConvert.DeserializeObject<Subscription>(await response.Content.ReadAsStringAsync());
+                var newSubscription2 = JsonConvert.DeserializeObject<Subscription>(await response!.Content.ReadAsStringAsync());
 
                 return newSubscription2!;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -194,9 +192,9 @@ namespace Sonrai.ExtRS
         public async Task<Subscription> GetSubscription(string id)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Subscriptions({0})", id));
-            var subscription = JsonConvert.DeserializeObject<Subscription>(await response.Content.ReadAsStringAsync());
+            var subscription = JsonConvert.DeserializeObject<Subscription>(await response!.Content.ReadAsStringAsync());
 
-            return subscription;
+            return subscription!;
         }
 
         public async Task<bool> DeleteSubscription(string id)
@@ -208,31 +206,31 @@ namespace Sonrai.ExtRS
         public async Task<Report> GetReport(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})", idOrPath));
-            return JsonConvert.DeserializeObject<Report>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<Report>(await response!.Content.ReadAsStringAsync())!;
         }
 
         public async Task<List<Report>> GetReports()
         {
             var response = await CallApi(HttpVerbs.GET, "Reports");
-            return JsonConvert.DeserializeObject<ODataReports>(await response.Content.ReadAsStringAsync())!.Value;
+            return JsonConvert.DeserializeObject<ODataReports>(await response!.Content.ReadAsStringAsync())!.Value!;
         }
 
         public async Task<HistorySnapshot> CreateReportSnapshot(string reportId)
         {
             var response = await CallApi(HttpVerbs.POST, string.Format("Reports({0})/HistorySnapshots", reportId));
-            return JsonConvert.DeserializeObject<HistorySnapshot>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<HistorySnapshot>(await response!.Content.ReadAsStringAsync())!;
         }
 
         public async Task<List<HistorySnapshot>> GetReportSnapshots(string id)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots", id));
-            return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response.Content.ReadAsStringAsync())!.Value;
+            return JsonConvert.DeserializeObject<ODataHistorySnapshots>(await response!.Content.ReadAsStringAsync())!.Value!;
         }
 
         public async Task<HistorySnapshot> GetReportSnapshot(string reportId, string historyId)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/HistorySnapshots({1})", reportId, historyId));
-            return JsonConvert.DeserializeObject<HistorySnapshot>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<HistorySnapshot>(await response!.Content.ReadAsStringAsync())!;
         }
 
         public async Task<bool> DeleteReportSnapshot(string id, string historyId)
@@ -244,7 +242,7 @@ namespace Sonrai.ExtRS
         public async Task<string> GetCatalogItemContent(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("CatalogItems({0})/Content/$value", idOrPath));
-            return await response.Content.ReadAsStringAsync()!;
+            return await response!.Content.ReadAsStringAsync()!;
         }
 
         public async Task<bool> DeleteCatalogItem(string idOrPath)
@@ -256,55 +254,55 @@ namespace Sonrai.ExtRS
         public async Task<List<Folder>> GetFolders()
         {
             var response = await CallApi(HttpVerbs.GET, "Folders");
-            return JsonConvert.DeserializeObject<ODataFolders>(await response.Content.ReadAsStringAsync())!.Value;
+            return JsonConvert.DeserializeObject<ODataFolders>(await response!.Content.ReadAsStringAsync())!.Value!;
         }
 
         public async Task<Folder> GetFolder(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Folders({0})", idOrPath));
-            return JsonConvert.DeserializeObject<Folder>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<Folder>(await response!.Content.ReadAsStringAsync())!;
         }
 
         public async Task<List<DataSource>> GetDataSources()
         {
             var response = await CallApi(HttpVerbs.GET, "DataSources");
-            return JsonConvert.DeserializeObject<ODataDataSources>(await response.Content.ReadAsStringAsync())!.Value;
+            return JsonConvert.DeserializeObject<ODataDataSources>(await response!.Content.ReadAsStringAsync())!.Value!;
         }
 
         public async Task<DataSource> GetDataSource(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("DataSources({0})", idOrPath));
-            return JsonConvert.DeserializeObject<DataSource>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<DataSource>(await response!.Content.ReadAsStringAsync())!;
         }
 
         public async Task<List<DataSet>> GetDataSets()
         {
             var response = await CallApi(HttpVerbs.GET, "DataSets");
-            return JsonConvert.DeserializeObject<ODataDataSets>(await response.Content.ReadAsStringAsync())!.Value;
+            return JsonConvert.DeserializeObject<ODataDataSets>(await response!.Content.ReadAsStringAsync())!.Value!;
         }
 
         public async Task<DataSet> GetDataSet(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("DataSets({0})", idOrPath));
-            return JsonConvert.DeserializeObject<DataSet>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<DataSet>(await response!.Content!.ReadAsStringAsync())!;
         }
 
         public async Task<List<Subscription>> GetSubscriptions()
         {
             var response = await CallApi(HttpVerbs.GET, "Subscriptions");
-            return JsonConvert.DeserializeObject<ODataSubscriptions>(await response.Content.ReadAsStringAsync())!.Value;
+            return JsonConvert.DeserializeObject<ODataSubscriptions>(await response!.Content.ReadAsStringAsync())!.Value!;
         }
 
         public async Task<ODataDataSetParameters> GetDataSetParameterDefinitions(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("DataSets({0})/ParameterDefinitions", idOrPath));
-            return JsonConvert.DeserializeObject<ODataDataSetParameters>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<ODataDataSetParameters>(await response!.Content.ReadAsStringAsync())!;
         }
 
         public async Task<List<ReportParameterDefinition>> GetReportParameterDefinition(string idOrPath)
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/ParameterDefinitions", idOrPath));
-            var parms = JsonConvert.DeserializeObject<ODataReportParameterDefinitions>(await response.Content.ReadAsStringAsync())!.Value.ToList();
+            var parms = JsonConvert.DeserializeObject<ODataReportParameterDefinitions>(await response!.Content.ReadAsStringAsync())!.Value!.ToList();
 
             return parms;
         }
@@ -312,7 +310,7 @@ namespace Sonrai.ExtRS
         public async Task<ReportParameterDefinition> GetReportParameterDefinitions()
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("Reports({0})/ParameterDefinitions"));
-            var parms = JsonConvert.DeserializeObject<ReportParameterDefinition>(await response.Content.ReadAsStringAsync())!;
+            var parms = JsonConvert.DeserializeObject<ReportParameterDefinition>(await response!.Content.ReadAsStringAsync())!;
 
             return parms;
         }
@@ -329,7 +327,7 @@ namespace Sonrai.ExtRS
 
             var response = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
             HttpHeaders headers = response.Headers;
-            if (headers.TryGetValues("Set-Cookie", out IEnumerable<string> values))
+            if (headers.TryGetValues("Set-Cookie", out IEnumerable<string>? values))
             {
                 cookie = values.First();
             }
@@ -345,7 +343,7 @@ namespace Sonrai.ExtRS
             CatalogItem catalogItem = await GetCatalogItem(pathOrId);
             StringBuilder sb = new StringBuilder();
 
-            switch (catalogItem.Type.ToString())
+            switch (catalogItem!.Type!.ToString())
             {
                 case "Folder":
                     {
@@ -403,7 +401,7 @@ namespace Sonrai.ExtRS
         public async Task<SystemInfo> GetSystemInfo()
         {
             var response = await CallApi(HttpVerbs.GET, string.Format("System"));
-            return JsonConvert.DeserializeObject<SystemInfo>(await response.Content.ReadAsStringAsync())!;
+            return JsonConvert.DeserializeObject<SystemInfo>(await response!.Content.ReadAsStringAsync())!;
         }
 
         public async Task<IEnumerable<ReportExecutionStats>> GetReportExecutionStats(string connectionString)

@@ -17,7 +17,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="Key", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Key")]
-    public string Key { get; set; }
+    public string? Key { get; set; }
 
 
     /// <summary>

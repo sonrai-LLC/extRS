@@ -14,7 +14,7 @@ namespace ReportingServices.Api.Models
     [DataContract]
     public class HistorySnapshot
     {
-        public string Uri { get; set; }
+        public string? Uri { get; set; }
         /// <summary>
         /// A unique UUID value that specifies the identifier of the CatalogItem for which this is a HistorySnapshot.
         /// </summary>
@@ -29,7 +29,7 @@ namespace ReportingServices.Api.Models
         /// <value>A string that contains the date-time of the execution of the HistorySnapshot. This, together with the Id of the CatalogItem, identifies this HistorySnapshot</value>
         [DataMember(Name = "HistoryId", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "HistoryId")]
-        public string HistoryId { get; set; }
+        public string? HistoryId { get; set; }
 
         /// <summary>
         /// A string that contains the date-time of the creation of the HistorySnapshot.

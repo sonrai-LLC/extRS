@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>The name of the parameter.</value>
     [DataMember(Name="Name", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// The default value for the parameter.
@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>The default value for the parameter.</value>
     [DataMember(Name="DefaultValue", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "DefaultValue")]
-    public string DefaultValue { get; set; }
+    public string? DefaultValue { get; set; }
 
     /// <summary>
     /// Specifies whether the parameter can be null.
@@ -41,7 +41,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="DataType", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "DataType")]
-    public ReportParameterType DataType { get; set; }
+    public ReportParameterType? DataType { get; set; }
 
     /// <summary>
     /// Specifies whether the parameter is an expression.

@@ -31,7 +31,7 @@ namespace Sonrai.ExtRS.UnitTests
         {
             _httpClient = new HttpClient();
             SSRSConnection connection = new SSRSConnection(Resources.ReportServerName, Resources.User, AuthenticationType.ExtRSAuth);
-            _ssrs = new SSRSService(connection, _configuration, null);
+            _ssrs = new SSRSService(connection, _configuration, null!);
             connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, Resources.User, _configuration["extrspassphrase"]!, connection.ReportServerName);
         }
 
@@ -265,7 +265,7 @@ namespace Sonrai.ExtRS.UnitTests
             var getResponse = await _ssrs.GetCatalogItem(createResponse.Id.ToString()!);
             Assert.IsTrue(getResponse.Id != null);
 
-            var deleteResponse = await _ssrs.DeleteCatalogItem(getResponse.Id.ToString());
+            var deleteResponse = await _ssrs.DeleteCatalogItem(getResponse!.Id!.ToString()!);
             Assert.IsTrue(deleteResponse);
         }
 

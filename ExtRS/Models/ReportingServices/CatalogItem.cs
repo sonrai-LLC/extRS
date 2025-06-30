@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the name for the CatalogItem. This name is typically displayed in the user interface.</value>
     [DataMember(Name="Name", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// A string value that contains descriptive text about the CatalogItem.
@@ -34,7 +34,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains descriptive text about the CatalogItem.</value>
     [DataMember(Name="Description", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Description")]
-    public string Description { get; set; }
+    public string? Description { get; set; }
 
     /// <summary>
     /// A string value that contains the full server path for the CatalogItem. Path is defined as an alternate key on the CatalogItem and can be used as the parameter by which CatalogItem can be referenced in requests or by other defined objects.
@@ -42,7 +42,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains the full server path for the CatalogItem. Path is defined as an alternate key on the CatalogItem and can be used as the parameter by which CatalogItem can be referenced in requests or by other defined objects.</value>
     [DataMember(Name="Path", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Path")]
-    public string Path { get; set; }
+    public string? Path { get; set; }
 
     /// <summary>
     /// Gets or Sets Type
@@ -73,7 +73,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains the network user name of the last user to modify the CatalogItem.</value>
     [DataMember(Name="ModifiedBy", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ModifiedBy")]
-    public string ModifiedBy { get; set; }
+    public string? ModifiedBy { get; set; }
 
     /// <summary>
     /// A string value that contains the date-time of the last modification to the CatalogItem.
@@ -89,7 +89,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that represents the network user name of the user who originally created the CatalogItem.</value>
     [DataMember(Name="CreatedBy", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "CreatedBy")]
-    public string CreatedBy { get; set; }
+    public string? CreatedBy { get; set; }
 
     /// <summary>
     /// A string that contains the date-time of the creation of the CatalogItem.
@@ -113,7 +113,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains a SOAP MIME-type that is associated with the CatalogItem.</value>
     [DataMember(Name="ContentType", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ContentType")]
-    public string ContentType { get; set; }
+    public string? ContentType { get; set; }
 
     /// <summary>
     /// A string value that contains binary encoding by base64url encoding rules. The value of this property is not processed by the server. In object creation the server receives and stores a value, and in object retrieval the server returns the previously stored value.
@@ -121,7 +121,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains binary encoding by base64url encoding rules. The value of this property is not processed by the server. In object creation the server receives and stores a value, and in object retrieval the server returns the previously stored value.</value>
     [DataMember(Name="Content", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Content")]
-    public string Content { get; set; }
+    public string? Content { get; set; }
 
     /// <summary>
     /// A boolean value that specifies whether the CatalogItem is designated as a Favorite.

@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>The name of the parameter.</value>
     [DataMember(Name="Name", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// The value to set for the parameter.
@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>The value to set for the parameter.</value>
     [DataMember(Name="Value", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Value")]
-    public string Value { get; set; }
+    public string? Value { get; set; }
 
 
     /// <summary>

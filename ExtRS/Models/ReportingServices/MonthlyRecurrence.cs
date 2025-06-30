@@ -18,14 +18,14 @@ namespace ReportingServices.Api.Models {
     /// <value>Specifies days for recurrence.</value>
     [DataMember(Name="Days", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Days")]
-    public string Days { get; set; }
+    public string? Days { get; set; }
 
     /// <summary>
     /// Gets or Sets MonthsOfYear
     /// </summary>
     [DataMember(Name="MonthsOfYear", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "MonthsOfYear")]
-    public MonthsOfYearSelector MonthsOfYear { get; set; }
+    public MonthsOfYearSelector? MonthsOfYear { get; set; }
 
 
     /// <summary>

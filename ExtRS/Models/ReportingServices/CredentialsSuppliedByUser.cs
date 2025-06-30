@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains text used to prompt a user to supply credentials for connections to an external data source.</value>
     [DataMember(Name="DisplayText", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "DisplayText")]
-    public string DisplayText { get; set; }
+    public string? DisplayText { get; set; }
 
     /// <summary>
     /// A boolean value that indicates whether credentials the user supplies in a prompt should be used as Windows credentials.

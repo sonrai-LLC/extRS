@@ -25,7 +25,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="Manifest", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Manifest")]
-    public MobileReportManifest Manifest { get; set; }
+    public MobileReportManifest? Manifest { get; set; }
 
     /// <summary>
     /// A boolean value that indicates whether the MobileReport has shared DataSets associated with it.

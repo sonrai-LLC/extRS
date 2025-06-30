@@ -57,7 +57,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="Schedule", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Schedule")]
-    public ReportHistorySnapshotsOptionsSchedule Schedule { get; set; }
+    public ReportHistorySnapshotsOptionsSchedule? Schedule { get; set; }
 
 
     /// <summary>

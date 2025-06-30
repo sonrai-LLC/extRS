@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>Command to be executed against given data source</value>
     [DataMember(Name="CommandText", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "CommandText")]
-    public string CommandText { get; set; }
+    public required string CommandText { get; set; }
 
     /// <summary>
     /// Query Timeout, default is 30 seconds.

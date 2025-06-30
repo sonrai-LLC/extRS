@@ -16,10 +16,10 @@ namespace ReportingServices.Api.Models
         // the delivery schedule
         [DataMember(Name = "Schedule", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "Schedule")]
-        public Schedule Schedule { get; set; }
+        public Schedule? Schedule { get; set; }
 
         // the uri of the RS catalog item
-        public string Uri { get; set; }
+        public string? Uri { get; set; }
 
         /// <summary>
         /// A unique UUID value that specifies the identifier by which this Subscription can be referenced in requests or in other defined objects.
@@ -35,7 +35,7 @@ namespace ReportingServices.Api.Models
         /// <value>A string value that specifies the owner of the Subscription.</value>
         [DataMember(Name = "Owner", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "Owner")]
-        public string Owner { get; set; }
+        public string? Owner { get; set; }
 
         /// <summary>
         /// A boolean value that specifies whether the members of the distribution list for the subscription are computed based on data.
@@ -51,7 +51,7 @@ namespace ReportingServices.Api.Models
         /// <value>A string value that contains descriptive text about the Subscription.</value>
         [DataMember(Name = "Description", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "Description")]
-        public string Description { get; set; }
+        public string? Description { get; set; }
 
         /// <summary>
         /// A string value that specifies the path of the report for this Subscription.
@@ -59,7 +59,7 @@ namespace ReportingServices.Api.Models
         /// <value>A string value that specifies the path of the report for this Subscription.</value>
         [DataMember(Name = "Report", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "Report")]
-        public string Report { get; set; }
+        public string? Report { get; set; }
 
         /// <summary>
         /// A boolean value that specifies whether the Subscription is currently active.
@@ -75,7 +75,7 @@ namespace ReportingServices.Api.Models
         /// <value>A string specifying the type of event that triggers the Subscription.</value>
         [DataMember(Name = "EventType", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "EventType")]
-        public string EventType { get; set; }
+        public string? EventType { get; set; }
 
         /// <summary>
         /// A string value that contains descriptive text about the schedule referenced in the Schedule property.
@@ -83,7 +83,7 @@ namespace ReportingServices.Api.Models
         /// <value>A string value that contains descriptive text about the schedule referenced in the Schedule property.</value>
         [DataMember(Name = "ScheduleDescription", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "ScheduleDescription")]
-        public string ScheduleDescription { get; set; }
+        public string? ScheduleDescription { get; set; }
 
         /// <summary>
         /// A string value that contains the date-time that the schedule was last run.
@@ -99,14 +99,14 @@ namespace ReportingServices.Api.Models
         /// <value>A string specifying the Status of the last run.</value>
         [DataMember(Name = "LastStatus", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "LastStatus")]
-        public string LastStatus { get; set; }
+        public string? LastStatus { get; set; }
 
         /// <summary>
         /// Gets or Sets ExtensionSettings
         /// </summary>
         [DataMember(Name = "ExtensionSettings", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "ExtensionSettings")]
-        public ExtensionSettings ExtensionSettings { get; set; }
+        public ExtensionSettings? ExtensionSettings { get; set; }
 
         /// <summary>
         /// An object that specifies the DeliveryExtension that will be used with this Schedule's report delivery.
@@ -114,7 +114,7 @@ namespace ReportingServices.Api.Models
         /// <value>An object that specifies the DeliveryExtension that will be used with this Schedule's report delivery.</value>
         [DataMember(Name = "DeliveryExtension", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "DeliveryExtension")]
-        public string DeliveryExtension { get; set; }
+        public string? DeliveryExtension { get; set; }
 
         /// <summary>
         /// Localized version of extension name when available.
@@ -122,7 +122,7 @@ namespace ReportingServices.Api.Models
         /// <value>Localized version of extension name when available.</value>
         [DataMember(Name = "LocalizedDeliveryExtensionName", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "LocalizedDeliveryExtensionName")]
-        public string LocalizedDeliveryExtensionName { get; set; }
+        public string? LocalizedDeliveryExtensionName { get; set; }
 
         /// <summary>
         /// A string value that contains the network user name of the last user to modify the subscription.
@@ -130,7 +130,7 @@ namespace ReportingServices.Api.Models
         /// <value>A string value that contains the network user name of the last user to modify the subscription.</value>
         [DataMember(Name = "ModifiedBy", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "ModifiedBy")]
-        public string ModifiedBy { get; set; }
+        public string? ModifiedBy { get; set; }
 
         /// <summary>
         /// A string value that contains the date-time of the last modification to the subscription.
@@ -146,7 +146,7 @@ namespace ReportingServices.Api.Models
         /// <value>An array of items of type ParameterValue that specify the parameter values for the subscription.</value>
         [DataMember(Name = "ParameterValues", EmitDefaultValue = false)]
         [JsonProperty(PropertyName = "ParameterValues")]
-        public List<ParameterValue> ParameterValues { get; set; }
+        public List<ParameterValue>? ParameterValues { get; set; }
 
 
         /// <summary>

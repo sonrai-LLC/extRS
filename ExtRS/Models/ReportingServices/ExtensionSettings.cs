@@ -18,14 +18,14 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the name of the Reporting Services extension that the settings in the object apply to.</value>
     [DataMember(Name="Extension", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Extension")]
-    public string Extension { get; set; }
+    public string? Extension { get; set; }
 
     /// <summary>
     /// Gets or Sets ParameterValues
     /// </summary>
     [DataMember(Name="ParameterValues", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "ParameterValues")]
-    public List<ParameterValue> ParameterValues { get; set; }
+    public List<ParameterValue>? ParameterValues { get; set; }
 
 
     /// <summary>

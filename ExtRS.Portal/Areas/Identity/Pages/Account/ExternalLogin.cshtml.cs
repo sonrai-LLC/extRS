@@ -234,7 +234,7 @@ namespace ExtRS.Portal.Areas.Identity.Account
                 await _ssrs.CreateGroupUserSystemPolicy(user, false);
                 await _ssrs.CreateCatalogItemBrowserPolicy(reportsFolder.Id.ToString(), user);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

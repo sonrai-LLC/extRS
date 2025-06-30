@@ -17,7 +17,7 @@ namespace ReportingServices.Api.Models {
     /// </summary>
     [DataMember(Name="Type", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Type")]
-    public MobileReportResourceGroupType Type { get; set; }
+    public MobileReportResourceGroupType? Type { get; set; }
 
     /// <summary>
     /// An array of objects of type ResourceItem that contain the contents of the ResourceGroup.
@@ -25,7 +25,7 @@ namespace ReportingServices.Api.Models {
     /// <value>An array of objects of type ResourceItem that contain the contents of the ResourceGroup.</value>
     [DataMember(Name="Items", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Items")]
-    public List<ResourceItem> Items { get; set; }
+    public List<ResourceItem>? Items { get; set; }
 
 
     /// <summary>

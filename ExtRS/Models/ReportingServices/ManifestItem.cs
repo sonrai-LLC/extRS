@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains the complete URL for the defined item.</value>
     [DataMember(Name="Path", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Path")]
-    public string Path { get; set; }
+    public string? Path { get; set; }
 
     /// <summary>
     /// A string value that specifies the name for the item. This name will typically be displayed in the user interface.
@@ -34,7 +34,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that specifies the name for the item. This name will typically be displayed in the user interface.</value>
     [DataMember(Name="Name", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     /// <summary>
     /// A string value that contains an SHA256 hash of the contents of the item.
@@ -42,7 +42,7 @@ namespace ReportingServices.Api.Models {
     /// <value>A string value that contains an SHA256 hash of the contents of the item.</value>
     [DataMember(Name="Hash", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Hash")]
-    public string Hash { get; set; }
+    public string? Hash { get; set; }
 
 
     /// <summary>

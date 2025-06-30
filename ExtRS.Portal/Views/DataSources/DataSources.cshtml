@@ -3,7 +3,7 @@
 &nbsp;
 <div class="container">
     <section>
-        @foreach (var dataSource in Model.DataSources)
+        @foreach (var dataSource in Model.DataSources!)
         {
             <div id=@("dialog" + dataSource.Id) class="dialog" style="display: none">
             </div>

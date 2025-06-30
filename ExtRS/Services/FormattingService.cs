@@ -88,7 +88,7 @@ namespace Sonrai.ExtRS
 
         public static string ConvertJsonToXml(string json)
         {
-            return JsonConvert.DeserializeXNode(json, "Root").ToString();
+            return JsonConvert.DeserializeXNode(json, "Root")!.ToString();
         }
 
         public static string SerializeObject(object obj)

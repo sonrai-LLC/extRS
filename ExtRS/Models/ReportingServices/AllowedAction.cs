@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>The allowed action.</value>
     [DataMember(Name="Action", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Action")]
-    public string Action { get; set; }
+    public required string Action { get; set; }
 
 
     /// <summary>

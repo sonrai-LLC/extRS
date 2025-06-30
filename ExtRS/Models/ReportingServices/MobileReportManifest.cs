@@ -18,7 +18,7 @@ namespace ReportingServices.Api.Models {
     /// <value>An array of items of type ResourceGroup that specify the resources referenced in this MobileReport. A Resource is a generalized object and its content type is undefined.  A client must be able to understand the content returned in the Resource.</value>
     [DataMember(Name="Resources", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Resources")]
-    public List<ResourceGroup> Resources { get; set; }
+    public List<ResourceGroup>? Resources { get; set; }
 
     /// <summary>
     /// An array of objects of type DataSetItem that specifies the DataSets referenced in this MobileReport.
@@ -26,7 +26,7 @@ namespace ReportingServices.Api.Models {
     /// <value>An array of objects of type DataSetItem that specifies the DataSets referenced in this MobileReport.</value>
     [DataMember(Name="DataSets", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "DataSets")]
-    public List<DataSetItem> DataSets { get; set; }
+    public List<DataSetItem>? DataSets { get; set; }
 
     /// <summary>
     /// An array of items of type ThumbnailItem that contains the Thumbnails associated with the MobileReport.
@@ -34,7 +34,7 @@ namespace ReportingServices.Api.Models {
     /// <value>An array of items of type ThumbnailItem that contains the Thumbnails associated with the MobileReport.</value>
     [DataMember(Name="Thumbnails", EmitDefaultValue=false)]
     [JsonProperty(PropertyName = "Thumbnails")]
-    public List<ThumbnailItem> Thumbnails { get; set; }
+    public List<ThumbnailItem>? Thumbnails { get; set; }
 
 
     /// <summary>

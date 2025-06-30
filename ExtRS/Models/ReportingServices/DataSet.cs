@@ -15,7 +15,7 @@ namespace ReportingServices.Api.Models
     {
 
         // the uri of the RS catalog item
-        public string Uri { get; set; }
+        public string? Uri { get; set; }
         /// <summary>
         /// A boolean value that indicates whether the dataset definition contains parameters.
         /// </summary>
