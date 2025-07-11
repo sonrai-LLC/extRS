@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Sonrai.ExtRS
 {
@@ -557,33 +558,11 @@ namespace Sonrai.ExtRS
         {
             Approves = voteHubApprovalDataModel.Select(x => x.approve.ToString()).ToList();
             Disapproves = voteHubApprovalDataModel.Select(x => x.disapprove.ToString()).ToList();
-            Dates = voteHubApprovalDataModel.Select(x => DateOnly.FromDateTime(x.created_at).ToString()).ToList();
+            Dates = voteHubApprovalDataModel.Select(x => "Date.UTC(" + x.created_at.Year.ToString() + "," + (x.created_at.Month - 1).ToString() + "," + x.created_at.Day.ToString() + ")").ToList();
         }
 
         public List<string> Approves;
         public List<string> Disapproves;
         public List<string> Dates;
-    }
-
-    public class HighChartsTimeSeriesApprove
-    {
-        public HighChartsTimeSeriesApprove(VoteHubApprovalDataModel voteHubApprovalDataModel)
-        {
-           // Date = DateOnly.FromDateTime(voteHubApprovalDataModel.created_at);
-            Approve = voteHubApprovalDataModel.approve.ToString();
-        }
-       // public DateOnly Date;
-        public string Approve;
-    }
-
-    public class HighChartsTimeSeriesDisapprove
-    {
-        public HighChartsTimeSeriesDisapprove(VoteHubApprovalDataModel voteHubApprovalDataModel)
-        {
-           // Date = DateOnly.FromDateTime(voteHubApprovalDataModel.created_at);
-            Disapprove = voteHubApprovalDataModel.disapprove;
-        }
-      //  public DateOnly Date;
-        public decimal Disapprove;
     }
 }

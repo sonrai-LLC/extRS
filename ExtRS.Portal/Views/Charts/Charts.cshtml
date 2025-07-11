@@ -12,7 +12,6 @@
 <script src="https://code.highcharts.com/modules/series-label.js"></script>
 <script src="https://code.highcharts.com/themes/adaptive.js"></script>
 
-
 <style>
     #container {
         min-width: 310px;
@@ -146,38 +145,15 @@
             },
 
             xAxis: {
-                accessibility: {
-                    rangeDescription: 'Range: 2025 to present'
-                },
                 type: 'datetime',
-                tickPositions: [ @string.Join(", ", Model.HighChartsModel.Dates) ],
+                categories: [ @string.Join(", ", Model.HighChartsModel.Dates) ],
                 labels: {
-                format: '{value:%m/%d/%Y}'
+                    format: '{value:%m/%d/%Y}'
                 }
-            },
-
-            // xAxis: {
-            //     allowDecimals: false,
-            //     accessibility: {
-            //         rangeDescription: 'Range: 1990 to 2025.'
-            //     },
-            //     type: 'datetime',
-            //     labels: {
-            //       format: '{value:%m/%d/%Y}'
-            //     },
-            //     tickPositions: [ @string.Join(", ", Model.HighChartsModel.Dates) ]
-            // },
-
-            legend: {
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle'
             },
 
              plotOptions: {
                         area: {
-                            //pointStart: '1-1-2025',
-                           // relativeXValue: false,
                             marker: {
                                 enabled: true,
                                 symbol: 'circle',
@@ -205,6 +181,5 @@
 
 <table style="width: 100%; height:50%">
     <tr><td><div id="potusApproval"></div></td></tr>
-@*     <tr><td style="width:50%"><div id="tree"></div></td><td style="width:50%"><div id="sales"></div></td></tr> *@
 </table>
 <iframe src="https://tickertapes.net?embedded=true" style="width:100%; height:33%"></iframe>

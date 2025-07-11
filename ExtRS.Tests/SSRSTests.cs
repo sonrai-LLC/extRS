@@ -20,7 +20,6 @@ namespace Sonrai.ExtRS.UnitTests
 
         public SSRSTests()
         {
-            // set your API ids and secrets in UserSecrets (right-click project: "Manage User Secrets")  
             var builder = new ConfigurationBuilder()
               .AddUserSecrets<ReferenceDataTests>();
             _configuration = builder.Build();
