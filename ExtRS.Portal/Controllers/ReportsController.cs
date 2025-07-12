@@ -51,7 +51,7 @@ namespace ExtRS.Portal.Controllers
             return View(model);
         }
 
-        [Authorize]
+        [AllowAnonymous]
         public async Task<IActionResult> Report(string reportName, string id)
         {
             Report report;

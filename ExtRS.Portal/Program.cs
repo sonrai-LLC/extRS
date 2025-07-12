@@ -61,8 +61,12 @@ builder.Services.AddAuthentication()
 {
     o.ClientId = builder.Configuration["linkedInClientId"]!;
     o.ClientSecret = builder.Configuration["linkedInClientSecret"]!;
+})
+.AddMicrosoftAccount(microsoftOptions =>
+{
+    microsoftOptions.ClientId = builder.Configuration["microsoftClientId"]!;
+    microsoftOptions.ClientSecret = builder.Configuration["microsoftClientSecret"]!;
 });
-// Add Apple.
 
 builder.Services.Configure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme, options =>
 {

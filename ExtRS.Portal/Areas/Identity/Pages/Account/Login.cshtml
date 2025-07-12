@@ -44,6 +44,22 @@
         font-weight: bold;
         color: red !important;
     }
+
+    button {
+        background: navy;
+        border: none;
+        padding: 0 !important;
+        /*optional*/
+        font-family: arial, sans-serif;
+        /*input has OS specific font-family*/
+        color: cyan;
+        cursor: pointer;
+    }
+
+    button:hover {
+        text-decoration: underline;
+        color: lime;
+    }
 </style>
 
 <iframe src="https://ssrssrv.net/ReportServer/logon.aspx" style="display:none;"></iframe>
@@ -118,12 +134,19 @@
                                 {
                                     if (provider.Name == "Google")
                                     {
-                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img height="75" width="100" src="/images/google.jpg" /></button>
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><a href="#"><img height="65" width="300" src="/images/GoogleSignIn.jpg" /></a></button>
+                                        <br /><br />
                                     }
                                     else if (provider.Name == "LinkedIn")
                                     {
-                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><img height="75" width="80" src="/images/linkedin.webp" /></button>
-                                    }                                 
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><a href="#"><img height="45" width="300" src="/images/LinkedInSignIn.jpg" /></a></button>
+                                        <br /><br />
+                                    }
+                                    else if (provider.Name == "Microsoft")
+                                    {
+                                        <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account"><a href="#"><img height="45" width="300" src="/images/MicrosoftSignIn.jpg" /></a></button>
+                                        <br /><br />
+                                    }
                                 }
                             </p>
                         </div>

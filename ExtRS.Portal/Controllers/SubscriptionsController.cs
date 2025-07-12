@@ -37,7 +37,7 @@ namespace ExtRS.Portal.Controllers
 
         public async Task<List<Subscription>> GetSubscriptions()
         {
-            List<Subscription> subscriptions = await _ssrs.GetSubscriptions();
+            List<Subscription> subscriptions = await _ssrs.GetSubscriptions() ?? new List<Subscription>();
             foreach (var subscription in subscriptions)
             {
                 string uri = string.Format(Url.ActionLink("GetSubscription", "Subscriptions", new { id = subscription.Id })!);
