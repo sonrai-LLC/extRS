@@ -12,7 +12,7 @@ namespace ExtRS.Portal.Models
         public string? DefaultEmailAddress { get; set; }
     }
 
-    public class UserView2
+    public class UserView
     {
         public int Id { get; set; }
 
@@ -21,5 +21,14 @@ namespace ExtRS.Portal.Models
         public string? UserName { get; set; }
 
         public string? Email { get; set; }
+    }
+
+    public class ConfigurationInfoView
+    {
+        public Guid ConfigInfoID { get; set; }
+
+        public string? Name { get; set; }
+
+        public string? Value { get; set; }
     }
 }

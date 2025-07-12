@@ -3,7 +3,7 @@ using DataTables;
 using ExtRS.Portal.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace EditorNetCoreDemo.Controllers
+namespace ExtRS.Portal.Controllers
 {
     [AllowAnonymous]
     public class SettingsController : Controller
@@ -17,35 +17,29 @@ namespace EditorNetCoreDemo.Controllers
             _configuration = configuration;
         }
 
-        //[Route("api/users")]
+        [Route("Settings/SettingsJson")]
         [HttpGet]
-        [HttpPost]
-        public ActionResult Users()
+        public ActionResult SettingsJson()
         {
             try
             {
                 var dbType = "sqlserver";
-                var dbConnection = _configuration["ConnectionStrings:sqlServerLocal"];
+                var dbConnection = _configuration["defaultConnection"];
                 using var db = new Database(dbType, dbConnection);
-                var response = new Editor(db, "Users", "Id")
-                    .Model<UserView2>()
-                    .Field(new Field("Id")
-                        //.Validator(Validation.Numeric())
+                var response = new Editor(db, "ConfigurationInfo", "ConfigInfoID")
+                    .Model<ConfigurationInfoView>()
+                    .Field(new Field("ConfigInfoID")
                         .SetFormatter(Format.IfEmpty(null))
                     )
-                    .Field(new Field("Type")
-                        //.Validator(Validation.Numeric())
+                    .Field(new Field("Name")
                         .SetFormatter(Format.IfEmpty(null))
                     )
-                    .Field(new Field("UserName")
-                        //.Validator(Validation.Numeric())
+                    .Field(new Field("Value")
                         .SetFormatter(Format.IfEmpty(null))
                     )
-
-                    .Field(new Field("Email"))  
                     .TryCatch(true)
                     .Process(Request)
-                    .Data();  // .Validator(Validation.NotEmpty()))
+                    .Data();
 
                 return Json(response);
             }
@@ -59,23 +53,8 @@ namespace EditorNetCoreDemo.Controllers
 
         public ActionResult Settings()
         {
-            return View("Users", new SettingsView() { CurrentTab = "Settings" });
-            //var _httpClient = new _httpClient();
-            //SSRSConnection connection = new SSRSConnection(_configuration["ReportServerName"]!, _configuration["User"]!, AuthenticationType.ExtRSAuth);
-            //connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, connection.Administrator, _configuration["extrspassphrase"], connection.ServerName);
-            //var ssrs = new SSRSService(connection);
-
-            //Report report = await ssrs.GetReport("path='/Reports/Team'");
-            //ReportView model = new ReportView { Report = report, CurrentTab = "Users" };
-
-            //return RedirectToAction("Index", "Dataset", model);
+            return View("Settings", new SettingsView() { CurrentTab = "Settings" });
         }
-
-        //public async Task<IActionResult> Login()
-        //{
-        //    ViewData.Clear();
-        //    return View("_LoginPartial");
-        //}
 
         [Authorize]
         public IActionResult Privacy()

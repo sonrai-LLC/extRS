@@ -6,7 +6,7 @@ using Sonrai.ExtRS;
 using Sonrai.ExtRS.Models;
 using Microsoft.AspNetCore.Authorization;
 
-namespace EditorNetCoreDemo.Controllers
+namespace ExtRS.Portal.Controllers
 {
     [AllowAnonymous]
     public class StatsController : Controller
@@ -16,9 +16,9 @@ namespace EditorNetCoreDemo.Controllers
         private readonly SSRSConnection _connection;
         private readonly HttpClient _httpClient;
         private SSRSService _ssrs;
-        private readonly HttpContextAccessor _httpContextAccessor;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-		public StatsController(ILogger<StatsController> logger, IConfiguration configuration, HttpContextAccessor httpContextAccessor)
+		public StatsController(ILogger<StatsController> logger, IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             _logger = logger;

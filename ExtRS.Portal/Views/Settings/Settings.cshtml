@@ -1,3 +1,40 @@
 ﻿@model SettingsView
 
-&nbsp;
+<style>
+	input[type="search"] {
+		color: cyan;
+	}
+</style>
+<script type="text/javascript" language="javascript" class="init">
+	$(document).ready(function () {
+		$('#example').DataTable({
+			dom: "Bfrtip21",
+			ajax: "/Settings/SettingsJson",
+			order: [[1, 'asc']],
+			columns: [
+				{ data: "Name" },
+				{ data: "Value" }
+			],
+			select: {
+				style: 'os',
+				selector: 'td:first-child'
+			}
+		});
+	});
+</script>
+<body id="body-pd" class="dt-example net">
+	<div class="container">
+		<section>
+			<div class="demo-html">
+				<table id="example" class="display" cellspacing="0" width="100%">
+					<thead>
+						<tr>
+							<th>Name</th>
+							<th>Value</th>
+						</tr>
+					</thead>
+				</table>
+			</div>
+		</section>
+	</div>
+</body>
