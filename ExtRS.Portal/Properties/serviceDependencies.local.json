@@ -9,22 +9,28 @@
       "dynamicId": null
     },
     "mssql1": {
-      "secretStore": "LocalSecretsFile",
-      "resourceId": null,
-      "type": "mssql.onprem",
+      "ignored": "true",
+      "type": "mssql",
       "connectionId": "ConnectionStrings:DefaultConnection"
     },
-    "secrets2": {
+    "secrets4": {
       "ignored": "true",
       "type": "secrets",
-      "connectionId": "SonraiVaultUri",
+      "connectionId": "VaultUri1",
       "dynamicId": null
     },
-    "secrets1": {
+    "secrets5": {
+      "ignored": "true",
+      "type": "secrets",
+      "connectionId": "VaultUri2",
+      "dynamicId": null
+    },
+    "secrets2": {
       "secretStore": null,
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/SonraiVault",
       "type": "secrets.keyVault",
-      "connectionId": "VaultUri"
+      "connectionId": "SonraiVaultUri",
+      "dynamicId": null
     }
   }
 }
