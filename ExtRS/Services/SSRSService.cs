@@ -116,6 +116,7 @@ namespace Sonrai.ExtRS
         public async Task CreateCatalogItemBrowserPolicy(string id, string groupUserName)
         {
             await CreateCatalogItemPolicy(id, groupUserName, "Browser", "May view folders, reports and subscribe to reports.");
+            await CreateCatalogItemPolicy(id, groupUserName, "Content Manager", "May manage content in the Report Server. This includes folders, reports and resources.");
         }
 
         public async Task CreateCatalogItemPolicy(string id, string groupUserName, string role, string description)

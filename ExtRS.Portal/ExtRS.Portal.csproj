@@ -11,6 +11,13 @@
  <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
  <LangVersion>preview</LangVersion>
 </PropertyGroup>
+  
+<ItemGroup>
+  <Compile Remove="wwwroot\examples\**" />
+  <Content Remove="wwwroot\examples\**" />
+  <EmbeddedResource Remove="wwwroot\examples\**" />
+  <None Remove="wwwroot\examples\**" />
+</ItemGroup>
 
   <ItemGroup>
     <None Remove="Controllers\CatalogItemsContoller.cs~RF109f071.TMP" />

@@ -180,7 +180,7 @@ namespace ExtRS.Portal.Controllers
         // refactor to populate for existing ParameterValues
         public ExtensionSettings GetNewExtensionSettings(List<ParameterValue>? extensionParameters)
         {
-            if (extensionParameters != null)
+            if (extensionParameters == null)
             {
                 extensionParameters = new List<ParameterValue>();
             }
