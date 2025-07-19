@@ -7,9 +7,9 @@
     </am:CreatedBy>
     <am:UpdatedBy>
       <am:Name>SSDTRS</am:Name>
-      <am:Version>17.14.36212.18</am:Version>
+      <am:Version>17.14.36301.6</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2025-06-28T19:14:39.1308023Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2025-07-19T15:50:55.8491704Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
@@ -1262,7 +1262,6 @@ Fields!subject.Value = "Congress Preference", "Blue"
                           <Format>0;(0)</Format>
                         </Style>
                         <UseValueAsLabel>true</UseValueAsLabel>
-                        <Visible>true</Visible>
                       </ChartDataLabel>
                       <Style>
                         <Color>=Switch(
