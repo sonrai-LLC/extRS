@@ -9,7 +9,7 @@
       <am:Name>SSDTRS</am:Name>
       <am:Version>17.14.36301.6</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2025-07-13T21:03:15.0639021Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2025-07-30T20:27:13.0244387Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
@@ -891,6 +891,7 @@
                                     <FontFamily />
                                     <FontWeight>=Switch(Fields!WinPct.Value &gt;= .700, "Bold",
 Fields!WinPct.Value &lt;= .300, "Bold")</FontWeight>
+                                    <Format>0.000%</Format>
                                     <Color>=Switch(Fields!WinPct.Value &gt;= .600, "green",
 Fields!WinPct.Value &lt;= .400, "red")</Color>
                                   </Style>
@@ -997,6 +998,7 @@ Fields!WinPct.Value &lt;= .400, "red")</Color>
                                   <Value>=Fields!ConfWinPct.Value</Value>
                                   <Style>
                                     <FontFamily />
+                                    <Format>0.000%</Format>
                                     <Color>#333333</Color>
                                   </Style>
                                 </TextRun>

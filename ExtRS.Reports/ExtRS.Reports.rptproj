@@ -88,6 +88,7 @@
     <DataSet Include="vTeamIDs.rsd" />
   </ItemGroup>
   <ItemGroup>
+    <DataSource Include="localhost-fissonrai.rds" />
     <DataSource Include="localhost-refdata.rds" />
     <DataSource Include="localhost.rds" />
   </ItemGroup>
