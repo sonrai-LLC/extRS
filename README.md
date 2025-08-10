@@ -8,21 +8,21 @@ Here is an implementation of extRS in the form of an SSRS client (extRS.Portal.c
 # Examples
 
 ```
-       public SSRSTests()
- {
-     var builder = new ConfigurationBuilder()
-       .AddUserSecrets<ReferenceDataTests>();
-     _configuration = builder.Build();
- }
+public SSRSTests()
+{
+    var builder = new ConfigurationBuilder()
+    .AddUserSecrets<ReferenceDataTests>();
+    _configuration = builder.Build();
+}
 
- [TestInitialize]
- public async Task InitializeTests()
- {
-     _httpClient = new HttpClient();
-     SSRSConnection connection = new SSRSConnection(Resources.ReportServerName, Resources.User, AuthenticationType.ExtRSAuth);
-     _ssrs = new SSRSService(connection, _configuration, null!);
-     connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, Resources.User, _configuration["extrspassphrase"]!, connection.ReportServerName);
- }
+[TestInitialize]
+public async Task InitializeTests()
+{
+    _httpClient = new HttpClient();
+    SSRSConnection connection = new SSRSConnection(Resources.ReportServerName, Resources.User, AuthenticationType.ExtRSAuth);
+    _ssrs = new SSRSService(connection, _configuration, null!);
+    connection.SqlAuthCookie = await SSRSService.GetSqlAuthCookie(_httpClient, Resources.User, _configuration["extrspassphrase"]!, connection.ReportServerName);
+}
 
 [TestMethod]
 public async Task CreateGetDeleteCatalogItemSucceeds()
@@ -63,6 +63,7 @@ public SSRSService(SSRSConnection connection)
     cookieContainer.Add(new Cookie("sqlAuthCookie", conn.SqlAuthCookie, "/", "localhost"));
     serverUrl = string.Format("https://{0}/reports/api/v2.0/", conn.ServerName);
 }
+
 ```
 
 # Related SSRS Tools
