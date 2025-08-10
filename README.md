@@ -44,7 +44,7 @@ public async Task CreateGetDeleteCatalogItemSucceeds()
     ""ContentType"": null,
     ""Content"": """",
     ""Roles"": []
-}";
+    }";
 
     var createResponse = await _ssrs.CreateCatalogItem(json);
     Assert.IsTrue(createResponse.Id != null);
