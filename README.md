@@ -55,14 +55,6 @@ public async Task CreateGetDeleteCatalogItemSucceeds()
     var deleteResponse = await _ssrs.DeleteCatalogItem(getResponse!.Id!.ToString()!);
     Assert.IsTrue(deleteResponse);
 }
-     
-public SSRSService(SSRSConnection connection)
-{          
-    conn = connection;
-    client = new HttpClient();
-    cookieContainer.Add(new Cookie("sqlAuthCookie", conn.SqlAuthCookie, "/", "localhost"));
-    serverUrl = string.Format("https://{0}/reports/api/v2.0/", conn.ServerName);
-}
 
 ```
 
