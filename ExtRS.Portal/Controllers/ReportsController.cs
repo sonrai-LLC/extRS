@@ -135,7 +135,6 @@ namespace ExtRS.Portal.Controllers
         public async Task<IActionResult> SnapshotHistory(string reportId)
         {
             var snapshots = await _ssrs.GetReportSnapshots(reportId);
-
             return View("_SnapshotHistory", new SnapshotHistoryView { HistorySnapshots = snapshots, CurrentTab = "Reports", ReportId = reportId });
         }
     }

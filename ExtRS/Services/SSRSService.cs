@@ -343,29 +343,39 @@ namespace Sonrai.ExtRS
         {
             CatalogItem catalogItem = await GetCatalogItem(pathOrId);
             StringBuilder sb = new StringBuilder();
-
             switch (catalogItem!.Type!.ToString())
             {
                 case "Folder":
-                    {
-                        sb.Append("<a id=\"").Append(catalogItem.Id).Append("\" href=\"").Append(catalogItem.Path).Append("\"><div style=\"color: lime; background-color:#000000; font-size:11pt; font-weight:bold;\">").Append(catalogItem.Name).Append("</div></a>");
-                        break;
-                    }
+                    sb.Append($@"<a id=""{catalogItem.Id}"" href=""{catalogItem.Path}"">
+                        <div style=""color: lime; background-color:#000000; font-size:11pt; font-weight:bold;"">
+                            {catalogItem.Name}
+                        </div>
+                     </a>");
+                    break;
+
                 case "Report":
-                    {
-                        sb.Append("<a id=\"").Append(catalogItem.Id).Append("\" href=\"").Append(catalogItem.Path).Append("\"><div style=\"color: gold; background-color:#000000; font-size:11pt; font-weight:bold;\">").Append(catalogItem.Name).Append("</div></a>");
-                        break;
-                    }
+                    sb.Append($@"<a id=""{catalogItem.Id}"" href=""{catalogItem.Path}"">
+                        <div style=""color: gold; background-color:#000000; font-size:11pt; font-weight:bold;"">
+                            {catalogItem.Name}
+                        </div>
+                     </a>");
+                    break;
+
                 case "DataSource":
-                    {
-                        sb.Append("<a id=\"").Append(catalogItem.Id).Append("\" href=\"").Append(catalogItem.Path).Append("\"><div style=\"color: cyan; background-color:#000000; font-size:11pt; font-weight:bold;\">").Append(catalogItem.Name).Append("</div></a>");
-                        break;
-                    }
+                    sb.Append($@"<a id=""{catalogItem.Id}"" href=""{catalogItem.Path}"">
+                        <div style=""color: cyan; background-color:#000000; font-size:11pt; font-weight:bold;"">
+                            {catalogItem.Name}
+                        </div>
+                     </a>");
+                    break;
+
                 case "Dataset":
-                    {
-                        sb.Append("<a id=\"").Append(catalogItem.Id).Append("\" href=\"").Append(catalogItem.Path).Append("\"><div style=\"color: pink; background-color:#000000; font-size:11pt; font-weight:bold;\">").Append(catalogItem.Name).Append("</div></a>");
-                        break;
-                    }
+                    sb.Append($@"<a id=""{catalogItem.Id}"" href=""{catalogItem.Path}"">
+                        <div style=""color: pink; background-color:#000000; font-size:11pt; font-weight:bold;"">
+                            {catalogItem.Name}
+                        </div>
+                     </a>");
+                    break;
             }
 
             return sb.ToString();
@@ -423,31 +433,6 @@ namespace Sonrai.ExtRS
 
                 return stats;
             }
-        }
-
-        public void ClearSqlAuthCookies(IHttpContextAccessor _httpContextAccesor, string domains)
-        {
-
-            _cookieContainer.SetCookies(new Uri("https://ssrssrv.net"), "id=sqlAuthCookie; Expires=1-1-1900");
-
-            var cookies = _cookieContainer.GetAllCookies().Where(x => x.Name == "sqlAuthCookie");
-
-            foreach (var domain in domains.Split(","))
-            {
-                _httpContextAccesor?.HttpContext?.Response.Cookies.Delete("sqlAuthCookie", new CookieOptions()
-                {
-                    Domain = domain,
-                    Expires = DateTimeOffset.UtcNow.AddYears(-1),
-                    IsEssential = false,
-                    Secure = true,
-                    SameSite = SameSiteMode.Lax,
-                    HttpOnly = true,
-                    Path = "/",
-                    MaxAge = TimeSpan.FromMinutes(1)
-                });
-            }
-
-            cookies = _cookieContainer.GetAllCookies().Where(x => x.Name == "sqlAuthCookie");
         }
     }
 }
