@@ -1,8 +1,10 @@
-﻿using Microsoft.VisualBasic.FileIO;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic.FileIO;
 using Newtonsoft.Json;
 using System.Drawing;
 using System.Globalization;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml;
 
 namespace Sonrai.ExtRS
@@ -383,6 +385,54 @@ namespace Sonrai.ExtRS
             g.DrawImage(inputBitmap, 0, 0, asciiWidth, asciiHeight);
             g.Dispose();
             return result;
+        }
+
+        public static string TruncateURLs(string s)
+        {
+            return Regex.Replace(s, @"(http|ftp|https)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?", delegate (Match match)
+            {
+                string v = match.ToString();
+                return "<a href='" + v + "'/>";
+            });
+        }
+
+        public static async Task<string> BuildScrollText(string search, bool isSearch = false)
+        {
+            List<string> scrollText = await ReferenceDataService.GetGoogleNewsWithLinks(search);
+            return string.Join("::::", scrollText.ToArray());
+        }
+
+        public static string GetHenryTheEighth()
+        {
+            return @"I'm Henry the eighth, I am
+                Henry the eighth, I am, I am
+                I got married to the widow next door
+                She's been married seven times before
+                And every one was an Henry (Henry)
+                She wouldn't have a Willy or a Sam (no Sam)
+                I'm her eighth old man, I'm Henry
+                Henry the eighth, I am
+                Second verse, same as the first
+                I'm Henry the eighth, I am
+                Henry the eighth, I am, I am
+                I got married to the widow next door
+                She's been married seven times before
+                And every one was an Henry (Henry)
+                She wouldn't have a Willy or a Sam (no Sam)
+                I'm her eighth old man, I'm Henry
+                Henry the eighth, I am
+                I'm Henry the eighth, I am
+                Henry the eighth, I am, I am
+                I got married to the widow next door
+                She's been married seven times before
+                And every one was an Henry (Henry)
+                She wouldn't have a Willy or a Sam (no Sam)
+                I'm her eighth old man, I'm Henry
+                Henry the eighth, I am
+                H-E-N-R-Y
+                Henry (Henry) Henry (Henry)
+                Henry the eighth, I am, I am
+                Henry the eighth, I am, yeah";
         }
     }
 }
