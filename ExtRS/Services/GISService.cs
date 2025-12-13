@@ -6,7 +6,7 @@ namespace Sonrai.ExtRS
     public class GISService
     {
         private readonly GoogleLocationService _locationService;
-        private readonly HttpClient _client;
+        private HttpClient _client;
         private static readonly string states101FlagUrl = "https://www.states101.com/img/flags/svg/";
         public GISService(HttpClient client, GoogleLocationService locationService)
         {
@@ -59,8 +59,7 @@ namespace Sonrai.ExtRS
 
         public async Task<byte[]> GetUnitedStatesFlagImage(string state)
         {
-            var uri = string.Format("{0}{1}.svg", states101FlagUrl, state);
-            return await _client.GetByteArrayAsync(uri);
+            return await _client.GetByteArrayAsync(string.Format("{0}{1}.svg", states101FlagUrl, state));
         }
 
         public static string GetStateNameFromStateAbbreviation(string abbrev)

@@ -1,52 +1,63 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using GoogleMaps.LocationServices;
+﻿using GoogleMaps.LocationServices;
+using Microsoft.Extensions.Configuration;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Sonrai.ExtRS.UnitTests
 {
     [TestClass]
     public class GISTests
     {
-        protected readonly string googleApiKey = "AIzaSyBwKjGONPjGa6Opj9j5XnlKzWZLGDT3Kbs"; // Google Maps API key, found here https://developers.google.com/maps/documentation/javascript/get-api-key
-        GISService? gis;
+        private GISService? _gis;
 
-       [TestInitialize] public void Init()
+        private IConfiguration _configuration { get; }
+
+        public GISTests()
         {
-            gis = new GISService(new HttpClient(), new GoogleLocationService(googleApiKey));
+            var builder = new ConfigurationBuilder()
+              .AddUserSecrets<GISTests>();
+            _configuration = builder.Build();
+        }
+
+        [TestInitialize]
+        public void Init()
+        {
+            _gis = new GISService(new HttpClient(), new GoogleLocationService(_configuration["googleApiKey"])); // Google Maps API key, found here https://developers.google.com/maps/documentation/javascript/get-api-key
         }
 
         [TestMethod]
         public void ValidateAddressSucceeds()
         {
-            var result = gis!.ValidateAddress("Beloit, WI");
+            var result = _gis!.ValidateAddress("Beloit, WI");
             Assert.IsTrue(result);
         }
 
         [TestMethod]
         public void ValidateAddressFails()
         {
-            var result = gis!.ValidateAddress("?-$#, ,,_}%");
+            var result = _gis!.ValidateAddress("?-$#, ,,_}%");
             Assert.IsFalse(result);
         }
 
         [TestMethod]
         public void GetLocationFails()
         {
-            var result = gis!.GetLocation("Beloit, WI");
+            var result = _gis!.GetLocation("Beloit, WI");
             Assert.IsTrue(result.Long!.Length > 0);
         }
 
         [TestMethod]
         public void GetLocationReturnsNothing()
         {
-            var result = gis!.GetLocation("IYTDFOUYFUILYG");
-            Assert.IsTrue(result == null);
+            var result = _gis!.GetLocation("IYTDFOUYFUILYG");
+            Assert.IsNull(result);
         }
 
         [TestMethod]
         public void GetLocationsSucceeds()
         {
-            List<string> locations = new List<string> { "Chicago, IL", "Milwaukee, WI", "Detroit, MI"};
-            var result = gis!.GetLocations(locations);
+            List<string> locations = new List<string> { "Chicago, IL", "Milwaukee, WI", "Detroit, MI" };
+            var result = _gis!.GetLocations(locations);
             Assert.IsTrue(result.Count == 3);
         }
 
@@ -54,8 +65,8 @@ namespace Sonrai.ExtRS.UnitTests
         public void GetLocationsReturnsNothing()
         {
             List<string> locations = new List<string> { "adv??asdvgsd, _B", "adgsdgvs, RE", "YTFYT??, H+" };
-            var result = gis!.GetLocations(locations);
-            Assert.IsTrue(result.Count == 0);
+            var result = _gis!.GetLocations(locations);
+            Assert.IsEmpty(result);
         }
 
         [TestMethod]
@@ -65,27 +76,23 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(result.Length > 0);
         }
 
-        [ExpectedException(typeof(InvalidOperationException))]
         [TestMethod]
         public void GetUnitedStatesFlagUrlFails()
         {
-            var result = GISService.GetUnitedStatesFlagUrl(null!);
-            // expect exception
+            Assert.ThrowsExactly<InvalidOperationException>(() => GISService.GetUnitedStatesFlagUrl(null!));
         }
 
         [TestMethod]
         public async Task GetUnitedStatesFlagImageSucceeds()
         {
-            var result = await gis!.GetUnitedStatesFlagImage("wisconsin");
-            Assert.IsTrue(result.Length > 0);
+            var result = await _gis!.GetUnitedStatesFlagImage("wisconsin");
+            Assert.IsNotEmpty(result);
         }
 
-        [ExpectedException(typeof(HttpRequestException))]
         [TestMethod]
         public async Task GetUnitedStatesFlagImageFails()
         {
-            var result = await gis!.GetUnitedStatesFlagImage("ZZ");
-            // expect exception
+            await Assert.ThrowsExactlyAsync<HttpRequestException>(() => _gis!.GetUnitedStatesFlagImage("ZZ"));
         }
 
         [TestMethod]
@@ -95,25 +102,23 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(result.Length > 0);
         }
 
-        [ExpectedException(typeof(InvalidOperationException))]
         [TestMethod]
         public void GetStateNameFromStateAbbreviationFails()
         {
-            var result = GISService.GetStateNameFromStateAbbreviation("ZZ");
+            Assert.ThrowsExactly<InvalidOperationException>(() => GISService.GetStateNameFromStateAbbreviation("ZZ"));
         }
 
         [TestMethod]
         public void GetStateAbbreviationFromStateNameSucceeds()
         {
             var result = GISService.GetStateAbbreviationFromStateName("Wisconsin");
-            Assert.IsTrue(result.Length > 0);
+            Assert.IsGreaterThan(0, result.Length);
         }
 
-        [ExpectedException(typeof(InvalidOperationException))]
         [TestMethod]
         public void GetStateAbbreviationFromStateNameFails()
         {
-            var result = GISService.GetStateAbbreviationFromStateName("Milwaukee"); ;
+            Assert.ThrowsExactly<InvalidOperationException>(() => GISService.GetStateAbbreviationFromStateName("Milwaukee"));
         }
 
         [TestMethod]

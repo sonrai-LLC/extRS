@@ -16,12 +16,13 @@ namespace Sonrai.ExtRS.UnitTests
     {
         private SSRSService _ssrs;
         private HttpClient _httpClient;
+
         private IConfiguration _configuration { get; }
 
         public SSRSTests()
         {
             var builder = new ConfigurationBuilder()
-              .AddUserSecrets<ReferenceDataTests>();
+              .AddUserSecrets<SSRSTests>();
             _configuration = builder.Build();
         }
 

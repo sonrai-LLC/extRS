@@ -12,11 +12,10 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(EncryptionService.Encrypt("some clear text", "secr3tk3y") == "nNVA3kA4w+Imz4fyhK7/qsF7IUSLMZ/bsa42vAPkFPk=");
         }
 
-        [ExpectedException(typeof(ArgumentNullException))]
         [TestMethod]
         public void EncryptUrlFails()
         {
-            EncryptionService.Encrypt(null!, null!);
+            Assert.ThrowsExactly<ArgumentNullException>(() => EncryptionService.Encrypt(null!, null!));
         }
 
         [TestMethod]
@@ -25,11 +24,10 @@ namespace Sonrai.ExtRS.UnitTests
             Assert.IsTrue(EncryptionService.Decrypt("nNVA3kA4w+Imz4fyhK7/qsF7IUSLMZ/bsa42vAPkFPk=", "secr3tk3y") == "some clear text");
         }
 
-        [ExpectedException(typeof(NullReferenceException))]
         [TestMethod]
         public void DecryptUrlFails()
         {
-            EncryptionService.Decrypt(null!, null!);
+            Assert.ThrowsExactly<NullReferenceException>(() => EncryptionService.Decrypt(null!, null!));
         }
     }
 }

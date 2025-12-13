@@ -17,16 +17,16 @@ namespace Sonrai.ExtRS.UnitTests
     [TestClass]
     public class ReferenceDataTests
     {
-        public static string tiingoAPIToken = "";
-        ReferenceDataService.Address origin = new ReferenceDataService.Address() { AddressLine = "2042 Oakland Ave.", City = "Milwaukee", State = "WI", PostalCode = "53204", Country = "US" };
-        ReferenceDataService.Address destination = new ReferenceDataService.Address() { AddressLine = "742 Harrison Ave.", City = "Beloit", State = "WI", PostalCode = "53511", Country = "US" };
-        public static string upsAuthKey = "";
-        public static string fedExAuthKey = "";
-        public static string upsId = "";
-        public static string upsSecret = "";
-        public static string fedexId = "";
-        public static string fedexSecret = "";
-        public static string googleAPIKey = "";
+        private static string tiingoAPIToken = "";
+        private ReferenceDataService.Address origin = new ReferenceDataService.Address() { AddressLine = "2042 Oakland Ave.", City = "Milwaukee", State = "WI", PostalCode = "53204", Country = "US" };
+        private ReferenceDataService.Address destination = new ReferenceDataService.Address() { AddressLine = "742 Harrison Ave.", City = "Beloit", State = "WI", PostalCode = "53511", Country = "US" };
+        private static string upsAuthKey = "";
+        private static string fedExAuthKey = "";
+        private static string upsId = "";
+        private static string upsSecret = "";
+        private static string fedexId = "";
+        private static string fedexSecret = "";
+        private static string googleAPIKey = "";
 
         private IConfiguration _configuration { get; }
 
