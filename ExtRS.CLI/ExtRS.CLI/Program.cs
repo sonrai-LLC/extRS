@@ -18,6 +18,12 @@ namespace ExtRS.CLI
             .AddUserSecrets<Program>();
             _configuration = builder.Build();
 
+            var config = new ConfigurationBuilder()
+            .AddUserSecrets<Program>()
+            .Build();
+
+            Console.WriteLine(config["MySecret"]);
+
             SSRSService ssrs;
             HttpClient httpClient = new HttpClient();
             var program = new Program();
