@@ -1,5 +1,11 @@
 ﻿using GoogleMaps.LocationServices;
+using Microsoft.AspNetCore.Http;
 using Sonrai.ExtRS.Models;
+using Sonrai.ExtRS.Models.GIS;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Text.Json;
 
 namespace Sonrai.ExtRS
 {
@@ -95,6 +101,67 @@ namespace Sonrai.ExtRS
         public static List<State> ToList()
         {
             return LocationRefData.StatesAndProvinces;
+        }
+
+        public async Task<(double? Latitude, double? Longitude)> GetLatLongFromRequestAsync(HttpRequest request)
+        {
+            try
+            {
+                var ip = request.Headers.ContainsKey("X-Forwarded-For")
+                    ? request.Headers["X-Forwarded-For"].ToString().Split(',')[0]
+                    : request.HttpContext.Connection.RemoteIpAddress?.ToString();
+
+                if (string.IsNullOrWhiteSpace(ip) || ip == "::1")
+                    return (null, null);
+
+                using var httpClient = new HttpClient();
+                var url = $"http://ip-api.com/json/{ip}?fields=lat,lon,status,message";
+                var response = await httpClient.GetStringAsync(url);
+
+                var json = JsonDocument.Parse(response);
+                if (json.RootElement.GetProperty("status").GetString() == "success")
+                {
+                    double lat = json.RootElement.GetProperty("lat").GetDouble();
+                    double lon = json.RootElement.GetProperty("lon").GetDouble();
+                    return (lat, lon);
+                }
+
+                return (null, null);
+            }
+            catch
+            {
+                return (null, null);
+            }
+        }
+
+        public static string? GetClientIp(HttpRequest request)
+        {
+            if (request.Headers.TryGetValue("X-Forwarded-For", out var forwardedFor))
+            {
+                var ip = forwardedFor.FirstOrDefault()?.Split(',').FirstOrDefault();
+                if (!string.IsNullOrWhiteSpace(ip))
+                    return ip;
+            }
+
+            return request.HttpContext.Connection.RemoteIpAddress?.ToString();
+        }
+
+        public static async Task<(double? lat, double? lon)> GetLatLongFromIpAsync(string ip)
+        {
+            try
+            {
+                using var httpClient = new HttpClient();
+                var url = $"http://ip-api.com/json/{WebUtility.UrlEncode(ip)}";
+                var geo = await httpClient.GetFromJsonAsync<GeoLocation>(url);
+
+                if (geo != null && geo.Status == "success")
+                    return (geo.Lat, geo.Lon);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return (null, null);
         }
     }
 }

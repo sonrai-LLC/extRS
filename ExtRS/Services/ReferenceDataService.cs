@@ -27,7 +27,7 @@ namespace Sonrai.ExtRS
             return await client.GetStringAsync("https://api.datamuse.com/words?ml=" + wordsPlusDelimited);
         }
 
-        public static async Task<string> GetAppPublicIP()
+        public static async Task<string> GetCurrentPublicIP()
         {
             HttpClient client = new HttpClient();
             return await client.GetStringAsync("https://api.ipify.org?format=json");

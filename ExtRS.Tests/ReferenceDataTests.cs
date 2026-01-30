@@ -74,7 +74,7 @@ namespace Sonrai.ExtRS.UnitTests
         [TestMethod]
         public async Task GetAppPublicIPSucceeds()
         {
-            var result = await ReferenceDataService.GetAppPublicIP();
+            var result = await ReferenceDataService.GetCurrentPublicIP();
             var ip = result.Substring(result.Length - 7);
             Assert.IsTrue(result.Length > 0);
         }
