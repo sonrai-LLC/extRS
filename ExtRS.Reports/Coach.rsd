@@ -129,10 +129,6 @@
         <DataField>OrgID</DataField>
         <rd:TypeName>System.Int32</rd:TypeName>
       </Field>
-      <Field Name="Org">
-        <DataField>Org</DataField>
-        <rd:TypeName>System.String</rd:TypeName>
-      </Field>
       <Field Name="ETeamID">
         <DataField>ETeamID</DataField>
         <rd:TypeName>System.Int32</rd:TypeName>
@@ -312,6 +308,14 @@
       <Field Name="PrimaryContactImg">
         <DataField>PrimaryContactImg</DataField>
         <rd:TypeName>System.Byte[]</rd:TypeName>
+      </Field>
+      <Field Name="PrimaryColorA">
+        <DataField>PrimaryColorA</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
+      </Field>
+      <Field Name="PrimaryColorB">
+        <DataField>PrimaryColorB</DataField>
+        <rd:TypeName>System.String</rd:TypeName>
       </Field>
     </Fields>
   </DataSet>
