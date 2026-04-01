@@ -34,7 +34,7 @@ namespace ExtRS.Portal.Controllers
             foreach (var dataset in datasets)
             {
                 string uri = string.Format(Url.ActionLink("Dataset", "Datasets", new { dataSetName = dataset.Name })!);
-                dataset.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+                dataset.Uri = uri + "&Qs=" + EncryptionService.EncryptAes(uri, _configuration["cle"]!);
             }       
 
             DatasetsView model = new DatasetsView() { CurrentTab = "Datasets", Datasets = datasets, ReportServerName = _configuration["ReportServerName"]! };
@@ -54,7 +54,7 @@ namespace ExtRS.Portal.Controllers
             }
 
             string uri = string.Format("https://{0}/Reportserver/Datasets?%2fDatasets/{1}", _ssrs._conn.ReportServerName, dataset.Name);
-            dataset.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+            dataset.Uri = uri + "&Qs=" + EncryptionService.EncryptAes(uri, _configuration["cle"]!);
 
             DatasetView view = new DatasetView { CurrentTab = "Datasets", SelectedDataSet = dataset, ReportServerName = _configuration["ReportServerName"]! };
             return View("_Dataset", view);

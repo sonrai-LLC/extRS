@@ -44,7 +44,7 @@ namespace ExtRS.Portal.Controllers
             foreach (var report in reports)
             {
                 string uri = string.Format(Url.ActionLink("Report", "Reports", new { reportName = report.Name })!);
-                report.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+                report.Uri = uri + "&Qs=" + EncryptionService.EncryptAes(uri, _configuration["cle"]!);
             }
 
             ReportsView model = new ReportsView { Reports = reports, CurrentTab = "RS Reports", ReportServerName = _configuration["ReportServerName"]! };
@@ -75,7 +75,7 @@ namespace ExtRS.Portal.Controllers
             }
             string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true&UserName={2}", _ssrs._conn.ReportServerName, report.Name, _httpContextAccessor.HttpContext!.User.Identity!.Name!);
 
-			uri += "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+			uri += "&Qs=" + EncryptionService.EncryptAes(uri, _configuration["cle"]!);
             report.Uri = uri;
 
             ReportView view = new ReportView() { SelectedReport = report };
@@ -88,7 +88,7 @@ namespace ExtRS.Portal.Controllers
             creationDate = Convert.ToDateTime(creationDate).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ss");
             Report report = await _ssrs.GetReport(reportId);
             string uri = string.Format("https://{0}/ReportServer/Pages/ReportViewer.aspx?/Reports/{1}&rs:embed=true&UserName={2}&rs:Snapshot={3}", _ssrs._conn.ReportServerName, report.Name, _httpContextAccessor.HttpContext!.User!.Identity!.Name!, creationDate);
-            uri += "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+            uri += "&Qs=" + EncryptionService.EncryptAes(uri, _configuration["cle"]!);
 
             ReportView view = new ReportView() { SelectedReport = new Report { Uri = uri } };
             return View("_Report", view);

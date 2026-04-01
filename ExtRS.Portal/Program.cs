@@ -94,7 +94,6 @@ builder.Services.AddSession(options =>
     options.Cookie.SameSite = SameSiteMode.None;
     options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
 });
-builder.Services.AddScoped<EncryptionService>();
 builder.Services.AddScoped<ApplicationUser>();
 builder.Services.AddScoped<IdentityUser>();
 builder.Services.AddScoped<SignInManager<ApplicationUser>>();

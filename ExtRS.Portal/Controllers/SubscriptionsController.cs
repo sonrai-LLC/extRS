@@ -41,7 +41,7 @@ namespace ExtRS.Portal.Controllers
             foreach (var subscription in subscriptions)
             {
                 string uri = string.Format(Url.ActionLink("GetSubscription", "Subscriptions", new { id = subscription.Id })!);
-                subscription.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+                subscription.Uri = uri + "&Qs=" + EncryptionService.EncryptAes(uri, _configuration["cle"]!);
             }
 
             return subscriptions;
@@ -116,7 +116,7 @@ namespace ExtRS.Portal.Controllers
             foreach (var subscription in subscriptions)
             {
                 string uri = string.Format(Url.ActionLink("GetSubscription", "Subscriptions", new { id = subscription.Id })!);
-                subscription.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+                subscription.Uri = uri + "&Qs=" + EncryptionService.EncryptAes(uri, _configuration["cle"]!);
             }
 
             return GetSubscriptionsHtml(subscriptions);
@@ -131,7 +131,7 @@ namespace ExtRS.Portal.Controllers
             foreach (var subscription in subscriptions)
             {
                 string uri = string.Format(Url.ActionLink("GetSubscription", "Subscriptions", new { id = subscription.Id })!);
-                subscription.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+                subscription.Uri = uri + "&Qs=" + EncryptionService.EncryptAes(uri, _configuration["cle"]!);
             }
 
             SubscriptionsView model = new SubscriptionsView() { CurrentTab = "Subscriptions", Subscriptions = subscriptions, ReportServerName = _configuration["ReportServerName"]! };

@@ -35,7 +35,7 @@ namespace ExtRS.Portal.Controllers
             foreach (var dataSource in dataSources)
             {
                 string uri = string.Format(Url.ActionLink("DataSource", "DataSources", new { dataSourceName = dataSource.Name })!);
-                dataSource.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+                dataSource.Uri = uri + "&Qs=" + EncryptionService.EncryptAes(uri, _configuration["cle"]!);
             }
 
             DataSourcesView model = new DataSourcesView { CurrentTab = "DataSources", DataSources = dataSources, ReportServerName = _configuration["ReportServerName"]! };
@@ -57,7 +57,7 @@ namespace ExtRS.Portal.Controllers
             }
 
             string uri = string.Format("https://{0}/Reportserver/Data+Sources?%2fData+Sources/{1}", _ssrs._conn.ReportServerName, dataSource.Name);
-            dataSource.Uri = uri + "&Qs=" + EncryptionService.Encrypt(uri, _configuration["cle"]!);
+            dataSource.Uri = uri + "&Qs=" + EncryptionService.EncryptAes(uri, _configuration["cle"]!);
 
             DataSourceView view = new DataSourceView { CurrentTab = "DataSources", SelectedDataSource = dataSource, ReportServerName = _configuration["ReportServerName"]! };
             return View("_DataSource", view);
