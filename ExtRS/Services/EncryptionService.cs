@@ -3,72 +3,78 @@ using System.Text;
 
 namespace Sonrai.ExtRS
 {
-    public class EncryptionService
+    public static class EncryptionService
     {
-        /// <summary>
-        /// Encrypts an input string with an input key.
-        /// </summary>
-        /// <param name="clearText">The string to encrypt.</param>
-        /// <param name="enc_key">The encryption key to use for encryption of clearText.</param>
-        /// <returns>
-        /// An encrypted string based on the clearText input.
-        /// </returns>
-        public static string Encrypt(string clearText, string enc_key)
+        private const int KeySize = 32; // 256-bit
+        private const int SaltSize = 16;
+        private const int NonceSize = 12;
+        private const int TagSize = 16;
+        private const int Iterations = 100_000;
+
+        public static string Encrypt(string plainText, string password)
         {
-            var cipherText = "";
-            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
-            using (Aes encryptor = Aes.Create())
+            byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
+            byte[] nonce = RandomNumberGenerator.GetBytes(NonceSize);
+
+            byte[] key = DeriveKey(password, salt);
+
+            byte[] plaintextBytes = Encoding.UTF8.GetBytes(plainText);
+            byte[] ciphertext = new byte[plaintextBytes.Length];
+            byte[] tag = new byte[TagSize];
+
+            using (var aes = new AesGcm(key, TagSize))
             {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(enc_key, new byte[14], 1000, HashAlgorithmName.SHA256);
-                encryptor.Key = pdb.GetBytes(32);
-                encryptor.IV = pdb.GetBytes(16);
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
-                    {
-                        cs.Write(clearBytes, 0, clearBytes.Length);
-                        cs.Close();
-                    }
-                    cipherText = Convert.ToBase64String(ms.ToArray());
-                }
+                aes.Encrypt(nonce, plaintextBytes, ciphertext, tag);
             }
 
-            return cipherText;
+            using (var ms = new MemoryStream())
+            {
+                ms.Write(salt);
+                ms.Write(nonce);
+                ms.Write(tag);
+                ms.Write(ciphertext);
+
+                return Convert.ToBase64String(ms.ToArray());
+            }
         }
 
-        /// <summary>
-        /// Decrypts an encrypted/cipher string with an input key.
-        /// </summary>
-        /// <param name="cipherText">The string to decrypt.</param>
-        /// <param name="enc_key">The encryption key to use for decryption of cipherText.</param>
-        /// <returns>
-        /// An decrypted string based on the cipherText input.
-        /// </returns>
-        public static string Decrypt(string cipherText, string enc_key)
+        public static string Decrypt(string encryptedData, string password)
         {
-            var clearText = "";
-            cipherText = cipherText.Replace(" ", "+");
-            byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            byte[] fullData = Convert.FromBase64String(encryptedData);
 
-            using (Aes encryptor = Aes.Create())
+            using (var ms = new MemoryStream(fullData))
             {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(enc_key, new byte[14], 1000, HashAlgorithmName.SHA256);
-                encryptor.Key = pdb.GetBytes(32);
-                encryptor.IV = pdb.GetBytes(16);
-                using (MemoryStream ms = new MemoryStream())
+                byte[] salt = ReadBytes(ms, SaltSize);
+                byte[] nonce = ReadBytes(ms, NonceSize);
+                byte[] tag = ReadBytes(ms, TagSize);
+                byte[] ciphertext = ReadBytes(ms, (int)(ms.Length - ms.Position));
+
+                byte[] key = DeriveKey(password, salt);
+                byte[] plaintext = new byte[ciphertext.Length];
+
+                using (var aes = new AesGcm(key, TagSize))
                 {
-                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
-                    {
-                        cs.Write(cipherBytes, 0, cipherBytes.Length);
-                        cs.FlushFinalBlock();
-                        cs.Close();
-                    }
-
-                    clearText = Encoding.Unicode.GetString(ms.ToArray());
+                    aes.Decrypt(nonce, ciphertext, tag, plaintext);
                 }
-            }
 
-            return clearText;
+                return Encoding.UTF8.GetString(plaintext);
+            }
+        }
+
+        private static byte[] DeriveKey(string password, byte[] salt)
+        {
+            return Rfc2898DeriveBytes.Pbkdf2(password, salt, Iterations, HashAlgorithmName.SHA256, KeySize);
+        }
+
+        private static byte[] ReadBytes(Stream stream, int count)
+        {
+            byte[] buffer = new byte[count];
+            int read = stream.Read(buffer, 0, count);
+
+            if (read != count)
+                throw new CryptographicException("Invalid encrypted data.");
+
+            return buffer;
         }
     }
 }
