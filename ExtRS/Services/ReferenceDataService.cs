@@ -539,6 +539,19 @@ namespace Sonrai.ExtRS
         }
 
         #endregion
+
+        #region XPath
+
+        public static string GetByXPath(string html, string xPath)
+        {
+            var parser = new HtmlParser();
+            var document = parser.ParseDocument(html);
+            var element = document.QuerySelector(xPath);
+
+            return element?.InnerHtml ?? "";
+        }
+
+        #endregion
     }
 
     public class VoteHubApprovalDataModel

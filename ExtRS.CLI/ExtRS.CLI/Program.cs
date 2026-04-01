@@ -6,6 +6,7 @@ using Sonrai.ExtRS.Models;
 using System.Drawing;
 using System.Text;
 using static System.Net.Mime.MediaTypeNames;
+using Spectre;
 
 namespace ExtRS.CLI
 {   
@@ -92,6 +93,37 @@ namespace ExtRS.CLI
                     //Console.WriteLine(answer?.Split(" ")[1]);
                     break;
             }
+
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadLine();
+            Spectre.Console.AnsiConsole.MarkupLine("[lime]This is a gooooooood CLI library!![/]");
+            for (int i = 0; i < 10; i++)
+            {
+                Spectre.Console.AnsiConsole.MarkupLine($"[blue]Loading extRS... {i * 20}%[/]");
+                Thread.Sleep(500);
+            }
+
+            var progress = Spectre.Console.AnsiConsole.Progress();
+            progress.Start(ctx =>
+            {
+                var task1 = ctx.AddTask("[lime]Loading super tools!...[/]", autoStart: true);
+                while (!task1.IsFinished)
+                {
+                    task1.Increment(20);
+                    Thread.Sleep(500);
+                }
+            });
+
+            for (int i = 0; i < 10; i++)
+            {
+                Spectre.Console.AnsiConsole.MarkupLine($"[red]SECURITY BREACH!!![/]");
+                Thread.Sleep(500);
+            }
+
+            Spectre.Console.AnsiConsole.MarkupLine("[blue](just kidding)[/]");
+
+            Console.WriteLine("Press any key to continue...");
+            Console.ReadLine();
         }
 
         public static void ShowAsciiArt()

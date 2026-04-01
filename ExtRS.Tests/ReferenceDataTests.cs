@@ -1,16 +1,17 @@
 ﻿using GoogleMaps.LocationServices;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
-using System.Threading.Tasks;
 using Sonrai.ExtRS;
-using static Sonrai.ExtRS.ReferenceDataService;
+using Sonrai.ExtRS.Models;
 using Sonrai.ExtRS.Models.Tiingo;
-using Microsoft.Extensions.Configuration.UserSecrets;
-using Microsoft.Extensions.Configuration;
-using System.Diagnostics;
-using System.Reflection;
 using System;
 using System.Configuration;
+using System.Diagnostics;
+using System.Reflection;
+using System.Threading.Tasks;
+using static Sonrai.ExtRS.ReferenceDataService;
 
 namespace Sonrai.ExtRS.UnitTests
 {
@@ -190,6 +191,18 @@ namespace Sonrai.ExtRS.UnitTests
             authToken = ReferenceDataService.GetAuthTokenFedEx(fedexId, fedexSecret);
             result = ReferenceDataService.GetTrackingInfo(Shipper.FedEx, "377101283611590", "", authToken);
             Assert.IsTrue(result.IsSuccessful);
+        }
+
+        [TestMethod]
+        public void Test()
+        {
+            //var client = new RestClient("https://uwmfreak.proboards.com/thread/8839/green-bay-2-15-26?page=1");
+            ////request.AddHeader("Content-Type", "application/xml");
+            //var response = client.Execute(new RestRequest());
+
+            //var content = ReferenceDataService.GetByXPath(response.Content.ToString(), "//div[@class=\"message\"]/text()");
+
+            //Assert.IsGreaterThan(content.Length, 0);
         }
     }
 }
