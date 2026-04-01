@@ -11,7 +11,7 @@ namespace Sonrai.ExtRS
         private const int TagSize = 16;
         private const int Iterations = 100_000;
 
-        public static string Encrypt(string plainText, string password)
+        public static string EncryptAesGcm(string plainText, string password)
         {
             byte[] salt = RandomNumberGenerator.GetBytes(SaltSize);
             byte[] nonce = RandomNumberGenerator.GetBytes(NonceSize);
@@ -38,7 +38,7 @@ namespace Sonrai.ExtRS
             }
         }
 
-        public static string Decrypt(string encryptedData, string password)
+        public static string DecryptAesGcm(string encryptedData, string password)
         {
             byte[] fullData = Convert.FromBase64String(encryptedData);
 
@@ -75,6 +75,61 @@ namespace Sonrai.ExtRS
                 throw new CryptographicException("Invalid encrypted data.");
 
             return buffer;
+        }
+
+        public static string EncryptAes(string clearText, string enc_key)
+        {
+            var cipherText = "";
+            byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
+            using (Aes encryptor = Aes.Create())
+            {
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(enc_key, new byte[14], 1000, HashAlgorithmName.SHA256);
+                encryptor.Key = pdb.GetBytes(32);
+                encryptor.IV = pdb.GetBytes(16);
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cs.Write(clearBytes, 0, clearBytes.Length);
+                        cs.Close();
+                    }
+
+                    cipherText = Convert.ToBase64String(ms.ToArray());
+                }
+            }
+            return cipherText;
+        }
+
+        public static string DecryptAes(string cipherText, string enc_key)
+        {
+            var clearText = "";
+            cipherText = cipherText.Replace(" ", "+");
+            byte[] cipherBytes = Convert.FromBase64String(cipherText);
+            try
+            {
+                using (Aes encryptor = Aes.Create())
+                {
+                    Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(enc_key, new byte[14], 1000, HashAlgorithmName.SHA256);
+                    encryptor.Key = pdb.GetBytes(32);
+                    encryptor.IV = pdb.GetBytes(16);
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
+                        {
+                            cs.Write(cipherBytes, 0, cipherBytes.Length);
+                            cs.Close();
+                        }
+
+                        clearText = Encoding.Unicode.GetString(ms.ToArray());
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return clearText;
         }
     }
 }
