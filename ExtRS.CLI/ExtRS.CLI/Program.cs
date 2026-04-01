@@ -124,6 +124,8 @@ namespace ExtRS.CLI
 
             Console.WriteLine("Press any key to continue...");
             Console.ReadLine();
+            ShowAsciiArt();
+            Console.ReadLine();
         }
 
         public static void ShowAsciiArt()
