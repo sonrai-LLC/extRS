@@ -7,9 +7,9 @@
     </am:CreatedBy>
     <am:UpdatedBy>
       <am:Name>SSDTRS</am:Name>
-      <am:Version>17.14.36301.6</am:Version>
+      <am:Version>17.14.37216.2</am:Version>
     </am:UpdatedBy>
-    <am:LastModifiedTimestamp>2025-07-19T15:50:55.8491704Z</am:LastModifiedTimestamp>
+    <am:LastModifiedTimestamp>2026-04-25T19:43:25.0566941Z</am:LastModifiedTimestamp>
   </am:AuthoringMetadata>
   <df:DefaultFontFamily>Segoe UI</df:DefaultFontFamily>
   <AutoRefresh>0</AutoRefresh>
@@ -875,6 +875,7 @@ Fields!subject.Value = "Congress Preference", "Blue"
                         <Color>#5c5c5c</Color>
                       </Style>
                     </ChartAxisTitle>
+                    <IntervalType>Weeks</IntervalType>
                     <ChartMajorGridLines>
                       <Enabled>False</Enabled>
                       <Style>
@@ -1026,8 +1027,8 @@ Fields!subject.Value = "Congress Preference", "Blue"
                     <CrossAt>NaN</CrossAt>
                     <Interlaced>true</Interlaced>
                     <InterlacedColor>WhiteSmoke</InterlacedColor>
-                    <Minimum>35</Minimum>
-                    <Maximum>60</Maximum>
+                    <Minimum>30</Minimum>
+                    <Maximum>70</Maximum>
                     <IncludeZero>false</IncludeZero>
                     <ChartAxisScaleBreak>
                       <Style />
@@ -1433,7 +1434,7 @@ Fields!subject.Value = "Congress Preference", "Blue"
                         <Color>#5c5c5c</Color>
                       </Style>
                     </ChartAxisTitle>
-                    <Interval>5</Interval>
+                    <Interval>10</Interval>
                     <IntervalType>Number</IntervalType>
                     <ChartMajorGridLines>
                       <Style>
@@ -1469,8 +1470,8 @@ Fields!subject.Value = "Congress Preference", "Blue"
                     <CrossAt>NaN</CrossAt>
                     <Interlaced>true</Interlaced>
                     <InterlacedColor>WhiteSmoke</InterlacedColor>
-                    <Minimum>35</Minimum>
-                    <Maximum>60</Maximum>
+                    <Minimum>30</Minimum>
+                    <Maximum>70</Maximum>
                     <IncludeZero>false</IncludeZero>
                     <ChartAxisScaleBreak>
                       <Style />
