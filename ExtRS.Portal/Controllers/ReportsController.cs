@@ -31,7 +31,7 @@ namespace ExtRS.Portal.Controllers
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
             _httpClient = new HttpClient();
-            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _httpContextAccessor.HttpContext!.User.Identity!.Name!, AuthenticationType.ExtRSAuth);
+            _connection = new SSRSConnection(_configuration["ReportServerName"]!, _configuration["user"]!, AuthenticationType.ExtRSAuth);
 			_ssrs = new SSRSService(_connection, _configuration, _httpContextAccessor);
             _signInManager = signInManager;
         }

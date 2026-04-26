@@ -35,7 +35,7 @@ namespace Sonrai.ExtRS
             _serverUrl = string.Format("https://{0}/reports/api/v2.0/", _conn.ReportServerName);
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
-            var cookie = new Cookie("sqlAuthCookie", GetSqlAuthCookie(_client, _httpContextAccessor?.HttpContext?.User?.Identity!.Name ?? "extRSAuth", _configuration["extrspassphrase"]!, _configuration["ReportServerName"]!).Result, "/", _configuration["ReportServerName"]);
+            var cookie = new Cookie("sqlAuthCookie", GetSqlAuthCookie(_client, _configuration["user"]!, _configuration["extrspassphrase"]!, _configuration["ReportServerName"]!).Result, "/", _configuration["ReportServerName"]);
             _cookieContainer.Add(cookie);
             domains = _configuration["ReportServerName"] + "," + "_dltdgst";
         }

@@ -43,7 +43,7 @@ namespace Sonrai.ExtRS
         {
             if(connectionString == "")
             {
-                connectionString = "Server=localhost;Database=master;Integrated Security=True;TrustServerCertificate=True";
+                connectionString = "Server=localhost;Database=ReportServer;Integrated Security=True;TrustServerCertificate=True";
             }
 
             using (var db = new SqlConnection(connectionString))

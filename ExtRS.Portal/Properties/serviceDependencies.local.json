@@ -4,10 +4,6 @@
       "ignored": "true",
       "type": "identityapp"
     },
-    "secrets3": {
-      "type": "secrets.user",
-      "dynamicId": null
-    },
     "mssql1": {
       "ignored": "true",
       "type": "mssql",
