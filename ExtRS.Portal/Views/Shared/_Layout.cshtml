@@ -136,6 +136,7 @@
             column-gap: 1rem;
             padding: .5rem 0 .5rem 1.5rem;
             overflow: hidden;
+            height: 70%;
         }
 
         .nav_logo {
@@ -259,6 +260,24 @@
             -webkit-animation: borderBlink .25s step-end 5;    
             animation: borderBlink .25s step-end 5;    
         } */
+
+       /*  .l-navbar { display:flex; flex-direction:column; width:100%; box-sizing:border-box; } */
+        .nav_list { display:flex; flex-direction:column; gap:0.25rem; }
+        .nav_link { display:flex; align-items:center; gap:0.5rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
+        .nav_name { display:inline-block; max-width:12rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; } 
+        .nav_link .nav_icon { font-size:1.25rem; margin-bottom:2px }
+        .nav_link .nav_name { display:inline-block; transition:opacity .15s ease; } 
+        .nav_link { flex:0 1 auto; min-width:0; }
+        .nav_name { flex:1 1 auto; min-width:0; }
+        .l-navbar { overflow:auto; }
+        .nav_list { white-space:nowrap; display:flex; flex-direction:column; }
+        /* small screens or narrow sidebar */
+        /* small screens or narrow sidebar */
+        /*  media (max-width:700px) { */
+        /* .l-navbar { width:4.25rem; } /* narrow sidebar for icons */
+        /* .nav_name { display:none; } /* hide labels, show only icons */
+         /* .header_toggle { margin-left:0; } } */
+        
     </style>
 
     <script>
@@ -510,8 +529,7 @@
                 <a href="@Url.Action("Interactives", "Interactives")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "PBI Interactives" ? "active" : "")"><i class='bx bx-star nav_icon'></i> <span class="nav_name">PBI Interactives</span></a>
                 <a href="@Url.Action("Subscriptions", "Subscriptions")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Subscriptions" ? "active" : "")"> <i class='bx bx-mail-send nav_icon'></i> <span class="nav_name">Subscriptions</span></a>
                 <a href="@Url.Action("Stats", "Stats")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Stats" ? "active" : "")"><i class='bx bx-bar-chart-alt-2 nav_icon'></i><span class="nav_name">Stats</span></a>
-                <br /> <br /> <br /> <br />
-                <a href="@Url.Action("Settings", "Settings")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Settings" ? "active" : "")"><i class='bx bx-wrench nav_icon'></i><span class="nav_name">guest</span></a>
+                <a href="@Url.Action("Settings", "Settings")" class="nav_link @(Model == null ? "" : Model.CurrentTab == "Settings" ? "active" : "")"><i class='bx bx-wrench nav_icon'></i><span class="nav_name">RS Settings</span></a>
                 <a href="@Url.Action("LogoutMvc", "Account")" class="nav_link"><i class='bx bx-log-out nav_icon'></i><span class="nav_name">Sign Out</span></a>
             </div>
         </div>
