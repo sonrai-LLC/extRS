@@ -1,6 +1,6 @@
 ﻿@model ReportsView
 
-<div class="container">
+<div class="container" style="height:60px">
         @foreach (var report in Model.Reports!)
         {
             <div id=@("dialog" + report.Id) class="dialog" style="display: none">
@@ -8,7 +8,7 @@
             <div class="bg-dark" style="box-shadow: 2.5px 5px 4px #888888;">
                 <span id="@report.Id" class="nav_link" style="float:right" onclick="asyncManageCatalogItemModal('@report.Id');">
                     <a href="#/">
-                        ...
+                        ...&nbsp;&nbsp;
                     </a>
                 </span><a href="@report.Uri" class="nav_link" @Model.OpenInLinksNewTab ? "target=_blank"><i class="bx bx-line-chart"></i><span class="nav_name">@report.Name</span></a>
             </div>
