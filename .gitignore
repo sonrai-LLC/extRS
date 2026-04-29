@@ -490,3 +490,4 @@ __pycache__/
 /ExtRS.Portal/Properties/serviceDependencies.json
 *.json
 /ExtRS.Portal/Properties/ServiceDependencies/local/secrets1.arm.json
+/ExtRS/Properties/PublishProfiles/ExtRS20260429001728.pubxml
