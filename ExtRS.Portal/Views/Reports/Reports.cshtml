@@ -1,7 +1,6 @@
 ﻿@model ReportsView
 
 <div class="container">
-    <section>
         @foreach (var report in Model.Reports!)
         {
             <div id=@("dialog" + report.Id) class="dialog" style="display: none">
@@ -14,5 +13,4 @@
                 </span><a href="@report.Uri" class="nav_link" @Model.OpenInLinksNewTab ? "target=_blank"><i class="bx bx-line-chart"></i><span class="nav_name">@report.Name</span></a>
             </div>
         }
-    </section>
 </div>

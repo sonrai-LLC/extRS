@@ -1,9 +1,6 @@
 ﻿@model DatasetsView
-@* <h4>&nbsp;Datasets.</h4> *@
 
-&nbsp;
-<div>
-    <section>
+<div class="container">
         @foreach (var dataset in Model.Datasets)
         {
             <div id=@("dialog" + dataset.Id) class="dialog" style="display: none">
@@ -16,5 +13,4 @@
                 </span><a href="@dataset.Uri" class="nav_link" @Model.OpenInLinksNewTab ? "target=_blank"><i class="bx bx-table"></i><span class="nav_name">@dataset.Name</span></a>
             </div>
         }
-    </section>
 </div>
