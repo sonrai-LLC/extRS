@@ -110,6 +110,12 @@ else
     builder.Configuration.AddAzureKeyVault(keyVaultEndpoint, new DefaultAzureCredential());
 }
 
+app.Use(async (context, next) =>
+{
+    context.Response.Headers.Add("X-Frame-Options", "ALLOW-FROM https://ssrssrv.net");
+    await next();
+});
+
 app.UseHsts();
 app.UseHttpsRedirection();
 app.UseStaticFiles();
@@ -124,6 +130,7 @@ app.UseCors(builder => builder
 .AllowAnyMethod()
 .AllowAnyHeader()
 .AllowCredentials());
+
 
 app.UseMvc(routes =>
 {
