@@ -36,6 +36,7 @@ namespace Sonrai.ExtRS
             _configuration = configuration;
             _httpContextAccessor = httpContextAccessor;
             var cookie = new Cookie("sqlAuthCookie", GetSqlAuthCookie(_client, _configuration["user"]!, _configuration["extrspassphrase"]!, _configuration["ReportServerName"]!).Result, "/", _configuration["ReportServerName"]);
+            cookie.Secure = true;
             _cookieContainer.Add(cookie);
             domains = _configuration["ReportServerName"] + "," + "_dltdgst";
         }
