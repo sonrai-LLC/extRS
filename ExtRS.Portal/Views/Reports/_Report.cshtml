@@ -1,13 +1,10 @@
 ﻿@model ReportView
 <script>
-
-
 </script>
-<div class="container" style="background-color:#ffffff">
+<div class="container">
     <section>
-        <div style="background-color:#ffffff; box-shadow: 5px 10px 8px #888888;">
-            <iframe height="800" width="900" src="@Model!.SelectedReport!.Uri" class="body-box-shadow"></iframe>
+        <div style="background-color:#ffffff; box-shadow: 5px 10px 8px #888888; height:800px; width:900px">
+            <iframe src="@Model!.SelectedReport!.Uri" class="body-box-shadow" style="height:800px; width:860px"></iframe>
         </div>
     </section>
 </div>
-
