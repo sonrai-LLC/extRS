@@ -122,7 +122,8 @@ app.UseRateLimiter();
 app.UseCors(builder => builder
 .WithOrigins("https://localhost", "https://ssrssrv.net", "https://portal.ssrssrv.net")
 .AllowAnyMethod()
-.AllowAnyHeader());
+.AllowAnyHeader()
+.AllowCredentials());
 
 app.UseMvc(routes =>
 {
