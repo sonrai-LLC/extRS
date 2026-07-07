@@ -88,7 +88,6 @@
     <DataSet Include="vTeamIDs.rsd" />
   </ItemGroup>
   <ItemGroup>
-    <DataSource Include="localhost-fissonrai.rds" />
     <DataSource Include="localhost-refdata.rds" />
     <DataSource Include="localhost.rds" />
   </ItemGroup>
@@ -115,7 +114,6 @@
     <Report Include="OfficialComms.rdl" />
     <Report Include="OrganizationInfo.rdl" />
     <Report Include="Ozar.rdl" />
-    <Report Include="POTUSFavorability.rdl" />
     <Report Include="PresidentialElectionsSM.rdl" />
     <Report Include="Recruit.rdl" />
     <Report Include="Recruiting.rdl" />

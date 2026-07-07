@@ -38,9 +38,9 @@ namespace Sonrai.ExtRS
             }
         }
 
-        public static string DecryptAesGcm(string encryptedData, string password)
+        public static string DecryptAesGcm(string cipherText, string password)
         {
-            byte[] fullData = Convert.FromBase64String(encryptedData);
+            byte[] fullData = Convert.FromBase64String(cipherText);
 
             using (var ms = new MemoryStream(fullData))
             {
@@ -77,13 +77,13 @@ namespace Sonrai.ExtRS
             return buffer;
         }
 
-        public static string EncryptAes(string clearText, string enc_key)
+        public static string EncryptAes(string clearText, string encryptionKey)
         {
             var cipherText = "";
             byte[] clearBytes = Encoding.Unicode.GetBytes(clearText);
             using (Aes encryptor = Aes.Create())
             {
-                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(enc_key, new byte[14], 1000, HashAlgorithmName.SHA256);
+                Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[14], 1000, HashAlgorithmName.SHA256);
                 encryptor.Key = pdb.GetBytes(32);
                 encryptor.IV = pdb.GetBytes(16);
                 using (MemoryStream ms = new MemoryStream())
@@ -100,7 +100,7 @@ namespace Sonrai.ExtRS
             return cipherText;
         }
 
-        public static string DecryptAes(string cipherText, string enc_key)
+        public static string DecryptAes(string cipherText, string encryptionKey)
         {
             var clearText = "";
             cipherText = cipherText.Replace(" ", "+");
@@ -109,7 +109,7 @@ namespace Sonrai.ExtRS
             {
                 using (Aes encryptor = Aes.Create())
                 {
-                    Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(enc_key, new byte[14], 1000, HashAlgorithmName.SHA256);
+                    Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[14], 1000, HashAlgorithmName.SHA256);
                     encryptor.Key = pdb.GetBytes(32);
                     encryptor.IV = pdb.GetBytes(16);
                     using (MemoryStream ms = new MemoryStream())
