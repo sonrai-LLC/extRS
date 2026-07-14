@@ -324,20 +324,29 @@ namespace Sonrai.ExtRS
 
         public static async Task<string> GetSqlAuthCookie(HttpClient client, string user = "extRSAuth", string password = "", string domain = "localhost")
         {
-            string cookie = "";
-            StringContent httpContent = new StringContent(GetCredentialJson(user, password, domain), Encoding.UTF8, "application/json");
-
-            var response = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
-            HttpHeaders headers = response.Headers;
-            if (headers.TryGetValues("Set-Cookie", out IEnumerable<string>? values))
+            try
             {
-                cookie = values.First();
-            }
-            string pattern = @"(sqlAuthCookie=[A-Z0-9])\w+";
-            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
-            Match sqlAuthCookie = regex.Match(cookie);
+                string cookie = "";
+                StringContent httpContent = new StringContent(GetCredentialJson(user, password, domain), Encoding.UTF8, "application/json");
 
-            return sqlAuthCookie.Value.Replace("sqlAuthCookie=", "");
+                var response = await client.PostAsync(string.Format("https://{0}/reports/api/v2.0/Session", domain), httpContent);
+                HttpHeaders headers = response.Headers;
+                if (headers.TryGetValues("Set-Cookie", out IEnumerable<string>? values))
+                {
+                    cookie = values.First();
+                }
+                string pattern = @"(sqlAuthCookie=[A-Z0-9])\w+";
+                Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+                Match sqlAuthCookie = regex.Match(cookie);
+
+                return sqlAuthCookie.Value.Replace("sqlAuthCookie=", "");
+            }
+            catch(Exception e)
+            {
+                
+            }
+
+            return "";
         }
 
         public async Task<string> GetCatalogItemHtml(string pathOrId, string onClick = "", string css = "")
