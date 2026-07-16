@@ -1,8 +1,6 @@
 # extRS
 extRS is a .NET 10 class library for extending the capabilities of Reporting Services, among other things. With extRS, (pronounced "extras"), common public API endpoints and SDK clients are consolidated into a utility .dll containing features that can compliment your .NET development. extRS also contains a simplified interface to the SSRS v2 API for programmatically managing SSRS catalog item types (CatalogItem, Report, DataSource, DataSet, etc.).
 
-Here is an implementation of extRS in the form of an SSRS client (extRS.Portal.csproj) that exposes some of the default SSRS Portal feature set: https://extrs.net
-
 # Examples
 
 ```
