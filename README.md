@@ -55,4 +55,4 @@ public async Task CreateGetDeleteCatalogItemSucceeds()
 ```
 
 # Related SSRS Tools
-- [extRSAuth](https://github.com/sonrai-LLC/extRSAuth) for enabling further extension of the SSRS Microsoft Custom Security Sample.
+- [extRSAuth](https://github.com/sonrai-LLC/extRSAuth) for enabling further extension of the Microsoft SSRS Custom Security Sample.
