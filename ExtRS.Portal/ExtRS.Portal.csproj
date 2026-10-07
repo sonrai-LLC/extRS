@@ -1,33 +1,28 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web">
-
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-ExtRS.Portal-8976dc90-ad1a-4db4-a952-b3eaa90872fa</UserSecretsId>
   </PropertyGroup>
-  
-<PropertyGroup>
- <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
- <LangVersion>preview</LangVersion>
-</PropertyGroup>
-  
-<ItemGroup>
-  <Compile Remove="wwwroot\examples\**" />
-  <Content Remove="wwwroot\examples\**" />
-  <EmbeddedResource Remove="wwwroot\examples\**" />
-  <None Remove="wwwroot\examples\**" />
-</ItemGroup>
-
+  <PropertyGroup>
+    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+    <LangVersion>preview</LangVersion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="wwwroot\examples\**" />
+    <Content Remove="wwwroot\examples\**" />
+    <EmbeddedResource Remove="wwwroot\examples\**" />
+    <None Remove="wwwroot\examples\**" />
+  </ItemGroup>
   <ItemGroup>
     <None Remove="Controllers\CatalogItemsContoller.cs~RF109f071.TMP" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="wwwroot\images\bx-stats-up.jpg" />
     <None Include="wwwroot\js\site.js" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="1.4.0" />
     <PackageReference Include="AspNet.Security.OAuth.LinkedIn" Version="10.0.0" />
@@ -69,17 +64,14 @@
     <PackageReference Include="SendGrid" Version="9.29.3" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="10.1.7" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\ExtRS\ExtRS.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="DataTables-Editor-Server">
       <HintPath>wwwroot\lib\netcoreapp2.1\DataTables-Editor-Server.dll</HintPath>
     </Reference>
   </ItemGroup>
-
   <ItemGroup>
     <Content Update="Views\Reports\_Report.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
@@ -94,7 +86,6 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Data\" />
     <Folder Include="wwwroot\css\" />
@@ -107,5 +98,11 @@
     <Folder Include="wwwroot\lib\jquery\" />
     <Folder Include="wwwroot\lib\jquery\dist\" />
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="System.ServiceModel.Duplex" Version="4.10.*" />
+    <PackageReference Include="System.ServiceModel.Http" Version="4.10.*" />
+    <PackageReference Include="System.ServiceModel.NetTcp" Version="4.10.*" />
+    <PackageReference Include="System.ServiceModel.Security" Version="4.10.*" />
+    <PackageReference Include="System.ServiceModel.Federation" Version="4.10.*" />
+  </ItemGroup>
 </Project>

@@ -75,9 +75,9 @@ namespace ExtRS.Portal
         }
     }
 
-    [ApiController]
-    [Route("api/ssrs")]
-    public class SsrsController : ControllerBase
+    //[ApiController]
+    //[Route("api/ssrs")]
+    public class SsrsController : Controller
     {
         [HttpGet("render")]
         public IActionResult Render([FromQuery] string reportPath)
@@ -85,10 +85,10 @@ namespace ExtRS.Portal
             // You still need a generated proxy instance (from the SSRS WSDL) to create the "web service client".
             // The wrapper below then calls it generically via reflection.
 
-            var serviceUrl = Environment.GetEnvironmentVariable("SSRS_REPORTEXECUTION_URL")!;
-            var user = Environment.GetEnvironmentVariable("SSRS_USER")!;
-            var pass = Environment.GetEnvironmentVariable("SSRS_PASSWORD")!;
-            var domain = Environment.GetEnvironmentVariable("SSRS_DOMAIN") ?? "";
+            var serviceUrl = "https://localhost/ReportServer/ReportExecution2005.asmx"; //Environment.GetEnvironmentVariable("SSRS_REPORTEXECUTION_URL")!; ReportService2010.asmx
+            var user = "extRSAuth"; //Environment.GetEnvironmentVariable("SSRS_USER")!;
+            var pass = "This_IS_a_simpl_Passphrase"; // Environment.GetEnvironmentVariable("SSRS_PASSWORD")!;
+            var domain = ""; // Environment.GetEnvironmentVariable("SSRS_DOMAIN") ?? "";
 
             // ---- IMPORTANT ----
             // Replace this type with the one from your generated proxy.
