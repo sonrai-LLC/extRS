@@ -9,10 +9,17 @@ namespace Sonrai.ExtRS.UnitTests
     public class EncryptionTests
     {
         [TestMethod]
-        public void EncrypAesDecryptAesWithDifferentKeysFails()
+        public void EncrypAesSucceedsButDecryptAesWithDifferentKeysFails()
         {
             Assert.IsTrue(EncryptionService.EncryptAes("some clear text", "secr3tk3y!!") == "LK5phnfsTydwxwkPUKYNnL4MaUDpzpQraLcURIciPBM=");
             Assert.ThrowsExactly<CryptographicException>(() => EncryptionService.DecryptAes("LK5phnfsTydwxwkPUKYNnL4MaUDpzpQraLcURIciPBM=", "secr3tk3y??"));
+        }
+
+        [TestMethod]
+        public void EncrypAesSucceedsButDecryptAesWIthDifferentKeySizesFails()
+        {
+            Assert.IsTrue(EncryptionService.EncryptAes("some clear text", "secr3tk3y") == "nNVA3kA4w+Imz4fyhK7/qsF7IUSLMZ/bsa42vAPkFPk=");
+            Assert.ThrowsExactly<CryptographicException>(() => DecryptAesRfc2898DeriveBytesWithoutEscapingSpaces("nNVA3kA4w+Imz4fyhK7/qsF7IUSLMZ/bsa42vAPkFPk=", "secr3tk3y"));
         }
 
         [TestMethod]
@@ -79,8 +86,8 @@ namespace Sonrai.ExtRS.UnitTests
                 using (Aes encryptor = Aes.Create())
                 {
                     Rfc2898DeriveBytes pdb = new Rfc2898DeriveBytes(encryptionKey, new byte[14], 1000, HashAlgorithmName.SHA256);
-                    encryptor.Key = pdb.GetBytes(32);
-                    encryptor.IV = pdb.GetBytes(16);
+                    encryptor.Key = pdb.GetBytes(16); // was "32" for AES-256, but if the key is shorter than 32 bytes, it will throw an exception. Use 16 for AES-128 or 24 for AES-192.
+                    encryptor.IV = pdb.GetBytes(8); // was 16 for AES-256, but if the key is shorter than 16 bytes, it will throw an exception. Use 8 for AES-128 or 12 for AES-192.
                     using (MemoryStream ms = new MemoryStream())
                     {
                         using (CryptoStream cs = new CryptoStream(ms, encryptor.CreateDecryptor(), CryptoStreamMode.Write))
